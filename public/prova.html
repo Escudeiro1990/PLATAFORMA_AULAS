@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prova Online</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0f1117;
+      --card:    #1a1d27;
+      --border:  #2a2d3a;
+      --accent:  #4f8ef7;
+      --accent2: #7c6af7;
+      --success: #34d399;
+      --danger:  #f87171;
+      --warn:    #fbbf24;
+      --text:    #e8eaf0;
+      --muted:   #7a7d8c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 16px 64px;
+    }
+
+    /* ── Topo ── */
+    .topo {
+      width: 100%; max-width: 640px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 24px;
+    }
+    .titulo-prova {
+      font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .aluno-tag {
+      font-size: 13px; color: var(--muted);
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 5px 12px;
+    }
+
+    /* ── Aviso de bloqueio ── */
+    .aviso-bloqueio {
+      width: 100%; max-width: 640px;
+      background: rgba(251,191,36,.07); border: 1px solid rgba(251,191,36,.35);
+      border-radius: 12px; padding: 14px 18px;
+      display: flex; gap: 12px; align-items: flex-start;
+      margin-bottom: 22px; font-size: 13px; color: var(--warn);
+      line-height: 1.6;
+    }
+    .aviso-bloqueio .icone { font-size: 20px; flex-shrink: 0; }
+
+    /* ── Timer ── */
+    .timer-wrap {
+      width: 100%; max-width: 640px;
+      display: flex; justify-content: flex-end; margin-bottom: 14px;
+    }
+    .timer {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 7px 16px;
+      font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700;
+      color: var(--accent); letter-spacing: .05em;
+    }
+    .timer.urgente { color: var(--danger); border-color: rgba(248,113,113,.4); animation: pulsar .8s infinite; }
+    @keyframes pulsar { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+
+    /* ── Progresso ── */
+    .progress-wrap { width: 100%; max-width: 640px; margin-bottom: 20px; }
+    .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .progress-track { height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 99px; transition: width .4s;
+    }
+
+    /* ── Card de questão ── */
+    .card {
+      width: 100%; max-width: 640px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px 28px 24px;
+      margin-bottom: 16px;
+    }
+    .num-questao {
+      font-size: 11px; color: var(--muted); text-transform: uppercase;
+      letter-spacing: .08em; margin-bottom: 12px;
+    }
+    .pergunta {
+      font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 600;
+      line-height: 1.55; margin-bottom: 22px;
+    }
+    .opcoes { display: flex; flex-direction: column; gap: 10px; }
+    .opcao {
+      display: flex; align-items: center; gap: 13px;
+      padding: 13px 16px; background: var(--bg);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      cursor: pointer; transition: .2s; font-size: 15px;
+    }
+    .opcao:hover { border-color: var(--accent); background: rgba(79,142,247,.05); }
+    .opcao.selecionada { border-color: var(--accent); background: rgba(79,142,247,.12); }
+    .opcao .letra {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(79,142,247,.12); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 700;
+      flex-shrink: 0; transition: .2s;
+    }
+    .opcao.selecionada .letra { background: var(--accent); color: #fff; }
+
+    /* ── Navegação ── */
+    .nav-btns {
+      width: 100%; max-width: 640px;
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    }
+    .btn-nav {
+      padding: 11px 24px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: 'DM Sans', sans-serif; transition: .2s;
+    }
+    .btn-anterior {
+      background: transparent; border: 1px solid var(--border); color: var(--muted);
+    }
+    .btn-anterior:hover { border-color: var(--accent); color: var(--text); }
+    .btn-proximo {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none; color: #fff; margin-left: auto;
+    }
+    .btn-proximo:hover { opacity: .85; }
+    .btn-proximo:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-finalizar {
+      background: linear-gradient(135deg, #34d399, #059669);
+      border: none; color: #fff; margin-left: auto;
+    }
+    .btn-finalizar:hover { opacity: .85; }
+    .btn-finalizar:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── Painel de navegação rápida ── */
+    .nav-rapida {
+      width: 100%; max-width: 640px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 20px;
+    }
+    .nav-rapida-titulo { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+    .nav-rapida-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .nav-q {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: var(--bg); border: 1.5px solid var(--border);
+      color: var(--muted); font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: .2s; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-q:hover { border-color: var(--accent); color: var(--text); }
+    .nav-q.respondida { background: rgba(79,142,247,.12); border-color: var(--accent); color: var(--accent); }
+    .nav-q.atual { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ── Tela de conclusão ── */
+    .card-conclusao {
+      width: 100%; max-width: 640px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 40px 28px; text-align: center;
+    }
+    .conclusao-icon { font-size: 52px; margin-bottom: 16px; }
+    .conclusao-titulo {
+      font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 10px;
+    }
+    .nota-big {
+      font-family: 'Sora', sans-serif; font-size: 56px; font-weight: 700; margin: 16px 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nota-big.aprovado { background: linear-gradient(135deg, var(--success), #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nota-big.reprovado { background: linear-gradient(135deg, var(--danger), #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .conclusao-sub { font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .btn-voltar-menu {
+      display: inline-block; padding: 12px 28px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none; border-radius: 10px; color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; text-decoration: none; margin-top: 8px;
+    }
+    .btn-voltar-menu:hover { opacity: .85; }
+
+    /* ── Modal de confirmação ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.7); z-index: 999;
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.visivel { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 32px 28px; max-width: 400px; width: 90%;
+      text-align: center;
+    }
+    .modal h3 { font-family: 'Sora', sans-serif; font-size: 18px; margin-bottom: 12px; }
+    .modal p { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .modal-btns { display: flex; gap: 12px; justify-content: center; }
+    .btn-confirmar {
+      padding: 10px 24px; background: linear-gradient(135deg, var(--success), #059669);
+      border: none; border-radius: 9px; color: #fff;
+      font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    }
+    .btn-cancelar {
+      padding: 10px 24px; background: transparent;
+      border: 1px solid var(--border); border-radius: 9px; color: var(--muted);
+      font-size: 14px; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── Overlay saída bloqueada ── */
+    #overlay-saida {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.92); z-index: 9999;
+      align-items: center; justify-content: center; flex-direction: column;
+      text-align: center; padding: 40px;
+    }
+    #overlay-saida.visivel { display: flex; }
+    #overlay-saida .icon { font-size: 52px; margin-bottom: 16px; }
+    #overlay-saida h2 { font-family: 'Sora', sans-serif; font-size: 22px; margin-bottom: 10px; }
+    #overlay-saida p { font-size: 14px; color: var(--muted); max-width: 360px; line-height: 1.7; margin-bottom: 20px; }
+    .btn-voltar-prova {
+      padding: 11px 26px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none; border-radius: 10px; color: #fff;
+      font-size: 15px; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── Loading ── */
+    .loading { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; }
+    .spinner {
+      width: 36px; height: 36px; border: 3px solid var(--border);
+      border-top-color: var(--accent); border-radius: 50%;
+      animation: spin .7s linear infinite; margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+
+    /* ── Questão dissertativa ── */
+    .dissertativa-wrap { display: flex; flex-direction: column; gap: 10px; }
+    .dissertativa-label { font-size: 13px; color: var(--muted); }
+    .dissertativa-textarea {
+      width: 100%; min-height: 160px;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 10px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      padding: 14px 16px; resize: vertical; line-height: 1.6;
+      transition: border-color .2s;
+    }
+    .dissertativa-textarea:focus { outline: none; border-color: var(--accent); }
+    .dissertativa-chars { font-size: 12px; color: var(--muted); text-align: right; }
+    .badge-dissertativa {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      background: rgba(124,106,247,.15); color: var(--accent2);
+      border: 1px solid rgba(124,106,247,.3); border-radius: 6px;
+      padding: 2px 8px; margin-left: 8px; vertical-align: middle;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- Overlay: bloqueio de saída -->
+<div id="overlay-saida">
+  <div class="icon">🔒</div>
+  <h2>Prova em andamento</h2>
+  <p>Você não pode sair da prova antes de finalizá-la. Clique abaixo para continuar respondendo.</p>
+  <button class="btn-voltar-prova" onclick="fecharOverlaySaida()">Continuar prova</button>
+</div>
+
+<!-- Modal de confirmação de entrega -->
+<div class="modal-overlay" id="modal-confirmar">
+  <div class="modal">
+    <h3>📋 Entregar prova?</h3>
+    <p id="modal-msg">Você respondeu <strong id="modal-respondidas">0</strong> de <strong id="modal-total">0</strong> questões.<br>Após entregar não será possível alterar suas respostas.</p>
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="fecharModal()">Voltar</button>
+      <button class="btn-confirmar" onclick="confirmarEntrega()">Entregar agora</button>
+    </div>
+  </div>
+</div>
+
+<!-- Conteúdo principal -->
+<div id="tela-loading" class="loading">
+  <div class="spinner"></div>
+  Carregando prova...
+</div>
+
+<div id="tela-prova" class="hidden">
+  <div class="topo">
+    <div class="titulo-prova" id="titulo-prova">Prova</div>
+    <div class="aluno-tag" id="aluno-tag">Aluno</div>
+  </div>
+
+  <div class="aviso-bloqueio">
+    <span class="icone">⚠️</span>
+    <span>Esta prova só pode ser respondida <strong>uma vez</strong>. Não feche ou recarregue a página antes de finalizar. Após entregar, sua nota será registrada automaticamente.</span>
+  </div>
+
+  <div class="timer-wrap hidden" id="timer-wrap">
+    <div class="timer" id="timer-display">00:00</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-labels">
+      <span id="progress-texto">Questão 1</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Painel nav rápida -->
+  <div class="nav-rapida">
+    <div class="nav-rapida-titulo">📌 Navegação rápida</div>
+    <div class="nav-rapida-grid" id="nav-rapida-grid"></div>
+  </div>
+
+  <!-- Card questão -->
+  <div class="card" id="card-questao">
+    <div class="num-questao" id="num-questao">QUESTÃO 1 DE 10</div>
+    <div class="pergunta" id="pergunta-texto"></div>
+    <div class="opcoes" id="opcoes-container"></div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn-nav btn-anterior" id="btn-anterior" onclick="irQuestao(questaoAtual - 1)">← Anterior</button>
+    <button class="btn-nav btn-proximo" id="btn-proximo" onclick="irQuestao(questaoAtual + 1)">Próxima →</button>
+    <button class="btn-nav btn-finalizar hidden" id="btn-finalizar" onclick="abrirModal()">✓ Finalizar prova</button>
+  </div>
+</div>
+
+<!-- Tela de resultado já feito / conclusão -->
+<div id="tela-conclusao" class="hidden">
+  <div class="card-conclusao">
+    <div class="conclusao-icon" id="conclusao-icon">🎉</div>
+    <div class="conclusao-titulo" id="conclusao-titulo">Prova entregue!</div>
+    <div class="nota-big" id="nota-big">—</div>
+    <div class="conclusao-sub" id="conclusao-sub"></div>
+    <a href="menu.html" class="btn-voltar-menu">← Voltar ao menu</a>
+  </div>
+</div>
+
+<script>
+  // ── Dados do aluno ──
+  const aluno   = localStorage.getItem('aluno')  || '';
+  const alunoRm = localStorage.getItem('rm')     || '';
+  const turma   = localStorage.getItem('turma')  || '';
+
+  // ── Embaralhamento determinístico baseado no RM do aluno ──
+  // Garante que cada aluno veja uma ordem diferente, mas sempre a mesma ao recarregar
+  function hashSeed(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+      h = Math.imul(31, h) + str.charCodeAt(i) | 0;
+    }
+    return Math.abs(h);
+  }
+
+  function seededRandom(seed) {
+    // Gerador Linear Congruencial (LCG) — simples e determinístico
+    let s = seed;
+    return function() {
+      s = (s * 1664525 + 1013904223) & 0xffffffff;
+      return (s >>> 0) / 0xffffffff;
+    };
+  }
+
+  function shuffleArray(arr, rng) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function embaralharProva(questoes, semente) {
+    const rng = seededRandom(semente);
+
+    // Embaralha a ordem das questões
+    const questoesEmbaralhadas = shuffleArray(questoes, rng);
+
+    // Para cada questão, embaralha as alternativas (mas mantém o mapeamento correto)
+    return questoesEmbaralhadas.map(q => {
+      if ((q.tipo || 'multipla') === 'dissertativa') {
+        return { ...q }; // dissertativa: não embaralha opções
+      }
+      const alternativas = [
+        { key: 'a', texto: q.opcao_a },
+        { key: 'b', texto: q.opcao_b },
+        { key: 'c', texto: q.opcao_c },
+        { key: 'd', texto: q.opcao_d },
+      ];
+      const alternativasEmbaralhadas = shuffleArray(alternativas, rng);
+      return {
+        ...q,
+        _opcoes_embaralhadas: alternativasEmbaralhadas
+      };
+    });
+  }
+
+  if (!aluno) { alert('Sessão expirada. Faça login novamente.'); location.href = 'index.html'; }
+
+  const params  = new URLSearchParams(location.search);
+  const provaId = parseInt(params.get('id'));
+  if (!provaId) { alert('Prova não encontrada.'); location.href = 'menu.html'; }
+
+  let questoes       = [];
+  let questaoAtual   = 0;
+  let respostas      = {};      // { questao_id: 'a' | 'b' | 'c' | 'd' }
+  let provaEncerrada = false;
+  let timerInterval  = null;
+  let tempoRestante  = 0;
+
+  // ── Bloqueio de saída ──
+  let saidaBloqueada = false;
+
+  function bloquearSaida() {
+    saidaBloqueada = true;
+    window.onbeforeunload = (e) => {
+      e.preventDefault();
+      e.returnValue = 'Você está no meio de uma prova! Sair agora irá perder suas respostas.';
+      return e.returnValue;
+    };
+  }
+
+  function desbloquearSaida() {
+    saidaBloqueada = false;
+    window.onbeforeunload = null;
+  }
+
+  function fecharOverlaySaida() {
+    document.getElementById('overlay-saida').classList.remove('visivel');
+  }
+
+  // Bloquear tecla Backspace/Alt+F4 e mostrar overlay
+  document.addEventListener('keydown', function(e) {
+    if (!saidaBloqueada) return;
+    if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || (e.ctrlKey && e.key === 'w') || (e.key === 'Alt' && e.key === 'F4')) {
+      e.preventDefault();
+      document.getElementById('overlay-saida').classList.add('visivel');
+    }
+  });
+
+  // Detectar tentativa de navegação por history
+  history.pushState(null, '', location.href);
+  window.addEventListener('popstate', function() {
+    if (saidaBloqueada) {
+      history.pushState(null, '', location.href);
+      document.getElementById('overlay-saida').classList.add('visivel');
+    }
+  });
+
+  // Detectar perda de foco (tab switching)
+  let focusWarnings = 0;
+  document.addEventListener('visibilitychange', function() {
+    if (saidaBloqueada && document.hidden) {
+      focusWarnings++;
+    }
+  });
+
+  // ── Timer ──
+  function iniciarTimer(minutos) {
+    if (!minutos || minutos <= 0) return;
+    tempoRestante = minutos * 60;
+    document.getElementById('timer-wrap').classList.remove('hidden');
+
+    timerInterval = setInterval(() => {
+      tempoRestante--;
+      atualizarTimer();
+      if (tempoRestante <= 60) {
+        document.getElementById('timer-display').classList.add('urgente');
+      }
+      if (tempoRestante <= 0) {
+        clearInterval(timerInterval);
+        alert('⏰ Tempo esgotado! Sua prova será entregue automaticamente.');
+        entregarProva();
+      }
+    }, 1000);
+
+    atualizarTimer();
+  }
+
+  function atualizarTimer() {
+    const m = Math.floor(tempoRestante / 60).toString().padStart(2, '0');
+    const s = (tempoRestante % 60).toString().padStart(2, '0');
+    document.getElementById('timer-display').textContent = m + ':' + s;
+  }
+
+  // ── Carregar prova ──
+  async function carregarProva() {
+    // Verificar se já fez a prova
+    try {
+      const status = await fetch(`/prova-status?prova_id=${provaId}&aluno=${encodeURIComponent(aluno)}`).then(r => r.json());
+      if (status.feita) {
+        mostrarConclusao(status.resultado, false);
+        return;
+      }
+    } catch(e) {}
+
+    // Buscar questões
+    try {
+      const data = await fetch(`/prova-questoes/${provaId}`).then(r => r.json());
+      if (data.erro) { alert('Erro: ' + data.erro); location.href = 'menu.html'; return; }
+
+      // Embaralha questões e alternativas com semente baseada no RM do aluno + ID da prova
+      const semente = hashSeed((alunoRm || aluno) + '_prova_' + provaId);
+      questoes = embaralharProva(data.questoes, semente);
+      document.getElementById('titulo-prova').textContent = '📋 ' + data.prova.titulo;
+      document.title = data.prova.titulo;
+      document.getElementById('aluno-tag').textContent = aluno + (alunoRm ? ' · RM ' + alunoRm : '');
+
+      document.getElementById('tela-loading').classList.add('hidden');
+      document.getElementById('tela-prova').classList.remove('hidden');
+
+      montarNavRapida();
+      irQuestao(0);
+      bloquearSaida();
+
+      if (data.prova.tempo_limite > 0) {
+        iniciarTimer(data.prova.tempo_limite);
+      }
+    } catch(e) {
+      alert('Erro ao carregar prova. Verifique sua conexão.');
+    }
+  }
+
+  // ── Montar navegação rápida ──
+  function montarNavRapida() {
+    const grid = document.getElementById('nav-rapida-grid');
+    grid.innerHTML = '';
+    questoes.forEach((q, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-q';
+      btn.id = 'navq-' + i;
+      btn.textContent = i + 1;
+      btn.onclick = () => irQuestao(i);
+      grid.appendChild(btn);
+    });
+  }
+
+  function atualizarNavRapida() {
+    questoes.forEach((q, i) => {
+      const btn = document.getElementById('navq-' + i);
+      if (!btn) return;
+      btn.className = 'nav-q';
+      if (i === questaoAtual) btn.classList.add('atual');
+      else if (respostas[q.id]) btn.classList.add('respondida');
+    });
+  }
+
+  // ── Mostrar questão ──
+  function irQuestao(idx) {
+    if (idx < 0 || idx >= questoes.length) return;
+    questaoAtual = idx;
+    const q = questoes[idx];
+
+    const tipoBadge = (q.tipo || 'multipla') === 'dissertativa' ? '<span class="badge-dissertativa">DISSERTATIVA</span>' : '';
+    document.getElementById('num-questao').innerHTML = 'QUESTÃO ' + (idx + 1) + ' DE ' + questoes.length + tipoBadge;
+    document.getElementById('pergunta-texto').textContent = q.pergunta;
+
+    // Progresso
+    const pct = Math.round(((idx + 1) / questoes.length) * 100);
+    document.getElementById('progress-texto').textContent = 'Questão ' + (idx + 1) + ' de ' + questoes.length;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+
+    // Opções
+    const container = document.getElementById('opcoes-container');
+    container.innerHTML = '';
+    const tipo = q.tipo || 'multipla';
+
+    if (tipo === 'dissertativa') {
+      // Questão dissertativa — textarea
+      const wrap = document.createElement('div');
+      wrap.className = 'dissertativa-wrap';
+      const label = document.createElement('div');
+      label.className = 'dissertativa-label';
+      label.textContent = '✏️ Digite sua resposta abaixo:';
+      const ta = document.createElement('textarea');
+      ta.className = 'dissertativa-textarea';
+      ta.placeholder = 'Escreva sua resposta aqui...';
+      ta.value = respostas[q.id] || '';
+      const chars = document.createElement('div');
+      chars.className = 'dissertativa-chars';
+      chars.textContent = (ta.value.length) + ' caracteres';
+      ta.oninput = () => {
+        respostas[q.id] = ta.value;
+        chars.textContent = ta.value.length + ' caracteres';
+        atualizarNavRapida();
+      };
+      wrap.appendChild(label);
+      wrap.appendChild(ta);
+      wrap.appendChild(chars);
+      container.appendChild(wrap);
+    } else {
+      // Múltipla escolha (usa ordem embaralhada se disponível)
+      const letras = ['A', 'B', 'C', 'D'];
+      const opcoes = (q._opcoes_embaralhadas || [
+        { key: 'a', texto: q.opcao_a },
+        { key: 'b', texto: q.opcao_b },
+        { key: 'c', texto: q.opcao_c },
+        { key: 'd', texto: q.opcao_d },
+      ]).map((o, i) => ({ ...o, letra: letras[i] }));
+
+      opcoes.forEach(o => {
+        const div = document.createElement('div');
+        div.className = 'opcao' + (respostas[q.id] === o.key ? ' selecionada' : '');
+        div.innerHTML = `<div class="letra">${o.letra}</div><span>${o.texto}</span>`;
+        div.onclick = () => selecionarOpcao(q.id, o.key, div, container);
+        container.appendChild(div);
+      });
+    }
+
+    // Botões de navegação
+    document.getElementById('btn-anterior').style.visibility = idx === 0 ? 'hidden' : 'visible';
+    const isUltima = idx === questoes.length - 1;
+    document.getElementById('btn-proximo').classList.toggle('hidden', isUltima);
+    document.getElementById('btn-finalizar').classList.toggle('hidden', !isUltima);
+
+    atualizarNavRapida();
+  }
+
+  function selecionarOpcao(questaoId, opcaoKey, divClicada, container) {
+    respostas[questaoId] = opcaoKey;
+    container.querySelectorAll('.opcao').forEach(d => d.classList.remove('selecionada'));
+    divClicada.classList.add('selecionada');
+    atualizarNavRapida();
+  }
+
+  // ── Modal de confirmação ──
+  function abrirModal() {
+    const respondidas = Object.keys(respostas).length;
+    document.getElementById('modal-respondidas').textContent = respondidas;
+    document.getElementById('modal-total').textContent = questoes.length;
+    if (respondidas < questoes.length) {
+      document.getElementById('modal-msg').innerHTML =
+        `Você respondeu <strong>${respondidas}</strong> de <strong>${questoes.length}</strong> questões.<br>` +
+        `<span style="color:var(--warn)">⚠️ ${questoes.length - respondidas} questão(ões) sem resposta.</span><br>` +
+        `Após entregar não será possível alterar suas respostas.`;
+    } else {
+      document.getElementById('modal-msg').innerHTML =
+        `Você respondeu todas as <strong>${questoes.length}</strong> questões.<br>` +
+        `Após entregar não será possível alterar suas respostas.`;
+    }
+    document.getElementById('modal-confirmar').classList.add('visivel');
+  }
+
+  function fecharModal() {
+    document.getElementById('modal-confirmar').classList.remove('visivel');
+  }
+
+  function confirmarEntrega() {
+    fecharModal();
+    entregarProva();
+  }
+
+  // ── Entregar prova ──
+  async function entregarProva() {
+    if (provaEncerrada) return;
+    provaEncerrada = true;
+    if (timerInterval) clearInterval(timerInterval);
+    desbloquearSaida();
+
+    document.getElementById('tela-prova').classList.add('hidden');
+    document.getElementById('tela-loading').classList.remove('hidden');
+    document.getElementById('tela-loading').innerHTML = '<div class="spinner"></div>Registrando suas respostas...';
+
+    try {
+      const data = await fetch('/prova-submeter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prova_id: provaId,
+          aluno_nome: aluno,
+          aluno_rm: alunoRm,
+          turma: turma,
+          respostas: respostas
+        })
+      }).then(r => r.json());
+
+      document.getElementById('tela-loading').classList.add('hidden');
+
+      if (data.erro) {
+        mostrarConclusao({ nota: null, acertos: 0, total: questoes.length }, false, data.erro);
+      } else {
+        mostrarConclusao(data, true);
+      }
+    } catch(e) {
+      document.getElementById('tela-loading').classList.add('hidden');
+      mostrarConclusao({ nota: null, acertos: 0, total: questoes.length }, false, 'Erro de conexão ao enviar. Procure o professor.');
+    }
+  }
+
+  function mostrarConclusao(resultado, acabouAgora, erroMsg) {
+    document.getElementById('tela-conclusao').classList.remove('hidden');
+    document.getElementById('tela-prova').classList.add('hidden');
+
+    if (erroMsg) {
+      document.getElementById('conclusao-icon').textContent = '⚠️';
+      document.getElementById('conclusao-titulo').textContent = 'Atenção';
+      document.getElementById('nota-big').textContent = '—';
+      document.getElementById('conclusao-sub').textContent = erroMsg;
+      return;
+    }
+
+    const nota   = resultado.nota !== undefined ? resultado.nota : resultado.nota;
+    const total  = resultado.total  || questoes.length;
+    const acertos = resultado.acertos !== undefined ? resultado.acertos : '—';
+
+    const temDissertativa = resultado.temDissertativa;
+    const aprovado = nota !== null && nota >= 5;
+    const pendente = nota === null || nota === undefined;
+
+    document.getElementById('conclusao-icon').textContent   = acabouAgora ? (pendente ? '📝' : aprovado ? '🎉' : '😔') : '📋';
+    document.getElementById('conclusao-titulo').textContent = acabouAgora ? 'Prova entregue!' : 'Você já realizou esta prova';
+    document.getElementById('nota-big').textContent         = pendente ? '—' : (nota + '/10');
+    document.getElementById('nota-big').className           = 'nota-big ' + (pendente ? '' : aprovado ? 'aprovado' : 'reprovado');
+    document.getElementById('conclusao-sub').textContent    =
+      acabouAgora
+        ? (pendente
+            ? `Sua prova foi entregue, ${aluno}! As questões dissertativas precisam de correção manual pelo professor. Aguarde sua nota.`
+            : `Você acertou ${acertos} de ${total} questões. Sua nota foi registrada, ${aluno}.`)
+        : (pendente
+            ? `Sua prova foi entregue, ${aluno}. Aguardando correção das questões dissertativas pelo professor.`
+            : `Sua nota registrada foi ${nota}/10, ${aluno}. Esta prova não pode ser refeita.`);
+  }
+
+  // ── Marca d'água ──
+  (function criarMarcaDagua() {
+    const wm = document.createElement('div');
+    const label = aluno + (alunoRm ? ' · RM ' + alunoRm : '') + (turma ? ' · ' + turma : '');
+    wm.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden;opacity:0.04';
+    let html = '';
+    for (let y = -200; y < window.screen.height + 200; y += 120) {
+      for (let x = -200; x < window.screen.width + 200; x += 300) {
+        html += `<span style="position:absolute;left:${x}px;top:${y}px;font-size:14px;color:#fff;white-space:nowrap;transform:rotate(-30deg);transform-origin:left top;font-family:sans-serif;font-weight:600">${label}</span>`;
+      }
+    }
+    wm.innerHTML = html;
+    document.body.appendChild(wm);
+  })();
+
+  // ── Anti print ──
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'PrintScreen' || e.key === 'Print' || ((e.key === 'S' || e.key === 's') && e.shiftKey && (e.metaKey || e.ctrlKey))) {
+      e.preventDefault();
+    }
+  }, true);
+  const sp = document.createElement('style');
+  sp.textContent = '@media print { * { display:none !important; } }';
+  document.head.appendChild(sp);
+
+  // ── Init ──
+  carregarProva();
+</script>
+</body>
+</html>

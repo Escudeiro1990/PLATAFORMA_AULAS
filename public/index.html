@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma do Prof. Marquinho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0f1117;
+      --card:    #1a1d27;
+      --border:  #2a2d3a;
+      --accent:  #4f8ef7;
+      --accent2: #7c6af7;
+      --text:    #e8eaf0;
+      --muted:   #7a7d8c;
+      --danger:  #f87171;
+      --success: #34d399;
+      --warn:    #fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* ── Bloqueio de horário ── */
+    #tela-bloqueio {
+      text-align: center;
+      max-width: 420px;
+    }
+    #tela-bloqueio .icone { font-size: 64px; margin-bottom: 16px; }
+    #tela-bloqueio h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      color: var(--warn);
+      margin-bottom: 10px;
+    }
+    #tela-bloqueio p { color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+    #tela-bloqueio .horario-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      margin-top: 20px;
+    }
+    #tela-bloqueio .horario-box strong { color: var(--accent); font-family: 'Sora', sans-serif; font-size: 18px; }
+    #relogio-bloqueio { font-size: 36px; font-family: 'Sora', sans-serif; color: var(--text); margin: 14px 0 4px; }
+    .btn-prof-bloqueio {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 22px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .btn-prof-bloqueio:hover { color: var(--text); border-color: var(--accent); }
+
+    /* ── Card de login ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 36px 32px 32px;
+      width: 100%;
+      max-width: 400px;
+    }
+    .logo { text-align: center; font-size: 44px; margin-bottom: 10px; }
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+    }
+    .subtitulo { text-align: center; color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+    .abas {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 24px;
+      gap: 4px;
+    }
+    .aba {
+      padding: 8px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .aba.ativa { background: var(--card); color: var(--text); font-weight: 500; }
+    .form { display: none; }
+    .form.ativo { display: block; }
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    input:focus { border-color: var(--accent); }
+    input::placeholder { color: var(--muted); }
+    .btn {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .2s, transform .1s;
+      margin-top: 4px;
+    }
+    .btn:hover  { opacity: .9; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+    .msg {
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .msg.erro    { background: rgba(248,113,113,.12); color: var(--danger);  border: 1px solid rgba(248,113,113,.25); }
+    .msg.sucesso { background: rgba(52,211,153,.12);  color: var(--success); border: 1px solid rgba(52,211,153,.25); }
+    .dica { margin-top: 16px; text-align: center; font-size: 12px; color: var(--muted); }
+    .dica span { color: var(--accent); cursor: pointer; text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- TELA BLOQUEIO HORÁRIO -->
+<div id="tela-bloqueio" style="display:none">
+  <div class="icone">🕐</div>
+  <h2>Fora do Horário Escolar</h2>
+  <p>Esta plataforma está disponível somente durante o horário de aula.</p>
+  <div class="horario-box">
+    <strong id="txt-horario-bloqueio">07:00 às 12:50</strong>
+    <div id="relogio-bloqueio">--:--:--</div>
+    <p style="font-size:13px;color:var(--muted)">Horário atual (Brasília)</p>
+  </div>
+  <a class="btn-prof-bloqueio" href="#" onclick="mostrarLoginProf(); return false;">
+    🔐 Acesso do Professor
+  </a>
+</div>
+
+<!-- CARD NORMAL -->
+<div class="card" id="card-login">
+  <div class="logo">💻</div>
+  <h2>Plataforma de Informática</h2>
+  <p class="subtitulo">Prof. Marquinho</p>
+
+  <div class="abas">
+    <button class="aba ativa" onclick="trocarAba('login')">Entrar</button>
+    <button class="aba"       onclick="trocarAba('cadastro')">Cadastrar</button>
+    <button class="aba"       onclick="trocarAba('professor')">Professor</button>
+  </div>
+
+  <!-- LOGIN ALUNO -->
+  <div class="form ativo" id="form-login">
+    <label>RM ou Nome</label>
+    <input id="login-nome" placeholder="Ex: 123456 ou João Silva" autocomplete="off">
+    <label>Senha</label>
+    <input id="login-senha" type="password" placeholder="Sua senha">
+    <button class="btn" onclick="loginAluno()">Entrar →</button>
+    <div class="msg" id="msg-login"></div>
+    <p class="dica">Primeira vez? <span onclick="trocarAba('cadastro')">Cadastre-se aqui</span></p>
+  </div>
+
+  <!-- CADASTRO ALUNO -->
+  <div class="form" id="form-cadastro">
+    <label>Seu nome completo</label>
+    <input id="cad-nome" placeholder="Ex: João Silva" autocomplete="off">
+    <label>RM (número de matrícula)</label>
+    <input id="cad-rm" placeholder="Ex: 123456" autocomplete="off">
+    <label>Turma</label>
+    <select id="cad-turma" style="width:100%;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:14px;transition:border-color .2s">
+      <option value="">Selecione sua turma</option>
+    </select>
+    <label>Disciplina</label>
+    <select id="cad-disciplina" style="width:100%;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;outline:none;margin-bottom:14px;transition:border-color .2s">
+      <option value="">Selecione a disciplina</option>
+    </select>
+    <label>Crie uma senha</label>
+    <input id="cad-senha" type="password" placeholder="Mínimo 4 caracteres">
+    <label>Confirme a senha</label>
+    <input id="cad-senha2" type="password" placeholder="Repita a senha">
+    <button class="btn" onclick="cadastrarAluno()">Criar conta →</button>
+    <div class="msg" id="msg-cadastro"></div>
+    <p class="dica">Já tem conta? <span onclick="trocarAba('login')">Faça login</span></p>
+  </div>
+
+  <!-- LOGIN PROFESSOR -->
+  <div class="form" id="form-professor">
+    <label>Usuário</label>
+    <input id="prof-usuario" placeholder="professor" autocomplete="off">
+    <label>Senha</label>
+    <input id="prof-senha" type="password" placeholder="••••••••">
+    <button class="btn" onclick="loginProfessor()">Acessar painel →</button>
+    <div class="msg" id="msg-professor"></div>
+  </div>
+</div>
+
+<script>
+  localStorage.removeItem('aluno');
+  localStorage.removeItem('professor');
+
+  // ── Configurações do servidor (horário controlado pelo professor) ──
+  let CFG = { bloqueio_ativo: '0', horario_inicio: '07:00', horario_fim: '12:50' };
+
+  async function carregarConfiguracoes() {
+    try {
+      const r = await fetch('/configuracoes');
+      CFG = await r.json();
+      const txt = document.getElementById('txt-horario-bloqueio');
+      if (txt) txt.textContent = `${CFG.horario_inicio} às ${CFG.horario_fim}`;
+      // Preencher selects de turma e disciplina
+      const selTurma = document.getElementById('cad-turma');
+      const selDisc  = document.getElementById('cad-disciplina');
+      if (selTurma && CFG.turmas) {
+        const lista = CFG.turmas.split(',').map(t => t.trim()).filter(Boolean);
+        selTurma.innerHTML = '<option value="">Selecione sua turma</option>';
+        lista.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; selTurma.appendChild(o); });
+      }
+      if (selDisc && CFG.disciplinas) {
+        const lista = CFG.disciplinas.split(',').map(d => d.trim()).filter(Boolean);
+        selDisc.innerHTML = '<option value="">Selecione a disciplina</option>';
+        lista.forEach(d => { const o = document.createElement('option'); o.value = d; o.textContent = d; selDisc.appendChild(o); });
+      }
+    } catch(e) {}
+  }
+
+  function horarioBrasilia() {
+    const agora = new Date();
+    const utc = agora.getTime() + agora.getTimezoneOffset() * 60000;
+    return new Date(utc - 3 * 3600000);
+  }
+
+  function dentroDoHorario() {
+    if (CFG.bloqueio_ativo !== '1') return true; // bloqueio desligado = sempre liberado
+    const b = horarioBrasilia();
+    const m = b.getHours() * 60 + b.getMinutes();
+    const [hi, mi] = (CFG.horario_inicio || '07:00').split(':').map(Number);
+    const [hf, mf] = (CFG.horario_fim    || '12:50').split(':').map(Number);
+    return m >= hi * 60 + mi && m <= hf * 60 + mf;
+  }
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function atualizarRelogio() {
+    const b = horarioBrasilia();
+    const str = `${pad(b.getHours())}:${pad(b.getMinutes())}:${pad(b.getSeconds())}`;
+    const el = document.getElementById('relogio-bloqueio');
+    if (el) el.textContent = str;
+  }
+
+  function verificarAcesso() {
+    const bloqueio  = document.getElementById('tela-bloqueio');
+    const cardLogin = document.getElementById('card-login');
+    const abaAtiva  = document.querySelector('.aba.ativa')?.textContent?.trim();
+    if (!dentroDoHorario() && abaAtiva !== 'Professor') {
+      bloqueio.style.display  = 'block';
+      cardLogin.style.display = 'none';
+    } else {
+      bloqueio.style.display  = 'none';
+      cardLogin.style.display = 'block';
+    }
+  }
+
+  function mostrarLoginProf() {
+    document.getElementById('tela-bloqueio').style.display = 'none';
+    document.getElementById('card-login').style.display    = 'block';
+    trocarAba('professor');
+  }
+
+  setInterval(atualizarRelogio, 1000);
+  setInterval(verificarAcesso,  10000);
+  setInterval(carregarConfiguracoes, 30000); // atualiza config a cada 30s
+  carregarConfiguracoes().then(() => verificarAcesso());
+  atualizarRelogio();
+
+  // ── Abas ──
+  function trocarAba(aba) {
+    const nomes = ['login','cadastro','professor'];
+    document.querySelectorAll('.aba').forEach((b,i) => b.classList.toggle('ativa', nomes[i] === aba));
+    document.querySelectorAll('.form').forEach(f => f.classList.remove('ativo'));
+    document.getElementById('form-' + aba).classList.add('ativo');
+  }
+
+  function mostrarMsg(id, tipo, texto) {
+    const el = document.getElementById(id);
+    el.className = 'msg ' + tipo;
+    el.textContent = texto;
+    el.style.display = 'block';
+  }
+
+  async function loginAluno() {
+    const identificador = document.getElementById('login-nome').value.trim();
+    const senha = document.getElementById('login-senha').value;
+    if (!identificador || !senha) return mostrarMsg('msg-login', 'erro', 'Preencha todos os campos.');
+    const res  = await fetch('/login-aluno', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identificador, senha })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('aluno', data.nome);
+      localStorage.setItem('rm', data.rm || '');
+      localStorage.setItem('turma', data.turma || '');
+      localStorage.setItem('disciplina', data.disciplina || '');
+      location.href = 'menu.html';
+    } else {
+      mostrarMsg('msg-login', 'erro', data.erro);
+    }
+  }
+
+  async function cadastrarAluno() {
+    const nome       = document.getElementById('cad-nome').value.trim();
+    const rm         = document.getElementById('cad-rm').value.trim();
+    const turma      = document.getElementById('cad-turma').value;
+    const disciplina = document.getElementById('cad-disciplina').value;
+    const senha      = document.getElementById('cad-senha').value;
+    const senha2     = document.getElementById('cad-senha2').value;
+    if (!nome || !rm || !senha)  return mostrarMsg('msg-cadastro', 'erro', 'Preencha todos os campos.');
+    if (!turma)      return mostrarMsg('msg-cadastro', 'erro', 'Selecione sua turma.');
+    if (!disciplina) return mostrarMsg('msg-cadastro', 'erro', 'Selecione a disciplina.');
+    if (senha.length < 4) return mostrarMsg('msg-cadastro', 'erro', 'Senha deve ter pelo menos 4 caracteres.');
+    if (senha !== senha2) return mostrarMsg('msg-cadastro', 'erro', 'As senhas não coincidem.');
+    const res  = await fetch('/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome, rm, senha, turma, disciplina })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('turma', turma);
+      localStorage.setItem('disciplina', disciplina);
+      localStorage.setItem('rm', rm || '');
+      mostrarMsg('msg-cadastro', 'sucesso', '✅ Conta criada! Entrando...');
+      setTimeout(() => { localStorage.setItem('aluno', nome); location.href = 'menu.html'; }, 1200);
+    } else {
+      mostrarMsg('msg-cadastro', 'erro', data.erro);
+    }
+  }
+
+  async function loginProfessor() {
+    const usuario = document.getElementById('prof-usuario').value.trim();
+    const senha   = document.getElementById('prof-senha').value;
+    if (!usuario || !senha) return mostrarMsg('msg-professor', 'erro', 'Preencha todos os campos.');
+    const res  = await fetch('/login-professor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario, senha })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('professor', JSON.stringify({ usuario, senha }));
+      location.href = 'professor.html';
+    } else {
+      mostrarMsg('msg-professor', 'erro', data.erro);
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    const aba = document.querySelector('.aba.ativa').textContent.trim();
+    if (aba === 'Entrar')    loginAluno();
+    if (aba === 'Cadastrar') cadastrarAluno();
+    if (aba === 'Professor') loginProfessor();
+  });
+</script>
+</body>
+</html>

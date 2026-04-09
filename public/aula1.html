@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Aula 1 - Word Básico</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #eef1f5;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      width: 420px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .etapa {
+      display: none;
+    }
+
+    .ativa {
+      display: block;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .correto {
+      background-color: #28a745 !important;
+    }
+
+    .errado {
+      background-color: #dc3545 !important;
+    }
+
+    #resultado {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>📘 Aula 1 - Word Básico</h1>
+
+    <!-- ETAPA 1 -->
+    <div id="etapa1" class="etapa ativa">
+      <p>Passo 1: Abra o Microsoft Word</p>
+      <button onclick="proxima(1)">Já fiz</button>
+    </div>
+
+    <!-- ETAPA 2 -->
+    <div id="etapa2" class="etapa">
+      <p>Passo 2: Clique na aba <strong>Inserir</strong></p>
+      <button onclick="proxima(2)">Já fiz</button>
+    </div>
+
+    <!-- ETAPA 3 -->
+    <div id="etapa3" class="etapa">
+      <p>Passo 3: Clique em <strong>Tabela</strong></p>
+      <button onclick="proxima(3)">Já fiz</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz" class="etapa">
+      <p><strong>Questão:</strong> Onde fica a opção de Tabela?</p>
+
+      <button class="opcao" onclick="responder(this, false)">Página Inicial</button>
+<button class="opcao" onclick="responder(this, true)">Inserir</button>
+<button class="opcao" onclick="responder(this, false)">Layout</button>
+
+      <p id="resultado"></p>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

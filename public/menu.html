@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu de Aulas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0f1117;
+      --card:    #1a1d27;
+      --border:  #2a2d3a;
+      --accent:  #4f8ef7;
+      --accent2: #7c6af7;
+      --success: #34d399;
+      --text:    #e8eaf0;
+      --muted:   #7a7d8c;
+      --warn:    #fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 40px 16px 64px; }
+    .topo { max-width: 640px; margin: 0 auto 36px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .topo-info h1 { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .topo-info p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .sair-btn { font-size: 13px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; cursor: pointer; text-decoration: none; transition: color .2s; }
+    .sair-btn:hover { color: var(--text); }
+    .grid { max-width: 640px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .aula-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-decoration: none; color: var(--text); display: block; transition: border-color .2s, transform .2s; position: relative; overflow: hidden; }
+    .aula-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .aula-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0; transition: opacity .2s; }
+    .aula-card:hover::before { opacity: 1; }
+    .card-icone { font-size: 32px; margin-bottom: 12px; display: block; }
+    .card-titulo { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .card-badge { margin-top: 16px; display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 99px; background: rgba(79,142,247,.12); color: var(--accent); }
+    .card-badge.concluida { background: rgba(52,211,153,.12); color: var(--success); }
+    .professor-link { max-width: 640px; margin: 32px auto 0; text-align: right; }
+    .professor-link a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .professor-link a:hover { color: var(--text); }
+    .secao-titulo { max-width: 640px; margin: 32px auto 14px; display: flex; align-items: center; gap: 10px; }
+    .secao-titulo span { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; }
+    .secao-titulo hr { flex: 1; border: none; border-top: 1px solid var(--border); }
+    .prova-card { background: var(--card); border: 1.5px solid rgba(124,106,247,.35); border-radius: 14px; padding: 22px; text-decoration: none; color: var(--text); display: block; transition: border-color .2s, transform .2s; position: relative; overflow: hidden; }
+    .prova-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .badge-prova { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 99px; background: rgba(124,106,247,.15); color: #a78bfa; margin-bottom: 10px; }
+    .badge-feita { background: rgba(52,211,153,.12) !important; color: var(--success) !important; }
+    .badge-tempo { background: rgba(251,191,36,.1) !important; color: var(--warn) !important; margin-left: 6px; }
+    #loading-msg { max-width: 640px; margin: 0 auto; text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+  </style>
+  <script src="aulas.js"></script>
+</head>
+<body>
+
+<div class="topo">
+  <div class="topo-info">
+    <h1>💻 Plataforma do Prof. Marquinho</h1>
+    <p id="msg-aluno">Carregando...</p>
+  </div>
+  <a href="index.html" class="sair-btn" id="btn-sair">Sair</a>
+</div>
+
+<div id="loading-msg">⏳ Carregando suas aulas...</div>
+
+<div class="grid" id="grid-aulas" style="display:none;"></div>
+
+<div class="secao-titulo" id="secao-provas-titulo" style="display:none;">
+  <span>📝 Provas disponíveis</span><hr>
+</div>
+<div class="grid" id="grid-provas" style="display:none; margin-bottom:0;"></div>
+
+<div style="text-align:center;margin:16px auto;max-width:700px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+  <a href="enviar-prova.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:10px;color:#111;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+    📋 Enviar Resposta da Prova
+  </a>
+  <a href="minhas-notas.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#4f8ef7,#7c6af7);border-radius:10px;color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+    📊 Minhas Notas
+  </a>
+</div>
+
+<div class="professor-link">
+  <a href="professor.html">Área do Professor →</a>
+</div>
+
+<script>
+(function() {
+  // --- Verificar login ---
+  var aluno = localStorage.getItem('aluno');
+  if (!aluno) { location.href = 'index.html'; return; }
+
+  var turma      = localStorage.getItem('turma') || '';
+  var disciplina = localStorage.getItem('disciplina') || '';
+
+  // Botão sair
+  document.getElementById('btn-sair').addEventListener('click', function() {
+    localStorage.removeItem('aluno');
+    localStorage.removeItem('turma');
+    localStorage.removeItem('disciplina');
+  });
+
+  // Subtítulo
+  var subtitulo = 'Olá, ' + aluno + '! Escolha uma aula:';
+  if (turma) subtitulo = 'Turma: ' + turma + ' — Olá, ' + aluno + '!';
+  document.getElementById('msg-aluno').textContent = subtitulo;
+
+  // --- Estado ---
+  var notasAluno = {};
+  var aulasHabilitadas = [];
+  var todasProvas = [];
+
+  // --- Fetch helper ---
+  function get(url) {
+    return fetch(url).then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    });
+  }
+
+  // --- Inicializar ---
+  function inicializar() {
+    // Passo 1: notas
+    get('/dados').then(function(dados) {
+      if (Array.isArray(dados)) {
+        dados.forEach(function(d) {
+          if (d.nome === aluno) notasAluno[d.aula] = d.nota;
+        });
+      }
+    }).catch(function() {}).then(function() {
+      // Passo 2: aulas habilitadas
+      return get('/aulas-do-aluno?nome=' + encodeURIComponent(aluno)).then(function(hab) {
+        aulasHabilitadas = Array.isArray(hab) ? hab : [];
+      }).catch(function() { aulasHabilitadas = []; });
+    }).then(function() {
+      // Passo 3: provas ativas
+      return get('/provas-aluno?turma=' + encodeURIComponent(turma)).then(function(p) {
+        todasProvas = Array.isArray(p) ? p : [];
+      }).catch(function() { todasProvas = []; });
+    }).then(function() {
+      // Passo 4: verificar quais provas o aluno não fez ainda
+      if (todasProvas.length === 0) {
+        mostrarAulas(false);
+        document.getElementById('loading-msg').style.display = 'none';
+        document.getElementById('grid-aulas').style.display = '';
+        return Promise.resolve();
+      }
+
+      var checks = todasProvas.map(function(p) {
+        return get('/prova-status?prova_id=' + p.id + '&aluno=' + encodeURIComponent(aluno))
+          .then(function(st) { return st.feita ? null : p; })
+          .catch(function() { return p; });
+      });
+
+      return Promise.all(checks).then(function(resultados) {
+        var pendentes = resultados.filter(function(p) { return p !== null; });
+        document.getElementById('loading-msg').style.display = 'none';
+        document.getElementById('grid-aulas').style.display = '';
+        mostrarAulas(pendentes.length > 0);
+        if (todasProvas.length > 0) mostrarProvas();
+      });
+    }).then(function() {
+      if (todasProvas.length > 0) mostrarProvas();
+    }).catch(function(err) {
+      console.error('Erro geral:', err);
+      document.getElementById('loading-msg').textContent = 'Erro ao carregar. Tente recarregar a página.';
+    });
+  }
+
+  // --- Mostrar aulas ---
+  function mostrarAulas(bloqueado) {
+    var grid = document.getElementById('grid-aulas');
+    grid.innerHTML = '';
+
+    if (bloqueado) {
+      grid.innerHTML =
+        '<div style="grid-column:1/-1;background:#1a1d27;border:1.5px solid rgba(251,191,36,.3);border-radius:14px;padding:32px;text-align:center;">' +
+          '<div style="font-size:40px;margin-bottom:12px;">🔒</div>' +
+          '<div style="font-family:Sora,sans-serif;font-size:18px;font-weight:700;color:#fbbf24;margin-bottom:8px;">Conteúdo bloqueado</div>' +
+          '<div style="color:var(--muted);font-size:14px;line-height:1.6;">Há uma prova disponível para você.<br>Realize a prova abaixo para liberar o conteúdo.</div>' +
+        '</div>';
+      return;
+    }
+
+    // Definir lista de aulas a exibir
+    var lista;
+    if (aulasHabilitadas.length > 0) {
+      lista = AULAS.filter(function(a) { return aulasHabilitadas.indexOf(a.id) !== -1; });
+    } else {
+      lista = AULAS; // sem restrição: mostrar todas
+    }
+
+    if (!lista || lista.length === 0) {
+      grid.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px;grid-column:1/-1;">Nenhuma aula disponível no momento. Aguarde o professor liberar as aulas. 📚</p>';
+      return;
+    }
+
+    lista.forEach(function(aula) {
+      var nota = notasAluno[aula.titulo];
+      var concluida = nota !== undefined;
+      var card = document.createElement('a');
+      card.href = 'aula.html?id=' + aula.id;
+      card.className = 'aula-card';
+      card.innerHTML =
+        '<span class="card-icone">' + aula.icone + '</span>' +
+        '<div class="card-titulo">' + aula.titulo + '</div>' +
+        '<div class="card-desc">' + aula.descricao + '</div>' +
+        '<span class="card-badge' + (concluida ? ' concluida' : '') + '">' +
+          (concluida ? '✓ Concluída — Nota ' + nota + '/10' : 'Iniciar aula') +
+        '</span>';
+      grid.appendChild(card);
+    });
+  }
+
+  // --- Mostrar provas ---
+  function mostrarProvas() {
+    if (!todasProvas || todasProvas.length === 0) return;
+
+    document.getElementById('secao-provas-titulo').style.display = '';
+    var grid = document.getElementById('grid-provas');
+    grid.style.display = '';
+    grid.innerHTML = '';
+
+    var checks = todasProvas.map(function(p) {
+      return get('/prova-status?prova_id=' + p.id + '&aluno=' + encodeURIComponent(aluno))
+        .then(function(st) { return { prova: p, feita: st.feita, nota: st.resultado ? st.resultado.nota : null }; })
+        .catch(function() { return { prova: p, feita: false, nota: null }; });
+    });
+
+    Promise.all(checks).then(function(itens) {
+      itens.forEach(function(item) {
+        var p = item.prova;
+        var feita = item.feita;
+        var nota = item.nota;
+
+        var card = document.createElement('a');
+        card.href = feita ? '#' : 'prova.html?id=' + p.id;
+        card.className = 'prova-card';
+        if (feita) {
+          card.onclick = function(e) { e.preventDefault(); alert('Você já realizou esta prova. Nota: ' + nota + '/10'); };
+        }
+        card.innerHTML =
+          '<span class="badge-prova' + (feita ? ' badge-feita' : '') + '">' + (feita ? '✓ Prova realizada' : '📝 Prova disponível') + '</span>' +
+          (p.tempo_limite > 0 ? '<span class="badge-prova badge-tempo">⏱ ' + p.tempo_limite + ' min</span>' : '') +
+          '<div class="card-titulo" style="margin-top:8px;">' + p.titulo + '</div>' +
+          (p.descricao ? '<div class="card-desc" style="margin-top:6px;">' + p.descricao + '</div>' : '') +
+          (feita
+            ? '<div style="margin-top:12px;font-size:13px;color:var(--success);font-weight:600;">Nota: ' + nota + '/10</div>'
+            : '<div style="margin-top:12px;font-size:13px;color:#a78bfa;">Clique para realizar →</div>');
+        grid.appendChild(card);
+      });
+    });
+  }
+
+  inicializar();
+})();
+</script>
+</body>
+</html>

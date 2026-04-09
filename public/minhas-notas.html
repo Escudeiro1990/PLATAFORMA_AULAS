@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minhas Notas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0f1117; --card:#1a1d27; --border:#2a2d3a;
+      --accent:#4f8ef7; --accent2:#7c6af7; --text:#e8eaf0;
+      --muted:#7a7d8c; --success:#34d399; --danger:#f87171; --warn:#fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 26px 14px 60px; display: flex; flex-direction: column; align-items: center; }
+
+    .topo { width: 100%; max-width: 580px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .topo h1 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .btn-back { font-size: 13px; color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; text-decoration: none; }
+
+    .aluno-bar { width: 100%; max-width: 580px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; margin-bottom: 18px; font-size: 13px; display: flex; gap: 18px; flex-wrap: wrap; }
+    .aluno-bar span { color: var(--muted); }
+
+    /* Stats */
+    .stats { width: 100%; max-width: 580px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+    .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .stat-valor { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 700; margin-top: 4px; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Seção */
+    .secao { width: 100%; max-width: 580px; margin-bottom: 24px; }
+    .secao-titulo { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+
+    /* Card de nota */
+    .nota-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .nota-info { flex: 1; }
+    .nota-titulo { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .nota-meta { font-size: 12px; color: var(--muted); }
+    .nota-badge { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 700; min-width: 60px; text-align: center; }
+    .nota-badge.boa { background: linear-gradient(135deg, #34d399, #059669); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nota-badge.media { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nota-badge.ruim { background: linear-gradient(135deg, #f87171, #dc2626); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nota-badge.pendente { font-size: 13px; color: var(--muted); -webkit-text-fill-color: var(--muted); }
+
+    /* Status badge */
+    .status-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 3px 9px; border-radius: 99px; font-weight: 600; margin-top: 5px; }
+    .status-pill.ok  { background: rgba(52,211,153,.12); color: var(--success); }
+    .status-pill.pend { background: rgba(251,191,36,.12); color: var(--warn); }
+
+    /* Feedback */
+    .feedback-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 13px; color: var(--muted); line-height: 1.6; display: none; }
+    .feedback-toggle { font-size: 12px; color: var(--accent); cursor: pointer; margin-top: 6px; display: inline-block; }
+
+    .vazio { text-align: center; padding: 32px; color: var(--muted); font-size: 14px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; }
+    .vazio span { font-size: 28px; display: block; margin-bottom: 10px; }
+
+    .loading { text-align: center; color: var(--muted); padding: 40px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<div class="topo">
+  <h1>📊 Minhas Notas</h1>
+  <a href="menu.html" class="btn-back">← Voltar</a>
+</div>
+
+<div class="aluno-bar">
+  <div><span>Aluno: </span><strong id="nome-aluno">—</strong></div>
+  <div><span>RM: </span><strong id="rm-aluno">—</strong></div>
+  <div><span>Turma: </span><strong id="turma-aluno">—</strong></div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-label">Provas feitas</div><div class="stat-valor" id="stat-total">—</div></div>
+  <div class="stat"><div class="stat-label">Média geral</div><div class="stat-valor" id="stat-media">—</div></div>
+  <div class="stat"><div class="stat-label">Pendentes</div><div class="stat-valor" id="stat-pend" style="background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">—</div></div>
+</div>
+
+<div class="loading" id="loading">⏳ Carregando notas…</div>
+
+<div class="secao" id="sec-online" style="display:none;">
+  <div class="secao-titulo">🖥️ Provas Online</div>
+  <div id="lista-online"></div>
+</div>
+
+<div class="secao" id="sec-impressas" style="display:none;">
+  <div class="secao-titulo">🖨️ Provas Impressas</div>
+  <div id="lista-impressas"></div>
+</div>
+
+<script>
+  const nomeAluno  = localStorage.getItem('aluno') || '';
+  const rmAluno    = localStorage.getItem('rm')    || '';
+  const turmaAluno = localStorage.getItem('turma') || '';
+  if (!nomeAluno) location.href = 'index.html';
+
+  document.getElementById('nome-aluno').textContent  = nomeAluno;
+  document.getElementById('rm-aluno').textContent    = rmAluno   || '—';
+  document.getElementById('turma-aluno').textContent = turmaAluno || '—';
+
+  function classeNota(n) {
+    if (n === null || n === undefined) return 'pendente';
+    if (n >= 7) return 'boa';
+    if (n >= 5) return 'media';
+    return 'ruim';
+  }
+
+  function fmtNota(n) {
+    if (n === null || n === undefined) return '—';
+    return parseFloat(n).toFixed(1);
+  }
+
+  function toggleFeedback(id) {
+    var el = document.getElementById('fb-' + id);
+    if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+
+  async function carregar() {
+    try {
+      const dados = await fetch('/minhas-notas?aluno=' + encodeURIComponent(nomeAluno)).then(r => r.json());
+      document.getElementById('loading').style.display = 'none';
+
+      const online    = dados.online    || [];
+      const impressas = dados.impressas || [];
+
+      // Stats
+      const todasComNota = [
+        ...online.map(p => p.nota),
+        ...impressas.filter(p => p.status === 'corrigida').map(p => p.nota)
+      ].filter(n => n !== null && n !== undefined);
+
+      const pendentes = impressas.filter(p => p.status === 'pendente').length;
+      const media = todasComNota.length > 0
+        ? (todasComNota.reduce((a, b) => a + parseFloat(b), 0) / todasComNota.length).toFixed(1)
+        : '—';
+
+      document.getElementById('stat-total').textContent = online.length + impressas.length;
+      document.getElementById('stat-media').textContent = media;
+      document.getElementById('stat-pend').textContent  = pendentes;
+
+      // Provas online
+      if (online.length > 0) {
+        document.getElementById('sec-online').style.display = 'block';
+        var html = '';
+        online.forEach(function (p) {
+          var cls = classeNota(p.nota);
+          html += '<div class="nota-card">' +
+            '<div class="nota-info">' +
+              '<div class="nota-titulo">' + (p.titulo || 'Prova') + '</div>' +
+              '<div class="nota-meta">' + (p.respondida_em || '') + ' &nbsp;|&nbsp; ' + (p.acertos || 0) + '/' + (p.total || 0) + ' acertos</div>' +
+              '<span class="status-pill ok">✓ Corrigida automaticamente</span>' +
+            '</div>' +
+            '<div class="nota-badge ' + cls + '">' + fmtNota(p.nota) + '</div>' +
+          '</div>';
+        });
+        document.getElementById('lista-online').innerHTML = html;
+      }
+
+      // Provas impressas
+      if (impressas.length > 0) {
+        document.getElementById('sec-impressas').style.display = 'block';
+        var html2 = '';
+        impressas.forEach(function (p, i) {
+          var cls = p.status === 'corrigida' ? classeNota(p.nota) : 'pendente';
+          var statusPill = p.status === 'corrigida'
+            ? '<span class="status-pill ok">✓ Corrigida pelo professor</span>'
+            : '<span class="status-pill pend">⏳ Aguardando correção</span>';
+          var modeIcon = p.modo_envio === 'texto' ? '✍️' : '📷';
+          var feedbackBtn = (p.status === 'corrigida' && p.comentario)
+            ? '<span class="feedback-toggle" onclick="toggleFeedback(' + i + ')">💬 Ver feedback do professor</span>'
+            : '';
+          var feedbackBox = (p.comentario)
+            ? '<div class="feedback-box" id="fb-' + i + '"><strong style="color:var(--text);">Feedback:</strong> ' + p.comentario + '</div>'
+            : '';
+
+          html2 += '<div class="nota-card" style="flex-direction:column;align-items:flex-start;">' +
+            '<div style="display:flex;justify-content:space-between;align-items:center;width:100%;gap:12px;">' +
+              '<div class="nota-info">' +
+                '<div class="nota-titulo">' + modeIcon + ' ' + (p.titulo || 'Prova impressa') + '</div>' +
+                '<div class="nota-meta">' + (p.respondida_em || 'Aguardando') + '</div>' +
+                statusPill +
+                (feedbackBtn ? '<br>' + feedbackBtn : '') +
+              '</div>' +
+              '<div class="nota-badge ' + cls + '">' + (p.status === 'corrigida' ? fmtNota(p.nota) : '⏳') + '</div>' +
+            '</div>' +
+            feedbackBox +
+          '</div>';
+        });
+        document.getElementById('lista-impressas').innerHTML = html2;
+      }
+
+      // Se não tem nada
+      if (online.length === 0 && impressas.length === 0) {
+        document.getElementById('sec-online').style.display = 'block';
+        document.getElementById('lista-online').innerHTML =
+          '<div class="vazio"><span>📋</span>Você ainda não realizou nenhuma prova.</div>';
+      }
+
+    } catch (e) {
+      document.getElementById('loading').textContent = '❌ Erro ao carregar notas: ' + e.message;
+    }
+  }
+
+  carregar();
+</script>
+</body>
+</html>
