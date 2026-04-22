@@ -205,8 +205,9 @@
       try {
         const ativResp = await fetch('/minhas-atividades?aluno=' + encodeURIComponent(aluno));
         const atividades = await ativResp.json();
+        console.log('Atividades recebidas:', atividades);
         const secAtiv = document.getElementById('sec-atividades');
-        if (atividades.length > 0) {
+        if (Array.isArray(atividades) && atividades.length > 0) {
           secAtiv.style.display = 'block';
           let html = '';
           atividades.forEach(a => {
@@ -230,7 +231,7 @@
           });
           document.getElementById('lista-atividades').innerHTML = html;
         }
-      } catch(e) { console.error('Erro atividades:', e); }
+      } catch(e) { console.error('Erro atividades:', e); document.getElementById('sec-atividades').style.display='block'; document.getElementById('lista-atividades').innerHTML='<div class="vazio"><span>⚠️</span>Erro: '+e.message+'</div>'; }
 
     } catch (e) {
       document.getElementById('loading').textContent = '❌ Erro ao carregar notas: ' + e.message;
