@@ -1337,10 +1337,10 @@ Instruções:
                 <div style="color:var(--muted);font-size:12px;">📄 ${e.arquivo_nome}</div>
                 <div style="color:var(--muted);font-size:12px;">🕐 ${e.enviado_em}</div>
               </div>
-              <a href="${e.arquivo_url}" target="_blank" download="${e.arquivo_nome}"
-                style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;background:rgba(79,142,247,.12);color:var(--accent);border:1px solid rgba(79,142,247,.3);text-decoration:none;white-space:nowrap;">
+              <button onclick="baixarAtividade(${e.id}, '${(e.arquivo_nome||'arquivo').replace(/'/g,"\\'")}')"
+                style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;background:rgba(79,142,247,.12);color:var(--accent);border:1px solid rgba(79,142,247,.3);cursor:pointer;white-space:nowrap;">
                 ⬇️ Baixar
-              </a>
+              </button>
             </div>
           `).join('');
         })
@@ -1353,6 +1353,22 @@ Instruções:
     document.getElementById('at-overlay').addEventListener('click', function(e) {
       if (e.target === this) this.style.display = 'none';
     });
+
+    async function baixarAtividade(id, nome) {
+      try {
+        const r = await fetch(`/atividade-download/${id}?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`);
+        if (!r.ok) { const j = await r.json(); return alert(j.erro || 'Erro ao baixar.'); }
+        const blob = await r.blob();
+        const url  = URL.createObjectURL(blob);
+        const a    = document.createElement('a');
+        a.href     = url;
+        a.download = nome;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch(e) { alert('Erro ao baixar: ' + e.message); }
+    }
   </script>
 </div>
 <!-- ═══════════════════════════════════════
