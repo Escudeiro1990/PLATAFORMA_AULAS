@@ -657,7 +657,7 @@ app.get('/minhas-notas', async (req, res) => {
     const { aluno } = req.query;
     if (!aluno) return res.status(400).json({ erro: 'Nome do aluno obrigatório.' });
     const online = await dbAll(`SELECT pr.prova_id, p.titulo, pr.nota, pr.acertos, pr.total, pr.respondida_em, 'online' as tipo FROM prova_respostas pr JOIN provas p ON p.id = pr.prova_id WHERE pr.aluno_nome = ? ORDER BY pr.respondida_em DESC`, [aluno]);
-    const impressas = await dbAll(`SELECT id as prova_id, nota_manual as nota, NULL as acertos, NULL as total, corrigido_em as respondida_em, modo_envio, comentario, status, 'impressa' as tipo FROM prova_respostas_foto WHERE aluno_nome = ? ORDER BY enviado_em DESC`, [aluno]);
+    const impressas = await dbAll(`SELECT f.id as prova_id, f.nota_manual as nota, NULL as acertos, NULL as total, f.corrigido_em as respondida_em, f.modo_envio, f.comentario, f.status, 'impressa' as tipo FROM prova_respostas_foto f INNER JOIN provas p ON p.id = f.prova_id WHERE f.aluno_nome = ? ORDER BY f.enviado_em DESC`, [aluno]);
     res.json({ online: online || [], impressas: impressas || [] });
   } catch(e) { res.status(500).json({ erro: e.message }); }
 });

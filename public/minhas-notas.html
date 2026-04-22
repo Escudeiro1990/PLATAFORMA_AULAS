@@ -88,6 +88,11 @@
   <div id="lista-impressas"></div>
 </div>
 
+<div class="secao" id="sec-atividades" style="display:none;">
+  <div class="secao-titulo">📎 Atividades Enviadas</div>
+  <div id="lista-atividades"></div>
+</div>
+
 <script>
   const nomeAluno  = localStorage.getItem('aluno') || '';
   const rmAluno    = localStorage.getItem('rm')    || '';
@@ -200,16 +205,16 @@
       try {
         const ativResp = await fetch('/minhas-atividades?aluno=' + encodeURIComponent(aluno));
         const atividades = await ativResp.json();
+        const secAtiv = document.getElementById('sec-atividades');
         if (atividades.length > 0) {
-          const secAtiv = document.createElement('div');
-          secAtiv.className = 'secao';
-          secAtiv.innerHTML = '<div class="secao-titulo">📎 Atividades Enviadas</div>';
+          secAtiv.style.display = 'block';
+          let html = '';
           atividades.forEach(a => {
-            const temNota = a.nota !== null && a.nota !== undefined;
+            const temNota = a.nota !== null && a.nota !== undefined && a.nota !== '';
             const nota    = temNota ? parseFloat(a.nota) : null;
             const cls     = !temNota ? 'pendente' : nota >= 7 ? 'boa' : nota >= 5 ? 'media' : 'ruim';
             const badge   = temNota ? nota.toFixed(1) : '⏳';
-            secAtiv.innerHTML += `
+            html += `
               <div class="nota-card" style="flex-direction:column;align-items:stretch;gap:8px;">
                 <div style="display:flex;justify-content:space-between;align-items:center;">
                   <div class="nota-info">
@@ -223,12 +228,9 @@
                 ${a.comentario ? `<div class="feedback-box" style="display:block;">💬 ${a.comentario}</div>` : ''}
               </div>`;
           });
-          document.querySelector('body').insertBefore(secAtiv, document.getElementById('loading'));
-          // Inserir antes do final
-          const loading = document.getElementById('loading');
-          loading.parentNode.insertBefore(secAtiv, loading);
+          document.getElementById('lista-atividades').innerHTML = html;
         }
-      } catch(e) {}
+      } catch(e) { console.error('Erro atividades:', e); }
 
     } catch (e) {
       document.getElementById('loading').textContent = '❌ Erro ao carregar notas: ' + e.message;
