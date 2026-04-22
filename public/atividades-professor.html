@@ -158,9 +158,27 @@
 
 <script>
 // ── Credenciais do professor ─────────────────────────────────
-const usuario = localStorage.getItem('prof_usuario') || '';
-const senha   = localStorage.getItem('prof_senha')   || '';
-if (!usuario) { location.href = 'professor.html'; }
+const _prof   = JSON.parse(localStorage.getItem('professor') || '{}');
+const usuario = _prof.usuario || '';
+const senha   = _prof.senha   || '';
+if (!usuario) { location.href = 'index.html'; }
+
+// ── Download de arquivo ──────────────────────────────────────
+async function baixarArquivo(id, nome) {
+  try {
+    const r = await fetch(`/atividade-download/${id}?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}`);
+    if (!r.ok) { const j = await r.json(); return alert(j.erro || 'Erro ao baixar.'); }
+    const blob = await r.blob();
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = nome;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch(e) { alert('Erro ao baixar: ' + e.message); }
+}
 
 // ── Data de hoje como padrão ─────────────────────────────────
 const hoje = new Date().toISOString().split('T')[0];
@@ -328,7 +346,7 @@ async function abrirModal(janelaId, titulo) {
           <div class="envio-info">📄 ${e.arquivo_nome}</div>
           <div class="envio-info">🕐 ${e.enviado_em}</div>
         </div>
-        <a class="btn-baixar" href="/atividade-download/${e.id}?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}" target="_blank" download="${e.arquivo_nome}">⬇️ Baixar</a>
+        <button class="btn-baixar" onclick="baixarArquivo(${e.id}, '${e.arquivo_nome.replace(/'/g,"\\'")}')">⬇️ Baixar</button>
       </div>
     `).join('');
   } catch(e) {
