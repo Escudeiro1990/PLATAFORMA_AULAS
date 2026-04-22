@@ -474,26 +474,155 @@ const AULAS = [
         <strong>📓 Copie:</strong> Negrito: Ctrl+N | Itálico: Ctrl+I | Sublinhado: Ctrl+S<br>Centralizar: Ctrl+E | Justificar: Ctrl+J
       </div>`,
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">💾 Salvar, Imprimir e Abrir</h3>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          💾 <strong>Salvar: Ctrl+S</strong> — salva o documento atual
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📄 Como Criar um Novo Documento</h3>
+      <p style="font-size:14px;margin-bottom:12px">Existem <strong>duas formas</strong> de criar um documento novo no Word:</p>
+      <div style="display:grid;gap:10px;margin-top:4px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🖱️ Pelo menu (Arquivo)</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique na aba <strong>Arquivo</strong> (canto superior esquerdo)</li>
+            <li>Clique em <strong>Novo</strong></li>
+            <li>Clique em <strong>Documento em branco</strong></li>
+          </ol>
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          💾 <strong>Salvar Como: F12</strong> — salva com novo nome ou local
-        </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🖨️ <strong>Imprimir: Ctrl+P</strong> — abre janela de impressão
-        </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          📂 <strong>Abrir: Ctrl+A</strong> — abre um documento existente
-        </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          📄 <strong>Novo: Ctrl+O</strong> — cria um documento em branco
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⌨️ Pelo atalho (mais rápido!)</div>
+          <p style="font-size:13px;margin:0">Pressione <strong>Ctrl + O</strong> — abre um novo documento em branco na hora</p>
         </div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px">
-        ⚠️ <strong>Salve sempre antes de fechar!</strong> Use Ctrl+S com frequência.
+      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Criar novo documento: Arquivo → Novo → Documento em branco<br>
+        Atalho rápido: <strong>Ctrl + O</strong>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">💾 Como Salvar um Documento</h3>
+      <p style="font-size:14px;margin-bottom:12px">Salvar guarda seu trabalho no computador. <strong>Salve sempre que fizer algo importante!</strong></p>
+      <div style="display:grid;gap:10px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🖱️ Pelo menu</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique em <strong>Arquivo</strong></li>
+            <li>Clique em <strong>Salvar</strong></li>
+            <li>Se for a <em>primeira vez</em>, escolha onde salvar e dê um nome ao arquivo</li>
+            <li>Clique em <strong>Salvar</strong></li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⌨️ Atalho</div>
+          <p style="font-size:13px;margin:0">Pressione <strong>Ctrl + S</strong> — salva instantaneamente</p>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Dica de ouro:</strong> Pressione <strong>Ctrl+S</strong> a cada 5 minutos para não perder seu trabalho!
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Salvar: Arquivo → Salvar | Atalho: <strong>Ctrl + S</strong><br>
+        O arquivo é salvo no formato <strong>.docx</strong> (padrão do Word)
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">💾 Como Usar o "Salvar Como"</h3>
+      <p style="font-size:14px;margin-bottom:12px">O <strong>Salvar Como</strong> é diferente do Salvar! Ele permite:</p>
+      <div style="display:grid;gap:8px;margin-bottom:14px">
+        <div style="padding:9px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📁 Salvar o arquivo em uma <strong>pasta diferente</strong></div>
+        <div style="padding:9px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✏️ Salvar com um <strong>nome diferente</strong> (criar uma cópia)</div>
+        <div style="padding:9px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔄 Salvar em outro <strong>formato</strong> (PDF, .doc antigo, etc.)</div>
+      </div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📋 Passo a passo</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique em <strong>Arquivo</strong></li>
+          <li>Clique em <strong>Salvar Como</strong></li>
+          <li>Escolha o local: <strong>Este Computador</strong> → escolha a pasta</li>
+          <li>No campo <strong>"Nome do arquivo"</strong> — digite o nome que desejar</li>
+          <li>Clique em <strong>Salvar</strong></li>
+        </ol>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Salvar Como: Arquivo → Salvar Como → escolher pasta → nomear → Salvar<br>
+        Atalho: <strong>F12</strong>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📂 Como Abrir um Documento Existente</h3>
+      <p style="font-size:14px;margin-bottom:12px">Para continuar editando um arquivo que você já salvou antes:</p>
+      <div style="display:grid;gap:10px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🖱️ Pelo menu do Word</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique em <strong>Arquivo</strong></li>
+            <li>Clique em <strong>Abrir</strong></li>
+            <li>Clique em <strong>Este Computador</strong> ou <strong>Procurar</strong></li>
+            <li>Navegue até a pasta onde o arquivo está</li>
+            <li>Clique no arquivo e depois em <strong>Abrir</strong></li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⌨️ Atalho</div>
+          <p style="font-size:13px;margin:0">Pressione <strong>Ctrl + A</strong> — abre a janela para escolher o arquivo</p>
+        </div>
+        <div style="padding:12px 16px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">📁 Direto pelo Windows Explorer (mais fácil!)</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Abra a pasta onde o arquivo está salvo</li>
+            <li>Dê um <strong>duplo clique</strong> no arquivo .docx</li>
+            <li>O Word abre automaticamente com o documento</li>
+          </ol>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Abrir documento: Arquivo → Abrir → Este Computador → escolher arquivo<br>
+        Atalho: <strong>Ctrl + A</strong> | Ou duplo clique no arquivo pelo Windows Explorer
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📄 Como Salvar o Documento em PDF</h3>
+      <p style="font-size:14px;margin-bottom:4px">O <strong>PDF</strong> é um formato que não pode ser editado facilmente. É perfeito para:</p>
+      <div style="display:grid;gap:6px;margin:10px 0 14px">
+        <div style="padding:8px 12px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📤 Enviar trabalhos por e-mail ou WhatsApp</div>
+        <div style="padding:8px 12px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🖨️ Imprimir sem perder a formatação</div>
+        <div style="padding:8px 12px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔒 Entregar documentos sem que outra pessoa altere</div>
+      </div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">📋 Passo a passo — Salvar como PDF</div>
+        <ol style="margin:0 0 0 18px;line-height:2.2;font-size:13px">
+          <li>Clique em <strong>Arquivo</strong></li>
+          <li>Clique em <strong>Salvar Como</strong></li>
+          <li>Escolha a pasta onde quer salvar</li>
+          <li>No campo <strong>"Tipo"</strong> ou <strong>"Formato"</strong>, clique na seta e escolha <strong>PDF (*.pdf)</strong></li>
+          <li>Clique em <strong>Salvar</strong></li>
+        </ol>
+      </div>
+      <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⚡ Forma mais rápida</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique em <strong>Arquivo</strong></li>
+          <li>Clique em <strong>Exportar</strong></li>
+          <li>Clique em <strong>Criar documento PDF/XPS</strong></li>
+          <li>Escolha a pasta e clique em <strong>Publicar</strong></li>
+        </ol>
+      </div>
+      <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:10px">
+        💡 <strong>Lembre-se:</strong> o PDF não substitui o .docx! Sempre mantenha os dois: o .docx para editar e o .pdf para enviar.
+      </div>
+      <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Salvar como PDF: Arquivo → Salvar Como → Tipo: PDF → Salvar<br>
+        Ou: Arquivo → Exportar → Criar PDF/XPS → Publicar
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Resumão: Tudo que Você Aprendeu</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:13px">
+        <tr style="background:rgba(79,142,247,.15)">
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Ação</th>
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Menu</th>
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Atalho</th>
+        </tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">📄 Novo documento</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Novo</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + O</strong></td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">💾 Salvar</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + S</strong></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">💾 Salvar Como</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como</td><td style="padding:8px;border:1px solid var(--border)"><strong>F12</strong></td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">📂 Abrir arquivo</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Abrir</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + A</strong></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">📄 Salvar em PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como → Tipo: PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Exportar</td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">🖨️ Imprimir</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Imprimir</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + P</strong></td></tr>
+      </table>
+      <div style="margin-top:14px;padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+        ✅ <strong>Dica final:</strong> Sempre salve seu trabalho em duas versões — <strong>.docx</strong> para editar depois e <strong>.pdf</strong> para enviar ou imprimir!
       </div>`
     ],
     perguntas: [
@@ -506,7 +635,11 @@ const AULAS = [
       { pergunta: "Qual atalho coloca o texto em ITÁLICO?", opcoes: [{texto:"Ctrl+N",correta:false},{texto:"Ctrl+I",correta:true},{texto:"Ctrl+S",correta:false},{texto:"Ctrl+U",correta:false}] },
       { pergunta: "Para JUSTIFICAR o texto (alinhado dos dois lados):", opcoes: [{texto:"Ctrl+Q",correta:false},{texto:"Ctrl+E",correta:false},{texto:"Ctrl+G",correta:false},{texto:"Ctrl+J",correta:true}] },
       { pergunta: "A aba LAYOUT serve para:", opcoes: [{texto:"Inserir imagens",correta:false},{texto:"Corrigir ortografia",correta:false},{texto:"Configurar margens e tamanho da folha",correta:true},{texto:"Mudar a fonte",correta:false}] },
-      { pergunta: "Qual atalho abre a janela 'Salvar Como'?", opcoes: [{texto:"Ctrl+S",correta:false},{texto:"Ctrl+A",correta:false},{texto:"F12",correta:true},{texto:"Ctrl+N",correta:false}] }
+      { pergunta: "Qual atalho abre a janela 'Salvar Como'?", opcoes: [{texto:"Ctrl+S",correta:false},{texto:"Ctrl+A",correta:false},{texto:"F12",correta:true},{texto:"Ctrl+N",correta:false}] },
+      { pergunta: "Para salvar um documento em PDF, qual opção devo usar?", opcoes: [{texto:"Arquivo → Imprimir",correta:false},{texto:"Arquivo → Salvar Como → Tipo: PDF",correta:true},{texto:"Inserir → PDF",correta:false},{texto:"Revisão → Exportar",correta:false}] },
+      { pergunta: "Qual é a diferença entre 'Salvar' e 'Salvar Como'?", opcoes: [{texto:"Não há diferença",correta:false},{texto:"Salvar Como permite escolher nome, pasta e formato",correta:true},{texto:"Salvar Como só funciona para PDF",correta:false},{texto:"Salvar Como apaga o arquivo original",correta:false}] },
+      { pergunta: "Qual a forma mais rápida de abrir um arquivo .docx salvo no computador?", opcoes: [{texto:"Ctrl + O",correta:false},{texto:"Duplo clique no arquivo pelo Windows Explorer",correta:true},{texto:"Ctrl + N",correta:false},{texto:"Arquivo → Novo",correta:false}] },
+      { pergunta: "Por que é importante salvar o arquivo em .docx além do PDF?", opcoes: [{texto:"O .docx ocupa menos espaço",correta:false},{texto:"Para poder editar o documento depois",correta:true},{texto:"O PDF não pode ser impresso",correta:false},{texto:"Não é necessário guardar o .docx",correta:false}] }
     ]
   },
 
