@@ -69,9 +69,12 @@
 </div>
 <div class="grid" id="grid-provas" style="display:none; margin-bottom:0;"></div>
 
-<div style="text-align:center;margin:16px auto;max-width:700px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-  <a href="enviar-prova.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:10px;color:#111;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+<div style="text-align:center;margin:16px auto;max-width:700px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;" id="barra-acoes">
+  <a href="enviar-prova.html" id="btn-enviar-prova" style="display:none;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#fbbf24,#f59e0b);border-radius:10px;color:#111;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
     📋 Enviar Resposta da Prova
+  </a>
+  <a href="enviar-atividade.html" id="btn-enviar-atividade" style="display:none;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#34d399,#059669);border-radius:10px;color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+    📎 Enviar Atividade
   </a>
   <a href="minhas-notas.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;background:linear-gradient(135deg,#4f8ef7,#7c6af7);border-radius:10px;color:#fff;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
     📊 Minhas Notas
@@ -118,30 +121,36 @@
 
   // --- Inicializar ---
   function inicializar() {
-    // Passo 1: notas
-    get('/dados').then(function(dados) {
+    // Todos em paralelo, cada um com .catch próprio
+    var p1 = get('/dados').then(function(dados) {
       if (Array.isArray(dados)) {
         dados.forEach(function(d) {
           if (d.nome === aluno) notasAluno[d.aula] = d.nota;
         });
       }
-    }).catch(function() {}).then(function() {
-      // Passo 2: aulas habilitadas
-      return get('/aulas-do-aluno?nome=' + encodeURIComponent(aluno)).then(function(hab) {
-        aulasHabilitadas = Array.isArray(hab) ? hab : [];
-      }).catch(function() { aulasHabilitadas = []; });
-    }).then(function() {
-      // Passo 3: provas ativas
-      return get('/provas-aluno?turma=' + encodeURIComponent(turma)).then(function(p) {
-        todasProvas = Array.isArray(p) ? p : [];
-      }).catch(function() { todasProvas = []; });
-    }).then(function() {
-      // Passo 4: verificar quais provas o aluno não fez ainda
+    }).catch(function() {});
+
+    var aulasTemRestricao = false; // flag: professor já configurou aulas para este aluno
+    var p2 = get('/aulas-do-aluno?nome=' + encodeURIComponent(aluno)).then(function(resp) {
+      if (resp && typeof resp === 'object' && !Array.isArray(resp)) {
+        aulasTemRestricao = !!resp.temRestricao;
+        aulasHabilitadas = Array.isArray(resp.aulas) ? resp.aulas : [];
+      } else {
+        // fallback para resposta legada (array)
+        aulasHabilitadas = Array.isArray(resp) ? resp : [];
+      }
+    }).catch(function() { aulasHabilitadas = []; });
+
+    var p3 = get('/provas-aluno?turma=' + encodeURIComponent(turma)).then(function(p) {
+      todasProvas = Array.isArray(p) ? p : [];
+    }).catch(function() { todasProvas = []; });
+
+    Promise.all([p1, p2, p3]).then(function() {
       if (todasProvas.length === 0) {
-        mostrarAulas(false);
         document.getElementById('loading-msg').style.display = 'none';
         document.getElementById('grid-aulas').style.display = '';
-        return Promise.resolve();
+        mostrarAulas(false);
+        return;
       }
 
       var checks = todasProvas.map(function(p) {
@@ -150,18 +159,17 @@
           .catch(function() { return p; });
       });
 
-      return Promise.all(checks).then(function(resultados) {
+      Promise.all(checks).then(function(resultados) {
         var pendentes = resultados.filter(function(p) { return p !== null; });
         document.getElementById('loading-msg').style.display = 'none';
         document.getElementById('grid-aulas').style.display = '';
         mostrarAulas(pendentes.length > 0);
-        if (todasProvas.length > 0) mostrarProvas();
+        mostrarProvas();
+      }).catch(function() {
+        document.getElementById('loading-msg').style.display = 'none';
+        document.getElementById('grid-aulas').style.display = '';
+        mostrarAulas(false);
       });
-    }).then(function() {
-      if (todasProvas.length > 0) mostrarProvas();
-    }).catch(function(err) {
-      console.error('Erro geral:', err);
-      document.getElementById('loading-msg').textContent = 'Erro ao carregar. Tente recarregar a página.';
     });
   }
 
@@ -183,9 +191,14 @@
     // Definir lista de aulas a exibir
     var lista;
     if (aulasHabilitadas.length > 0) {
+      // Professor liberou aulas específicas
       lista = AULAS.filter(function(a) { return aulasHabilitadas.indexOf(a.id) !== -1; });
+    } else if (aulasTemRestricao) {
+      // Professor configurou mas zerou tudo — nenhuma aula disponível
+      lista = [];
     } else {
-      lista = AULAS; // sem restrição: mostrar todas
+      // Professor nunca configurou — mostra todas
+      lista = AULAS;
     }
 
     if (!lista || lista.length === 0) {
@@ -251,6 +264,36 @@
   }
 
   inicializar();
+
+  // --- Verificar botões de ação (prova e atividade) ---
+  function verificarBotoes() {
+    // Botão de prova: só mostrar se houver prova pendente
+    get('/provas-aluno?turma=' + encodeURIComponent(turma)).then(function(provas) {
+      if (!Array.isArray(provas) || provas.length === 0) return;
+      var checks = provas.map(function(p) {
+        return get('/prova-status?prova_id=' + p.id + '&aluno=' + encodeURIComponent(aluno))
+          .then(function(st) { return st.feita ? null : p; })
+          .catch(function() { return p; });
+      });
+      Promise.all(checks).then(function(res) {
+        var pendentes = res.filter(function(p) { return p !== null; });
+        if (pendentes.length > 0) {
+          var btn = document.getElementById('btn-enviar-prova');
+          if (btn) btn.style.display = 'inline-flex';
+        }
+      });
+    }).catch(function() {});
+
+    // Botão de atividade: só mostrar se houver atividade aberta hoje
+    get('/atividade-hoje?turma=' + encodeURIComponent(turma)).then(function(janelas) {
+      if (Array.isArray(janelas) && janelas.length > 0) {
+        var btn = document.getElementById('btn-enviar-atividade');
+        if (btn) btn.style.display = 'inline-flex';
+      }
+    }).catch(function() {});
+  }
+
+  verificarBotoes();
 })();
 </script>
 </body>

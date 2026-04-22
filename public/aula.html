@@ -8,643 +8,376 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0f1117;
-      --card:      #1a1d27;
-      --border:    #2a2d3a;
-      --accent:    #4f8ef7;
-      --accent2:   #7c6af7;
-      --success:   #34d399;
-      --danger:    #f87171;
-      --text:      #e8eaf0;
-      --muted:     #7a7d8c;
-      --radius:    14px;
+      --bg:      #0f1117;
+      --card:    #1a1d27;
+      --border:  #2a2d3a;
+      --accent:  #4f8ef7;
+      --accent2: #7c6af7;
+      --success: #34d399;
+      --danger:  #f87171;
+      --text:    #e8eaf0;
+      --muted:   #7a7d8c;
+      --warn:    #fbbf24;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 0 0 80px; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 16px 64px;
+    /* TOPO */
+    .topo {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 20px; background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
     }
+    .topo a { color: var(--muted); text-decoration: none; font-size: 13px; transition: color .2s; }
+    .topo a:hover { color: var(--text); }
+    .topo-titulo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topo-icone { font-size: 22px; }
 
-    /* ── Header ── */
-    .header {
-      width: 100%;
-      max-width: 560px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-    .back-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .back-btn:hover { color: var(--text); }
-    .header-info { flex: 1; }
-    .aula-titulo {
-      font-family: 'Sora', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-    }
-    .aluno-nome {
-      font-size: 13px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
+    /* PROGRESSO */
+    .progresso-bar-wrap { height: 3px; background: var(--border); }
+    .progresso-bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .4s ease; }
 
-    /* ── Progress bar ── */
-    .progress-wrap {
-      width: 100%;
-      max-width: 560px;
-      margin-bottom: 28px;
-    }
-    .progress-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .progress-track {
-      height: 6px;
-      background: var(--border);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      border-radius: 99px;
-      transition: width .5s cubic-bezier(.4,0,.2,1);
-    }
+    /* CONTEÚDO */
+    .conteudo { max-width: 680px; margin: 0 auto; padding: 32px 20px 0; }
 
-    /* ── Card ── */
-    .card {
-      width: 100%;
-      max-width: 560px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-    }
+    /* PASSO */
+    .passo-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; line-height: 1.7; font-size: 15px; }
+    .passo-box h3 { font-family: 'Sora', sans-serif; }
+    .passo-box p { margin-top: 10px; }
+    .passo-box table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 14px; }
+    .passo-box th, .passo-box td { border: 1px solid var(--border); padding: 8px; }
+    .passo-box th { background: rgba(79,142,247,.15); }
 
-    /* ── Etapa ── */
-    .etapa-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
+    /* NAVEGAÇÃO PASSOS */
+    .nav-passos { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+    .nav-passos button {
+      flex: 1; padding: 12px; border: none; border-radius: 10px; cursor: pointer;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; transition: opacity .2s;
     }
-    .etapa-num {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Sora', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .etapa-label {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-    .etapa-texto {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
-      margin-bottom: 28px;
-    }
-    .etapa-texto strong { color: var(--accent); }
+    .nav-passos button:disabled { opacity: .3; cursor: default; }
+    .btn-anterior { background: var(--card); color: var(--text); border: 1px solid var(--border) !important; }
+    .btn-proximo  { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .passo-contador { font-size: 13px; color: var(--muted); white-space: nowrap; }
 
-    .btn-proxima {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-family: 'Sora', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity .2s, transform .1s;
-    }
-    .btn-proxima:hover { opacity: .9; transform: translateY(-1px); }
-    .btn-proxima:active { transform: translateY(0); }
-
-    /* ── Quiz ── */
-    .quiz-pergunta {
-      font-size: 18px;
-      font-weight: 500;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
+    /* QUIZ */
+    .quiz-box { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .quiz-titulo { font-family: 'Sora', sans-serif; font-size: 13px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+    .quiz-pergunta { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 20px; line-height: 1.5; }
     .quiz-opcoes { display: flex; flex-direction: column; gap: 10px; }
     .opcao-btn {
-      padding: 14px 18px;
-      background: transparent;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      text-align: left;
-      cursor: pointer;
+      background: rgba(255,255,255,.03); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 13px 16px; cursor: pointer; text-align: left;
+      color: var(--text); font-size: 14px; font-family: 'DM Sans', sans-serif;
       transition: border-color .2s, background .2s;
     }
-    .opcao-btn:hover:not(:disabled) {
-      border-color: var(--accent);
-      background: rgba(79,142,247,.07);
+    .opcao-btn:hover:not(:disabled) { border-color: var(--accent); background: rgba(79,142,247,.07); }
+    .opcao-btn.correta  { border-color: var(--success) !important; background: rgba(52,211,153,.1) !important; }
+    .opcao-btn.errada   { border-color: var(--danger)  !important; background: rgba(248,113,113,.1) !important; }
+    .opcao-btn:disabled { cursor: default; }
+    .feedback { margin-top: 14px; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; display: none; }
+    .feedback.ok  { background: rgba(52,211,153,.12); color: var(--success); display: block; }
+    .feedback.err { background: rgba(248,113,113,.12); color: var(--danger);  display: block; }
+    .btn-proxima-pergunta {
+      margin-top: 16px; width: 100%; padding: 12px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
+      display: none; transition: opacity .2s;
     }
-    .opcao-btn.correta {
-      border-color: var(--success);
-      background: rgba(52,211,153,.1);
-      color: var(--success);
-    }
-    .opcao-btn.errada {
-      border-color: var(--danger);
-      background: rgba(248,113,113,.1);
-      color: var(--danger);
-    }
+    .btn-proxima-pergunta:hover { opacity: .88; }
+    .quiz-progresso { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
 
-    .resultado {
-      margin-top: 20px;
-      padding: 14px 18px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 500;
-      display: none;
+    /* RESULTADO FINAL */
+    .resultado-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 40px 28px; text-align: center;
     }
-    .resultado.ok  { background: rgba(52,211,153,.12); color: var(--success); border: 1px solid rgba(52,211,153,.3); }
-    .resultado.err { background: rgba(248,113,113,.12); color: var(--danger);  border: 1px solid rgba(248,113,113,.3); }
-
-    /* ── Tela de conclusão ── */
-    .conclusao {
-      text-align: center;
-    }
-    .conclusao .icone-grande {
-      font-size: 56px;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .conclusao h2 {
-      font-family: 'Sora', sans-serif;
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-    .conclusao p {
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-    .nota-badge {
-      display: inline-block;
+    .resultado-icone { font-size: 64px; margin-bottom: 16px; }
+    .resultado-titulo { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .resultado-nota {
+      font-family: 'Sora', sans-serif; font-size: 48px; font-weight: 700;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff;
-      font-family: 'Sora', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      padding: 12px 32px;
-      border-radius: 99px;
-      margin-bottom: 28px;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 12px 0;
     }
-    .btn-proxima-aula {
-      display: inline-block;
-      padding: 12px 28px;
-      background: var(--card);
-      border: 1.5px solid var(--accent);
-      border-radius: 10px;
-      color: var(--accent);
-      font-family: 'Sora', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background .2s;
+    .resultado-detalhe { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+    .resultado-acoes { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-voltar-menu {
+      padding: 12px 28px; border-radius: 10px; background: var(--card);
+      border: 1px solid var(--border); color: var(--text); font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: 14px; cursor: pointer; text-decoration: none;
+      transition: border-color .2s;
     }
-    .btn-proxima-aula:hover { background: rgba(79,142,247,.1); }
-    .btn-voltar-inicio {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 10px 24px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: color .2s;
+    .btn-voltar-menu:hover { border-color: var(--accent); }
+    .btn-refazer {
+      padding: 12px 28px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none; color: #fff; font-family: 'Sora', sans-serif;
+      font-weight: 700; font-size: 14px; cursor: pointer; transition: opacity .2s;
     }
-    .btn-voltar-inicio:hover { color: var(--text); }
+    .btn-refazer:hover { opacity: .88; }
 
-    .hidden { display: none !important; }
-    .fade-in { animation: fadeIn .35s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    /* LOADING / ERRO */
+    .msg-centro { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 15px; }
+
+    /* FASE LABEL */
+    .fase-label {
+      display: inline-block; font-size: 12px; padding: 4px 12px; border-radius: 99px;
+      margin-bottom: 16px; font-weight: 600;
+    }
+    .fase-conteudo { background: rgba(79,142,247,.12); color: var(--accent); }
+    .fase-quiz     { background: rgba(124,106,247,.12); color: #a78bfa; }
   </style>
   <script src="aulas.js"></script>
 </head>
 <body>
 
-<div class="header">
-  <a href="menu.html" class="back-btn">← Voltar</a>
-  <div class="header-info">
-    <div class="aula-titulo" id="titulo-aula">Carregando...</div>
-    <div class="aluno-nome" id="nome-aluno"></div>
-  </div>
+<!-- BARRA DE TOPO -->
+<div class="topo">
+  <a href="menu.html">← Voltar</a>
+  <span class="topo-icone" id="topo-icone">📖</span>
+  <span class="topo-titulo" id="topo-titulo">Carregando...</span>
 </div>
 
-<div class="progress-wrap">
-  <div class="progress-labels">
-    <span id="progress-texto">Passo 1</span>
-    <span id="progress-pct">0%</span>
-  </div>
-  <div class="progress-track">
-    <div class="progress-fill" id="progress-fill" style="width:0%"></div>
-  </div>
+<!-- BARRA DE PROGRESSO -->
+<div class="progresso-bar-wrap">
+  <div class="progresso-bar" id="barra-progresso" style="width:0%"></div>
 </div>
 
-<div class="card" id="card-etapa">
-  <div class="etapa-header">
-    <div class="etapa-num" id="etapa-num">1</div>
-    <div class="etapa-label">Passo a passo</div>
-  </div>
-  <div class="etapa-texto" id="etapa-texto"></div>
-  <button class="btn-proxima" onclick="proximoPasso()">Já fiz ✓</button>
-</div>
-
-<div class="card hidden" id="card-quiz">
-  <div class="etapa-header">
-    <div class="etapa-num">?</div>
-    <div class="etapa-label">Quiz</div>
-  </div>
-  <div class="quiz-pergunta" id="quiz-pergunta"></div>
-  <div class="quiz-opcoes" id="quiz-opcoes"></div>
-  <div class="resultado" id="resultado"></div>
-</div>
-
-<div class="card hidden conclusao" id="card-conclusao">
-  <span class="icone-grande" id="icone-conclusao">🎉</span>
-  <h2 id="conclusao-titulo">Aula concluída!</h2>
-  <p id="conclusao-msg"></p>
-  <div class="nota-badge" id="nota-badge">10/10</div><br>
-  <a href="#" class="btn-proxima-aula hidden" id="btn-proxima-aula">Próxima aula →</a>
-  <br>
-  <a href="menu.html" class="btn-voltar-inicio">Voltar ao menu</a>
+<!-- ÁREA PRINCIPAL -->
+<div class="conteudo" id="area-conteudo">
+  <div class="msg-centro">⏳ Carregando aula...</div>
 </div>
 
 <script>
-  // ── Inicialização ──
-  const params  = new URLSearchParams(location.search);
-  const aulaId  = parseInt(params.get('id')) || 1;
-  const aula    = AULAS.find(a => a.id === aulaId);
-  const aluno   = localStorage.getItem('aluno') || 'Aluno';
+(function () {
+  // ── Verificar login ──────────────────────────────────────
+  var aluno = localStorage.getItem('aluno');
+  if (!aluno) { location.href = 'index.html'; return; }
 
-  if (!aula) { alert('Aula não encontrada!'); location.href = 'menu.html'; }
+  // ── Ler id da URL ────────────────────────────────────────
+  var params = new URLSearchParams(location.search);
+  var aulaId = parseInt(params.get('id'), 10);
 
-  document.getElementById('titulo-aula').textContent = aula.icone + ' ' + aula.titulo;
-  document.getElementById('nome-aluno').textContent  = 'Olá, ' + aluno + '!';
-
-  // Estado
-  let passo       = 0;
-  let quizJaFeito = false;
-  let notaSalva   = null;
-
-  // ── Embaralhar array ──
-  function embaralhar(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  const bancoPergIntas = aula.perguntas ? embaralhar(aula.perguntas).slice(0, 10) : [aula.quiz];
-  let perguntaIdx = 0;
-  let acertos     = 0;
-  const totalPassos = aula.passos.length + bancoPergIntas.length;
-
-  // ── Verificar quiz já feito no servidor ──
-  async function verificarQuizFeito() {
-    try {
-      const r    = await fetch('/dados');
-      const dados = await r.json();
-      const reg  = dados.find(d => d.nome === aluno && d.aula === aula.titulo);
-      if (reg) { quizJaFeito = true; notaSalva = reg.nota; return reg.nota; }
-    } catch(e) {}
-    return null;
-  }
-
-  // ── Utilitário: mostrar/ocultar cards ──
-  function mostrarCard(id) {
-    ['card-etapa','card-quiz','card-conclusao'].forEach(c => {
-      const el = document.getElementById(c);
-      if (c === id) {
-        el.classList.remove('hidden');
-        el.classList.add('fade-in');
-      } else {
-        el.classList.add('hidden');
-        el.classList.remove('fade-in');
-      }
-    });
-  }
-
-  // ── Progresso ──
-  function atualizarProgresso(atual) {
-    const pct = Math.round((atual / totalPassos) * 100);
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-pct').textContent  = pct + '%';
-    if (atual <= aula.passos.length) {
-      document.getElementById('progress-texto').textContent = 'Passo ' + atual + ' de ' + aula.passos.length;
-    } else {
-      const qi = atual - aula.passos.length;
-      document.getElementById('progress-texto').textContent = 'Quiz ' + qi + ' de ' + bancoPergIntas.length;
+  // ── Encontrar aula ───────────────────────────────────────
+  var aula = null;
+  if (typeof AULAS !== 'undefined') {
+    for (var i = 0; i < AULAS.length; i++) {
+      if (AULAS[i].id === aulaId) { aula = AULAS[i]; break; }
     }
   }
 
-  // ── Mostrar passo de conteúdo ──
-  function mostrarPasso() {
-    mostrarCard('card-etapa');
-    document.getElementById('etapa-num').textContent = passo + 1;
-    document.getElementById('etapa-texto').innerHTML = aula.passos[passo];
-    atualizarProgresso(passo + 1);
+  var area = document.getElementById('area-conteudo');
+
+  if (!aula) {
+    area.innerHTML = '<div class="msg-centro">❌ Aula não encontrada.<br><a href="menu.html" style="color:var(--accent);margin-top:12px;display:inline-block;">← Voltar ao menu</a></div>';
+    return;
   }
 
-  function proximoPasso() {
-    passo++;
-    if (passo < aula.passos.length) {
-      mostrarPasso();
+  // ── Atualizar topo ───────────────────────────────────────
+  document.title = aula.titulo + ' — Aula';
+  document.getElementById('topo-icone').textContent = aula.icone || '📖';
+  document.getElementById('topo-titulo').textContent = aula.titulo;
+
+  // ── Estado ───────────────────────────────────────────────
+  var passos   = aula.passos   || [];
+  var perguntas = aula.perguntas || [];
+  var totalEtapas = passos.length + perguntas.length;
+
+  var passoAtual    = 0;
+  var perguntaAtual = 0;
+  var fase          = 'conteudo'; // 'conteudo' | 'quiz' | 'resultado'
+  var acertos       = 0;
+  var respondidas   = 0;
+
+  function atualizarBarra() {
+    var progresso = 0;
+    if (fase === 'conteudo') {
+      progresso = totalEtapas > 0 ? (passoAtual / totalEtapas) * 100 : 0;
+    } else if (fase === 'quiz') {
+      progresso = totalEtapas > 0 ? ((passos.length + perguntaAtual) / totalEtapas) * 100 : 100;
     } else {
-      // Chegou no quiz — verificar se já foi feito
-      if (quizJaFeito) {
-        mostrarConclusaoFinal(notaSalva, false);
+      progresso = 100;
+    }
+    document.getElementById('barra-progresso').style.width = progresso + '%';
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // FASE 1: CONTEÚDO (passos)
+  // ──────────────────────────────────────────────────────────
+  function renderizarPasso() {
+    fase = 'conteudo';
+    atualizarBarra();
+
+    var html = '<span class="fase-label fase-conteudo">📖 Conteúdo — Passo ' + (passoAtual + 1) + ' de ' + passos.length + '</span>';
+    html += '<div class="passo-box">' + passos[passoAtual] + '</div>';
+    html += '<div class="nav-passos">';
+    html += '<button class="btn-anterior" id="btn-ant" ' + (passoAtual === 0 ? 'disabled' : '') + ' onclick="irPasso(-1)">← Anterior</button>';
+    html += '<span class="passo-contador">' + (passoAtual + 1) + ' / ' + passos.length + '</span>';
+
+    if (passoAtual < passos.length - 1) {
+      html += '<button class="btn-proximo" onclick="irPasso(1)">Próximo →</button>';
+    } else {
+      if (perguntas.length > 0) {
+        html += '<button class="btn-proximo" onclick="iniciarQuiz()">Iniciar Quiz →</button>';
       } else {
-        perguntaIdx = 0;
-        acertos     = 0;
-        mostrarQuiz();
+        html += '<button class="btn-proximo" onclick="concluirSemQuiz()">Concluir ✓</button>';
       }
     }
+    html += '</div>';
+
+    area.innerHTML = html;
   }
 
-  // ── Quiz ──
-  function mostrarQuiz() {
-    mostrarCard('card-quiz');
-    const p = bancoPergIntas[perguntaIdx];
-    document.getElementById('quiz-pergunta').textContent = p.pergunta;
+  window.irPasso = function (delta) {
+    var novo = passoAtual + delta;
+    if (novo < 0 || novo >= passos.length) return;
+    passoAtual = novo;
+    renderizarPasso();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    const opcoesEmbaralhadas = embaralhar(p.opcoes);
-    const container = document.getElementById('quiz-opcoes');
-    container.innerHTML = '';
-    document.getElementById('resultado').style.display = 'none';
+  window.iniciarQuiz = function () {
+    fase = 'quiz';
+    perguntaAtual = 0;
+    acertos = 0;
+    respondidas = 0;
+    renderizarPergunta();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    opcoesEmbaralhadas.forEach(op => {
-      const btn = document.createElement('button');
-      btn.className   = 'opcao-btn';
-      btn.textContent = op.texto;
-      btn.onclick     = () => responder(btn, op.correta, opcoesEmbaralhadas);
-      container.appendChild(btn);
+  window.concluirSemQuiz = function () {
+    salvarNota(10);
+    renderizarResultado(10, 0, 0);
+  };
+
+  // ──────────────────────────────────────────────────────────
+  // FASE 2: QUIZ
+  // ──────────────────────────────────────────────────────────
+  function renderizarPergunta() {
+    atualizarBarra();
+    var q = perguntas[perguntaAtual];
+
+    var html = '<span class="fase-label fase-quiz">📝 Quiz — Pergunta ' + (perguntaAtual + 1) + ' de ' + perguntas.length + '</span>';
+    html += '<div class="quiz-box">';
+    html += '<div class="quiz-progresso">Pergunta ' + (perguntaAtual + 1) + ' de ' + perguntas.length + '</div>';
+    html += '<div class="quiz-pergunta">' + q.pergunta + '</div>';
+    html += '<div class="quiz-opcoes" id="opcoes">';
+    q.opcoes.forEach(function (op, idx) {
+      html += '<button class="opcao-btn" data-idx="' + idx + '" data-correta="' + (op.correta ? '1' : '0') + '" onclick="responder(this)">' + op.texto + '</button>';
     });
+    html += '</div>';
+    html += '<div class="feedback" id="feedback"></div>';
+    html += '<button class="btn-proxima-pergunta" id="btn-prox-perg" onclick="proximaPergunta()">Próxima pergunta →</button>';
+    html += '</div>';
 
-    atualizarProgresso(aula.passos.length + perguntaIdx + 1);
+    area.innerHTML = html;
   }
 
-  function responder(botao, correta, opcoes) {
-    const botoes    = document.querySelectorAll('.opcao-btn');
-    const resultado = document.getElementById('resultado');
-    botoes.forEach(b => b.disabled = true);
+  window.responder = function (btn) {
+    // Desabilitar todos os botões
+    var todos = area.querySelectorAll('.opcao-btn');
+    todos.forEach(function (b) { b.disabled = true; });
+
+    var correta = btn.getAttribute('data-correta') === '1';
+    var feedback = document.getElementById('feedback');
+    var btnProx = document.getElementById('btn-prox-perg');
 
     if (correta) {
-      botao.classList.add('correta');
-      resultado.className   = 'resultado ok';
-      resultado.textContent = '✅ Correto! Muito bem!';
+      btn.classList.add('correta');
+      feedback.textContent = '✅ Correto! Muito bem!';
+      feedback.className = 'feedback ok';
       acertos++;
     } else {
-      botao.classList.add('errada');
-      resultado.className   = 'resultado err';
-      resultado.textContent = '❌ Errado! A resposta certa está destacada.';
-      botoes.forEach((b, i) => { if (opcoes[i].correta) b.classList.add('correta'); });
+      btn.classList.add('errada');
+      feedback.textContent = '❌ Errado. A resposta correta é: ';
+      // Destacar a correta
+      todos.forEach(function (b) {
+        if (b.getAttribute('data-correta') === '1') {
+          b.classList.add('correta');
+          feedback.textContent += b.textContent;
+        }
+      });
+      feedback.className = 'feedback err';
     }
-    resultado.style.display = 'block';
 
-    setTimeout(() => {
-      perguntaIdx++;
-      if (perguntaIdx < bancoPergIntas.length) {
-        mostrarQuiz();
-      } else {
-        const nota = Math.round((acertos / bancoPergIntas.length) * 10);
-        quizJaFeito = true;
-        notaSalva   = nota;
-        salvar(nota);
-        mostrarConclusaoFinal(nota, true);
-      }
-    }, 1800);
-  }
+    respondidas++;
+    btnProx.style.display = 'block';
 
-  // ── Conclusão (única função para ambos os casos) ──
-  function mostrarConclusaoFinal(nota, acabouAgora) {
-    mostrarCard('card-conclusao');
+    // Último: mudar texto do botão
+    if (perguntaAtual >= perguntas.length - 1) {
+      btnProx.textContent = 'Ver resultado →';
+    }
+  };
 
-    // Textos dinamicos
-    if (acabouAgora) {
-      document.getElementById('conclusao-titulo').textContent = 'Aula concluída!';
-      document.getElementById('nota-badge').textContent       = nota + '/10';
-      document.getElementById('conclusao-msg').textContent    =
-        nota >= 7
-          ? 'Você acertou ' + acertos + ' de ' + bancoPergIntas.length + ' perguntas! Parabéns, ' + aluno + '!'
-          : 'Você acertou ' + acertos + ' de ' + bancoPergIntas.length + ' perguntas. Continue praticando, ' + aluno + '!';
+  window.proximaPergunta = function () {
+    perguntaAtual++;
+    if (perguntaAtual >= perguntas.length) {
+      // Calcular nota
+      var nota = Math.round((acertos / perguntas.length) * 10 * 10) / 10;
+      salvarNota(nota);
+      renderizarResultado(nota, acertos, perguntas.length);
     } else {
-      document.getElementById('conclusao-titulo').textContent = 'Quiz já realizado!';
-      document.getElementById('nota-badge').textContent       = (nota !== null ? nota : '—') + '/10';
-      document.getElementById('conclusao-msg').textContent    =
-        'Você já completou esta aula, ' + aluno + '. Sua nota registrada foi ' + (nota !== null ? nota : '—') + '/10. O quiz não pode ser refeito.';
+      renderizarPergunta();
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-    // Botão próxima aula — só exibe se a próxima estiver habilitada para o aluno
-    const proxima = AULAS.find(a => a.id === aulaId + 1);
-    if (proxima) {
-      fetch('/aulas-do-aluno?nome=' + encodeURIComponent(aluno))
-        .then(r => r.json())
-        .then(habilitadas => {
-          if (habilitadas.includes(proxima.id)) {
-            const btn = document.getElementById('btn-proxima-aula');
-            btn.classList.remove('hidden');
-            btn.textContent = proxima.icone + ' ' + proxima.titulo + ' →';
-            btn.href        = 'aula.html?id=' + proxima.id;
-          } else {
-            // Próxima aula existe mas ainda não foi liberada pelo professor
-            const aviso = document.createElement('p');
-            aviso.id = 'aviso-proxima-bloqueada';
-            aviso.style.cssText = 'margin-top:16px;font-size:13px;color:var(--muted);text-align:center;';
-            aviso.textContent = '🔒 A próxima aula ainda não foi liberada pelo professor.';
-            const btnProxima = document.getElementById('btn-proxima-aula');
-            if (!document.getElementById('aviso-proxima-bloqueada')) {
-              btnProxima.parentNode.insertBefore(aviso, btnProxima);
-            }
-          }
-        })
-        .catch(() => {
-          // Em caso de erro de rede, oculta o botão por segurança
-        });
-    }
+  // ──────────────────────────────────────────────────────────
+  // FASE 3: RESULTADO
+  // ──────────────────────────────────────────────────────────
+  function renderizarResultado(nota, acertos, total) {
+    fase = 'resultado';
+    atualizarBarra();
 
-    // Botão rever conteúdo (só aparece quando quiz já foi feito antes)
-    const existing = document.getElementById('btn-rever');
-    if (!acabouAgora && !existing) {
-      const btnRever = document.createElement('button');
-      btnRever.id        = 'btn-rever';
-      btnRever.style.cssText = 'margin-top:12px;padding:11px 20px;background:rgba(79,142,247,.12);border:1.5px solid var(--accent);border-radius:10px;color:var(--accent);cursor:pointer;font-size:14px;width:100%;font-family:inherit;font-weight:500';
-      btnRever.textContent = '📖 Rever conteúdo da aula';
-      btnRever.onclick = () => {
-        // Volta para o início do conteúdo — quiz bloqueado ao chegar no final
-        passo = 0;
-        mostrarPasso();
-      };
-      document.getElementById('card-conclusao').appendChild(btnRever);
+    var icone = nota >= 7 ? '🏆' : nota >= 5 ? '👍' : '💪';
+    var msg   = nota >= 7 ? 'Excelente trabalho!' : nota >= 5 ? 'Bom trabalho!' : 'Continue praticando!';
+
+    var detalhe = total > 0 ? 'Você acertou ' + acertos + ' de ' + total + ' perguntas.' : 'Aula concluída com sucesso!';
+
+    var html = '<div class="resultado-box">';
+    html += '<div class="resultado-icone">' + icone + '</div>';
+    html += '<div class="resultado-titulo">' + msg + '</div>';
+    html += '<div class="resultado-nota">' + nota + '/10</div>';
+    html += '<div class="resultado-detalhe">' + detalhe + '</div>';
+    html += '<div class="resultado-acoes">';
+    html += '<a href="menu.html" class="btn-voltar-menu">← Menu de Aulas</a>';
+    if (total > 0) {
+      html += '<button class="btn-refazer" onclick="reiniciarAula()">🔄 Refazer Quiz</button>';
     }
+    html += '</div>';
+    html += '</div>';
+
+    area.innerHTML = html;
   }
 
-  // ── Salvar nota ──
-  function salvar(nota) {
+  window.reiniciarAula = function () {
+    perguntaAtual = 0;
+    acertos = 0;
+    respondidas = 0;
+    iniciarQuiz();
+  };
+
+  // ──────────────────────────────────────────────────────────
+  // SALVAR NOTA NO SERVIDOR
+  // ──────────────────────────────────────────────────────────
+  function salvarNota(nota) {
     fetch('/salvar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nome: aluno, aula: aula.titulo, nota: nota })
-    }).catch(err => console.error('Erro ao salvar:', err));
+    }).catch(function () { /* silencioso */ });
   }
 
-  // ── Start: verificar acesso e depois quiz ──
-  fetch('/aulas-do-aluno?nome=' + encodeURIComponent(aluno))
-    .then(r => r.json())
-    .then(habilitadas => {
-      if (habilitadas.length > 0 && !habilitadas.includes(aulaId)) {
-        alert('\u26a0\ufe0f Esta aula ainda não foi liberada para você.');
-        location.href = 'menu.html';
-        return;
-      }
-      verificarQuizFeito().then(nota => {
-        if (nota !== null) {
-          mostrarConclusaoFinal(nota, false);
-        } else {
-          mostrarPasso();
-        }
-      });
-    })
-    .catch(() => {
-      verificarQuizFeito().then(nota => {
-        if (nota !== null) {
-          mostrarConclusaoFinal(nota, false);
-        } else {
-          mostrarPasso();
-        }
-      });
-    });
-
-  // ══════════════════════════════════════
-  // PROTEÇÃO CONTRA PRINT SCREEN
-  // ══════════════════════════════════════
-  const rm    = localStorage.getItem('rm')    || '';
-  const turma = localStorage.getItem('turma') || '';
-
-  // Marca d'água com nome + RM do aluno
-  (function criarMarcaDagua() {
-    const wm = document.createElement('div');
-    wm.id = 'watermark';
-    const label = aluno + (rm ? ' · RM ' + rm : '') + (turma ? ' · ' + turma : '');
-    wm.style.cssText = [
-      'position:fixed','top:0','left:0','width:100%','height:100%',
-      'pointer-events:none','z-index:9998','overflow:hidden',
-      'opacity:0.045'
-    ].join(';');
-    // Grid de textos diagonais
-    let html = '';
-    for (let y = -200; y < window.screen.height + 200; y += 120) {
-      for (let x = -200; x < window.screen.width + 200; x += 300) {
-        html += `<span style="position:absolute;left:${x}px;top:${y}px;
-          font-size:14px;color:#fff;white-space:nowrap;
-          transform:rotate(-30deg);transform-origin:left top;
-          font-family:sans-serif;font-weight:600;letter-spacing:1px">${label}</span>`;
-      }
-    }
-    wm.innerHTML = html;
-    document.body.appendChild(wm);
-  })();
-
-  // Overlay de tela preta (ativado no print)
-  const printOverlay = document.createElement('div');
-  printOverlay.id = 'print-overlay';
-  printOverlay.style.cssText = [
-    'display:none','position:fixed','inset:0',
-    'background:#000','z-index:99999',
-    'align-items:center','justify-content:center','flex-direction:column',
-    'color:#fff','font-family:sans-serif','text-align:center','padding:40px'
-  ].join(';');
-  printOverlay.innerHTML = `
-    <div style="font-size:48px;margin-bottom:16px">🚫</div>
-    <div style="font-size:20px;font-weight:bold;margin-bottom:8px">Captura de tela bloqueada</div>
-    <div style="font-size:14px;opacity:.7">Esta tentativa foi registrada.</div>
-  `;
-  document.body.appendChild(printOverlay);
-
-  function ativarOverlay() {
-    printOverlay.style.display = 'flex';
-    setTimeout(() => { printOverlay.style.display = 'none'; }, 3000);
+  // ── Iniciar ──────────────────────────────────────────────
+  if (passos.length > 0) {
+    renderizarPasso();
+  } else if (perguntas.length > 0) {
+    iniciarQuiz();
+  } else {
+    area.innerHTML = '<div class="msg-centro">⚠️ Esta aula não tem conteúdo ainda.<br><a href="menu.html" style="color:var(--accent);margin-top:12px;display:inline-block;">← Voltar ao menu</a></div>';
   }
 
-  function registrarPrint() {
-    ativarOverlay();
-    fetch('/registrar-print', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome: aluno, turma, aula: aula ? aula.titulo : '' })
-    }).catch(() => {});
-  }
-
-  // Interceptar tecla Print Screen e combinações
-  document.addEventListener('keydown', function(e) {
-    const tecla = e.key || '';
-    const isPrint = tecla === 'PrintScreen' || tecla === 'Print';
-    const isSnip  = (e.key === 'S' || e.key === 's') && e.shiftKey && (e.metaKey || e.ctrlKey);
-    if (isPrint || isSnip) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      registrarPrint();
-      return false;
-    }
-  }, true);
-
-  // CSS media print → tela preta
-  const styleAntiPrint = document.createElement('style');
-  styleAntiPrint.textContent = `@media print { * { display:none !important; } body::after { display:block !important; content:"Impressão não permitida."; font-size:24px; text-align:center; padding:100px; } }`;
-  document.head.appendChild(styleAntiPrint);
-
-  // Detectar visibilitychange (Win+PrtSc salva arquivo e muda foco brevemente)
-  let visibilityTimer;
-  document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-      visibilityTimer = setTimeout(() => {
-        // só registra se voltar muito rápido (< 800ms = típico de Win+PrtSc)
-      }, 100);
-    } else {
-      clearTimeout(visibilityTimer);
-    }
-  });
+})();
 </script>
 </body>
 </html>

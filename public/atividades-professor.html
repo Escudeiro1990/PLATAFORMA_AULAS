@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Atividades</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1117; --card: #1a1d27; --border: #2a2d3a;
+      --accent: #4f8ef7; --accent2: #7c6af7; --text: #e8eaf0;
+      --muted: #7a7d8c; --success: #34d399; --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
+           min-height: 100vh; padding: 24px 14px 60px; display: flex; flex-direction: column; align-items: center; }
+
+    .topo { width: 100%; max-width: 680px; display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 20px; }
+    .topo h1 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700;
+               background: linear-gradient(135deg, var(--accent), var(--accent2));
+               -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .btn-back { font-size: 13px; color: var(--muted); background: var(--card);
+                border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px;
+                text-decoration: none; }
+
+    /* ── Formulário nova janela ── */
+    .form-card { width: 100%; max-width: 680px; background: var(--card);
+                 border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
+    .form-card h2 { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700;
+                    color: var(--accent); margin-bottom: 16px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    @media (max-width: 520px) { .form-grid { grid-template-columns: 1fr; } }
+
+    label { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase;
+            letter-spacing: .07em; font-weight: 600; margin-bottom: 5px; }
+    input, select, textarea {
+      width: 100%; padding: 10px 13px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 14px; font-family: inherit; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 60px; }
+
+    .btn-criar { margin-top: 14px; width: 100%; padding: 12px;
+                 background: linear-gradient(135deg, var(--accent), var(--accent2));
+                 border: none; border-radius: 10px; color: #fff; font-family: 'Sora', sans-serif;
+                 font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .2s; }
+    .btn-criar:disabled { opacity: .4; cursor: not-allowed; }
+
+    .msg-form { border-radius: 8px; padding: 11px 14px; font-size: 13px; font-weight: 600;
+                margin-top: 12px; text-align: center; }
+    .msg-form.ok  { background: rgba(52,211,153,.1);  border: 1px solid rgba(52,211,153,.3);  color: var(--success); }
+    .msg-form.err { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.3); color: var(--danger); }
+
+    /* ── Lista de janelas ── */
+    .section-title { width: 100%; max-width: 680px; font-family: 'Sora', sans-serif;
+                     font-size: 14px; font-weight: 700; color: var(--muted);
+                     margin-bottom: 12px; letter-spacing: .05em; }
+
+    .janela-card { width: 100%; max-width: 680px; background: var(--card);
+                   border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px;
+                   margin-bottom: 12px; }
+    .janela-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .janela-titulo { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 700; }
+    .janela-meta { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+    .janela-desc { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+             font-weight: 700; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .badge.ativa   { background: rgba(52,211,153,.12); color: var(--success); border: 1px solid rgba(52,211,153,.3); }
+    .badge.inativa { background: rgba(122,125,140,.12); color: var(--muted);   border: 1px solid var(--border); }
+
+    .janela-acoes { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .btn-sm { font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 8px;
+              cursor: pointer; border: 1px solid; transition: opacity .15s; font-family: inherit; }
+    .btn-sm:hover { opacity: .8; }
+    .btn-ativar   { background: rgba(52,211,153,.1); color: var(--success); border-color: rgba(52,211,153,.3); }
+    .btn-desativar{ background: rgba(248,113,113,.1); color: var(--danger);  border-color: rgba(248,113,113,.3); }
+    .btn-ver      { background: rgba(79,142,247,.1);  color: var(--accent);  border-color: rgba(79,142,247,.3); }
+    .btn-excluir  { background: rgba(248,113,113,.08); color: var(--danger); border-color: rgba(248,113,113,.2); }
+
+    /* ── Modal de envios ── */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none;
+               justify-content: center; align-items: flex-start; padding: 30px 14px;
+               z-index: 100; overflow-y: auto; }
+    .overlay.aberto { display: flex; }
+    .modal { background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+             padding: 24px; width: 100%; max-width: 620px; }
+    .modal h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700;
+                margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .fechar { background: none; border: none; color: var(--muted); font-size: 22px;
+              cursor: pointer; line-height: 1; }
+
+    .envio-row { display: flex; align-items: center; gap: 12px; padding: 11px 0;
+                 border-bottom: 1px solid var(--border); font-size: 13px; }
+    .envio-row:last-child { border-bottom: none; }
+    .envio-nome { flex: 1; font-weight: 600; }
+    .envio-info { color: var(--muted); font-size: 12px; min-width: 70px; }
+    .btn-baixar { font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 7px;
+                  background: rgba(79,142,247,.12); color: var(--accent); border: 1px solid rgba(79,142,247,.3);
+                  text-decoration: none; white-space: nowrap; }
+    .sem-envios { text-align: center; padding: 28px 0; color: var(--muted); font-size: 14px; }
+
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3);
+               border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite;
+               vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="topo">
+  <h1>📋 Atividades — Envio de Arquivos</h1>
+  <a class="btn-back" href="professor.html">← Voltar</a>
+</div>
+
+<!-- Formulário nova janela -->
+<div class="form-card">
+  <h2>➕ Liberar Nova Atividade</h2>
+  <div style="margin-bottom:12px">
+    <label>Título da Atividade</label>
+    <input type="text" id="titulo" placeholder="Ex: Trabalho de Pesquisa — Redes de Computadores">
+  </div>
+  <div style="margin-bottom:12px">
+    <label>Descrição / Instrução (opcional)</label>
+    <textarea id="descricao" placeholder="Orientações para o aluno..."></textarea>
+  </div>
+  <div class="form-grid">
+    <div>
+      <label>Turma</label>
+      <select id="turma"><option value="">Carregando...</option></select>
+    </div>
+    <div>
+      <label>Data de Envio</label>
+      <input type="date" id="data_envio">
+    </div>
+  </div>
+  <button class="btn-criar" id="btn-criar">Liberar Atividade</button>
+  <div id="msg-form"></div>
+</div>
+
+<div class="section-title">ATIVIDADES CRIADAS</div>
+<div id="lista-janelas" style="width:100%;max-width:680px">
+  <p style="color:var(--muted);text-align:center;padding:20px 0">Carregando...</p>
+</div>
+
+<!-- Modal de envios -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3>
+      <span id="modal-titulo">Envios</span>
+      <button class="fechar" id="fechar-modal">✕</button>
+    </h3>
+    <div id="modal-corpo"></div>
+  </div>
+</div>
+
+<script>
+// ── Credenciais do professor ─────────────────────────────────
+const usuario = localStorage.getItem('prof_usuario') || '';
+const senha   = localStorage.getItem('prof_senha')   || '';
+if (!usuario) { location.href = 'professor.html'; }
+
+// ── Data de hoje como padrão ─────────────────────────────────
+const hoje = new Date().toISOString().split('T')[0];
+document.getElementById('data_envio').value = hoje;
+
+// ── Carregar turmas ──────────────────────────────────────────
+async function carregarTurmas() {
+  try {
+    const r  = await fetch('/configuracoes');
+    const cfg = await r.json();
+    const turmas = (cfg.turmas || '').split(',').filter(Boolean);
+    const sel = document.getElementById('turma');
+    sel.innerHTML = '<option value="">Selecione a turma</option>';
+    turmas.forEach(t => {
+      const o = document.createElement('option');
+      o.value = o.textContent = t.trim();
+      sel.appendChild(o);
+    });
+  } catch(e) { console.error(e); }
+}
+
+// ── Criar janela ─────────────────────────────────────────────
+document.getElementById('btn-criar').addEventListener('click', async () => {
+  const titulo     = document.getElementById('titulo').value.trim();
+  const descricao  = document.getElementById('descricao').value.trim();
+  const turma      = document.getElementById('turma').value;
+  const data_envio_iso = document.getElementById('data_envio').value;
+  const msg        = document.getElementById('msg-form');
+
+  if (!titulo || !turma || !data_envio_iso) {
+    msg.className = 'msg-form err';
+    msg.textContent = '⚠️ Preencha título, turma e data.';
+    return;
+  }
+
+  // Converte yyyy-mm-dd → dd/mm/aaaa para bater com toLocaleDateString no backend
+  const [y, m, d] = data_envio_iso.split('-');
+  const data_envio = `${d}/${m}/${y}`;
+
+  const btn = document.getElementById('btn-criar');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Criando...';
+  msg.innerHTML = '';
+
+  try {
+    const r  = await fetch('/atividades-janela', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario, senha, titulo, descricao, turma, data_envio }),
+    });
+    const rs = await r.json();
+    if (rs.ok) {
+      msg.className = 'msg-form ok';
+      msg.textContent = '✅ Atividade criada e liberada!';
+      document.getElementById('titulo').value = '';
+      document.getElementById('descricao').value = '';
+      carregarJanelas();
+    } else {
+      throw new Error(rs.erro || 'Erro desconhecido');
+    }
+  } catch(e) {
+    msg.className = 'msg-form err';
+    msg.textContent = '❌ ' + e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Liberar Atividade';
+  }
+});
+
+// ── Carregar lista de janelas ─────────────────────────────────
+async function carregarJanelas() {
+  const lista = document.getElementById('lista-janelas');
+  lista.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px 0">Carregando...</p>';
+  try {
+    const r = await fetch(`/atividades-janelas?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}`);
+    const janelas = await r.json();
+
+    if (!janelas.length) {
+      lista.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px 0">Nenhuma atividade criada ainda.</p>';
+      return;
+    }
+
+    lista.innerHTML = '';
+    janelas.forEach(j => lista.appendChild(renderJanela(j)));
+  } catch(e) {
+    lista.innerHTML = `<p style="color:var(--danger);text-align:center">Erro: ${e.message}</p>`;
+  }
+}
+
+function renderJanela(j) {
+  const div  = document.createElement('div');
+  div.className = 'janela-card';
+
+  const badgeClass = j.ativa ? 'ativa' : 'inativa';
+  const badgeLabel = j.ativa ? '🟢 Aberta' : '⚫ Fechada';
+
+  div.innerHTML = `
+    <div class="janela-header">
+      <div style="flex:1">
+        <div class="janela-titulo">${j.titulo}</div>
+        <div class="janela-meta">
+          📅 ${j.data_envio} &nbsp;·&nbsp; 🏫 Turma: <strong>${j.turma}</strong>
+          &nbsp;·&nbsp; 📤 ${j.total_envios} envio(s) recebido(s)
+        </div>
+        ${j.descricao ? `<div class="janela-desc">${j.descricao}</div>` : ''}
+      </div>
+      <span class="badge ${badgeClass}">${badgeLabel}</span>
+    </div>
+    <div class="janela-acoes">
+      ${j.ativa
+        ? `<button class="btn-sm btn-desativar" data-id="${j.id}" data-ativa="0">⛔ Fechar Envio</button>`
+        : `<button class="btn-sm btn-ativar"    data-id="${j.id}" data-ativa="1">🟢 Reabrir Envio</button>`
+      }
+      <button class="btn-sm btn-ver"     data-id="${j.id}" data-titulo="${j.titulo}">📂 Ver Envios (${j.total_envios})</button>
+      <button class="btn-sm btn-excluir" data-id="${j.id}">🗑️ Excluir</button>
+    </div>
+  `;
+
+  // Ativar / desativar
+  const btnToggle = div.querySelector('[data-ativa]');
+  btnToggle && btnToggle.addEventListener('click', async () => {
+    const ativa = parseInt(btnToggle.dataset.ativa);
+    await fetch('/atividades-janela-ativar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usuario, senha, janela_id: j.id, ativa }),
+    });
+    carregarJanelas();
+  });
+
+  // Ver envios
+  div.querySelector('.btn-ver').addEventListener('click', () => abrirModal(j.id, j.titulo));
+
+  // Excluir
+  div.querySelector('.btn-excluir').addEventListener('click', async () => {
+    if (!confirm(`Excluir a atividade "${j.titulo}" e todos os arquivos enviados?`)) return;
+    await fetch(`/atividades-janela/${j.id}?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}`, { method: 'DELETE' });
+    carregarJanelas();
+  });
+
+  return div;
+}
+
+// ── Modal de envios ──────────────────────────────────────────
+async function abrirModal(janelaId, titulo) {
+  document.getElementById('modal-titulo').textContent = `📂 ${titulo}`;
+  document.getElementById('modal-corpo').innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px 0">Carregando...</p>';
+  document.getElementById('overlay').classList.add('aberto');
+
+  try {
+    const r = await fetch(`/atividades-envios/${janelaId}?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}`);
+    const envios = await r.json();
+    const corpo  = document.getElementById('modal-corpo');
+
+    if (!envios.length) {
+      corpo.innerHTML = '<p class="sem-envios">📭 Nenhum aluno enviou ainda.</p>';
+      return;
+    }
+
+    corpo.innerHTML = envios.map(e => `
+      <div class="envio-row">
+        <div style="flex:1">
+          <div class="envio-nome">👤 ${e.aluno_nome}</div>
+          <div class="envio-info">RM: ${e.aluno_rm || '—'} &nbsp;·&nbsp; ${e.turma || '—'}</div>
+          <div class="envio-info">📄 ${e.arquivo_nome}</div>
+          <div class="envio-info">🕐 ${e.enviado_em}</div>
+        </div>
+        <a class="btn-baixar" href="/atividade-download/${e.id}?usuario=${encodeURIComponent(usuario)}&senha=${encodeURIComponent(senha)}" target="_blank" download="${e.arquivo_nome}">⬇️ Baixar</a>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('modal-corpo').innerHTML = `<p style="color:var(--danger)">${e.message}</p>`;
+  }
+}
+
+document.getElementById('fechar-modal').addEventListener('click', () => {
+  document.getElementById('overlay').classList.remove('aberto');
+});
+document.getElementById('overlay').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('overlay'))
+    document.getElementById('overlay').classList.remove('aberto');
+});
+
+// ── Init ─────────────────────────────────────────────────────
+carregarTurmas();
+carregarJanelas();
+</script>
+</body>
+</html>

@@ -256,6 +256,7 @@
   <button class="nav-btn"       onclick="irAba('meus-dados')">⚙️ Meus Dados</button>
   <button class="nav-btn"       onclick="irAba('acesso')">🔒 Acesso</button>
   <button class="nav-btn"       onclick="irAba('ia')" id="nav-ia" style="border-color:rgba(124,106,247,.5);color:#a78bfa;background:rgba(124,106,247,.07);">✨ Gerar com IA</button>
+  <button class="nav-btn"       onclick="irAba('atividades')" id="nav-atividades" style="border-color:rgba(52,211,153,.4);color:#34d399;background:rgba(52,211,153,.07);">📎 Atividades</button>
 </div>
 
 <!-- ═══════════════════════════════════════
@@ -1122,6 +1123,238 @@ Instruções:
     renderHistoricoIA();
   </script>
 </div>
+
+<!-- ═══════════════════════════════════════
+     ABA: Atividades — Envio de Arquivos
+════════════════════════════════════════ -->
+<div class="secao" id="sec-atividades">
+  <div style="max-width:700px;margin:0 auto;">
+
+    <!-- Formulário nova janela -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:24px;">
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--accent);margin-bottom:16px;">➕ Liberar Nova Atividade</div>
+
+      <div style="margin-bottom:12px;">
+        <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:5px;">Título da Atividade</label>
+        <input type="text" id="at-titulo" placeholder="Ex: Trabalho de Redes de Computadores"
+          style="width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:5px;">Instrução / Descrição (opcional)</label>
+        <textarea id="at-descricao" rows="2" placeholder="Orientações para o aluno..."
+          style="width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;resize:vertical;"></textarea>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+        <div>
+          <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:5px;">Turma</label>
+          <select id="at-turma" style="width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;">
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:5px;">Data de Envio</label>
+          <input type="date" id="at-data"
+            style="width:100%;padding:10px 13px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:inherit;outline:none;">
+        </div>
+      </div>
+      <button onclick="criarJanela()"
+        style="width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;color:#fff;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;">
+        📎 Liberar Atividade
+      </button>
+      <div id="at-msg" style="margin-top:10px;font-size:13px;font-weight:600;text-align:center;"></div>
+    </div>
+
+    <!-- Lista de janelas -->
+    <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.05em;margin-bottom:12px;">ATIVIDADES CRIADAS</div>
+    <div id="at-lista">
+      <p style="color:var(--muted);text-align:center;padding:20px 0;">Carregando...</p>
+    </div>
+
+    <!-- Modal de envios -->
+    <div id="at-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;justify-content:center;align-items:flex-start;padding:30px 14px;overflow-y:auto;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;width:100%;max-width:620px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <span id="at-modal-titulo" style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;"></span>
+          <button onclick="document.getElementById('at-overlay').style.display='none'"
+            style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;">✕</button>
+        </div>
+        <div id="at-modal-corpo"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── preenche data de hoje ───────────────────────
+    document.getElementById('at-data').value = new Date().toISOString().split('T')[0];
+
+    // ── preenche turmas ─────────────────────────────
+    function atCarregarTurmas() {
+      fetch('/configuracoes').then(r => r.json()).then(cfg => {
+        const turmas = (cfg.turmas || '').split(',').filter(Boolean);
+        const sel = document.getElementById('at-turma');
+        turmas.forEach(t => {
+          const o = document.createElement('option');
+          o.value = o.textContent = t.trim();
+          sel.appendChild(o);
+        });
+      });
+    }
+
+    // ── criar janela ────────────────────────────────
+    function criarJanela() {
+      const titulo    = document.getElementById('at-titulo').value.trim();
+      const descricao = document.getElementById('at-descricao').value.trim();
+      const turma     = document.getElementById('at-turma').value;
+      const dataISO   = document.getElementById('at-data').value;
+      const msg       = document.getElementById('at-msg');
+
+      if (!titulo || !turma || !dataISO) {
+        msg.style.color = 'var(--danger)';
+        msg.textContent = '⚠️ Preencha título, turma e data.';
+        return;
+      }
+      // converte yyyy-mm-dd → dd/mm/aaaa
+      const [y, m, d] = dataISO.split('-');
+      const data_envio = `${d}/${m}/${y}`;
+
+      fetch('/atividades-janela', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario: profUsuario, senha: profSenha, titulo, descricao, turma, data_envio }),
+      })
+      .then(r => r.json())
+      .then(rs => {
+        if (rs.ok) {
+          msg.style.color = 'var(--success)';
+          msg.textContent = '✅ Atividade liberada com sucesso!';
+          document.getElementById('at-titulo').value = '';
+          document.getElementById('at-descricao').value = '';
+          atCarregarLista();
+        } else { throw new Error(rs.erro); }
+      })
+      .catch(e => { msg.style.color = 'var(--danger)'; msg.textContent = '❌ ' + e.message; });
+    }
+
+    // ── carregar lista ──────────────────────────────
+    function atCarregarLista() {
+      const lista = document.getElementById('at-lista');
+      lista.innerHTML = '<p style="color:var(--muted);text-align:center;padding:16px 0">Carregando...</p>';
+      fetch(`/atividades-janelas?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`)
+        .then(r => r.json())
+        .then(janelas => {
+          if (!janelas.length) {
+            lista.innerHTML = '<p style="color:var(--muted);text-align:center;padding:16px 0">Nenhuma atividade criada ainda.</p>';
+            return;
+          }
+          lista.innerHTML = '';
+          janelas.forEach(j => lista.appendChild(atRenderJanela(j)));
+        })
+        .catch(e => lista.innerHTML = `<p style="color:var(--danger);text-align:center">${e.message}</p>`);
+    }
+
+    function atRenderJanela(j) {
+      const div = document.createElement('div');
+      div.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;';
+
+      const badgeColor = j.ativa ? '#34d399' : 'var(--muted)';
+      const badgeLabel = j.ativa ? '🟢 Aberta' : '⚫ Fechada';
+      const badgeBg    = j.ativa ? 'rgba(52,211,153,.1)' : 'rgba(122,125,140,.1)';
+
+      div.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;">
+          <div style="flex:1;">
+            <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700;">${j.titulo}</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px;">
+              📅 ${j.data_envio} &nbsp;·&nbsp; 🏫 Turma: <strong>${j.turma}</strong>
+              &nbsp;·&nbsp; 📤 <strong>${j.total_envios}</strong> envio(s)
+            </div>
+            ${j.descricao ? `<div style="font-size:12px;color:var(--muted);margin-top:4px;">${j.descricao}</div>` : ''}
+          </div>
+          <span style="font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;background:${badgeBg};color:${badgeColor};border:1px solid ${badgeColor};white-space:nowrap;">${badgeLabel}</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+          <button data-toggle="${j.id}" data-ativa="${j.ativa ? 0 : 1}"
+            style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;cursor:pointer;border:1px solid;
+            ${j.ativa ? 'background:rgba(248,113,113,.1);color:var(--danger);border-color:rgba(248,113,113,.3);'
+                      : 'background:rgba(52,211,153,.1);color:#34d399;border-color:rgba(52,211,153,.3);'}">
+            ${j.ativa ? '⛔ Fechar Envio' : '🟢 Reabrir Envio'}
+          </button>
+          <button data-ver="${j.id}" data-titulo="${j.titulo}"
+            style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;cursor:pointer;border:1px solid;background:rgba(79,142,247,.1);color:var(--accent);border-color:rgba(79,142,247,.3);">
+            📂 Ver Envios (${j.total_envios})
+          </button>
+          <button data-del="${j.id}" data-delTitulo="${j.titulo}"
+            style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;cursor:pointer;border:1px solid;background:rgba(248,113,113,.08);color:var(--danger);border-color:rgba(248,113,113,.2);">
+            🗑️ Excluir
+          </button>
+        </div>
+      `;
+
+      // Toggle ativo/inativo
+      div.querySelector('[data-toggle]').addEventListener('click', function() {
+        fetch('/atividades-janela-ativar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usuario: profUsuario, senha: profSenha, janela_id: j.id, ativa: parseInt(this.dataset.ativa) }),
+        }).then(() => atCarregarLista());
+      });
+
+      // Ver envios
+      div.querySelector('[data-ver]').addEventListener('click', function() {
+        atAbrirModal(j.id, j.titulo);
+      });
+
+      // Excluir
+      div.querySelector('[data-del]').addEventListener('click', function() {
+        if (!confirm(`Excluir "${j.titulo}" e todos os arquivos enviados?`)) return;
+        fetch(`/atividades-janela/${j.id}?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`, { method: 'DELETE' })
+          .then(() => atCarregarLista());
+      });
+
+      return div;
+    }
+
+    // ── modal de envios ─────────────────────────────
+    function atAbrirModal(janelaId, titulo) {
+      document.getElementById('at-modal-titulo').textContent = '📂 ' + titulo;
+      document.getElementById('at-modal-corpo').innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px 0">Carregando...</p>';
+      const ov = document.getElementById('at-overlay');
+      ov.style.display = 'flex';
+
+      fetch(`/atividades-envios/${janelaId}?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`)
+        .then(r => r.json())
+        .then(envios => {
+          const corpo = document.getElementById('at-modal-corpo');
+          if (!envios.length) {
+            corpo.innerHTML = '<p style="color:var(--muted);text-align:center;padding:24px 0;">📭 Nenhum aluno enviou ainda.</p>';
+            return;
+          }
+          corpo.innerHTML = envios.map(e => `
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;">
+              <div style="flex:1;">
+                <div style="font-weight:600;">👤 ${e.aluno_nome}</div>
+                <div style="color:var(--muted);font-size:12px;">RM: ${e.aluno_rm || '—'} · ${e.turma || '—'}</div>
+                <div style="color:var(--muted);font-size:12px;">📄 ${e.arquivo_nome}</div>
+                <div style="color:var(--muted);font-size:12px;">🕐 ${e.enviado_em}</div>
+              </div>
+              <a href="${e.arquivo_url}" target="_blank" download="${e.arquivo_nome}"
+                style="font-size:12px;font-weight:600;padding:7px 13px;border-radius:8px;background:rgba(79,142,247,.12);color:var(--accent);border:1px solid rgba(79,142,247,.3);text-decoration:none;white-space:nowrap;">
+                ⬇️ Baixar
+              </a>
+            </div>
+          `).join('');
+        })
+        .catch(e => {
+          document.getElementById('at-modal-corpo').innerHTML = `<p style="color:var(--danger)">${e.message}</p>`;
+        });
+    }
+
+    // Fecha modal ao clicar fora
+    document.getElementById('at-overlay').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
+    });
+  </script>
+</div>
 <!-- ═══════════════════════════════════════
      MODAL: Editar Aluno
 ════════════════════════════════════════ -->
@@ -1287,18 +1520,19 @@ Instruções:
 
   // ── Abas ──
   function irAba(aba) {
-    const abas = ['painel','alunos','turmas','prints','relatorio','prova','fotos','meus-dados','acesso','ia'];
+    const abas = ['painel','alunos','turmas','prints','relatorio','prova','fotos','meus-dados','acesso','ia','atividades'];
     abas.forEach(a => {
       document.getElementById('sec-' + a).classList.toggle('visivel', a === aba);
     });
     document.querySelectorAll('.nav-btn').forEach((b, i) => {
       b.classList.toggle('ativa', abas[i] === aba);
     });
-    if (aba === 'turmas')    carregarListaPorTurma();
-    if (aba === 'prints')    carregarPrints();
-    if (aba === 'relatorio') carregarRelatorio();
-    if (aba === 'prova')     iniciarGerador();
-    if (aba === 'fotos')     carregarFotos();
+    if (aba === 'turmas')      carregarListaPorTurma();
+    if (aba === 'prints')      carregarPrints();
+    if (aba === 'relatorio')   carregarRelatorio();
+    if (aba === 'prova')       iniciarGerador();
+    if (aba === 'fotos')       carregarFotos();
+    if (aba === 'atividades')  { atCarregarTurmas(); atCarregarLista(); }
   }
 
   function subAba(sub) {
@@ -2569,11 +2803,38 @@ Acesse a aba "Provas Publicadas" para ativar.`);
         <td style="font-size:12px;">${f.enviado_em||'—'}</td>
         <td>${statusBadge}</td>
         <td>${notaEl}</td>
-        <td><button onclick="abrirModalFoto(${f.id})" style="padding:5px 12px;background:var(--accent);border:none;border-radius:7px;color:#fff;font-size:12px;font-family:inherit;cursor:pointer;">${f.status==='corrigida'?'👁️ Ver':'✏️ Corrigir'}</button></td>
+        <td><button onclick="abrirModalFoto(${f.id})" style="padding:5px 12px;background:var(--accent);border:none;border-radius:7px;color:#fff;font-size:12px;font-family:inherit;cursor:pointer;">${f.status==='corrigida'?'👁️ Ver':'✏️ Corrigir'}</button>
+        &nbsp;<button onclick="apagarEnvioFoto(${f.id}, this)" style="padding:5px 10px;background:rgba(220,53,69,.10);border:1px solid rgba(220,53,69,.3);border-radius:7px;color:#e05;font-size:12px;font-family:inherit;cursor:pointer;">🗑️</button></td>
       </tr>`;
     });
     html += '</tbody></table>';
     lista.innerHTML = html;
+  }
+
+  async function apagarEnvioFoto(id, btn) {
+    if (!confirm('Apagar este envio?\n\nO aluno poderá enviar novamente. Não pode ser desfeito.')) return;
+    btn.disabled = true;
+    btn.textContent = '⏳';
+    try {
+      const data = await fetch(
+        `/prova-foto/${id}?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`,
+        { method: 'DELETE' }
+      ).then(r => r.json());
+      if (data.ok) {
+        const tr = btn.closest('tr');
+        tr.style.transition = 'opacity .3s';
+        tr.style.opacity = '0';
+        setTimeout(() => { tr.remove(); carregarFotos(); }, 310);
+      } else {
+        alert('Erro: ' + (data.erro || 'Não foi possível apagar.'));
+        btn.disabled = false;
+        btn.textContent = '🗑️';
+      }
+    } catch(e) {
+      alert('Erro de conexão.');
+      btn.disabled = false;
+      btn.textContent = '🗑️';
+    }
   }
 
   async function abrirModalFoto(id) {
@@ -2728,7 +2989,7 @@ Acesse a aba "Provas Publicadas" para ativar.`);
         <div class="stat-card"><div class="stat-label">Média</div><div class="stat-valor">${media}</div></div>
         <div class="stat-card"><div class="stat-label">Aprovados</div><div class="stat-valor">${aprov}</div></div>
       </div>
-      <table><thead><tr><th>Aluno</th><th>RM</th><th>Turma</th><th>Acertos</th><th>Nota</th><th>Respondida em</th></tr></thead><tbody>`;
+      <table><thead><tr><th>Aluno</th><th>RM</th><th>Turma</th><th>Acertos</th><th>Nota</th><th>Respondida em</th><th></th></tr></thead><tbody>`;
     data.forEach(r => {
       const notaDisplay = r.nota !== null ? r.nota + '/10' : '⏳ Pendente';
       const cor = r.nota === null ? '' : (r.nota >= 7 ? 'nota-ok' : (r.nota >= 5 ? '' : 'nota-no'));
@@ -2742,10 +3003,40 @@ Acesse a aba "Provas Publicadas" para ativar.`);
         <td><button onclick="verRespostasDissertativas(${id},'${r.aluno_nome.replace(/'/g,"\'")}')"
           style="padding:4px 10px;font-size:12px;background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.3);border-radius:6px;color:var(--accent);cursor:pointer;font-family:inherit;">
           Ver respostas</button></td>
+        <td><button onclick="apagarRespostaAluno(${id},'${r.aluno_nome.replace(/'/g,"\\'")}', this)"
+          style="padding:4px 10px;font-size:12px;background:rgba(220,53,69,.10);border:1px solid rgba(220,53,69,.3);border-radius:6px;color:#e05;cursor:pointer;font-family:inherit;">
+          🗑️ Apagar</button></td>
       </tr>`;
     });
     html += '</tbody></table>';
     document.getElementById('result-conteudo').innerHTML = html;
+  }
+
+  // ── Apagar resposta/nota de um aluno específico ──
+  async function apagarRespostaAluno(provaId, alunoNome, btn) {
+    if (!confirm(`Apagar a resposta e a nota de "${alunoNome}" nesta prova?\n\nIsso permite que o aluno refaça a prova. Não pode ser desfeito.`)) return;
+    btn.disabled = true;
+    btn.textContent = '⏳';
+    try {
+      const data = await fetch(
+        `/prova-resposta/${provaId}/${encodeURIComponent(alunoNome)}?usuario=${encodeURIComponent(profUsuario)}&senha=${encodeURIComponent(profSenha)}`,
+        { method: 'DELETE' }
+      ).then(r => r.json());
+      if (data.ok) {
+        const tr = btn.closest('tr');
+        tr.style.transition = 'opacity .3s';
+        tr.style.opacity = '0';
+        setTimeout(() => tr.remove(), 300);
+      } else {
+        alert('Erro: ' + (data.erro || 'Não foi possível apagar.'));
+        btn.disabled = false;
+        btn.textContent = '🗑️ Apagar';
+      }
+    } catch(e) {
+      alert('Erro de conexão.');
+      btn.disabled = false;
+      btn.textContent = '🗑️ Apagar';
+    }
   }
 
   // ── Ver respostas dissertativas de um aluno ──

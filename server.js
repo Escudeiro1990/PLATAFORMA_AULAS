@@ -1,5 +1,21 @@
 const express = require('express');
+const multer  = require('multer');
 const { createClient } = require('@libsql/client');
+
+// Multer: armazena arquivo em memória (sem disco — compatível com Render)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20 MB
+  fileFilter: (req, file, cb) => {
+    const ok = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+    if (ok.includes(file.mimetype)) return cb(null, true);
+    cb(new Error('Apenas PDF ou Word (.doc/.docx) são permitidos.'));
+  },
+});
 
 const app = express();
 
@@ -32,6 +48,9 @@ async function initDB() {
   await dbRun(`CREATE TABLE IF NOT EXISTS prova_respostas (id INTEGER PRIMARY KEY AUTOINCREMENT, prova_id INTEGER NOT NULL, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, nota REAL, acertos INTEGER, total INTEGER, respondida_em TEXT, UNIQUE(prova_id, aluno_nome))`);
   await dbRun(`CREATE TABLE IF NOT EXISTS prova_respostas_detalhe (id INTEGER PRIMARY KEY AUTOINCREMENT, prova_id INTEGER NOT NULL, aluno_nome TEXT NOT NULL, questao_id INTEGER NOT NULL, resposta_marcada TEXT, correta INTEGER DEFAULT 0, nota_manual REAL)`);
   await dbRun(`CREATE TABLE IF NOT EXISTS prova_respostas_foto (id INTEGER PRIMARY KEY AUTOINCREMENT, prova_id INTEGER, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, foto_base64 TEXT, texto_respostas TEXT, modo_envio TEXT DEFAULT 'foto', nota_manual REAL, comentario TEXT, status TEXT DEFAULT 'pendente', enviado_em TEXT, corrigido_em TEXT)`);
+  await dbRun(`CREATE TABLE IF NOT EXISTS aulas_restricao (aluno_id INTEGER PRIMARY KEY, ativa INTEGER DEFAULT 0)`);
+  await dbRun(`CREATE TABLE IF NOT EXISTS atividades_janelas (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT NOT NULL, descricao TEXT, turma TEXT NOT NULL, data_envio TEXT NOT NULL, ativa INTEGER DEFAULT 1, criada_em TEXT)`);
+  await dbRun(`CREATE TABLE IF NOT EXISTS atividades_envios (id INTEGER PRIMARY KEY AUTOINCREMENT, janela_id INTEGER NOT NULL, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, arquivo_nome TEXT, arquivo_base64 TEXT, enviado_em TEXT, UNIQUE(janela_id, aluno_nome))`);
 
   // Configurações padrão
   const configs = [
@@ -638,6 +657,149 @@ app.get('/minhas-notas', async (req, res) => {
     const online = await dbAll(`SELECT pr.prova_id, p.titulo, pr.nota, pr.acertos, pr.total, pr.respondida_em, 'online' as tipo FROM prova_respostas pr JOIN provas p ON p.id = pr.prova_id WHERE pr.aluno_nome = ? ORDER BY pr.respondida_em DESC`, [aluno]);
     const impressas = await dbAll(`SELECT id as prova_id, nota_manual as nota, NULL as acertos, NULL as total, corrigido_em as respondida_em, modo_envio, comentario, status, 'impressa' as tipo FROM prova_respostas_foto WHERE aluno_nome = ? ORDER BY enviado_em DESC`, [aluno]);
     res.json({ online: online || [], impressas: impressas || [] });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// MÓDULO: ATIVIDADES — ENVIO DE ARQUIVOS POR TURMA/DATA
+// ═══════════════════════════════════════════════════════════════
+
+// PROFESSOR: criar janela de envio
+app.post('/atividades-janela', async (req, res) => {
+  try {
+    const { usuario, senha, titulo, descricao, turma, data_envio } = req.body;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    if (!titulo || !turma || !data_envio)
+      return res.status(400).json({ erro: 'Título, turma e data são obrigatórios.' });
+    const criada_em = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    const result = await dbRun(
+      `INSERT INTO atividades_janelas (titulo, descricao, turma, data_envio, ativa, criada_em) VALUES (?,?,?,?,1,?)`,
+      [titulo, descricao || '', turma, data_envio, criada_em]
+    );
+    res.json({ ok: true, id: Number(result.lastInsertRowid) });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: listar todas as janelas
+app.get('/atividades-janelas', async (req, res) => {
+  try {
+    const { usuario, senha } = req.query;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    const rows = await dbAll(
+      `SELECT j.*, COUNT(e.id) AS total_envios
+       FROM atividades_janelas j
+       LEFT JOIN atividades_envios e ON e.janela_id = j.id
+       GROUP BY j.id ORDER BY j.data_envio DESC`
+    );
+    res.json(rows);
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: ativar / desativar janela
+app.post('/atividades-janela-ativar', async (req, res) => {
+  try {
+    const { usuario, senha, janela_id, ativa } = req.body;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    await dbRun(`UPDATE atividades_janelas SET ativa = ? WHERE id = ?`, [ativa ? 1 : 0, janela_id]);
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: excluir janela (e envios vinculados)
+app.delete('/atividades-janela/:id', async (req, res) => {
+  try {
+    const { usuario, senha } = req.query;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    const id = req.params.id;
+    await dbRun(`DELETE FROM atividades_envios WHERE janela_id = ?`, [id]);
+    await dbRun(`DELETE FROM atividades_janelas WHERE id = ?`, [id]);
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: ver envios de uma janela
+app.get('/atividades-envios/:janela_id', async (req, res) => {
+  try {
+    const { usuario, senha } = req.query;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    const rows = await dbAll(
+      `SELECT id, janela_id, aluno_nome, aluno_rm, turma, arquivo_nome, enviado_em FROM atividades_envios WHERE janela_id = ? ORDER BY enviado_em ASC`,
+      [req.params.janela_id]
+    );
+    res.json(rows);
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: baixar arquivo de um envio
+app.get('/atividade-download/:id', async (req, res) => {
+  try {
+    const { usuario, senha } = req.query;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    const row = await dbGet(`SELECT * FROM atividades_envios WHERE id = ?`, [req.params.id]);
+    if (!row || !row.arquivo_base64) return res.status(404).json({ erro: 'Arquivo não encontrado.' });
+    const buf = Buffer.from(row.arquivo_base64, 'base64');
+    const ext = (row.arquivo_nome || '').split('.').pop().toLowerCase();
+    const mime = ext === 'pdf' ? 'application/pdf'
+               : ext === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+               : 'application/octet-stream';
+    res.setHeader('Content-Disposition', `attachment; filename="${row.arquivo_nome || 'arquivo'}"`);
+    res.setHeader('Content-Type', mime);
+    res.send(buf);
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ALUNO: verificar se há janela aberta para sua turma hoje
+app.get('/atividade-hoje', async (req, res) => {
+  try {
+    const { turma } = req.query;
+    const hoje = new Date().toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    const rows = await dbAll(
+      `SELECT id, titulo, descricao FROM atividades_janelas WHERE ativa = 1 AND turma = ? AND data_envio = ?`,
+      [turma, hoje]
+    );
+    res.json(rows);
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ALUNO: verificar se já enviou para esta janela
+app.get('/atividade-status', async (req, res) => {
+  try {
+    const { janela_id, aluno } = req.query;
+    const row = await dbGet(
+      `SELECT id, arquivo_nome, enviado_em FROM atividades_envios WHERE janela_id = ? AND aluno_nome = ?`,
+      [janela_id, aluno]
+    );
+    res.json({ enviado: !!row, envio: row || null });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ALUNO: enviar arquivo (salvo em base64 no Turso)
+app.post('/atividade-enviar', upload.single('arquivo'), async (req, res) => {
+  try {
+    const { janela_id, aluno_nome, aluno_rm, turma } = req.body;
+    if (!aluno_nome) return res.status(400).json({ erro: 'Nome do aluno obrigatório.' });
+    if (!req.file)   return res.status(400).json({ erro: 'Nenhum arquivo recebido.' });
+    if (!janela_id)  return res.status(400).json({ erro: 'Janela inválida.' });
+    const janela = await dbGet(`SELECT id FROM atividades_janelas WHERE id = ? AND ativa = 1`, [janela_id]);
+    if (!janela) return res.status(403).json({ erro: 'Esta janela de envio está fechada.' });
+    const arquivo_base64 = req.file.buffer.toString('base64');
+    const enviado_em = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    await dbRun(
+      `INSERT INTO atividades_envios (janela_id, aluno_nome, aluno_rm, turma, arquivo_nome, arquivo_base64, enviado_em)
+       VALUES (?,?,?,?,?,?,?)
+       ON CONFLICT(janela_id, aluno_nome) DO UPDATE SET
+         arquivo_nome   = excluded.arquivo_nome,
+         arquivo_base64 = excluded.arquivo_base64,
+         enviado_em     = excluded.enviado_em`,
+      [janela_id, aluno_nome, aluno_rm || '', turma || '', req.file.originalname, arquivo_base64, enviado_em]
+    );
+    res.json({ ok: true });
   } catch(e) { res.status(500).json({ erro: e.message }); }
 });
 

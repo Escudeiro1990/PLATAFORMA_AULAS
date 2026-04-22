@@ -3759,7 +3759,1339 @@ AULAS.push(
     ]
   }
 
+,
+
+// ══════════════════════════════════════════════════════
+// AULA 29 — GESTÃO DE PROJETOS: CONCEITOS E CICLO DE VIDA
+// ══════════════════════════════════════════════════════
+  {
+    id: 29,
+    titulo: "Gestão de Projetos: Conceitos e Ciclo de Vida",
+    descricao: "O que é um projeto, suas características e as 5 etapas do ciclo de vida",
+    icone: "📋",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📋 O que é um Projeto?</h3>
+      <p>Segundo o <strong>PMBOK (PMI)</strong>, projeto é um <strong>esforço temporário</strong> empreendido para criar um <strong>produto, serviço ou resultado único</strong>.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⏱️ <strong>Temporário:</strong> tem início e fim definidos — não significa que é curto, mas que tem prazo de término.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎯 <strong>Único:</strong> o resultado é diferente de qualquer outro já realizado anteriormente.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📦 <strong>Resultado específico:</strong> cria algo novo — produto, serviço, documento, sistema.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          💰 <strong>Recursos limitados:</strong> usa pessoas, tempo e dinheiro de forma controlada.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie no caderno:</strong><br>
+        Projeto = esforço TEMPORÁRIO para criar resultado ÚNICO<br>
+        Diferente de operação: operação é contínua e repetitiva<br>
+        Exemplos de projeto: construir um site, criar um curso, desenvolver um app
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🔄 Projeto vs Operação</h3>
+      <p>É muito cobrado em concurso a diferença entre projeto e operação rotineira.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+        <div style="padding:12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px">📋 PROJETO</div>
+          <div style="font-size:12px;line-height:1.8;color:var(--muted)">
+            • Temporário<br>• Resultado único<br>• Tem início e fim<br>• Muda ou cria algo<br>• Ex: criar um sistema
+          </div>
+        </div>
+        <div style="padding:12px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:8px">⚙️ OPERAÇÃO</div>
+          <div style="font-size:12px;line-height:1.8;color:var(--muted)">
+            • Contínua e permanente<br>• Resultado repetitivo<br>• Sem data de fim<br>• Mantém o que existe<br>• Ex: suporte técnico diário
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Atenção:</strong> A manutenção de um sistema já existente é uma OPERAÇÃO. Criar o sistema do zero é um PROJETO.
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ As 5 Etapas do Ciclo de Vida</h3>
+      <p>Todo projeto passa por 5 grupos de processos segundo o PMBOK:</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--accent)">1. INICIAÇÃO</strong><br>
+          Define o projeto. Elabora o <strong>Termo de Abertura</strong>. Identifica stakeholders (partes interessadas). Nomeia o gerente de projetos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--accent)">2. PLANEJAMENTO</strong><br>
+          Define escopo, cronograma, recursos, custos e riscos. É a etapa mais detalhada — cria o Plano de Gerenciamento do Projeto.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--accent)">3. EXECUÇÃO</strong><br>
+          Coloca o plano em prática. Gerencia equipe, fornecedores e comunicações. Produz as entregas do projeto.
+        </div>
+        <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--warn)">4. MONITORAMENTO E CONTROLE</strong><br>
+          Acontece em PARALELO a todas as etapas. Acompanha o progresso, compara com o plano e aplica ações corretivas.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--success)">5. ENCERRAMENTO</strong><br>
+          Entrega o resultado final, documenta lições aprendidas, libera a equipe e encerra contratos.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> Iniciação → Planejamento → Execução → (Monitoramento paralelo) → Encerramento<br>
+        Monitoramento ocorre durante TODO o projeto, não só no final!
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📌 Stakeholders e Termo de Abertura</h3>
+      <p>Dois conceitos muito cobrados da fase de Iniciação:</p>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px">👥 Stakeholders (Partes Interessadas)</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+            São todas as pessoas ou grupos que têm interesse no projeto ou são afetados por ele.<br>
+            Exemplos: clientes, equipe, patrocinador, fornecedores, comunidade local.
+          </div>
+        </div>
+        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--success);margin-bottom:6px">📄 Termo de Abertura do Projeto (TAP)</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+            Documento que autoriza formalmente o projeto. Define objetivo, escopo inicial, prazo estimado e nome do gerente.<br>
+            <strong>É o primeiro documento formal do projeto.</strong>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Cai em prova:</strong> O Termo de Abertura é elaborado na fase de <strong>Iniciação</strong> e não na de Planejamento!
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) Um esforço temporário empreendido para criar um produto, serviço ou resultado exclusivo descreve corretamente o conceito de:", opcoes: [{texto:"Operação",correta:false},{texto:"Programa",correta:false},{texto:"Projeto",correta:true},{texto:"Portfólio",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Assinale a alternativa que apresenta corretamente a sequência das fases do ciclo de vida de um projeto segundo o PMBOK:", opcoes: [{texto:"Planejamento → Iniciação → Execução → Monitoramento → Encerramento",correta:false},{texto:"Iniciação → Planejamento → Execução → Monitoramento e Controle → Encerramento",correta:true},{texto:"Iniciação → Execução → Planejamento → Controle → Encerramento",correta:false},{texto:"Planejamento → Execução → Iniciação → Encerramento → Monitoramento",correta:false}] },
+      { pergunta: "(FCC – 2023) O Termo de Abertura do Projeto (TAP) é o documento que:", opcoes: [{texto:"Define o cronograma detalhado e os recursos alocados",correta:false},{texto:"Autoriza formalmente o início do projeto e designa o gerente",correta:true},{texto:"Registra as lições aprendidas ao final do projeto",correta:false},{texto:"Detalha a Estrutura Analítica do Projeto (EAP)",correta:false}] },
+      { pergunta: "(CESPE – 2024) Julgue: O monitoramento e controle é uma fase que ocorre apenas ao final da execução, antes do encerramento formal do projeto.", opcoes: [{texto:"Certo – ocorre somente após a execução",correta:false},{texto:"Errado – ocorre em paralelo a todas as outras fases do projeto",correta:true},{texto:"Certo – é a última fase antes do encerramento",correta:false},{texto:"Errado – ocorre apenas durante o planejamento",correta:false}] },
+      { pergunta: "(FGV – 2023) A principal diferença entre um PROJETO e uma OPERAÇÃO é que:", opcoes: [{texto:"Projetos sempre envolvem tecnologia; operações não",correta:false},{texto:"Operações têm início e fim definidos; projetos são contínuos",correta:false},{texto:"Projetos são temporários e únicos; operações são contínuas e repetitivas",correta:true},{texto:"Projetos são realizados por equipes externas; operações por equipes internas",correta:false}] },
+      { pergunta: "(VUNESP – 2024) No contexto de gestão de projetos, os STAKEHOLDERS são:", opcoes: [{texto:"Apenas os membros da equipe de desenvolvimento do projeto",correta:false},{texto:"Somente patrocinadores e clientes diretos",correta:false},{texto:"Indivíduos, grupos ou organizações que podem afetar ou ser afetados pelo projeto",correta:true},{texto:"Os fornecedores externos contratados para o projeto",correta:false}] },
+      { pergunta: "(FCC – 2024) Na fase de ENCERRAMENTO do projeto, as atividades típicas incluem:", opcoes: [{texto:"Elaboração do Termo de Abertura e nomeação do gerente",correta:false},{texto:"Definição de escopo, cronograma e identificação de riscos",correta:false},{texto:"Entrega do produto, documentação de lições aprendidas e liberação dos recursos",correta:true},{texto:"Execução das atividades planejadas e geração de entregas",correta:false}] },
+      { pergunta: "(CESPE – 2023) Um professor que desenvolve, do zero, um novo curso técnico de informática para implantação no próximo semestre está realizando:", opcoes: [{texto:"Uma operação educacional rotineira",correta:false},{texto:"Um projeto, pois a atividade é temporária e gera resultado único",correta:true},{texto:"Um processo administrativo permanente",correta:false},{texto:"Uma operação, pois envolve atividade pedagógica contínua",correta:false}] },
+      { pergunta: "(FGV – 2024) A Estrutura Analítica do Projeto (EAP) é uma ferramenta da fase de:", opcoes: [{texto:"Iniciação",correta:false},{texto:"Planejamento",correta:true},{texto:"Execução",correta:false},{texto:"Encerramento",correta:false}] },
+      { pergunta: "(VUNESP – 2023) O gerente de projeto é formalmente designado durante a fase de:", opcoes: [{texto:"Planejamento, após definição do escopo",correta:false},{texto:"Execução, quando as atividades são iniciadas",correta:false},{texto:"Iniciação, no Termo de Abertura do Projeto",correta:true},{texto:"Monitoramento, após a primeira entrega",correta:false}] },
+      { pergunta: "(FCC – 2023) A manutenção diária de um sistema de informática já em funcionamento é classificada como:", opcoes: [{texto:"Projeto de TIC, pois envolve tecnologia",correta:false},{texto:"Operação, pois é uma atividade contínua e repetitiva",correta:true},{texto:"Projeto, pois gera entregas diárias únicas",correta:false},{texto:"Programa, pois está vinculado a um objetivo estratégico",correta:false}] },
+      { pergunta: "(CESPE – 2024) Segundo o PMBOK, o conjunto de projetos relacionados gerenciados de forma coordenada para obter benefícios que não estariam disponíveis se fossem gerenciados individualmente denomina-se:", opcoes: [{texto:"Portfólio",correta:false},{texto:"Operação estratégica",correta:false},{texto:"Programa",correta:true},{texto:"Subprojeto",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 30 — PLANEJAMENTO DE PROJETOS: ESCOPO, CRONOGRAMA, RECURSOS E RISCOS
+// ══════════════════════════════════════════════════════
+  {
+    id: 30,
+    titulo: "Planejamento de Projetos: Escopo, Cronograma, Recursos e Riscos",
+    descricao: "Os 4 pilares do planejamento e a ferramenta EAP",
+    icone: "🗓️",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🗓️ Por que Planejar?</h3>
+      <p>O planejamento é a etapa mais detalhada do ciclo de vida. Um projeto mal planejado quase sempre fracassa.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📐 <strong>Escopo</strong> — O QUÊ será feito (e o que NÃO será feito)
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📅 <strong>Cronograma</strong> — QUANDO cada atividade acontece
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          👥 <strong>Recursos</strong> — COM QUÊ será feito (pessoas, equipamentos, orçamento)
+        </div>
+        <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⚠️ <strong>Riscos</strong> — O QUE PODE dar errado (e como se preparar)
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> Os 4 pilares do planejamento = Escopo + Cronograma + Recursos + Riscos
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📐 Escopo do Projeto</h3>
+      <p>Escopo define <strong>tudo que está incluído e excluído</strong> do projeto. Evita o chamado "scope creep" (expansão não controlada do escopo).</p>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--success)">EAP — Estrutura Analítica do Projeto</strong><br>
+          Principal ferramenta de escopo. Divide o projeto em partes menores e gerenciáveis (pacotes de trabalho). É hierárquica — como uma árvore.
+        </div>
+        <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--danger)">Scope Creep</strong><br>
+          Quando o escopo aumenta sem controle durante o projeto. É uma das principais causas de fracasso — por isso o escopo precisa ser bem definido e aprovado.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Cai em prova:</strong> A EAP (WBS em inglês) é a principal ferramenta de DEFINIÇÃO DE ESCOPO — não de cronograma!
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📅 Cronograma</h3>
+      <p>O cronograma define <strong>quando</strong> cada atividade será realizada e a sequência entre elas.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📊 <strong>Gráfico de Gantt:</strong> representa as atividades em barras ao longo do tempo. Muito visual e fácil de entender.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔗 <strong>PERT/CPM:</strong> diagrama de rede que mostra dependências entre atividades e calcula o Caminho Crítico — a sequência mais longa que determina o prazo mínimo do projeto.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🛤️ <strong>Caminho Crítico:</strong> sequência de atividades sem folga de tempo. Atraso em qualquer atividade do caminho crítico atrasa o projeto inteiro.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> Gantt = barras de tempo | PERT/CPM = rede de atividades e caminho crítico
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">👥 Recursos e ⚠️ Riscos</h3>
+      <p><strong>Recursos</strong> são tudo que o projeto precisa para ser executado:</p>
+      <div style="display:grid;gap:8px;margin-top:10px;margin-bottom:14px">
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          👤 <strong>Humanos:</strong> equipe, especialistas, gerente
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🖥️ <strong>Materiais:</strong> computadores, ferramentas, infraestrutura
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          💵 <strong>Financeiros:</strong> orçamento aprovado para o projeto
+        </div>
+      </div>
+      <p><strong>Riscos</strong> são eventos incertos que podem impactar o projeto:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+        <div style="padding:10px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:12px;text-align:center">
+          <strong style="color:var(--success)">Risco Positivo</strong><br>Oportunidade — pode beneficiar o projeto
+        </div>
+        <div style="padding:10px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:12px;text-align:center">
+          <strong style="color:var(--danger)">Risco Negativo</strong><br>Ameaça — pode prejudicar o projeto
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Importante:</strong> Risco não é certeza — é uma possibilidade. Riscos devem ser identificados, analisados e tratados no planejamento.
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O ESCOPO de um projeto define:", opcoes: [{texto:"Os recursos financeiros disponíveis para o projeto",correta:false},{texto:"O trabalho necessário para entregar o produto com as características e funções especificadas",correta:true},{texto:"O prazo máximo para conclusão das entregas",correta:false},{texto:"A equipe responsável pela execução das atividades",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A técnica que decompõe o escopo do projeto em partes menores e gerenciáveis é conhecida como:", opcoes: [{texto:"Gráfico de Gantt",correta:false},{texto:"Diagrama de Ishikawa",correta:false},{texto:"Estrutura Analítica do Projeto (EAP)",correta:true},{texto:"Matriz RACI",correta:false}] },
+      { pergunta: "(FCC – 2024) O Gráfico de Gantt é uma ferramenta de gerenciamento de projetos utilizada para:", opcoes: [{texto:"Identificar e avaliar os riscos do projeto",correta:false},{texto:"Representar visualmente o cronograma com barras horizontais indicando duração das atividades",correta:true},{texto:"Calcular o orçamento e alocação de recursos financeiros",correta:false},{texto:"Documentar os requisitos funcionais do produto",correta:false}] },
+      { pergunta: "(CESPE – 2023) No planejamento de projetos, o 'caminho crítico' representa:", opcoes: [{texto:"As atividades de maior custo financeiro do projeto",correta:false},{texto:"A sequência mais longa de atividades que determina a duração mínima do projeto",correta:true},{texto:"As atividades que podem ser atrasadas sem impactar o prazo final",correta:false},{texto:"O conjunto de atividades realizadas pela equipe principal",correta:false}] },
+      { pergunta: "(FGV – 2023) O gerenciamento de RISCOS em projetos envolve:", opcoes: [{texto:"Apenas identificar os problemas que já ocorreram",correta:false},{texto:"Identificar, analisar, planejar respostas e monitorar eventos incertos que podem impactar o projeto",correta:true},{texto:"Eliminar completamente toda possibilidade de falha",correta:false},{texto:"Registrar os problemas somente após o encerramento",correta:false}] },
+      { pergunta: "(VUNESP – 2024) A 'linha de base' (baseline) de um projeto refere-se a:", opcoes: [{texto:"O conjunto de lições aprendidas de projetos anteriores",correta:false},{texto:"O plano aprovado de escopo, cronograma e custo, usado como referência para medir variações",correta:true},{texto:"O relatório final de encerramento do projeto",correta:false},{texto:"A lista de stakeholders e seus interesses",correta:false}] },
+      { pergunta: "(FCC – 2023) No planejamento de recursos humanos de um projeto, a Matriz RACI é utilizada para:", opcoes: [{texto:"Calcular o custo de cada recurso alocado",correta:false},{texto:"Definir responsabilidades: Responsável, Aprovador, Consultado e Informado",correta:true},{texto:"Identificar os riscos associados a cada membro da equipe",correta:false},{texto:"Criar o cronograma de trabalho semanal",correta:false}] },
+      { pergunta: "(CESPE – 2024) A declaração de escopo detalhada do projeto NÃO inclui tipicamente:", opcoes: [{texto:"Descrição do produto ou serviço a ser entregue",correta:false},{texto:"Critérios de aceitação das entregas",correta:false},{texto:"Lista de riscos com probabilidade e impacto calculados",correta:true},{texto:"Exclusões do projeto (o que NÃO será feito)",correta:false}] },
+      { pergunta: "(FGV – 2024) O processo de 'criação da EAP' resulta em um documento que:", opcoes: [{texto:"Lista todas as atividades com datas e responsáveis",correta:false},{texto:"Organiza hierarquicamente as entregas do projeto em pacotes de trabalho",correta:true},{texto:"Define o orçamento de cada fase do projeto",correta:false},{texto:"Identifica os stakeholders e seus níveis de influência",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Um risco que possui ALTA PROBABILIDADE e ALTO IMPACTO deve receber qual tratamento prioritário?", opcoes: [{texto:"Aceitar e monitorar periodicamente",correta:false},{texto:"Transferir para terceiros e encerrar o monitoramento",correta:false},{texto:"Agir com resposta imediata: evitar, mitigar ou transferir",correta:true},{texto:"Ignorar, pois riscos são inerentes a qualquer projeto",correta:false}] },
+      { pergunta: "(FCC – 2024) A técnica de estimativa de duração de atividades que usa três cenários (otimista, mais provável e pessimista) é chamada de:", opcoes: [{texto:"Análise de valor agregado",correta:false},{texto:"PERT (Program Evaluation and Review Technique)",correta:true},{texto:"Diagrama de Gantt",correta:false},{texto:"Análise SWOT",correta:false}] },
+      { pergunta: "(CESPE – 2023) No gerenciamento de projetos, 'escopo rastejante' (scope creep) refere-se a:", opcoes: [{texto:"Redução não planejada do escopo por falta de recursos",correta:false},{texto:"Expansão gradual e não controlada do escopo sem aprovação formal",correta:true},{texto:"Replanejamento do escopo após mudanças aprovadas",correta:false},{texto:"Técnica de revisão periódica do escopo do projeto",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 31 — METODOLOGIAS ÁGEIS: SCRUM E KANBAN
+// ══════════════════════════════════════════════════════
+  {
+    id: 31,
+    titulo: "Metodologias Ágeis: Scrum e Kanban",
+    descricao: "Metodologia tradicional vs ágil, papéis do Scrum e funcionamento do Kanban",
+    icone: "⚡",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">⚡ Tradicional vs Ágil</h3>
+      <p>Existem duas grandes abordagens para gerenciar projetos. Cada uma serve a contextos diferentes.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+        <div style="padding:12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:8px">🏗️ TRADICIONAL (Cascata)</div>
+          <div style="font-size:12px;line-height:1.9;color:var(--muted)">
+            • Sequencial e linear<br>• Escopo fixo no início<br>• Documentação extensa<br>• Mudanças são difíceis<br>• Ideal: projetos previsíveis<br>• Ex: construção civil
+          </div>
+        </div>
+        <div style="padding:12px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--success);margin-bottom:8px">⚡ ÁGIL</div>
+          <div style="font-size:12px;line-height:1.9;color:var(--muted)">
+            • Iterativo e incremental<br>• Escopo flexível<br>• Entregas frequentes<br>• Adapta-se a mudanças<br>• Ideal: projetos de TIC<br>• Ex: desenvolvimento de software
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> Tradicional = planejamento completo antes → execute em ordem<br>
+        Ágil = planeje um pouco → execute → adapte → repita
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🏉 Scrum — Visão Geral</h3>
+      <p>Scrum é o framework ágil mais utilizado no mundo. Organiza o trabalho em ciclos chamados <strong>Sprints</strong>.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔁 <strong>Sprint:</strong> ciclo de trabalho de 1 a 4 semanas com entrega ao final. Duração fixa (time-box).
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📋 <strong>Product Backlog:</strong> lista completa de tudo que precisa ser feito no produto. Priorizada pelo PO.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📝 <strong>Sprint Backlog:</strong> subconjunto do Product Backlog selecionado para ser feito nesta sprint.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📦 <strong>Incremento:</strong> resultado entregável ao final de cada sprint — uma versão funcional do produto.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">👥 Os 3 Papéis do Scrum</h3>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:6px">🎯 Product Owner (PO)</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+            Representa o cliente. Responsável por <strong>priorizar o Product Backlog</strong>. Define o que tem mais valor para o negócio. Toma decisões sobre o produto.
+          </div>
+        </div>
+        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--accent);margin-bottom:6px">🛡️ Scrum Master</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+            Facilita o processo Scrum e <strong>remove impedimentos</strong> da equipe. NÃO é chefe — é um servo-líder. Garante que o Scrum seja seguido corretamente.
+          </div>
+        </div>
+        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:600;color:var(--success);margin-bottom:6px">💻 Time de Desenvolvimento</div>
+          <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+            Executa o trabalho e entrega os incrementos. Auto-organizado e multifuncional. Decide COMO fazer o trabalho.
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Cai em prova:</strong> O Scrum Master NÃO é gerente de projetos. Ele facilita — não manda.
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📅 As 4 Cerimônias do Scrum</h3>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>1. Sprint Planning (Planejamento)</strong><br>
+          Início da sprint. Time seleciona os itens do Product Backlog e define como vai executá-los.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>2. Daily Scrum (Reunião Diária)</strong><br>
+          Reunião de 15 minutos todo dia. Cada membro responde: O que fiz? O que vou fazer? Há algum impedimento?
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>3. Sprint Review (Revisão)</strong><br>
+          Final da sprint. Time demonstra o que foi entregue. PO e stakeholders dão feedback e ajustam o Backlog.
+        </div>
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>4. Sprint Retrospective (Retrospectiva)</strong><br>
+          Time reflete sobre o processo: o que funcionou, o que melhorar para a próxima sprint.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📌 Kanban</h3>
+      <p>Kanban é um método ágil de <strong>fluxo contínuo</strong> — sem sprints, sem papéis fixos.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px">
+        <div style="padding:12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);text-align:center;font-size:13px">
+          <strong>A FAZER</strong><br><span style="font-size:12px;color:var(--muted)">To Do</span>
+        </div>
+        <div style="padding:12px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);text-align:center;font-size:13px">
+          <strong>EM ANDAMENTO</strong><br><span style="font-size:12px;color:var(--muted)">WIP limitado</span>
+        </div>
+        <div style="padding:12px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);text-align:center;font-size:13px">
+          <strong>CONCLUÍDO</strong><br><span style="font-size:12px;color:var(--muted)">Done</span>
+        </div>
+      </div>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📊 <strong>Origem:</strong> Sistema de produção da Toyota (produção enxuta/lean).
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🚦 <strong>WIP Limit:</strong> limita o número de tarefas em andamento ao mesmo tempo — evita sobrecarga e gargalos.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Diferença chave — cai muito:</strong> Scrum tem sprints, papéis fixos e cerimônias. Kanban é fluxo contínuo, sem sprints e sem papéis obrigatórios.
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O Manifesto Ágil, criado em 2001, estabelece como primeiro valor:", opcoes: [{texto:"Processos e ferramentas em detrimento de indivíduos e interações",correta:false},{texto:"Indivíduos e interações mais que processos e ferramentas",correta:true},{texto:"Contratos e negociação acima da colaboração com cliente",correta:false},{texto:"Seguir um plano acima de responder a mudanças",correta:false}] },
+      { pergunta: "(VUNESP – 2023) No framework Scrum, o artefato que contém a lista priorizada de tudo que precisa ser feito no produto é chamado de:", opcoes: [{texto:"Sprint Backlog",correta:false},{texto:"Incremento",correta:false},{texto:"Product Backlog",correta:true},{texto:"Definition of Done",correta:false}] },
+      { pergunta: "(FCC – 2024) No Scrum, a reunião DAILY SCRUM (Reunião Diária) tem como características:", opcoes: [{texto:"Duração de até 2 horas, com discussão detalhada de cada tarefa",correta:false},{texto:"Duração máxima de 15 minutos, para sincronizar o trabalho da equipe de desenvolvimento",correta:true},{texto:"Realizada semanalmente para revisão do Sprint Backlog",correta:false},{texto:"Conduzida exclusivamente pelo Product Owner",correta:false}] },
+      { pergunta: "(CESPE – 2023) Acerca do Scrum, julgue: O Scrum Master é o responsável por maximizar o valor do produto, gerenciar o Product Backlog e priorizar os itens de trabalho.", opcoes: [{texto:"Certo – essas são as principais atribuições do Scrum Master",correta:false},{texto:"Errado – essas atribuições pertencem ao Product Owner; o Scrum Master facilita o processo e remove impedimentos",correta:true},{texto:"Certo – o Scrum Master lidera tanto a equipe quanto o backlog",correta:false},{texto:"Errado – essas são atribuições do Time de Desenvolvimento",correta:false}] },
+      { pergunta: "(FGV – 2023) O Kanban se diferencia do Scrum principalmente porque:", opcoes: [{texto:"Kanban exige sprints fixas e Scrum não tem iterações",correta:false},{texto:"Kanban foca no fluxo contínuo e visualização do trabalho; Scrum trabalha com iterações (sprints) time-boxed",correta:true},{texto:"Kanban é uma metodologia ágil e Scrum é tradicional",correta:false},{texto:"Scrum usa quadros visuais e Kanban não",correta:false}] },
+      { pergunta: "(VUNESP – 2024) No Kanban, o conceito de WIP (Work in Progress) limit serve para:", opcoes: [{texto:"Aumentar o número de tarefas simultâneas para aumentar a produtividade",correta:false},{texto:"Limitar a quantidade de trabalho em andamento para identificar gargalos e melhorar o fluxo",correta:true},{texto:"Definir o prazo máximo de cada tarefa no quadro",correta:false},{texto:"Priorizar tarefas de acordo com o valor para o cliente",correta:false}] },
+      { pergunta: "(FCC – 2023) Na metodologia tradicional (cascata/waterfall), as fases do projeto são:", opcoes: [{texto:"Iterativas e incrementais, permitindo revisões a qualquer momento",correta:false},{texto:"Sequenciais e lineares — cada fase só inicia após a conclusão da anterior",correta:true},{texto:"Paralelas e simultâneas para maior velocidade de entrega",correta:false},{texto:"Adaptativas, com entregas parciais ao final de cada ciclo",correta:false}] },
+      { pergunta: "(CESPE – 2024) No Scrum, a SPRINT RETROSPECTIVE tem como objetivo:", opcoes: [{texto:"Apresentar o incremento desenvolvido ao Product Owner e stakeholders",correta:false},{texto:"Selecionar os itens do Product Backlog para a próxima sprint",correta:false},{texto:"Inspecionar e melhorar o processo de trabalho da equipe Scrum",correta:true},{texto:"Atualizar o Product Backlog com novos requisitos do cliente",correta:false}] },
+      { pergunta: "(FGV – 2024) A SPRINT REVIEW (Revisão da Sprint) no Scrum é uma cerimônia na qual:", opcoes: [{texto:"A equipe discute melhorias internas de processo e colaboração",correta:false},{texto:"O incremento desenvolvido é inspecionado e o Product Backlog adaptado",correta:true},{texto:"As tarefas da próxima sprint são planejadas e distribuídas",correta:false},{texto:"O Scrum Master avalia o desempenho individual de cada desenvolvedor",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Em uma escola técnica, a equipe de professores decide usar Kanban para gerenciar o desenvolvimento de novos materiais didáticos. A coluna 'Em andamento' do quadro representa:", opcoes: [{texto:"Tarefas já entregues e aprovadas pela coordenação",correta:false},{texto:"Materiais que ainda não foram iniciados",correta:false},{texto:"Trabalhos que estão sendo executados neste momento",correta:true},{texto:"Itens que foram cancelados ou pausados",correta:false}] },
+      { pergunta: "(FCC – 2024) Assinale a alternativa que apresenta uma característica EXCLUSIVA do Scrum em relação ao Kanban:", opcoes: [{texto:"Uso de quadro visual com colunas para organizar tarefas",correta:false},{texto:"Reuniões diárias curtas para sincronização da equipe",correta:false},{texto:"Iterações (sprints) com duração fixa e comprometimento formal da equipe",correta:true},{texto:"Foco na melhoria contínua do processo de trabalho",correta:false}] },
+      { pergunta: "(CESPE – 2023) A metodologia ágil é mais indicada do que a tradicional quando:", opcoes: [{texto:"Os requisitos são completamente conhecidos e estáveis desde o início",correta:false},{texto:"O ambiente é volátil, os requisitos mudam frequentemente e há necessidade de entregas rápidas",correta:true},{texto:"O projeto envolve grandes obras de infraestrutura com escopo imutável",correta:false},{texto:"O cliente não tem disponibilidade para participar do processo",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 32 — TIC NA EDUCAÇÃO E FERRAMENTAS DIGITAIS
+// ══════════════════════════════════════════════════════
+  {
+    id: 32,
+    titulo: "TIC na Educação e Ferramentas Digitais",
+    descricao: "Conceito de TIC, uso no ensino, AVA e aplicação prática no ensino técnico",
+    icone: "💻",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">💻 O que são as TIC?</h3>
+      <p><strong>TIC = Tecnologias da Informação e Comunicação</strong>. São o conjunto de recursos tecnológicos que permitem produzir, armazenar, processar e transmitir informações.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          💾 <strong>Tecnologia da Informação (TI):</strong> hardware, software, banco de dados, redes — tudo que processa e armazena dados.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📡 <strong>Comunicação:</strong> internet, telefonia, transmissão de dados — tudo que conecta pessoas e sistemas.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎓 <strong>TIC na Educação:</strong> uso dessas tecnologias para ensinar, aprender, comunicar e administrar o ambiente escolar.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> TIC = Tecnologias da Informação e Comunicação<br>
+        Exemplos: computadores, internet, smartphones, apps educativos, plataformas online
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🏫 Uso das TIC na Educação</h3>
+      <p>As TIC transformam o ensino quando bem utilizadas. Veja os principais usos:</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📚 <strong>Acesso ao conhecimento:</strong> pesquisa online, bibliotecas digitais, videoaulas, e-books.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🤝 <strong>Colaboração:</strong> ferramentas como Google Docs, Padlet, Miro — alunos trabalham juntos mesmo à distância.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎮 <strong>Gamificação:</strong> uso de elementos de jogo (pontos, recompensas, desafios) para engajar os alunos. Ex: Kahoot, Duolingo.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📊 <strong>Avaliação:</strong> formulários online, quizzes digitais, portfólios eletrônicos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📅 <strong>Gestão escolar:</strong> comunicados, notas, presença — sistemas como o SIGA das Etecs.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🌐 AVA — Ambiente Virtual de Aprendizagem</h3>
+      <p>O AVA é uma plataforma digital que simula o ambiente escolar online, permitindo ensino a distância ou híbrido.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🖥️ <strong>Exemplos de AVA:</strong> Moodle (usado nas Etecs), Google Classroom, Microsoft Teams, Canvas, Blackboard.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📤 <strong>Funcionalidades típicas:</strong> postagem de materiais, entrega de atividades, fóruns de discussão, videoconferências, avaliações online.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔄 <strong>Ensino híbrido:</strong> combina aulas presenciais com atividades no AVA — tendência crescente nas Etecs.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> AVA = plataforma digital para ensino<br>
+        Exemplos: Moodle, Google Classroom, Teams<br>
+        Permite EaD (Educação a Distância) e ensino híbrido
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🔧 TIC no Ensino Técnico (Etecs)</h3>
+      <p>No contexto do CEETEPS e das Etecs, as TIC têm papel central tanto no ensino quanto na gestão.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎯 <strong>Integração teoria-prática:</strong> alunos usam ferramentas reais do mercado (Excel, sistemas ERP, plataformas de gestão) durante o curso.
+        </div>
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🏗️ <strong>Projetos interdisciplinares:</strong> o professor usa TIC para integrar diferentes disciplinas em um mesmo projeto prático.
+        </div>
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          👨‍🏫 <strong>Papel do professor mediador:</strong> o professor deixa de ser transmissor e usa as TIC para facilitar a construção do conhecimento pelo aluno.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Importante:</strong> TIC por si só não melhora o ensino — o que importa é o USO PEDAGÓGICO das ferramentas, com intencionalidade e planejamento.
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O uso pedagógico das TIC nas Etecs pressupõe que o professor atue como:", opcoes: [{texto:"Único transmissor de conteúdo técnico especializado",correta:false},{texto:"Mediador que orienta o aluno a construir conhecimento com suporte tecnológico",correta:true},{texto:"Técnico responsável pela manutenção dos laboratórios",correta:false},{texto:"Avaliador exclusivo dos produtos digitais gerados",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A 'Sala de Aula Invertida' (Flipped Classroom) caracteriza-se por:", opcoes: [{texto:"Ministrar aulas em espaços externos à escola",correta:false},{texto:"O aluno estudar o conteúdo em casa e usar o tempo em sala para resolver problemas e tirar dúvidas",correta:true},{texto:"Inverter a avaliação: o aluno avalia o professor",correta:false},{texto:"Usar tecnologia para substituir completamente a presença do professor",correta:false}] },
+      { pergunta: "(FCC – 2024) No contexto educacional, AVA significa:", opcoes: [{texto:"Aplicativo de Videoconferência Acadêmica",correta:false},{texto:"Ambiente Virtual de Aprendizagem",correta:true},{texto:"Avaliação Virtual de Alunos",correta:false},{texto:"Área de Visualização de Atividades",correta:false}] },
+      { pergunta: "(CESPE – 2023) A gamificação, quando aplicada na educação, consiste em:", opcoes: [{texto:"Substituir todas as avaliações por jogos digitais",correta:false},{texto:"Usar elementos de jogos (pontos, recompensas, desafios) para aumentar o engajamento dos alunos",correta:true},{texto:"Ensinar programação de jogos como conteúdo curricular",correta:false},{texto:"Proibir o uso de jogos eletrônicos em sala de aula",correta:false}] },
+      { pergunta: "(FGV – 2023) O principal DESAFIO do uso de TIC na educação pública brasileira é:", opcoes: [{texto:"O excesso de plataformas digitais disponíveis gratuitamente",correta:false},{texto:"A exclusão digital — desigualdade no acesso a dispositivos e internet de qualidade",correta:true},{texto:"A recusa dos alunos em usar tecnologia nas aulas",correta:false},{texto:"A proibição legal do uso de smartphones em sala de aula",correta:false}] },
+      { pergunta: "(VUNESP – 2024) Uma atividade ASSÍNCRONA em um AVA é aquela que:", opcoes: [{texto:"Acontece em tempo real, com professor e alunos online simultaneamente",correta:false},{texto:"O aluno realiza no seu próprio ritmo e tempo, sem horário fixo",correta:true},{texto:"Exige presença física na escola para ser realizada",correta:false},{texto:"Não pode ser avaliada ou monitorada pelo professor",correta:false}] },
+      { pergunta: "(FCC – 2023) A ferramenta GOOGLE CLASSROOM é classificada como:", opcoes: [{texto:"Software de criação de apresentações",correta:false},{texto:"Sistema de gerenciamento de conteúdo (CMS) para sites",correta:false},{texto:"Ambiente Virtual de Aprendizagem (AVA) baseado em nuvem",correta:true},{texto:"Aplicativo de videoconferência em tempo real",correta:false}] },
+      { pergunta: "(CESPE – 2024) A 'intencionalidade pedagógica' no uso de tecnologia em sala de aula significa que:", opcoes: [{texto:"O professor deve usar sempre a tecnologia mais recente disponível",correta:false},{texto:"O uso da tecnologia deve ter objetivo claro de aprendizagem, não sendo um fim em si mesmo",correta:true},{texto:"Os alunos podem escolher livremente qualquer ferramenta digital",correta:false},{texto:"A tecnologia deve substituir gradualmente todos os recursos tradicionais",correta:false}] },
+      { pergunta: "(FGV – 2024) No ensino híbrido (blended learning), a combinação ocorre entre:", opcoes: [{texto:"Dois professores ministrando a mesma aula simultaneamente",correta:false},{texto:"Disciplinas de diferentes áreas do conhecimento",correta:false},{texto:"Momentos presenciais e atividades mediadas por tecnologia digital",correta:true},{texto:"Avaliações escritas e digitais aplicadas no mesmo dia",correta:false}] },
+      { pergunta: "(VUNESP – 2023) O Kahoot é uma ferramenta digital classificada como:", opcoes: [{texto:"Ambiente Virtual de Aprendizagem completo",correta:false},{texto:"Plataforma de gamificação para questionários interativos e revisão de conteúdo",correta:true},{texto:"Software de criação de apresentações colaborativas",correta:false},{texto:"Aplicativo de comunicação entre alunos e professores",correta:false}] },
+      { pergunta: "(FCC – 2024) A CURADORIA DE CONTEÚDO, como competência do professor de TIC, refere-se a:", opcoes: [{texto:"Criar todos os materiais didáticos do zero, sem usar fontes externas",correta:false},{texto:"Selecionar, filtrar e indicar conteúdos digitais confiáveis e relevantes para os alunos",correta:true},{texto:"Avaliar exclusivamente o conteúdo produzido pelos alunos",correta:false},{texto:"Gerenciar o servidor e banco de dados da escola",correta:false}] },
+      { pergunta: "(CESPE – 2023) O Moodle é um exemplo de:", opcoes: [{texto:"Sistema operacional para servidores educacionais",correta:false},{texto:"Ferramenta de gamificação para ensino de programação",correta:false},{texto:"Plataforma de AVA de código aberto amplamente usada em instituições de ensino",correta:true},{texto:"Aplicativo de criação de planilhas colaborativas",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 33 — DIDÁTICA E METODOLOGIAS ATIVAS
+// ══════════════════════════════════════════════════════
+  {
+    id: 33,
+    titulo: "Didática e Metodologias Ativas",
+    descricao: "Ensino por competências, metodologias ativas, planejamento de aula e avaliação",
+    icone: "🎓",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🎓 Metodologias Ativas</h3>
+      <p>Metodologias ativas são abordagens pedagógicas em que o <strong>aluno é protagonista</strong> do aprendizado — deixa de ser passivo e passa a construir o conhecimento.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🏗️ <strong>PBL (Aprendizagem Baseada em Projetos):</strong> alunos resolvem problemas reais por meio de projetos. Integra teoria e prática.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔄 <strong>Sala de Aula Invertida (Flipped Classroom):</strong> aluno estuda o conteúdo em casa (vídeo/leitura) e usa o tempo em sala para praticar e tirar dúvidas.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎮 <strong>Gamificação:</strong> elementos de jogos (pontos, fases, recompensas) aplicados ao ensino para motivar os alunos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🧩 <strong>Aprendizagem Baseada em Problemas:</strong> parte de um problema real para construir o conhecimento — muito usada em cursos técnicos e de saúde.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> Metodologias ativas = aluno protagonista<br>
+        Oposto do ensino tradicional expositivo centrado no professor
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🏆 Ensino por Competências</h3>
+      <p>O ensino técnico das Etecs é organizado por <strong>competências</strong> — não apenas por conteúdos.</p>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--success)">Competência = Saber + Saber Fazer + Saber Ser</strong><br>
+          Conhecimentos (saber) + Habilidades (saber fazer) + Atitudes (saber ser/agir)
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📋 <strong>Conhecimentos:</strong> conteúdos conceituais — o QUÊ o aluno sabe.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔧 <strong>Habilidades:</strong> capacidades práticas — o QUE o aluno consegue FAZER.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          💡 <strong>Atitudes:</strong> valores e comportamentos — COMO o aluno age no trabalho e na vida.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Cai em prova:</strong> Competência não é só conteúdo! Envolve conhecimentos + habilidades + atitudes (CHA).
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📝 Planejamento de Aula</h3>
+      <p>O planejamento é fundamental para garantir uma aula eficaz. O plano de aula deve conter:</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎯 <strong>Objetivos:</strong> o que o aluno será capaz de fazer ao final da aula.
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📚 <strong>Conteúdo:</strong> o que será ensinado (conceitos, procedimentos).
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔧 <strong>Metodologia:</strong> como será ensinado (aula expositiva, projeto, debate, lab).
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          💻 <strong>Recursos:</strong> materiais e tecnologias que serão usados.
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📊 <strong>Avaliação:</strong> como será verificado se o aluno aprendeu.
+        </div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⏱️ <strong>Tempo:</strong> distribuição do tempo para cada momento da aula.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📊 Avaliação da Aprendizagem</h3>
+      <p>A avaliação vai muito além da prova. Existem três tipos principais:</p>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--accent)">Diagnóstica</strong> — Antes do ensino<br>
+          Verifica o que o aluno já sabe. Permite ao professor ajustar o ponto de partida.
+        </div>
+        <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--warn)">Formativa</strong> — Durante o processo<br>
+          Acompanha o progresso continuamente. Permite correções ao longo do percurso. Ex: exercícios, observação, feedback.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--success)">Somativa</strong> — Ao final<br>
+          Avalia o resultado final da aprendizagem. Resulta em nota/conceito. Ex: prova, trabalho final.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Cai muito:</strong> Avaliação formativa é contínua (durante) — não é a prova final!<br>
+        Avaliação diagnóstica é ANTES do ensino, não depois.
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) As metodologias ativas de ensino têm como princípio central:", opcoes: [{texto:"A transmissão direta do conhecimento do professor para o aluno",correta:false},{texto:"O protagonismo do aluno no processo de aprendizagem",correta:true},{texto:"A padronização do conteúdo para garantir igualdade de resultados",correta:false},{texto:"A avaliação exclusivamente por provas escritas",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A avaliação FORMATIVA é aquela realizada:", opcoes: [{texto:"Ao final do bimestre, para atribuir nota e classificar os alunos",correta:false},{texto:"No início do ano, para identificar os conhecimentos prévios",correta:false},{texto:"Durante o processo de aprendizagem, com objetivo de orientar e reorientar o ensino",correta:true},{texto:"Por banca externa, sem participação do professor da turma",correta:false}] },
+      { pergunta: "(FCC – 2024) No ensino por competências, a tríade que define uma competência é formada por:", opcoes: [{texto:"Objetivos, metas e indicadores de desempenho",correta:false},{texto:"Conhecimento (saber), Habilidade (saber fazer) e Atitude (saber ser)",correta:true},{texto:"Conteúdo, metodologia e avaliação",correta:false},{texto:"Planejamento, execução e verificação",correta:false}] },
+      { pergunta: "(CESPE – 2023) A Aprendizagem Baseada em Projetos (PBL) diferencia-se de um trabalho em grupo comum principalmente porque:", opcoes: [{texto:"Exige grupos maiores e mais tempo de realização",correta:false},{texto:"O professor define todas as etapas e produtos do trabalho",correta:false},{texto:"Parte de uma questão norteadora real, envolve investigação profunda e culmina em produto público",correta:true},{texto:"É realizada exclusivamente em laboratório de informática",correta:false}] },
+      { pergunta: "(FGV – 2023) O planejamento de aula deve contemplar, segundo a didática contemporânea:", opcoes: [{texto:"Apenas o conteúdo a ser transmitido e o tempo disponível",correta:false},{texto:"Objetivos de aprendizagem, metodologia, recursos e formas de avaliação articulados",correta:true},{texto:"Somente a sequência de exercícios e as respostas corretas",correta:false},{texto:"Lista de conteúdos do livro didático a serem copiados",correta:false}] },
+      { pergunta: "(VUNESP – 2024) Na Taxonomia de Bloom revisada, habilidades como 'criar' e 'avaliar' estão classificadas como:", opcoes: [{texto:"Habilidades de ordem inferior, pois são as mais básicas",correta:false},{texto:"Habilidades de ordem superior, pois exigem processos cognitivos mais complexos",correta:true},{texto:"Habilidades procedimentais, relacionadas ao saber fazer",correta:false},{texto:"Habilidades atitudinais, relacionadas ao saber ser",correta:false}] },
+      { pergunta: "(FCC – 2023) O portfólio como instrumento de avaliação é mais adequado para:", opcoes: [{texto:"Medir rapidamente o conhecimento memorizado pelo aluno",correta:false},{texto:"Registrar a evolução e o processo de aprendizagem ao longo do tempo",correta:true},{texto:"Comparar o desempenho de alunos de diferentes turmas",correta:false},{texto:"Substituir completamente a prova escrita bimestral",correta:false}] },
+      { pergunta: "(CESPE – 2024) O papel do professor em metodologias ativas é principalmente o de:", opcoes: [{texto:"Detentor único do conhecimento que transmite o conteúdo",correta:false},{texto:"Mediador e facilitador que orienta o aluno na construção do conhecimento",correta:true},{texto:"Avaliador que classifica os alunos por desempenho",correta:false},{texto:"Técnico que gerencia as ferramentas digitais da aula",correta:false}] },
+      { pergunta: "(FGV – 2024) A avaliação DIAGNÓSTICA é realizada:", opcoes: [{texto:"Ao final do bimestre, para registrar a nota final",correta:false},{texto:"Somente quando o aluno apresenta dificuldades evidentes",correta:false},{texto:"No início do processo de ensino, para identificar conhecimentos prévios e dificuldades",correta:true},{texto:"Durante a execução das atividades, para orientar o processo",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A autoavaliação como instrumento pedagógico tem como principal objetivo:", opcoes: [{texto:"Substituir a avaliação do professor e reduzir o trabalho docente",correta:false},{texto:"Desenvolver a metacognição: capacidade do aluno de refletir sobre seu próprio aprendizado",correta:true},{texto:"Fornecer dados para a secretaria escolar sobre frequência",correta:false},{texto:"Calcular a média final do aluno de forma mais justa",correta:false}] },
+      { pergunta: "(FCC – 2024) A metodologia de 'Sala de Aula Invertida' (Flipped Classroom) é considerada uma metodologia ativa porque:", opcoes: [{texto:"Usa exclusivamente recursos digitais e elimina o material impresso",correta:false},{texto:"Transfere o momento da transmissão de conteúdo para fora da aula, liberando o tempo presencial para atividades de maior elaboração cognitiva",correta:true},{texto:"Permite que os alunos avaliem o professor ao final de cada aula",correta:false},{texto:"Exige que os alunos permaneçam em pé durante toda a aula",correta:false}] },
+      { pergunta: "(CESPE – 2023) A avaliação SOMATIVA tem como função principal:", opcoes: [{texto:"Orientar o professor a ajustar o ensino durante o processo",correta:false},{texto:"Identificar os conhecimentos prévios do aluno antes do início do conteúdo",correta:false},{texto:"Certificar e classificar a aprendizagem ao final de um período letivo",correta:true},{texto:"Promover a autoavaliação e reflexão do aluno",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 34 — ADMINISTRAÇÃO PÚBLICA E LEGISLAÇÃO CEETEPS
+// ══════════════════════════════════════════════════════
+  {
+    id: 34,
+    titulo: "Administração Pública e Legislação CEETEPS",
+    descricao: "Princípios LIMPE, Lei 10.177/1998, LC 1.044/2008 e Deliberações CEETEPS",
+    icone: "⚖️",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">⚖️ Princípios da Administração Pública — LIMPE</h3>
+      <p>A Constituição Federal (art. 37) estabelece os princípios que regem a Administração Pública. São cobrados em todo concurso público!</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📜 <strong>L — Legalidade:</strong> o agente público só pode fazer o que a lei permite. (O particular pode fazer tudo que a lei não proíbe.)
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎭 <strong>I — Impessoalidade:</strong> tratar todos igualmente, sem favoritismos ou perseguições. Atos são do órgão, não do servidor.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🤝 <strong>M — Moralidade:</strong> agir com ética, honestidade e boa-fé. Não basta ser legal — precisa ser moral.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📢 <strong>P — Publicidade:</strong> transparência dos atos públicos. Regra é a publicação; sigilo é exceção (segurança nacional, intimidade).
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⚡ <strong>E — Eficiência:</strong> fazer mais com menos, com qualidade. Incluído pela EC 19/1998.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> LIMPE = Legalidade, Impessoalidade, Moralidade, Publicidade, Eficiência
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📄 Lei nº 10.177/1998 — Processo Administrativo SP</h3>
+      <p>Regula o processo administrativo no âmbito da Administração Pública Estadual de São Paulo.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📋 <strong>Processo administrativo:</strong> conjunto de atos encadeados para produzir uma decisão administrativa. Ex: processo disciplinar, processo de licitação.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔑 <strong>Princípios da lei:</strong> legalidade, oficialidade, informalismo, verdade material, garantia de ampla defesa e contraditório.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📬 <strong>Prazo:</strong> o interessado pode apresentar recurso em até 15 dias da notificação do ato.
+        </div>
+        <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⚠️ <strong>Ampla defesa e contraditório:</strong> todo servidor tem direito de se defender e conhecer as acusações antes de qualquer punição.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">👔 LC nº 1.044/2008 — Plano de Carreira CEETEPS</h3>
+      <p>Define o plano de carreira dos docentes e funcionários do CEETEPS (Centro Paula Souza).</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🏫 <strong>CEETEPS:</strong> Centro Estadual de Educação Tecnológica Paula Souza — administra as Etecs e Fatecs em SP.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📈 <strong>Progressão funcional:</strong> avanço na carreira por tempo de serviço e por merecimento (avaliação de desempenho).
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎓 <strong>Qualificação:</strong> títulos acadêmicos (graduação, especialização, mestrado, doutorado) impactam a remuneração.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📅 <strong>Jornada:</strong> definida conforme o cargo — professor com jornada integral, parcial etc.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📚 Deliberações CEETEPS</h3>
+      <p>Documentos normativos internos do CEETEPS que regulam a vida escolar nas Etecs.</p>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--accent2)">Deliberação 23/2015 — Atribuição de Aulas</strong><br>
+          Regula como são distribuídas as aulas entre os professores nas Etecs. Define critérios de prioridade (efetivo, OFA, pontuação).
+        </div>
+        <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--danger)">Deliberação 11/2015 — Regulamento Disciplinar</strong><br>
+          Define infrações e penalidades para alunos. Regula advertências, suspensões e desligamentos. Garante direito de defesa ao aluno.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong style="color:var(--success)">Deliberação 87/2022 — Regimento das Etecs</strong><br>
+          Regimento geral das Etecs: organização escolar, direitos e deveres de alunos, professores e equipe gestora, funcionamento dos órgãos colegiados.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Para a prova:</strong> saiba QUAL deliberação trata de QUAL assunto. Confundir os números é erro comum!
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O artigo 37 da Constituição Federal de 1988 estabelece que a administração pública obedecerá aos princípios de:", opcoes: [{texto:"Legalidade, isonomia, moralidade, publicidade e efetividade",correta:false},{texto:"Legalidade, impessoalidade, moralidade, publicidade e eficiência",correta:true},{texto:"Legalidade, imparcialidade, moralidade, transparência e economicidade",correta:false},{texto:"Legalidade, igualdade, moralidade, publicidade e eficácia",correta:false}] },
+      { pergunta: "(VUNESP – 2024) Um servidor público que favorece um parente em processo seletivo interno viola principalmente o princípio da:", opcoes: [{texto:"Legalidade",correta:false},{texto:"Moralidade",correta:false},{texto:"Impessoalidade",correta:true},{texto:"Eficiência",correta:false}] },
+      { pergunta: "(FCC – 2023) O princípio da LEGALIDADE, aplicado ao agente público, significa que:", opcoes: [{texto:"O agente pode fazer tudo que a lei não proíbe expressamente",correta:false},{texto:"O agente só pode praticar atos que a lei expressamente autoriza",correta:true},{texto:"A lei pode ser interpretada de forma ampla pelo agente",correta:false},{texto:"O agente deve agir com ética, independentemente de previsão legal",correta:false}] },
+      { pergunta: "(CESPE – 2024) O princípio da EFICIÊNCIA foi inserido expressamente no artigo 37 da Constituição Federal pela:", opcoes: [{texto:"Constituição Federal de 1988, em sua versão original",correta:false},{texto:"Emenda Constitucional nº 19/1998 (Reforma Administrativa)",correta:true},{texto:"Lei de Responsabilidade Fiscal nº 101/2000",correta:false},{texto:"Emenda Constitucional nº 45/2004",correta:false}] },
+      { pergunta: "(FGV – 2023) A Lei nº 10.177/1998 do Estado de São Paulo regula:", opcoes: [{texto:"O plano de carreira dos docentes das Etecs",correta:false},{texto:"O regimento interno das escolas técnicas estaduais",correta:false},{texto:"O processo administrativo no âmbito da Administração Pública Estadual de SP",correta:true},{texto:"As normas de licitação para contratos no Estado de São Paulo",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A Deliberação CEETEPS nº 23/2015 trata especificamente de:", opcoes: [{texto:"O regimento geral das Etecs e Fatecs",correta:false},{texto:"O regulamento disciplinar dos alunos",correta:false},{texto:"A atribuição de aulas aos professores nas Etecs",correta:true},{texto:"O plano de carreira dos funcionários do CEETEPS",correta:false}] },
+      { pergunta: "(FCC – 2024) A Lei Complementar nº 1.044/2008 estabelece para o CEETEPS:", opcoes: [{texto:"As normas do processo administrativo estadual",correta:false},{texto:"O regimento das Etecs e critérios de ingresso de alunos",correta:false},{texto:"O plano de carreira dos docentes e funcionários do CEETEPS",correta:true},{texto:"As regras de atribuição de aulas por turno",correta:false}] },
+      { pergunta: "(CESPE – 2023) O princípio da MORALIDADE administrativa determina que:", opcoes: [{texto:"O agente deve agir somente conforme a lei, independentemente da ética",correta:false},{texto:"Além da legalidade, o agente deve pautar sua conduta pela ética, honestidade e boa-fé",correta:true},{texto:"Os atos devem ser publicados para conhecimento de todos",correta:false},{texto:"O agente deve tratar todos os cidadãos de forma igualitária",correta:false}] },
+      { pergunta: "(FGV – 2024) A Deliberação CEETEPS nº 87/2022 institui:", opcoes: [{texto:"As normas de progressão na carreira docente",correta:false},{texto:"O regulamento disciplinar dos alunos das Etecs",correta:false},{texto:"O Regimento Geral das Escolas Técnicas Estaduais (Etecs)",correta:true},{texto:"As diretrizes para atribuição de aulas nos cursos técnicos",correta:false}] },
+      { pergunta: "(VUNESP – 2024) O princípio da PUBLICIDADE na administração pública implica que:", opcoes: [{texto:"Todos os atos administrativos são sigilosos por padrão",correta:false},{texto:"A transparência é a regra; o sigilo é exceção prevista em lei",correta:true},{texto:"Apenas atos financeiros devem ser publicados",correta:false},{texto:"A publicidade de atos é opcional conforme conveniência do gestor",correta:false}] },
+      { pergunta: "(FCC – 2023) No processo administrativo (Lei 10.177/1998-SP), o princípio da AMPLA DEFESA garante ao servidor:", opcoes: [{texto:"O direito de ser punido sem necessidade de justificativa",correta:false},{texto:"O direito de conhecer as acusações e apresentar defesa antes de qualquer sanção",correta:true},{texto:"O direito de escolher sua jornada de trabalho",correta:false},{texto:"A isenção de qualquer penalidade disciplinar",correta:false}] },
+      { pergunta: "(CESPE – 2024) Assinale a alternativa INCORRETA sobre a administração pública: A razoabilidade é um princípio da Administração Pública:", opcoes: [{texto:"Implícito — reconhecido pela doutrina e jurisprudência, mas não mencionado expressamente no art. 37 da CF",correta:true},{texto:"Explícito — mencionado expressamente no art. 37 da CF junto com LIMPE",correta:false},{texto:"Inserido pela EC 19/1998 junto ao princípio da eficiência",correta:false},{texto:"Previsto na Lei de Improbidade Administrativa como princípio central",correta:false}] }
+    ]
+
+  },
+
+// ══════════════════════════════════════════════════════
+// AULA 35 — LEI DE ACESSO À INFORMAÇÃO E LEGISLAÇÃO EDUCACIONAL
+// ══════════════════════════════════════════════════════
+  {
+    id: 35,
+    titulo: "Lei de Acesso à Informação e Legislação Educacional",
+    descricao: "LAI (12.527/2011), LDB (9.394/1996), Novo Ensino Médio e educação profissional",
+    icone: "📖",
+    passos: [
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🔓 Lei de Acesso à Informação — LAI</h3>
+      <p><strong>Lei nº 12.527/2011</strong> — garante o direito de qualquer cidadão acessar informações produzidas ou custodiadas pelo poder público.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ✅ <strong>Regra:</strong> publicidade. Toda informação pública é acessível por padrão (transparência ativa e passiva).
+        </div>
+        <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ❌ <strong>Exceção:</strong> sigilo. Informações classificadas como sigilosas (ultrassecretas, secretas, reservadas) — por prazo determinado.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📢 <strong>Transparência ativa:</strong> o órgão publica informações espontaneamente (sites, portais).
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📩 <strong>Transparência passiva:</strong> o órgão responde a pedidos de informação feitos pelo cidadão (prazo: 20 dias, prorrogável por mais 10).
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong> LAI = Lei 12.527/2011 | Prazo de resposta = 20 + 10 dias<br>
+        Decreto 68.155/2023 = regulamenta a LAI no Estado de SP
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📚 LDB — Lei nº 9.394/1996</h3>
+      <p>A Lei de Diretrizes e Bases da Educação Nacional é a principal lei da educação brasileira.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🏫 <strong>Educação básica:</strong> educação infantil + ensino fundamental + ensino médio.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🎓 <strong>Educação profissional (art. 39-42):</strong> pode ser integrada ao ensino médio ou independente. Visa preparar para o exercício de profissões.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📋 <strong>Princípios (art. 3º):</strong> igualdade, liberdade, pluralismo, gratuidade do ensino público, valorização dos profissionais da educação, gestão democrática.
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🔗 <strong>Articulação:</strong> educação profissional pode ser articulada (integrada ou concomitante) ou subsequente ao ensino médio.
+        </div>
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🆕 Novo Ensino Médio — Lei nº 13.415/2017</h3>
+      <p>Reformulou o Ensino Médio brasileiro, tornando-o mais flexível com os <strong>Itinerários Formativos</strong>.</p>
+      <div style="display:grid;gap:8px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          📐 <strong>Base Nacional Comum Curricular (BNCC):</strong> parte obrigatória — Língua Portuguesa e Matemática são obrigatórias nos 3 anos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          🛤️ <strong>Itinerários Formativos (5 áreas):</strong><br>
+          Linguagens | Matemática | Ciências da Natureza | Ciências Humanas | Formação Técnica e Profissional
+        </div>
+        <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          ⏱️ <strong>Carga horária:</strong> ampliada progressivamente para 3.000 horas no Ensino Médio.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        ⚠️ <strong>Importante:</strong> O itinerário de Formação Técnica e Profissional conecta diretamente o Novo EM com as Etecs!
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🔧 Educação Profissional — Diretrizes e Parecer</h3>
+      <div style="display:grid;gap:10px;margin-top:14px">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>Res. CNE/CP nº 1/2021</strong><br>
+          Diretrizes Curriculares Nacionais para Educação Profissional e Tecnológica. Define competências, organização curricular e avaliação nos cursos técnicos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>Res. CNE/CEB nº 03/2018</strong><br>
+          Atualiza as Diretrizes para o Ensino Médio. Define a estrutura do Novo Ensino Médio com BNCC + Itinerários Formativos.
+        </div>
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>Parecer CNE/CEB nº 39/2004</strong><br>
+          Regula a aplicação do Decreto 5.154/2004 — define as formas de articulação entre Educação Profissional e Ensino Médio: integrada, concomitante e subsequente.
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+        <strong>📓 Copie:</strong><br>
+        Integrada = técnico junto com EM na mesma escola<br>
+        Concomitante = técnico e EM em escolas separadas ao mesmo tempo<br>
+        Subsequente = técnico APÓS concluir o EM
+      </div>`
+    ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) A Lei nº 12.527/2011 (LAI) estabelece como REGRA GERAL para a administração pública:", opcoes: [{texto:"O sigilo como padrão, com acesso permitido apenas mediante justificativa",correta:false},{texto:"A publicidade — o acesso à informação é a regra; o sigilo é exceção",correta:true},{texto:"A restrição de acesso para preservar a segurança institucional",correta:false},{texto:"O acesso somente para servidores públicos e pesquisadores",correta:false}] },
+      { pergunta: "(VUNESP – 2023) De acordo com a LAI (Lei 12.527/2011), o prazo para atendimento de pedido de informação é de:", opcoes: [{texto:"5 dias, prorrogável por mais 5",correta:false},{texto:"10 dias, prorrogável por mais 10",correta:false},{texto:"20 dias, prorrogável por mais 10 dias",correta:true},{texto:"30 dias improrrogáveis",correta:false}] },
+      { pergunta: "(FCC – 2024) A TRANSPARÊNCIA ATIVA prevista na LAI refere-se a:", opcoes: [{texto:"O cidadão protocolar pedido de informação e aguardar resposta",correta:false},{texto:"O órgão publicar espontaneamente informações em seus portais e sites, sem necessidade de solicitação",correta:true},{texto:"A fiscalização dos órgãos pelo Tribunal de Contas",correta:false},{texto:"O acesso a documentos sigilosos mediante autorização judicial",correta:false}] },
+      { pergunta: "(CESPE – 2023) A LDB (Lei 9.394/1996) define educação básica como o conjunto formado por:", opcoes: [{texto:"Ensino Fundamental e Ensino Médio apenas",correta:false},{texto:"Educação Infantil, Ensino Fundamental e Ensino Médio",correta:true},{texto:"Educação Infantil, Ensino Fundamental, Médio e Superior",correta:false},{texto:"Apenas Educação Infantil e Ensino Fundamental",correta:false}] },
+      { pergunta: "(FGV – 2023) A Lei nº 13.415/2017 (Novo Ensino Médio) criou os Itinerários Formativos, que são:", opcoes: [{texto:"4 áreas do conhecimento obrigatórias para todos os alunos",correta:false},{texto:"5 áreas de aprofundamento que o aluno pode escolher conforme interesse",correta:true},{texto:"Disciplinas extras de reforço para alunos com dificuldades",correta:false},{texto:"Cursos técnicos integrados obrigatórios no Ensino Médio",correta:false}] },
+      { pergunta: "(VUNESP – 2024) A modalidade de educação profissional em que o curso técnico é realizado APÓS a conclusão do Ensino Médio denomina-se:", opcoes: [{texto:"Integrada",correta:false},{texto:"Concomitante",correta:false},{texto:"Subsequente",correta:true},{texto:"Articulada",correta:false}] },
+      { pergunta: "(FCC – 2023) A Resolução CNE/CP nº 1/2021 estabelece as:", opcoes: [{texto:"Diretrizes do Novo Ensino Médio com itinerários formativos",correta:false},{texto:"Diretrizes Curriculares Nacionais para a Educação Profissional e Tecnológica",correta:true},{texto:"Normas de avaliação do ENEM e SARESP",correta:false},{texto:"Regras de financiamento da educação profissional pública",correta:false}] },
+      { pergunta: "(CESPE – 2024) O Decreto nº 68.155/2023 regulamenta, no Estado de São Paulo:", opcoes: [{texto:"O plano de carreira dos professores das Etecs",correta:false},{texto:"As normas do processo administrativo estadual",correta:false},{texto:"A Lei de Acesso à Informação no âmbito do Estado de SP",correta:true},{texto:"O Regimento das Escolas Técnicas Estaduais",correta:false}] },
+      { pergunta: "(FGV – 2024) O Parecer CNE/CEB nº 39/2004 regulamenta a aplicação do Decreto 5.154/2004, definindo:", opcoes: [{texto:"As diretrizes para o Novo Ensino Médio",correta:false},{texto:"As formas de articulação entre Educação Profissional e Ensino Médio: integrada, concomitante e subsequente",correta:true},{texto:"Os critérios de avaliação dos cursos técnicos pelo MEC",correta:false},{texto:"As normas para certificação de competências profissionais",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Na modalidade de educação profissional CONCOMITANTE, o aluno:", opcoes: [{texto:"Realiza o técnico após concluir o Ensino Médio",correta:false},{texto:"Cursa o técnico integrado ao EM na mesma escola e horário",correta:false},{texto:"Frequenta o curso técnico e o Ensino Médio ao mesmo tempo, mas em escolas separadas",correta:true},{texto:"Obtém dispensa do Ensino Médio por equivalência do curso técnico",correta:false}] },
+      { pergunta: "(FCC – 2024) A Base Nacional Comum Curricular (BNCC), no Novo Ensino Médio, é composta pela parte:", opcoes: [{texto:"Optativa, que o aluno escolhe conforme interesse",correta:false},{texto:"Obrigatória, com Língua Portuguesa e Matemática garantidas nos 3 anos, mais os itinerários",correta:true},{texto:"Exclusiva de formação técnica e profissional",correta:false},{texto:"Regional, definida por cada Estado da federação",correta:false}] },
+      { pergunta: "(CESPE – 2023) A informação classificada como 'ULTRASSECRETA' pela LAI tem prazo máximo de sigilo de:", opcoes: [{texto:"5 anos",correta:false},{texto:"15 anos",correta:false},{texto:"25 anos",correta:true},{texto:"50 anos",correta:false}] }
+    ]
+
+  }
+
 );
 // ══════════════════════════════════════════════════════════════════
 // FIM DAS AULAS DO 1º BIMESTRE — TIA 2026
 // ══════════════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════════════
+// AULAS 29-35 — CONCURSO CEETEPS (adicionadas em 17/04/2026)
+// ══════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════
+// AULAS 36-41 — CONCURSO CEETEPS (adicionadas em 17/04/2026)
+// ══════════════════════════════════════════════════════════════════
+
+AULAS.push({
+  id: 36,
+  titulo: "Aprendizagem Baseada em Projetos (PBL)",
+  descricao: "Projetos aplicados à educação, integração teoria e prática, resolução de problemas reais",
+  icone: "🎯",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 O que é PBL — Project Based Learning?</h3>
+    <p>A <strong>Aprendizagem Baseada em Projetos (PBL)</strong> é uma metodologia ativa em que os alunos aprendem por meio da investigação e resolução de problemas reais e relevantes.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📌 <strong>Definição:</strong> Método de ensino em que os alunos ganham conhecimento e habilidades trabalhando por um período extenso para investigar e responder a uma questão, problema ou desafio autêntico.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ✅ <strong>Foco:</strong> o aluno é protagonista. O professor atua como orientador/mediador, não como transmissor de conteúdo.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔗 <strong>Integração:</strong> une teoria e prática. O conhecimento é construído enquanto o projeto é desenvolvido.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+      <strong>📓 Copie:</strong> PBL = aprendizagem por projetos reais | Aluno = protagonista | Professor = mediador
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔑 Elementos Essenciais do PBL</h3>
+    <p>Para ser considerado PBL de verdade, o projeto precisa ter elementos-chave:</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ❓ <strong>Questão norteadora:</strong> pergunta desafiadora e aberta que orienta toda a investigação. Ex: "Como reduzir o desperdício de água na escola?"
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔍 <strong>Investigação sustentada:</strong> pesquisa profunda, não superficial. Os alunos buscam, analisam e sintetizam informações.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🌍 <strong>Autenticidade:</strong> problema real, contexto real. Não é um exercício fictício.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🗣️ <strong>Voz e escolha do aluno:</strong> os alunos tomam decisões sobre o projeto (como pesquisar, como apresentar).
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📢 <strong>Produto final público:</strong> o resultado é apresentado a uma audiência real (turma, escola, comunidade).
+      </div>
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚙️ Etapas do PBL na Prática</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>1. Definição do problema/desafio</strong><br>Professor apresenta a questão norteadora ligada ao currículo.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>2. O que sabemos? O que precisamos saber?</strong><br>Alunos mapeiam conhecimentos prévios e lacunas.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>3. Investigação e pesquisa</strong><br>Coleta de dados, entrevistas, experimentos.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>4. Desenvolvimento da solução</strong><br>Criação do produto (protótipo, apresentação, relatório, app).
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>5. Apresentação e avaliação</strong><br>Exposição pública + reflexão crítica sobre o processo.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Etapas PBL: Problema → O que sei/preciso → Investigação → Solução → Apresentação
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏫 PBL no Contexto das Etecs</h3>
+    <p>O PBL se encaixa perfeitamente na proposta das Etecs, que integra educação profissional e ensino médio.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔗 <strong>Integração teoria-prática:</strong> o aluno aprende fazendo. Conceitos de TIC, por exemplo, são aplicados em projetos reais de desenvolvimento.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🤝 <strong>Trabalho em equipe:</strong> desenvolve habilidades socioemocionais: comunicação, liderança, colaboração.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📊 <strong>Avaliação por competências:</strong> avalia-se o processo, não só o produto final. Inclui autoavaliação e avaliação dos pares.
+      </div>
+      <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⚠️ <strong>PBL vs. Trabalho em grupo comum:</strong> PBL tem questão norteadora real, investigação profunda e produto público. Trabalho em grupo pode ser só divisão de tarefas sem essas características.
+      </div>
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) A Aprendizagem Baseada em Projetos (PBL) tem como principal característica:", opcoes: [{texto:"A transmissão direta do professor, seguida de exercícios práticos",correta:false},{texto:"A resolução de problemas reais e relevantes como motor da aprendizagem, com aluno protagonista",correta:true},{texto:"O uso exclusivo de tecnologia digital como suporte pedagógico",correta:false},{texto:"A avaliação somente pelo produto final entregue",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A 'questão norteadora' no PBL serve para:", opcoes: [{texto:"Dividir os grupos de trabalho de forma equilibrada",correta:false},{texto:"Orientar toda a investigação com um desafio aberto, autêntico e significativo",correta:true},{texto:"Definir a nota final do projeto de cada aluno",correta:false},{texto:"Substituir o conteúdo curricular obrigatório",correta:false}] },
+      { pergunta: "(FCC – 2024) Um elemento que OBRIGATORIAMENTE distingue o PBL de um simples trabalho em grupo é:", opcoes: [{texto:"O tamanho do grupo, que deve ter no mínimo 5 integrantes",correta:false},{texto:"O uso de ferramentas digitais durante o desenvolvimento",correta:false},{texto:"A apresentação do produto a uma audiência real além da sala de aula",correta:true},{texto:"A duração mínima de um bimestre para conclusão",correta:false}] },
+      { pergunta: "(CESPE – 2023) No PBL, o professor atua como:", opcoes: [{texto:"Especialista técnico que fornece todas as respostas ao grupo",correta:false},{texto:"Avaliador exclusivo do produto final entregue",correta:false},{texto:"Orientador e facilitador que apoia sem dirigir o processo investigativo",correta:true},{texto:"Gestor que define todas as etapas e entregas do projeto",correta:false}] },
+      { pergunta: "(FGV – 2023) A avaliação no PBL deve contemplar:", opcoes: [{texto:"Apenas o produto final, pois é o resultado concreto do aprendizado",correta:false},{texto:"Somente a participação individual, desconsiderando o produto",correta:false},{texto:"O processo, o produto, a autoavaliação e a avaliação entre pares",correta:true},{texto:"Apenas a prova escrita sobre o tema investigado",correta:false}] },
+      { pergunta: "(VUNESP – 2024) A integração teoria-prática no PBL ocorre porque:", opcoes: [{texto:"O professor alterna aulas teóricas e práticas em dias diferentes",correta:false},{texto:"O conhecimento é construído durante a investigação e resolução do problema real",correta:true},{texto:"Os alunos estudam teoria em casa e prática em laboratório",correta:false},{texto:"A teoria é ensinada antes e a prática aplicada somente no final",correta:false}] },
+      { pergunta: "(FCC – 2023) Assinale a alternativa que apresenta um exemplo de PBL aplicado em aula de Projetos de TIC:", opcoes: [{texto:"Alunos resolvem exercícios do livro sobre algoritmos",correta:false},{texto:"Professor apresenta slides sobre fundamentos de redes de computadores",correta:false},{texto:"Alunos desenvolvem um app para resolver um problema real da comunidade escolar",correta:true},{texto:"Alunos fazem prova bimestral sobre conceitos de hardware",correta:false}] },
+      { pergunta: "(CESPE – 2024) No PBL, a etapa 'O que sabemos? O que precisamos saber?' tem como função:", opcoes: [{texto:"Distribuir as tarefas entre os integrantes do grupo",correta:false},{texto:"Mapear conhecimentos prévios dos alunos e identificar lacunas de aprendizagem",correta:true},{texto:"Apresentar o produto final ao professor para avaliação preliminar",correta:false},{texto:"Definir o cronograma de entregas do projeto",correta:false}] }
+    ]
+
+});
+
+AULAS.push({
+  id: 37,
+  titulo: "Ambientes Virtuais de Aprendizagem (AVA)",
+  descricao: "Plataformas digitais de ensino, ferramentas de EAD e uso pedagógico das tecnologias",
+  icone: "🖥️",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🖥️ O que é um AVA?</h3>
+    <p>Um <strong>Ambiente Virtual de Aprendizagem (AVA)</strong> é uma plataforma digital que reúne ferramentas para ensinar, aprender, comunicar e avaliar pela internet.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🌐 <strong>Definição:</strong> sistema online que simula um ambiente de sala de aula virtual, com recursos de conteúdo, comunicação e avaliação.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📚 <strong>Exemplos de AVA:</strong> Moodle, Google Classroom, Microsoft Teams (educação), Canvas, Blackboard.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ✅ <strong>Vantagens:</strong> acesso a qualquer hora e lugar, registro de atividades, comunicação assíncrona, repositório de materiais.
+      </div>
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⚠️ <strong>Desafios:</strong> exige acesso à internet, disciplina do aluno, formação do professor para uso pedagógico.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> AVA = plataforma digital de ensino | Exemplos: Moodle, Google Classroom, Teams
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🛠️ Ferramentas dentro de um AVA</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📋 <strong>Fóruns de discussão:</strong> comunicação assíncrona entre alunos e professor. Permitem reflexão antes de responder.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📝 <strong>Tarefas e entregas:</strong> envio de atividades com prazo, feedback do professor, controle de prazos.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📊 <strong>Questionários/quizzes:</strong> avaliações online com correção automática ou manual.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎥 <strong>Videoaulas e materiais:</strong> repositório de vídeos, PDFs, apresentações e links.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        💬 <strong>Chat e mensagens:</strong> comunicação síncrona (ao vivo) ou assíncrona entre participantes.
+      </div>
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎓 AVA e EAD — Conceitos importantes</h3>
+    <div style="display:grid;gap:10px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📡 <strong>EAD (Educação a Distância):</strong> modalidade em que professores e alunos estão separados fisicamente, mediados por tecnologia. O AVA é a principal ferramenta do EAD.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔀 <strong>Ensino Híbrido (Blended Learning):</strong> combina aulas presenciais com atividades no AVA. Modelo adotado por muitas Etecs.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🏠 <strong>Síncrono vs. Assíncrono:</strong><br>
+        Síncrono = em tempo real (videoconferência, chat ao vivo)<br>
+        Assíncrono = no próprio tempo do aluno (fórum, vídeo gravado, tarefa)
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+      <strong>📓 Copie:</strong> EAD usa AVA | Híbrido = presencial + AVA | Síncrono = ao vivo | Assíncrono = no próprio tempo
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📱 Ferramentas Digitais Complementares</h3>
+    <p>Além dos AVA, existem ferramentas digitais usadas na educação:</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px">
+      <tr style="background:rgba(79,142,247,.15)"><th style="padding:8px;border:1px solid var(--border)">Ferramenta</th><th style="padding:8px;border:1px solid var(--border)">Uso pedagógico</th></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🎨 Canva</td><td style="padding:8px;border:1px solid var(--border)">Criação de apresentações e materiais visuais</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">📊 Google Forms</td><td style="padding:8px;border:1px solid var(--border)">Questionários, pesquisas e avaliações</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🎯 Kahoot / Quizlet</td><td style="padding:8px;border:1px solid var(--border)">Gamificação e revisão de conteúdo</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🗂️ Padlet</td><td style="padding:8px;border:1px solid var(--border)">Mural colaborativo digital</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🤖 IA (ChatGPT etc.)</td><td style="padding:8px;border:1px solid var(--border)">Apoio à pesquisa e criação de conteúdo</td></tr>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>Para o concurso:</strong> o professor de TIC deve conhecer e saber aplicar pedagogicamente essas ferramentas, não apenas usá-las tecnicamente.
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O Moodle é classificado como:", opcoes: [{texto:"Software de criação de apresentações para uso docente",correta:false},{texto:"Sistema operacional para servidores educacionais",correta:false},{texto:"Plataforma de Ambiente Virtual de Aprendizagem (AVA) de código aberto",correta:true},{texto:"Aplicativo de videoconferência para aulas síncronas",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Uma atividade SÍNCRONA em ambiente virtual é aquela que:", opcoes: [{texto:"O aluno realiza no seu próprio tempo, sem horário determinado",correta:false},{texto:"Acontece em tempo real, com professor e alunos conectados simultaneamente",correta:true},{texto:"É registrada e disponibilizada para assistir depois",correta:false},{texto:"Pode ser realizada offline, sem necessidade de internet",correta:false}] },
+      { pergunta: "(FCC – 2024) No ensino híbrido (blended learning), a principal vantagem em relação ao ensino 100% presencial é:", opcoes: [{texto:"A eliminação completa da necessidade de presença física do professor",correta:false},{texto:"A flexibilidade de tempo e espaço para atividades fora da sala, potencializando o tempo presencial",correta:true},{texto:"A redução dos custos com material impresso",correta:false},{texto:"A possibilidade de avaliar os alunos somente de forma digital",correta:false}] },
+      { pergunta: "(CESPE – 2023) Um fórum de discussão em um AVA é um exemplo de ferramenta de comunicação:", opcoes: [{texto:"Síncrona, pois exige participação simultânea dos alunos",correta:false},{texto:"Assíncrona, pois permite participação em momentos diferentes",correta:true},{texto:"Presencial, adaptada para o ambiente digital",correta:false},{texto:"Unidirecional, pois só o professor pode postar mensagens",correta:false}] },
+      { pergunta: "(FGV – 2023) O Google Classroom é adequado para a prática de ensino híbrido porque:", opcoes: [{texto:"Substitui completamente a sala de aula presencial",correta:false},{texto:"Permite organizar tarefas, materiais, feedbacks e comunicação integrados ao ambiente escolar",correta:true},{texto:"É utilizado exclusivamente para videoconferências em tempo real",correta:false},{texto:"Funciona apenas como repositório de vídeos gravados",correta:false}] },
+      { pergunta: "(VUNESP – 2024) O principal DESAFIO pedagógico no uso de AVA com alunos de Etec é:", opcoes: [{texto:"O excesso de recursos disponíveis que confunde os alunos",correta:false},{texto:"A necessidade de formação docente para uso pedagógico intencional das ferramentas",correta:true},{texto:"A incompatibilidade dos AVA com dispositivos móveis",correta:false},{texto:"A proibição do uso de AVA no ensino técnico por norma do CEETEPS",correta:false}] },
+      { pergunta: "(FCC – 2023) O PADLET é uma ferramenta digital usada na educação como:", opcoes: [{texto:"Sistema de gerenciamento de aprendizado (LMS) completo",correta:false},{texto:"Aplicativo de edição de vídeos para criação de aulas",correta:false},{texto:"Mural digital colaborativo para organizar e compartilhar informações",correta:true},{texto:"Plataforma de aplicação de provas com correção automática",correta:false}] },
+      { pergunta: "(CESPE – 2024) A principal diferença entre EAD e ensino híbrido é que:", opcoes: [{texto:"EAD usa tecnologia e híbrido não",correta:false},{texto:"No EAD a interação é exclusivamente síncrona; no híbrido é assíncrona",correta:false},{texto:"EAD é realizado totalmente a distância; o híbrido combina momentos presenciais e a distância",correta:true},{texto:"O ensino híbrido é uma modalidade de EAD sem diferenças significativas",correta:false}] }
+    ]
+
+});
+
+AULAS.push({
+  id: 38,
+  titulo: "Avaliação da Aprendizagem e Ensino por Competências",
+  descricao: "Tipos de avaliação, avaliação formativa e somativa, ensino baseado em competências",
+  icone: "📊",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📊 Avaliação da Aprendizagem</h3>
+    <p>Avaliar vai muito além de aplicar provas. A avaliação é um processo contínuo que orienta o ensino e a aprendizagem.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📋 <strong>Avaliação Diagnóstica:</strong> feita NO INÍCIO. Identifica o que o aluno já sabe. Ex: sondagem inicial, questionário de conhecimentos prévios.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔄 <strong>Avaliação Formativa:</strong> feita DURANTE o processo. Acompanha a evolução, permite ajustes. Ex: atividades, observação, feedbacks, quizzes.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🏁 <strong>Avaliação Somativa:</strong> feita NO FINAL. Classifica e certifica o aprendizado. Ex: prova bimestral, trabalho final, nota.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+      <strong>📓 Copie:</strong> Diagnóstica = início | Formativa = durante (processo) | Somativa = fim (resultado/nota)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚖️ Avaliação Qualitativa x Quantitativa</h3>
+    <div style="display:grid;gap:10px;margin-top:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border)">
+        <strong style="color:var(--accent)">📊 Quantitativa</strong><br>
+        <span style="font-size:13px">Expressa em números (notas, percentuais). Fácil de comparar e registrar. Ex: 7,5 em uma prova.</span>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border)">
+        <strong style="color:#a78bfa">🗣️ Qualitativa</strong><br>
+        <span style="font-size:13px">Expressa em descrições e observações. Analisa o processo, atitudes, habilidades. Ex: "O aluno demonstra raciocínio lógico mas tem dificuldade em comunicar as soluções."</span>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+      ✅ <strong>Na prática moderna:</strong> o ideal é combinar as duas — nota (quantitativa) + feedback descritivo (qualitativa).
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏆 Ensino por Competências</h3>
+    <p>O currículo das Etecs e as diretrizes nacionais (BNCC, CNE/CP 1/2021) orientam o ensino <strong>por competências</strong>.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎯 <strong>Competência =</strong> capacidade de mobilizar conhecimentos (saber), habilidades (saber fazer) e atitudes (saber ser) para resolver situações reais.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📚 <strong>Conhecimento (Saber):</strong> conceitos, teorias, informações. Ex: saber o que é algoritmo.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔧 <strong>Habilidade (Saber fazer):</strong> capacidade prática. Ex: saber programar em Python.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🤝 <strong>Atitude (Saber ser):</strong> comportamentos, valores. Ex: trabalhar em equipe, ser ético no uso de dados.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Competência = Saber (conhecimento) + Saber fazer (habilidade) + Saber ser (atitude)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📝 Instrumentos de Avaliação</h3>
+    <p>O professor deve usar instrumentos variados, adequados à competência que quer avaliar:</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px">
+      <tr style="background:rgba(79,142,247,.15)"><th style="padding:8px;border:1px solid var(--border)">Instrumento</th><th style="padding:8px;border:1px solid var(--border)">O que avalia melhor</th></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">📝 Prova escrita</td><td style="padding:8px;border:1px solid var(--border)">Conhecimento teórico (saber)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🛠️ Projeto prático</td><td style="padding:8px;border:1px solid var(--border)">Habilidades técnicas (saber fazer)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🗣️ Seminário/apresentação</td><td style="padding:8px;border:1px solid var(--border)">Comunicação e síntese</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">📓 Portfólio</td><td style="padding:8px;border:1px solid var(--border)">Evolução ao longo do tempo</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">🔄 Autoavaliação</td><td style="padding:8px;border:1px solid var(--border)">Reflexão e autonomia</td></tr>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>Para o concurso:</strong> a avaliação formativa é a mais valorizada nas abordagens modernas de ensino por competências.
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) A avaliação que identifica os conhecimentos prévios dos alunos ANTES do início de um conteúdo é classificada como:", opcoes: [{texto:"Formativa",correta:false},{texto:"Somativa",correta:false},{texto:"Diagnóstica",correta:true},{texto:"Classificatória",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Na perspectiva do ensino por competências, competência é a capacidade de:", opcoes: [{texto:"Memorizar e reproduzir conteúdos curriculares com precisão",correta:false},{texto:"Mobilizar conhecimentos, habilidades e atitudes para resolver situações reais",correta:true},{texto:"Executar tarefas técnicas específicas com velocidade",correta:false},{texto:"Obter bom desempenho em provas objetivas padronizadas",correta:false}] },
+      { pergunta: "(FCC – 2024) A avaliação formativa se caracteriza por:", opcoes: [{texto:"Ocorrer ao final do período letivo para atribuição de nota classificatória",correta:false},{texto:"Ser realizada exclusivamente por instrumentos digitais",correta:false},{texto:"Acontecer durante o processo de ensino, orientando ajustes contínuos na prática pedagógica",correta:true},{texto:"Classificar os alunos do melhor ao pior desempenho",correta:false}] },
+      { pergunta: "(CESPE – 2023) O instrumento de avaliação mais adequado para avaliar a EVOLUÇÃO do aluno ao longo do tempo é:", opcoes: [{texto:"Prova objetiva aplicada bimestralmente",correta:false},{texto:"Portfólio, por registrar o processo e os produtos ao longo do período",correta:true},{texto:"Seminário oral sobre o conteúdo estudado",correta:false},{texto:"Quiz digital com correção automática",correta:false}] },
+      { pergunta: "(FGV – 2023) O 'saber fazer' na tríade das competências refere-se a:", opcoes: [{texto:"Conhecimentos teóricos adquiridos por estudo",correta:false},{texto:"Atitudes e valores que orientam o comportamento profissional",correta:false},{texto:"Habilidades práticas para executar tarefas em situações reais",correta:true},{texto:"Capacidade de memorizar procedimentos e normas técnicas",correta:false}] },
+      { pergunta: "(VUNESP – 2024) A avaliação QUALITATIVA diferencia-se da quantitativa porque:", opcoes: [{texto:"Usa escalas numéricas para classificar o desempenho",correta:false},{texto:"É expressa em descrições, observações e análises do processo de aprendizagem",correta:true},{texto:"É aplicada apenas ao final do bimestre",correta:false},{texto:"Dispensa a participação do professor na avaliação",correta:false}] },
+      { pergunta: "(FCC – 2023) De acordo com as abordagens contemporâneas, a avaliação mais alinhada ao ensino por competências é a:", opcoes: [{texto:"Somativa, pois classifica o aluno ao final do processo",correta:false},{texto:"Diagnóstica, pois identifica o ponto de partida",correta:false},{texto:"Formativa, pois acompanha e orienta continuamente o desenvolvimento de competências",correta:true},{texto:"Quantitativa, pois oferece dados objetivos e comparáveis",correta:false}] },
+      { pergunta: "(CESPE – 2024) O 'saber ser', dimensão da competência, envolve:", opcoes: [{texto:"Domínio dos conteúdos teóricos da área de formação",correta:false},{texto:"Capacidade de executar procedimentos técnicos específicos",correta:false},{texto:"Atitudes, valores e comportamentos que orientam a atuação profissional e social",correta:true},{texto:"Habilidade de resolver exercícios práticos com rapidez",correta:false}] }
+    ]
+
+});
+
+AULAS.push({
+  id: 39,
+  titulo: "PowerPoint: Apresentações Profissionais",
+  descricao: "Criação e edição de slides, boas práticas de design, recursos do PowerPoint para apresentações",
+  icone: "📊",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📊 O que é o PowerPoint?</h3>
+    <p>O <strong>Microsoft PowerPoint</strong> é o principal software de apresentação de slides do mundo, parte do pacote Microsoft Office.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🖼️ <strong>Slide:</strong> cada "página" de uma apresentação. Pode conter texto, imagens, gráficos, vídeos e animações.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📂 <strong>Formato de arquivo:</strong> .pptx (padrão atual) | .ppt (versões antigas) | .pdf (exportação) | .ppsx (apresentação direta)
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🌐 <strong>Alternativas gratuitas:</strong> Google Slides (online, colaborativo) | LibreOffice Impress | Canva
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> PowerPoint = software de slides da Microsoft | Formato: .pptx | Alternativa gratuita: Google Slides
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎨 Interface e Recursos Principais</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🖱️ <strong>Modos de exibição:</strong> Normal (edição) | Classificação de slides | Apresentação (F5 = tela cheia)
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📐 <strong>Layout de slide:</strong> modelos pré-definidos (título, título e conteúdo, em branco, duas colunas, etc.)
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎨 <strong>Tema e Design:</strong> conjunto de cores, fontes e efeitos aplicados a todos os slides.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔄 <strong>Slide Mestre:</strong> slide modelo que define o padrão visual de toda a apresentação.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⌨️ <strong>Atalhos essenciais:</strong> F5 = iniciar | Esc = sair | Ctrl+M = novo slide | Ctrl+D = duplicar slide
+      </div>
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">✨ Animações e Transições</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔄 <strong>Transições:</strong> efeito de passagem entre slides (dissolução, cortina, fade, etc.). Aba "Transições" no menu.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        💫 <strong>Animações:</strong> efeitos aplicados a elementos dentro do slide (texto, imagem, gráfico). Aba "Animações" no menu.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ▶️ <strong>Tipos de animação:</strong> Entrada (aparecer) | Ênfase (destacar) | Saída (desaparecer) | Trajetória (mover)
+      </div>
+      <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⚠️ <strong>Boa prática:</strong> use animações com moderação. Excesso distrai e dificulta a apresentação.
+      </div>
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">✅ Boas Práticas para Apresentações</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ✅ <strong>Regra 6x6:</strong> máximo 6 linhas por slide, 6 palavras por linha. Slides não são documentos de texto!
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ✅ <strong>Contraste:</strong> fundo escuro com texto claro ou fundo claro com texto escuro. Nunca cores que se confundem.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ✅ <strong>Fonte legível:</strong> mínimo 24pt para o corpo, 36pt para títulos. Sem fontes decorativas difíceis de ler.
+      </div>
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ❌ <strong>Evite:</strong> paredes de texto | muitas cores diferentes | animações excessivas | imagens pixeladas
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Regra 6x6: 6 linhas × 6 palavras | F5 = iniciar apresentação | .pptx = formato padrão
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) O formato de arquivo nativo do Microsoft PowerPoint nas versões a partir de 2007 é:", opcoes: [{texto:".ppt",correta:false},{texto:".pps",correta:false},{texto:".pptx",correta:true},{texto:".odp",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Para iniciar uma apresentação em TELA CHEIA a partir do primeiro slide no PowerPoint, o atalho correto é:", opcoes: [{texto:"Ctrl + P",correta:false},{texto:"F5",correta:true},{texto:"Alt + F4",correta:false},{texto:"Ctrl + F5",correta:false}] },
+      { pergunta: "(FCC – 2024) O SLIDE MESTRE no PowerPoint é utilizado para:", opcoes: [{texto:"Criar o primeiro slide de título da apresentação",correta:false},{texto:"Definir o padrão visual (cores, fontes, layout) aplicado a todos os slides da apresentação",correta:true},{texto:"Bloquear a edição de slides por outros usuários",correta:false},{texto:"Exportar a apresentação em formato PDF",correta:false}] },
+      { pergunta: "(CESPE – 2023) No PowerPoint, TRANSIÇÃO é o efeito aplicado:", opcoes: [{texto:"A um elemento específico dentro do slide (texto, imagem)",correta:false},{texto:"Na passagem de um slide para o próximo",correta:true},{texto:"A todos os elementos do slide simultaneamente ao abrir",correta:false},{texto:"Somente ao texto do título do slide",correta:false}] },
+      { pergunta: "(FGV – 2023) A 'Regra 6x6' para criação de slides recomenda:", opcoes: [{texto:"6 slides por apresentação e 6 animações por slide",correta:false},{texto:"6 cores diferentes e 6 fontes distintas na apresentação",correta:false},{texto:"No máximo 6 linhas por slide e 6 palavras por linha",correta:true},{texto:"6 imagens por slide e 6 segundos de transição",correta:false}] },
+      { pergunta: "(VUNESP – 2024) Para iniciar a apresentação a partir do slide ATUAL (e não do primeiro), o atalho no PowerPoint é:", opcoes: [{texto:"F5",correta:false},{texto:"Shift + F5",correta:true},{texto:"Ctrl + F5",correta:false},{texto:"Alt + F5",correta:false}] },
+      { pergunta: "(FCC – 2023) Uma BOA prática no design de slides para apresentações profissionais é:", opcoes: [{texto:"Usar o máximo de texto para garantir que o conteúdo seja completo",correta:false},{texto:"Aplicar muitas animações para dinamizar e prender a atenção",correta:false},{texto:"Manter alto contraste entre fundo e texto e usar fontes legíveis em tamanho adequado",correta:true},{texto:"Usar fontes decorativas para personalizar o estilo da apresentação",correta:false}] },
+      { pergunta: "(CESPE – 2024) O tipo de animação do PowerPoint que faz um elemento DESAPARECER do slide é classificado como:", opcoes: [{texto:"Entrada",correta:false},{texto:"Ênfase",correta:false},{texto:"Trajetória de Animação",correta:false},{texto:"Saída",correta:true}] }
+    ]
+
+});
+
+AULAS.push({
+  id: 40,
+  titulo: "Excel Avançado: Fórmulas e Organização de Dados",
+  descricao: "Fórmulas essenciais, funções de busca, filtros, tabelas dinâmicas e organização de dados no Excel",
+  icone: "📈",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📈 Revisão: Estrutura do Excel</h3>
+    <p>Antes das fórmulas avançadas, confirme os conceitos base:</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📦 <strong>Célula:</strong> interseção de linha e coluna. Ex: A1, B3, C10.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📋 <strong>Planilha (aba):</strong> cada aba do arquivo. Um arquivo (.xlsx) pode ter várias planilhas.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔢 <strong>Referência relativa vs. absoluta:</strong><br>
+        Relativa: A1 (muda ao copiar a fórmula)<br>
+        Absoluta: $A$1 (não muda ao copiar — trava com $)
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⌨️ <strong>Toda fórmula começa com =</strong> Ex: =A1+B1 | =SOMA(A1:A10) | =MÉDIA(B1:B5)
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> $A$1 = referência absoluta (trava) | A1 = referência relativa (muda ao copiar)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔢 Fórmulas Essenciais</h3>
+    <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px">
+      <tr style="background:rgba(79,142,247,.15)"><th style="padding:8px;border:1px solid var(--border)">Função</th><th style="padding:8px;border:1px solid var(--border)">O que faz</th><th style="padding:8px;border:1px solid var(--border)">Exemplo</th></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">SOMA</td><td style="padding:8px;border:1px solid var(--border)">Soma valores</td><td style="padding:8px;border:1px solid var(--border)">=SOMA(A1:A10)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">MÉDIA</td><td style="padding:8px;border:1px solid var(--border)">Calcula média</td><td style="padding:8px;border:1px solid var(--border)">=MÉDIA(B1:B5)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">MÁXIMO</td><td style="padding:8px;border:1px solid var(--border)">Maior valor</td><td style="padding:8px;border:1px solid var(--border)">=MÁXIMO(C1:C20)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">MÍNIMO</td><td style="padding:8px;border:1px solid var(--border)">Menor valor</td><td style="padding:8px;border:1px solid var(--border)">=MÍNIMO(C1:C20)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">CONT.NÚM</td><td style="padding:8px;border:1px solid var(--border)">Conta células com números</td><td style="padding:8px;border:1px solid var(--border)">=CONT.NÚM(A1:A50)</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">CONT.SE</td><td style="padding:8px;border:1px solid var(--border)">Conta com condição</td><td style="padding:8px;border:1px solid var(--border)">=CONT.SE(A1:A10,"Aprovado")</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">SOMASE</td><td style="padding:8px;border:1px solid var(--border)">Soma com condição</td><td style="padding:8px;border:1px solid var(--border)">=SOMASE(A1:A10,"SP",B1:B10)</td></tr>
+    </table>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔍 SE, PROCV e Funções de Busca</h3>
+    <div style="display:grid;gap:10px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>=SE(teste; valor_se_verdadeiro; valor_se_falso)</strong><br>
+        Testa uma condição e retorna valores diferentes conforme o resultado.<br>
+        Ex: <code>=SE(B2>=6;"Aprovado";"Reprovado")</code>
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>=PROCV(valor; tabela; coluna; 0)</strong><br>
+        Procura um valor na primeira coluna de uma tabela e retorna dado da coluna indicada.<br>
+        Ex: <code>=PROCV(A2;$D$1:$F$100;2;0)</code> — busca o nome do aluno pelo RM.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>=ÍNDICE + CORRESP</strong><br>
+        Alternativa mais flexível ao PROCV — busca em qualquer direção.<br>
+        Ex: <code>=ÍNDICE(B1:B100;CORRESP(A2;A1:A100;0))</code>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> SE = condição lógica | PROCV = busca vertical na tabela | 0 no PROCV = correspondência exata
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Organização de Dados: Filtros e Tabelas Dinâmicas</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔽 <strong>AutoFiltro:</strong> filtra dados por critério numa coluna. Aba Dados → Filtro. Ex: mostrar só alunos da turma 1ºA.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔤 <strong>Classificar (Ordenar):</strong> ordena dados por coluna em ordem crescente ou decrescente. Aba Dados → Classificar.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📊 <strong>Tabela Dinâmica (Pivot Table):</strong> resume e analisa grandes volumes de dados com arrasta e solta. Inserir → Tabela Dinâmica.<br>
+        Ex: somar vendas por região, contar alunos por turma.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📉 <strong>Gráficos:</strong> Inserir → Gráfico. Tipos comuns: Coluna, Barra, Pizza (setores), Linha.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>Para o concurso:</strong> foco em PROCV, SE, SOMA, MÉDIA, AutoFiltro e Tabela Dinâmica — são os mais cobrados.
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) No Excel, a fórmula =SOMA($A$1:$A$10) usa referência absoluta. Ao copiar essa fórmula para outra célula, o intervalo A1:A10:", opcoes: [{texto:"Se ajusta automaticamente conforme a posição da nova célula",correta:false},{texto:"Permanece fixo em A1:A10, independente de onde a fórmula for colada",correta:true},{texto:"Gera erro, pois referência absoluta não pode ser copiada",correta:false},{texto:"Muda somente a coluna, mantendo as linhas fixas",correta:false}] },
+      { pergunta: "(VUNESP – 2023) Um professor quer verificar automaticamente se um aluno foi aprovado (nota >= 6) ou reprovado. A fórmula correta é:", opcoes: [{texto:"=APROVADO(B2>=6)",correta:false},{texto:'=SE(B2>=6;"Aprovado";"Reprovado")',correta:true},{texto:'=IF(B2,6,"Aprovado","Reprovado")',correta:false},{texto:'=COND(B2>=6;"Aprovado")',correta:false}] },
+      { pergunta: "(FCC – 2024) A função PROCV no Excel é utilizada para:", opcoes: [{texto:"Calcular a média ponderada de um conjunto de valores",correta:false},{texto:"Procurar um valor na primeira coluna de uma tabela e retornar dado de outra coluna da mesma linha",correta:true},{texto:"Contar células que atendem a um determinado critério",correta:false},{texto:"Somar valores condicionalmente em um intervalo",correta:false}] },
+      { pergunta: "(CESPE – 2023) Na função =PROCV(A2;$D$1:$F$100;2;0), o último argumento '0' indica:", opcoes: [{texto:"Que a busca deve ser feita da direita para esquerda",correta:false},{texto:"Que devem ser retornadas as 0 primeiras correspondências",correta:false},{texto:"Correspondência exata — o valor procurado deve ser idêntico ao da tabela",correta:true},{texto:"Que a tabela está ordenada em ordem decrescente",correta:false}] },
+      { pergunta: "(FGV – 2023) A Tabela Dinâmica (Pivot Table) no Excel é usada para:", opcoes: [{texto:"Criar gráficos animados com transições automáticas",correta:false},{texto:"Resumir, analisar e cruzar grandes volumes de dados de forma interativa",correta:true},{texto:"Aplicar formatação condicional em células específicas",correta:false},{texto:"Calcular fórmulas matriciais em grandes planilhas",correta:false}] },
+      { pergunta: '(VUNESP – 2024) A função =CONT.SE(A1:A50;"SP") retorna:', opcoes: [{texto:"A soma de todos os valores da coluna A que correspondem a SP",correta:false},{texto:"A média das células com conteúdo SP no intervalo",correta:false},{texto:"A quantidade de células no intervalo A1:A50 que contêm exatamente o texto SP",correta:true},{texto:"O maior valor numérico encontrado no intervalo",correta:false}] },
+      { pergunta: "(FCC – 2023) Para classificar dados em ordem crescente no Excel, o caminho correto é:", opcoes: [{texto:"Inserir → Classificar → A a Z",correta:false},{texto:"Dados → Classificar e Filtrar → Classificar de A a Z (ou menor para maior)",correta:true},{texto:"Fórmulas → Ordenar → Crescente",correta:false},{texto:"Exibir → Organizar → Crescente",correta:false}] },
+      { pergunta: "(CESPE – 2024) A fórmula =MÉDIA(B2:B31) em uma planilha de notas de alunos calculará:", opcoes: [{texto:"O maior valor entre B2 e B31",correta:false},{texto:"A soma de todos os valores dividida pelo número de células preenchidas no intervalo",correta:true},{texto:"O valor mediano (do meio) do intervalo",correta:false},{texto:"A quantidade de alunos com nota no intervalo",correta:false}] }
+    ]
+
+});
+
+AULAS.push({
+  id: 41,
+  titulo: "Conceito de TIC e Aplicação no Ensino",
+  descricao: "O que é TIC, uso pedagógico das tecnologias, ferramentas digitais no ensino de informática",
+  icone: "💡",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">💡 O que é TIC?</h3>
+    <p><strong>TIC — Tecnologia da Informação e Comunicação</strong> — é o conjunto de recursos tecnológicos usados para processar, transmitir e armazenar informações, além de facilitar a comunicação.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        💻 <strong>TI (Tecnologia da Informação):</strong> hardware, software, redes — processamento e armazenamento de dados.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📡 <strong>TC (Tecnologia da Comunicação):</strong> telecomunicações, internet, redes — transmissão e troca de informações.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔗 <strong>TIC = TI + TC:</strong> a convergência dessas duas áreas, possibilitada pela internet e pela digitalização.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;line-height:1.9">
+      <strong>📓 Copie:</strong> TIC = Tecnologia da Informação + Comunicação | Inclui: internet, computadores, celulares, softwares, redes
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎓 TIC na Educação</h3>
+    <p>O uso das TIC na educação transforma o processo de ensino-aprendizagem, tornando-o mais dinâmico, personalizado e conectado.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📲 <strong>Acesso à informação:</strong> alunos acessam conteúdos atualizados, vídeos, pesquisas e fontes primárias em tempo real.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🤝 <strong>Colaboração:</strong> ferramentas como Google Docs permitem que vários alunos editem o mesmo documento simultaneamente.
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎮 <strong>Gamificação:</strong> uso de elementos de jogos (pontos, rankings, desafios) para engajar os alunos. Ex: Kahoot, Classcraft.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🏠 <strong>Sala de aula invertida (Flipped Classroom):</strong> aluno estuda o conteúdo em casa (vídeo, leitura) e usa o tempo em sala para praticar e tirar dúvidas.
+      </div>
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚠️ Desafios do Uso de TIC na Educação</h3>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📶 <strong>Exclusão digital:</strong> nem todos os alunos têm acesso a dispositivos e internet de qualidade em casa.
+      </div>
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        👨‍🏫 <strong>Formação docente:</strong> o professor precisa ser capacitado não só para usar as ferramentas, mas para integrá-las pedagogicamente.
+      </div>
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔒 <strong>Segurança e privacidade:</strong> uso responsável de dados de alunos, cyberbullying, fake news.
+      </div>
+      <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⚠️ <strong>Distração:</strong> o dispositivo pode ser fonte de distração se não houver mediação pedagógica adequada.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Desafios TIC na educação: exclusão digital | formação docente | segurança | distração
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🧑‍🏫 O Professor de TIC como Mediador</h3>
+    <p>No contexto atual, o professor não é mais o único detentor do conhecimento. Ele é um <strong>mediador</strong> que orienta o aluno a navegar, filtrar e construir conhecimento com as tecnologias.</p>
+    <div style="display:grid;gap:8px;margin-top:14px">
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔍 <strong>Curadoria de conteúdo:</strong> selecionar e indicar fontes confiáveis e adequadas aos alunos.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎯 <strong>Intencionalidade pedagógica:</strong> o uso da tecnologia deve ter objetivo claro de aprendizagem, não ser tecnologia pela tecnologia.
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🤖 <strong>Pensamento crítico:</strong> ensinar o aluno a questionar informações, identificar fake news e usar a IA com responsabilidade.
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>Para o concurso:</strong> o professor de Projetos de TIC deve dominar tanto o aspecto técnico das ferramentas quanto o pedagógico (como usá-las para promover aprendizagem).
+    </div>`
+  ],
+    perguntas: [
+      { pergunta: "(FGV – 2024) TIC é a sigla para:", opcoes: [{texto:"Tecnologia de Instrução Computacional",correta:false},{texto:"Tecnologia da Informação e Comunicação",correta:true},{texto:"Técnica de Integração Curricular",correta:false},{texto:"Tecnologia de Inovação e Conectividade",correta:false}] },
+      { pergunta: "(VUNESP – 2023) A principal diferença entre TI (Tecnologia da Informação) e TIC é que a TIC inclui também:", opcoes: [{texto:"Apenas o hardware dos computadores e servidores",correta:false},{texto:"Somente os softwares de gestão empresarial",correta:false},{texto:"As tecnologias de comunicação e transmissão de dados — telefonia, redes, internet",correta:true},{texto:"Exclusivamente as redes sem fio e dispositivos móveis",correta:false}] },
+      { pergunta: "(FCC – 2024) A 'Sala de Aula Invertida' (Flipped Classroom) é considerada uma metodologia ativa que usa TIC porque:", opcoes: [{texto:"O professor ministra aula por videoconferência de outro local",correta:false},{texto:"O conteúdo é estudado pelo aluno em casa via vídeo/digital, e o tempo presencial é para aprofundamento e resolução de problemas",correta:true},{texto:"Todos os alunos usam tablets durante toda a aula presencial",correta:false},{texto:"A avaliação é feita exclusivamente por plataformas digitais",correta:false}] },
+      { pergunta: "(CESPE – 2023) A GAMIFICAÇÃO no ensino de TIC consiste em:", opcoes: [{texto:"Substituir todas as aulas por videogames educativos",correta:false},{texto:"Aplicar mecânicas de jogos (pontos, badges, rankings, desafios) para engajar os alunos nas atividades",correta:true},{texto:"Ensinar desenvolvimento de jogos como conteúdo curricular",correta:false},{texto:"Proibir o uso de jogos digitais fora do horário de aula",correta:false}] },
+      { pergunta: "(FGV – 2023) O maior desafio social do uso de TIC na educação pública brasileira é:", opcoes: [{texto:"O alto custo das licenças de software educacional",correta:false},{texto:"A exclusão digital — desigualdade no acesso a dispositivos e internet de qualidade entre os alunos",correta:true},{texto:"A resistência dos professores mais experientes à tecnologia",correta:false},{texto:"A ausência de conteúdo digital em língua portuguesa",correta:false}] },
+      { pergunta: "(VUNESP – 2024) No contexto educacional atual, o papel do professor de Projetos de TIC é principalmente:", opcoes: [{texto:"Técnico que resolve problemas de hardware e software na escola",correta:false},{texto:"Transmissor de conteúdo técnico especializado por meio de aulas expositivas",correta:false},{texto:"Mediador que orienta os alunos a usar a tecnologia de forma crítica e pedagógica",correta:true},{texto:"Gestor do laboratório de informática e dos equipamentos",correta:false}] },
+      { pergunta: "(FCC – 2023) A 'intencionalidade pedagógica' no uso de TIC significa que:", opcoes: [{texto:"O professor deve priorizar sempre as ferramentas mais modernas",correta:false},{texto:"O uso da tecnologia deve ter objetivo claro de aprendizagem e não ser tecnologia pelo seu uso em si",correta:true},{texto:"Os alunos podem usar qualquer ferramenta digital de sua escolha",correta:false},{texto:"A escola deve adquirir sempre os equipamentos mais recentes",correta:false}] },
+      { pergunta: "(CESPE – 2024) O Google Docs como ferramenta de TIC na educação destaca-se especialmente pela possibilidade de:", opcoes: [{texto:"Criar apresentações com animações avançadas",correta:false},{texto:"Processar planilhas com fórmulas complexas",correta:false},{texto:"Colaboração e edição simultânea por múltiplos alunos em tempo real",correta:true},{texto:"Armazenar arquivos exclusivamente de forma local",correta:false}] }
+    ]
+
+});
+

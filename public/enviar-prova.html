@@ -156,6 +156,49 @@
   document.getElementById('rm-aluno').textContent    = rmAluno   || '—';
   document.getElementById('turma-aluno').textContent = turmaAluno || '—';
 
+  // ── Verifica se há prova ativa para a turma ──
+  (async function verificarProvaAtiva() {
+    try {
+      const r = await fetch('/provas-aluno?turma=' + encodeURIComponent(turmaAluno));
+      const provas = await r.json();
+
+      // Filtra provas não feitas
+      if (!Array.isArray(provas) || provas.length === 0) {
+        bloquearFormulario('Nenhuma prova disponível para a sua turma no momento.');
+        return;
+      }
+
+      // Verifica se o aluno já fez todas as provas disponíveis
+      const checks = provas.map(function(p) {
+        return fetch('/prova-status?prova_id=' + p.id + '&aluno=' + encodeURIComponent(nomeAluno))
+          .then(function(x) { return x.json(); })
+          .then(function(st) { return st.feita ? null : p; })
+          .catch(function() { return p; });
+      });
+
+      const resultados = await Promise.all(checks);
+      const pendentes = resultados.filter(function(p) { return p !== null; });
+
+      if (pendentes.length === 0) {
+        bloquearFormulario('Você já realizou todas as provas disponíveis. Aguarde o professor liberar uma nova prova.');
+      }
+      // Se houver pendentes, o formulário já está visível normalmente
+    } catch(e) {
+      // Se não conseguir verificar, libera o formulário (evita bloquear sem motivo)
+      console.warn('Não foi possível verificar provas ativas:', e.message);
+    }
+  })();
+
+  function bloquearFormulario(mensagem) {
+    document.querySelector('.modo-grid').style.display = 'none';
+    document.querySelector('.card').innerHTML =
+      '<div style="text-align:center;padding:40px 16px;">' +
+        '<div style="font-size:48px;margin-bottom:14px;">📭</div>' +
+        '<div style="font-family:Sora,sans-serif;font-size:17px;font-weight:700;color:var(--muted);margin-bottom:10px;">Sem prova disponível</div>' +
+        '<p style="font-size:13px;color:var(--muted);line-height:1.7;">' + mensagem + '</p>' +
+      '</div>';
+  }
+
   // ── Estado ──
   let modo = '';           // 'foto' ou 'texto'
   let fotosB64 = [];       // fotos carregadas
