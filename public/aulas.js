@@ -654,58 +654,165 @@ const AULAS = [
     passos: [
       `<h3 style="margin-bottom:10px;color:var(--accent)">📊 O que é o Excel?</h3>
       <p>O <strong>Microsoft Excel</strong> é um programa de planilhas eletrônicas. Serve para organizar dados, fazer cálculos e criar gráficos.</p>
-      <p style="margin-top:10px;font-size:13px">Conceitos básicos:</p>
-      <div style="display:grid;gap:8px;margin-top:8px">
+      <div style="display:grid;gap:8px;margin-top:12px">
         <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📋 <strong>Célula</strong> — cada quadrinho da planilha (ex: A1, B2)</div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">➡️ <strong>Coluna</strong> — letras A, B, C... (vertical)</div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⬇️ <strong>Linha</strong> — números 1, 2, 3... (horizontal)</div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📑 <strong>Planilha (Sheet)</strong> — cada aba do arquivo Excel</div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">➡️ <strong>Coluna</strong> — identificadas por letras: A, B, C... (da esquerda para a direita)</div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⬇️ <strong>Linha</strong> — identificadas por números: 1, 2, 3... (de cima para baixo)</div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📑 <strong>Planilha (Sheet)</strong> — cada aba do arquivo Excel (Plan1, Plan2...)</div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📁 <strong>Pasta de Trabalho</strong> — o arquivo completo do Excel (.xlsx)</div>
+      </div>
+      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Célula = cruzamento de coluna (letra) com linha (número) | Ex: coluna B + linha 3 = célula B3
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📄 Como Criar e Salvar uma Planilha</h3>
+      <p style="font-size:14px;margin-bottom:12px">Assim como no Word, no Excel você também precisa criar, salvar e abrir arquivos:</p>
+      <div style="display:grid;gap:10px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📄 Criar nova planilha</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique em <strong>Arquivo → Novo → Pasta de Trabalho em Branco</strong></li>
+            <li>Ou use o atalho <strong>Ctrl + O</strong></li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">💾 Salvar</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique em <strong>Arquivo → Salvar</strong> ou pressione <strong>Ctrl + S</strong></li>
+            <li>Para salvar com nome/local diferente: <strong>Arquivo → Salvar Como</strong> ou <strong>F12</strong></li>
+            <li>Para salvar em PDF: <strong>Arquivo → Salvar Como → Tipo: PDF</strong></li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">📂 Abrir planilha existente</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique em <strong>Arquivo → Abrir</strong> ou pressione <strong>Ctrl + A</strong></li>
+            <li>Ou dê duplo clique no arquivo .xlsx pelo Windows Explorer</li>
+          </ol>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Novo: Ctrl+O | Salvar: Ctrl+S | Salvar Como: F12 | Abrir: Ctrl+A | Formato: .xlsx
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">✏️ Como Inserir e Editar Dados</h3>
+      <p style="font-size:14px;margin-bottom:12px">Veja como trabalhar com dados nas células:</p>
+      <div style="display:grid;gap:10px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📝 Digitando dados</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique na célula desejada (ex: A1)</li>
+            <li>Digite o conteúdo (texto ou número)</li>
+            <li>Pressione <strong>Enter</strong> para confirmar e ir para a célula abaixo</li>
+            <li>Pressione <strong>Tab</strong> para confirmar e ir para a célula da direita</li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">✏️ Editando uma célula</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Dê <strong>duplo clique</strong> na célula para editar o conteúdo</li>
+            <li>Ou clique na célula e pressione <strong>F2</strong></li>
+            <li>Pressione <strong>Esc</strong> para cancelar a edição</li>
+          </ol>
+        </div>
+        <div style="padding:12px 16px;background:rgba(248,113,113,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--danger);margin-bottom:6px">🗑️ Apagando dados</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique na célula e pressione <strong>Delete</strong> para apagar o conteúdo</li>
+            <li>Para apagar várias células: selecione todas e pressione <strong>Delete</strong></li>
+          </ol>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Enter = confirma e desce | Tab = confirma e avança | F2 = editar célula | Delete = apagar
       </div>`,
 
       `<h3 style="margin-bottom:10px;color:var(--accent)">🔢 Fórmulas Básicas</h3>
-      <p>Toda fórmula no Excel começa com <strong>=</strong></p>
+      <p style="font-size:14px;margin-bottom:4px">Toda fórmula no Excel começa com <strong>=</strong> (sinal de igual). Sem ele, o Excel trata como texto!</p>
       <table style="width:100%;border-collapse:collapse;margin-top:12px;font-size:13px">
         <tr style="background:rgba(79,142,247,.15)"><th style="padding:8px;border:1px solid var(--border)">Fórmula</th><th style="padding:8px;border:1px solid var(--border)">O que faz</th><th style="padding:8px;border:1px solid var(--border)">Exemplo</th></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)">=SOMA()</td><td style="padding:8px;border:1px solid var(--border)">Soma valores</td><td style="padding:8px;border:1px solid var(--border)">=SOMA(A1:A5)</td></tr>
-        <tr><td style="padding:8px;border:1px solid var(--border)">=MÉDIA()</td><td style="padding:8px;border:1px solid var(--border)">Calcula a média</td><td style="padding:8px;border:1px solid var(--border)">=MÉDIA(B1:B10)</td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">=MÉDIA()</td><td style="padding:8px;border:1px solid var(--border)">Calcula a média</td><td style="padding:8px;border:1px solid var(--border)">=MÉDIA(B1:B10)</td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)">=MÁXIMO()</td><td style="padding:8px;border:1px solid var(--border)">Maior valor</td><td style="padding:8px;border:1px solid var(--border)">=MÁXIMO(C1:C8)</td></tr>
-        <tr><td style="padding:8px;border:1px solid var(--border)">=MÍNIMO()</td><td style="padding:8px;border:1px solid var(--border)">Menor valor</td><td style="padding:8px;border:1px solid var(--border)">=MÍNIMO(C1:C8)</td></tr>
-        <tr><td style="padding:8px;border:1px solid var(--border)">=CONT.NÚM()</td><td style="padding:8px;border:1px solid var(--border)">Conta números</td><td style="padding:8px;border:1px solid var(--border)">=CONT.NÚM(A1:A10)</td></tr>
-      </table>`,
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">=MÍNIMO()</td><td style="padding:8px;border:1px solid var(--border)">Menor valor</td><td style="padding:8px;border:1px solid var(--border)">=MÍNIMO(C1:C8)</td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">=CONT.NÚM()</td><td style="padding:8px;border:1px solid var(--border)">Conta células com números</td><td style="padding:8px;border:1px solid var(--border)">=CONT.NÚM(A1:A10)</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+        💡 <strong>Exemplo prático:</strong> Se A1=10, A2=20, A3=30 → a fórmula <strong>=SOMA(A1:A3)</strong> retorna <strong>60</strong>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Toda fórmula começa com = | =SOMA() soma | =MÉDIA() tira média | =MÁXIMO() maior valor
+      </div>`,
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">📈 Criando Gráficos</h3>
-      <p>Como criar um gráfico no Excel:</p>
-      <ol style="margin:12px 0 0 20px;line-height:2.2;font-size:14px">
-        <li>Selecione os dados que quer incluir no gráfico</li>
-        <li>Clique na aba <strong>Inserir</strong></li>
-        <li>Clique em <strong>Gráfico</strong></li>
-        <li>Escolha o tipo: barras, pizza, linha...</li>
-        <li>Clique em <strong>OK</strong></li>
-      </ol>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📊 <strong>Barras/Colunas</strong> — comparar quantidades</div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🥧 <strong>Pizza</strong> — mostrar porcentagens</div>
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📈 Como Criar Gráficos</h3>
+      <p style="font-size:14px;margin-bottom:12px">Gráficos transformam números em imagens fáceis de entender. Veja como criar:</p>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📋 Passo a passo</div>
+        <ol style="margin:0 0 0 18px;line-height:2.2;font-size:13px">
+          <li>Selecione os dados que quer incluir no gráfico (células com valores)</li>
+          <li>Clique na aba <strong>Inserir</strong></li>
+          <li>Clique em <strong>Gráfico</strong> (ou escolha diretamente: Barras, Pizza, Linha...)</li>
+          <li>Escolha o tipo de gráfico desejado</li>
+          <li>Clique em <strong>OK</strong> — o gráfico aparece na planilha</li>
+        </ol>
+      </div>
+      <div style="display:grid;gap:8px">
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📊 <strong>Barras/Colunas</strong> — comparar quantidades entre categorias</div>
+        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🥧 <strong>Pizza</strong> — mostrar porcentagens e proporções</div>
         <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📈 <strong>Linha</strong> — mostrar evolução ao longo do tempo</div>
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Gráfico: selecionar dados → Inserir → Gráfico → escolher tipo → OK
       </div>`,
 
       `<h3 style="margin-bottom:10px;color:var(--accent)">🎨 Formatando a Planilha</h3>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🔢 <strong>Formatar número</strong> — clique direito → Formatar Células → Número/Moeda/Porcentagem
+      <p style="font-size:14px;margin-bottom:12px">Uma planilha bem formatada é mais fácil de ler e entender:</p>
+      <div style="display:grid;gap:10px">
+        <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🔢 Formatar número</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Clique com o <strong>botão direito</strong> na célula</li>
+            <li>Clique em <strong>Formatar Células</strong></li>
+            <li>Escolha: Número, Moeda (R$), Porcentagem, Data...</li>
+          </ol>
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          📏 <strong>Ajustar largura da coluna</strong> — arrastar a borda da letra da coluna
+        <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">📏 Ajustar largura da coluna</div>
+          <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+            <li>Posicione o mouse na <strong>borda entre duas letras</strong> de coluna (ex: entre A e B)</li>
+            <li>Quando aparecer a seta dupla ↔, arraste para ajustar</li>
+            <li>Ou dê <strong>duplo clique</strong> para ajuste automático</li>
+          </ol>
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🎨 <strong>Cor de fundo</strong> — Página Inicial → ícone do balde de tinta
-        </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🔗 <strong>Mesclar células</strong> — Página Inicial → Mesclar e Centralizar
+        <div style="padding:12px 16px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">🎨 Cor e mesclagem</div>
+          <p style="font-size:13px;margin:0;line-height:1.9">
+            Cor de fundo: <strong>Página Inicial → ícone do balde 🪣</strong><br>
+            Mesclar células: <strong>Página Inicial → Mesclar e Centralizar</strong>
+          </p>
         </div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-        <strong>📓 Copie:</strong> Fórmula começa com = | =SOMA() soma | =MÉDIA() tira média<br>
-        Gráfico: selecionar dados → Inserir → Gráfico
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> Formatar número: botão direito → Formatar Células | Cor: balde de tinta | Mesclar: Mesclar e Centralizar
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Resumão: Excel Básico</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:13px">
+        <tr style="background:rgba(79,142,247,.15)">
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Ação</th>
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Como fazer</th>
+          <th style="padding:9px;border:1px solid var(--border);text-align:left">Atalho</th>
+        </tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">📄 Nova planilha</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Novo</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + O</strong></td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">💾 Salvar</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + S</strong></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">💾 Salvar Como</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como</td><td style="padding:8px;border:1px solid var(--border)"><strong>F12</strong></td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">📂 Abrir</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Abrir</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + A</strong></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">✏️ Editar célula</td><td style="padding:8px;border:1px solid var(--border)">Duplo clique na célula</td><td style="padding:8px;border:1px solid var(--border)"><strong>F2</strong></td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">🔢 Iniciar fórmula</td><td style="padding:8px;border:1px solid var(--border)">Digite = na célula</td><td style="padding:8px;border:1px solid var(--border)"><strong>=SOMA() / =MÉDIA()</strong></td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)">📄 Salvar em PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como → Tipo: PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Exportar</td></tr>
+      </table>
+      <div style="margin-top:14px;padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+        ✅ <strong>Dica:</strong> Salve sempre com <strong>Ctrl+S</strong>! O Excel não salva automaticamente como o Google Sheets.
       </div>`
     ],
     perguntas: [
@@ -4961,74 +5068,142 @@ AULAS.push({
   icone: "📊",
   passos: [
     `<h3 style="margin-bottom:10px;color:var(--accent)">📊 O que é o PowerPoint?</h3>
-    <p>O <strong>Microsoft PowerPoint</strong> é o principal software de apresentação de slides do mundo, parte do pacote Microsoft Office.</p>
-    <div style="display:grid;gap:8px;margin-top:14px">
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🖼️ <strong>Slide:</strong> cada "página" de uma apresentação. Pode conter texto, imagens, gráficos, vídeos e animações.
-      </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        📂 <strong>Formato de arquivo:</strong> .pptx (padrão atual) | .ppt (versões antigas) | .pdf (exportação) | .ppsx (apresentação direta)
-      </div>
-      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🌐 <strong>Alternativas gratuitas:</strong> Google Slides (online, colaborativo) | LibreOffice Impress | Canva
-      </div>
+    <p>O <strong>Microsoft PowerPoint</strong> é o principal software de criação de slides do mundo. Com ele você monta apresentações com texto, imagens, gráficos e animações.</p>
+    <div style="display:grid;gap:8px;margin-top:12px">
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🖼️ <strong>Slide</strong> — cada "página" da apresentação. Pode ter texto, imagem, vídeo e gráfico</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📁 <strong>Formato .pptx</strong> — formato padrão do PowerPoint (versões a partir de 2007)</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📄 <strong>Formato .pdf</strong> — exportação para entregar ou imprimir sem perder formatação</div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🌐 <strong>Alternativas gratuitas:</strong> Google Slides (online) | Canva | LibreOffice Impress</div>
     </div>
-    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
       <strong>📓 Copie:</strong> PowerPoint = software de slides da Microsoft | Formato: .pptx | Alternativa gratuita: Google Slides
     </div>`,
 
-    `<h3 style="margin-bottom:10px;color:var(--accent)">🎨 Interface e Recursos Principais</h3>
-    <div style="display:grid;gap:8px;margin-top:12px">
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🖱️ <strong>Modos de exibição:</strong> Normal (edição) | Classificação de slides | Apresentação (F5 = tela cheia)
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📄 Como Criar, Salvar e Abrir uma Apresentação</h3>
+    <p style="font-size:14px;margin-bottom:12px">Assim como no Word e Excel, o PowerPoint usa os mesmos comandos para gerenciar arquivos:</p>
+    <div style="display:grid;gap:10px">
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📄 Criar nova apresentação</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique em <strong>Arquivo → Novo → Apresentação em Branco</strong></li>
+          <li>Ou use o atalho <strong>Ctrl + O</strong></li>
+          <li>Para usar um modelo pronto: Arquivo → Novo → escolha um tema</li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        📐 <strong>Layout de slide:</strong> modelos pré-definidos (título, título e conteúdo, em branco, duas colunas, etc.)
+      <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">💾 Salvar</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique em <strong>Arquivo → Salvar</strong> ou pressione <strong>Ctrl + S</strong></li>
+          <li>Para salvar com nome/pasta diferente: <strong>Arquivo → Salvar Como</strong> ou <strong>F12</strong></li>
+          <li>Para salvar em PDF: <strong>Arquivo → Salvar Como → Tipo: PDF</strong></li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🎨 <strong>Tema e Design:</strong> conjunto de cores, fontes e efeitos aplicados a todos os slides.
+      <div style="padding:12px 16px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">📂 Abrir apresentação existente</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique em <strong>Arquivo → Abrir</strong> ou pressione <strong>Ctrl + A</strong></li>
+          <li>Ou dê duplo clique no arquivo .pptx pelo Windows Explorer</li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🔄 <strong>Slide Mestre:</strong> slide modelo que define o padrão visual de toda a apresentação.
+    </div>
+    <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Novo: Ctrl+O | Salvar: Ctrl+S | Salvar Como: F12 | Abrir: Ctrl+A | Formato: .pptx
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🖼️ Trabalhando com Slides</h3>
+    <p style="font-size:14px;margin-bottom:12px">Veja como adicionar, organizar e editar slides na sua apresentação:</p>
+    <div style="display:grid;gap:10px">
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">➕ Adicionar novo slide</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique com o <strong>botão direito</strong> no painel de slides (esquerda)</li>
+          <li>Clique em <strong>Novo Slide</strong></li>
+          <li>Ou use o atalho <strong>Ctrl + M</strong></li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ⌨️ <strong>Atalhos essenciais:</strong> F5 = iniciar | Esc = sair | Ctrl+M = novo slide | Ctrl+D = duplicar slide
+      <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">📐 Layout do slide</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique com o <strong>botão direito</strong> no slide</li>
+          <li>Clique em <strong>Layout</strong></li>
+          <li>Escolha: Título, Título e Conteúdo, Em Branco, Duas Colunas...</li>
+        </ol>
       </div>
+      <div style="padding:12px 16px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">🔄 Modos de exibição</div>
+        <p style="font-size:13px;margin:0;line-height:1.9">
+          <strong>Normal</strong> — edição do slide | <strong>Classificação</strong> — ver todos os slides | <strong>F5</strong> — iniciar apresentação em tela cheia | <strong>Shift+F5</strong> — iniciar do slide atual
+        </p>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Novo slide: Ctrl+M | Duplicar: Ctrl+D | F5 = tela cheia | Shift+F5 = do slide atual | Esc = sair
     </div>`,
 
     `<h3 style="margin-bottom:10px;color:var(--accent)">✨ Animações e Transições</h3>
-    <div style="display:grid;gap:8px;margin-top:12px">
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        🔄 <strong>Transições:</strong> efeito de passagem entre slides (dissolução, cortina, fade, etc.). Aba "Transições" no menu.
+    <p style="font-size:14px;margin-bottom:12px">Animações e transições deixam a apresentação mais dinâmica — mas use com moderação!</p>
+    <div style="display:grid;gap:10px">
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🔄 Transições (entre slides)</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique na aba <strong>Transições</strong></li>
+          <li>Escolha um efeito: Dissolução, Cortina, Fade...</li>
+          <li>Clique em <strong>Aplicar a Todos</strong> para usar em todos os slides</li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        💫 <strong>Animações:</strong> efeitos aplicados a elementos dentro do slide (texto, imagem, gráfico). Aba "Animações" no menu.
+      <div style="padding:12px 16px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">💫 Animações (dentro do slide)</div>
+        <ol style="margin:0 0 0 18px;line-height:2.1;font-size:13px">
+          <li>Clique no elemento (texto ou imagem) que quer animar</li>
+          <li>Clique na aba <strong>Animações</strong></li>
+          <li>Escolha o efeito: Entrada, Ênfase, Saída ou Trajetória</li>
+        </ol>
       </div>
-      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ▶️ <strong>Tipos de animação:</strong> Entrada (aparecer) | Ênfase (destacar) | Saída (desaparecer) | Trajetória (mover)
+      <div style="display:grid;gap:6px;margin-top:4px">
+        <div style="padding:8px 12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">▶️ <strong>Entrada</strong> — elemento aparece no slide</div>
+        <div style="padding:8px 12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⭐ <strong>Ênfase</strong> — destaca um elemento que já está no slide</div>
+        <div style="padding:8px 12px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⏹️ <strong>Saída</strong> — elemento desaparece do slide</div>
       </div>
-      <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ⚠️ <strong>Boa prática:</strong> use animações com moderação. Excesso distrai e dificulta a apresentação.
+      <div style="padding:10px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        ⚠️ <strong>Cuidado:</strong> excesso de animações distrai o público. Use só quando realmente ajudar a explicar o conteúdo.
       </div>
+    </div>
+    <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Transição = efeito entre slides | Animação = efeito em elementos dentro do slide
     </div>`,
 
     `<h3 style="margin-bottom:10px;color:var(--accent)">✅ Boas Práticas para Apresentações</h3>
-    <div style="display:grid;gap:8px;margin-top:12px">
-      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ✅ <strong>Regra 6x6:</strong> máximo 6 linhas por slide, 6 palavras por linha. Slides não são documentos de texto!
-      </div>
-      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ✅ <strong>Contraste:</strong> fundo escuro com texto claro ou fundo claro com texto escuro. Nunca cores que se confundem.
-      </div>
-      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ✅ <strong>Fonte legível:</strong> mínimo 24pt para o corpo, 36pt para títulos. Sem fontes decorativas difíceis de ler.
-      </div>
-      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-        ❌ <strong>Evite:</strong> paredes de texto | muitas cores diferentes | animações excessivas | imagens pixeladas
-      </div>
+    <p style="font-size:14px;margin-bottom:12px">Um bom slide comunica de forma clara e visual. Siga essas regras:</p>
+    <div style="display:grid;gap:8px">
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Regra 6x6:</strong> no máximo 6 linhas por slide e 6 palavras por linha. Slide não é documento!</div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Contraste:</strong> fundo escuro + texto claro, ou fundo claro + texto escuro. Nunca cores que se misturam.</div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Tamanho de fonte:</strong> mínimo 24pt para o corpo do texto, 36pt para títulos</div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Imagens:</strong> use imagens de qualidade, sem distorção e que sejam relevantes para o conteúdo</div>
+      <div style="padding:10px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">❌ <strong>Evite:</strong> paredes de texto | muitas cores diferentes | fontes decorativas difíceis de ler | imagens pixeladas</div>
     </div>
-    <div style="margin-top:14px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-      <strong>📓 Copie:</strong> Regra 6x6: 6 linhas × 6 palavras | F5 = iniciar apresentação | .pptx = formato padrão
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Regra 6x6: 6 linhas × 6 palavras | Fonte mínima: 24pt corpo, 36pt título | Contraste é essencial
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Resumão: PowerPoint</h3>
+    <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:13px">
+      <tr style="background:rgba(79,142,247,.15)">
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Ação</th>
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Menu</th>
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Atalho</th>
+      </tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">📄 Nova apresentação</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Novo</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + O</strong></td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">💾 Salvar</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + S</strong></td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">💾 Salvar Como</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como</td><td style="padding:8px;border:1px solid var(--border)"><strong>F12</strong></td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">📂 Abrir</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Abrir</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + A</strong></td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">➕ Novo slide</td><td style="padding:8px;border:1px solid var(--border)">Botão direito → Novo Slide</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + M</strong></td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">📋 Duplicar slide</td><td style="padding:8px;border:1px solid var(--border)">Botão direito → Duplicar</td><td style="padding:8px;border:1px solid var(--border)"><strong>Ctrl + D</strong></td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">▶️ Iniciar apresentação</td><td style="padding:8px;border:1px solid var(--border)">Apresentação de Slides → Do início</td><td style="padding:8px;border:1px solid var(--border)"><strong>F5</strong></td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">▶️ Do slide atual</td><td style="padding:8px;border:1px solid var(--border)">Apresentação → Do Slide Atual</td><td style="padding:8px;border:1px solid var(--border)"><strong>Shift + F5</strong></td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">📄 Salvar em PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Salvar Como → Tipo: PDF</td><td style="padding:8px;border:1px solid var(--border)">Arquivo → Exportar</td></tr>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+      ✅ <strong>Dica final:</strong> Salve em <strong>.pptx</strong> para editar depois e em <strong>.pdf</strong> para entregar ou apresentar sem riscos de formatação!
     </div>`
   ],
     perguntas: [
