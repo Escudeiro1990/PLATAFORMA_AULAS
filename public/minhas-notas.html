@@ -196,6 +196,40 @@
           '<div class="vazio"><span>📋</span>Você ainda não realizou nenhuma prova.</div>';
       }
 
+      // ── Atividades enviadas ──
+      try {
+        const ativResp = await fetch('/minhas-atividades?aluno=' + encodeURIComponent(aluno));
+        const atividades = await ativResp.json();
+        if (atividades.length > 0) {
+          const secAtiv = document.createElement('div');
+          secAtiv.className = 'secao';
+          secAtiv.innerHTML = '<div class="secao-titulo">📎 Atividades Enviadas</div>';
+          atividades.forEach(a => {
+            const temNota = a.nota !== null && a.nota !== undefined;
+            const nota    = temNota ? parseFloat(a.nota) : null;
+            const cls     = !temNota ? 'pendente' : nota >= 7 ? 'boa' : nota >= 5 ? 'media' : 'ruim';
+            const badge   = temNota ? nota.toFixed(1) : '⏳';
+            secAtiv.innerHTML += `
+              <div class="nota-card" style="flex-direction:column;align-items:stretch;gap:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <div class="nota-info">
+                    <div class="nota-titulo">📎 ${a.titulo}</div>
+                    <div class="nota-meta">📄 ${a.arquivo_nome || '—'}</div>
+                    <div class="nota-meta">🕐 ${a.enviado_em || ''}</div>
+                    <span class="status-pill ${temNota ? 'ok' : 'pend'}">${temNota ? '✅ Corrigida' : '⏳ Aguardando correção'}</span>
+                  </div>
+                  <div class="nota-badge ${cls}">${badge}</div>
+                </div>
+                ${a.comentario ? `<div class="feedback-box" style="display:block;">💬 ${a.comentario}</div>` : ''}
+              </div>`;
+          });
+          document.querySelector('body').insertBefore(secAtiv, document.getElementById('loading'));
+          // Inserir antes do final
+          const loading = document.getElementById('loading');
+          loading.parentNode.insertBefore(secAtiv, loading);
+        }
+      } catch(e) {}
+
     } catch (e) {
       document.getElementById('loading').textContent = '❌ Erro ao carregar notas: ' + e.message;
     }

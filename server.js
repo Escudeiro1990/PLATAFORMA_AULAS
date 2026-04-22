@@ -50,7 +50,9 @@ async function initDB() {
   await dbRun(`CREATE TABLE IF NOT EXISTS prova_respostas_foto (id INTEGER PRIMARY KEY AUTOINCREMENT, prova_id INTEGER, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, foto_base64 TEXT, texto_respostas TEXT, modo_envio TEXT DEFAULT 'foto', nota_manual REAL, comentario TEXT, status TEXT DEFAULT 'pendente', enviado_em TEXT, corrigido_em TEXT)`);
   await dbRun(`CREATE TABLE IF NOT EXISTS aulas_restricao (aluno_id INTEGER PRIMARY KEY, ativa INTEGER DEFAULT 0)`);
   await dbRun(`CREATE TABLE IF NOT EXISTS atividades_janelas (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT NOT NULL, descricao TEXT, turma TEXT NOT NULL, data_envio TEXT NOT NULL, ativa INTEGER DEFAULT 1, criada_em TEXT)`);
-  await dbRun(`CREATE TABLE IF NOT EXISTS atividades_envios (id INTEGER PRIMARY KEY AUTOINCREMENT, janela_id INTEGER NOT NULL, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, arquivo_nome TEXT, arquivo_base64 TEXT, enviado_em TEXT, UNIQUE(janela_id, aluno_nome))`);
+  await dbRun(`CREATE TABLE IF NOT EXISTS atividades_envios (id INTEGER PRIMARY KEY AUTOINCREMENT, janela_id INTEGER NOT NULL, aluno_nome TEXT NOT NULL, aluno_rm TEXT, turma TEXT, arquivo_nome TEXT, arquivo_base64 TEXT, enviado_em TEXT, nota REAL, comentario TEXT, UNIQUE(janela_id, aluno_nome))`);
+  await dbRun(`ALTER TABLE atividades_envios ADD COLUMN nota REAL`).catch(() => {});
+  await dbRun(`ALTER TABLE atividades_envios ADD COLUMN comentario TEXT`).catch(() => {});
 
   // Configurações padrão
   const configs = [
@@ -751,6 +753,31 @@ app.get('/atividade-download/:id', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="${row.arquivo_nome || 'arquivo'}"`);
     res.setHeader('Content-Type', mime);
     res.send(buf);
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// PROFESSOR: salvar nota de um envio
+app.post('/atividade-nota', async (req, res) => {
+  try {
+    const { usuario, senha, envio_id, nota, comentario } = req.body;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    await dbRun(`UPDATE atividades_envios SET nota = ?, comentario = ? WHERE id = ?`, [nota, comentario || '', envio_id]);
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ALUNO: ver notas de atividades enviadas
+app.get('/minhas-atividades', async (req, res) => {
+  try {
+    const { aluno } = req.query;
+    if (!aluno) return res.status(400).json({ erro: 'Nome obrigatório.' });
+    const rows = await dbAll(
+      `SELECT e.id, j.titulo, e.arquivo_nome, e.enviado_em, e.nota, e.comentario
+       FROM atividades_envios e JOIN atividades_janelas j ON j.id = e.janela_id
+       WHERE e.aluno_nome = ? ORDER BY e.enviado_em DESC`, [aluno]
+    );
+    res.json(rows);
   } catch(e) { res.status(500).json({ erro: e.message }); }
 });
 
