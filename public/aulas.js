@@ -5493,3 +5493,908 @@ AULAS.push({
 
 });
 
+
+// ══════════════════════════════════════════════════════════════════
+// BLOCO CONCURSO — AULAS COMPLEMENTARES
+// ══════════════════════════════════════════════════════════════════
+
+// ── 1. UNIDADES DE MEDIDA ────────────────────────────────────────
+AULAS.push({
+  id: 45,
+  titulo: "Unidades de Medida: bit, byte, KB, MB, GB",
+  descricao: "Entenda como se mede a informação digital — conteúdo essencial para concursos",
+  icone: "💾",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">💾 Por que medir informação digital?</h3>
+    <p style="font-size:14px;margin-bottom:12px">Assim como medimos distância em km e peso em kg, a informação digital tem suas próprias unidades de medida. Entender isso é fundamental para comparar dispositivos, contratos de internet e armazenamento.</p>
+    <div style="display:grid;gap:8px">
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📡 <strong>Velocidade de internet:</strong> "100 Mbps" — o que significa esse número?</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">💾 <strong>Armazenamento:</strong> "HD de 1 TB" vs "Pen drive de 64 GB" — qual é maior?</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📱 <strong>Plano de dados:</strong> "10 GB por mês" — quanto tempo dura?</div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>Atenção no concurso:</strong> questões costumam misturar bits e bytes propositalmente para confundir. Fique atento à letra maiúscula/minúscula!
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚡ Bit e Byte — a base de tudo</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🔵 BIT (b — minúsculo)</div>
+        <p style="font-size:13px;margin:0;line-height:1.8">A menor unidade de informação digital. Só pode ter dois valores: <strong>0</strong> ou <strong>1</strong>.<br>
+        Pense como um interruptor: ligado (1) ou desligado (0).<br>
+        <strong>Usado para medir velocidade</strong> de internet: Mbps, Gbps</p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">🟢 BYTE (B — maiúsculo)</div>
+        <p style="font-size:13px;margin:0;line-height:1.8">Conjunto de <strong>8 bits</strong>. É a unidade básica para medir <strong>armazenamento</strong>.<br>
+        Um caractere (letra, número) ocupa aproximadamente 1 byte.<br>
+        <strong>Usado para medir armazenamento:</strong> KB, MB, GB, TB</p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px;margin-bottom:10px">
+      🎯 <strong>Regra de ouro:</strong> 1 Byte = 8 bits | <strong>b</strong> minúsculo = bit (velocidade) | <strong>B</strong> maiúsculo = Byte (armazenamento)
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> bit (b) = menor unidade, 0 ou 1 | Byte (B) = 8 bits | bit → velocidade | Byte → armazenamento
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📊 Tabela Completa de Unidades</h3>
+    <p style="font-size:13px;margin-bottom:12px">Cada unidade é <strong>1.024 vezes maior</strong> que a anterior (potência de 2):</p>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <tr style="background:rgba(79,142,247,.15)">
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Unidade</th>
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Símbolo</th>
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Equivalência</th>
+        <th style="padding:9px;border:1px solid var(--border);text-align:left">Exemplo prático</th>
+      </tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">Byte</td><td style="padding:8px;border:1px solid var(--border)"><strong>B</strong></td><td style="padding:8px;border:1px solid var(--border)">8 bits</td><td style="padding:8px;border:1px solid var(--border)">1 caractere de texto</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">Kilobyte</td><td style="padding:8px;border:1px solid var(--border)"><strong>KB</strong></td><td style="padding:8px;border:1px solid var(--border)">1.024 Bytes</td><td style="padding:8px;border:1px solid var(--border)">Um e-mail simples</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">Megabyte</td><td style="padding:8px;border:1px solid var(--border)"><strong>MB</strong></td><td style="padding:8px;border:1px solid var(--border)">1.024 KB</td><td style="padding:8px;border:1px solid var(--border)">Uma foto de celular</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">Gigabyte</td><td style="padding:8px;border:1px solid var(--border)"><strong>GB</strong></td><td style="padding:8px;border:1px solid var(--border)">1.024 MB</td><td style="padding:8px;border:1px solid var(--border)">Um filme em HD</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border)">Terabyte</td><td style="padding:8px;border:1px solid var(--border)"><strong>TB</strong></td><td style="padding:8px;border:1px solid var(--border)">1.024 GB</td><td style="padding:8px;border:1px solid var(--border)">HD externo padrão</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:8px;border:1px solid var(--border)">Petabyte</td><td style="padding:8px;border:1px solid var(--border)"><strong>PB</strong></td><td style="padding:8px;border:1px solid var(--border)">1.024 TB</td><td style="padding:8px;border:1px solid var(--border)">Data centers de empresas</td></tr>
+    </table>
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie — Ordem crescente:</strong><br>
+      bit → Byte → KB → MB → GB → TB → PB<br>
+      Cada nível = 1.024 × o anterior
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🌐 Velocidade de Internet — Mbps vs MBps</h3>
+    <p style="font-size:14px;margin-bottom:12px">Aqui está a pegadinha mais comum dos concursos:</p>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:10px;border:2px solid rgba(248,113,113,.3)">
+        <div style="font-size:13px;font-weight:700;color:var(--danger);margin-bottom:6px">📡 Mbps — Megabits por segundo (b minúsculo)</div>
+        <p style="font-size:13px;margin:0">É como as operadoras anunciam a internet. <strong>"100 Mbps"</strong><br>
+        Para converter para download real em MB/s: divida por 8<br>
+        <strong>100 Mbps ÷ 8 = 12,5 MB/s</strong> de download efetivo</p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:2px solid rgba(52,211,153,.3)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">💾 MB/s — Megabytes por segundo (B maiúsculo)</div>
+        <p style="font-size:13px;margin:0">É a velocidade real de download/transferência que você vê no gerenciador de downloads.<br>
+        <strong>1 MB/s = 8 Mbps</strong></p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      🎯 <strong>Exemplo de questão:</strong> "Uma conexão de 100 Mbps baixa um arquivo de 1 GB em quanto tempo?"<br>
+      100 Mbps = 12,5 MB/s | 1 GB = 1.024 MB | 1.024 ÷ 12,5 = <strong>≈ 82 segundos</strong>
+    </div>
+    <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Mbps (bits) = velocidade anunciada | MB/s (bytes) = velocidade real de download<br>
+      Conversão: Mbps ÷ 8 = MB/s | MB/s × 8 = Mbps
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "Quantos bits existem em 1 Byte?", opcoes: [{texto:"4",correta:false},{texto:"8",correta:true},{texto:"16",correta:false},{texto:"1.024",correta:false}] },
+    { pergunta: "Qual unidade é usada para medir VELOCIDADE de internet?", opcoes: [{texto:"GB",correta:false},{texto:"TB",correta:false},{texto:"Mbps",correta:true},{texto:"KB",correta:false}] },
+    { pergunta: "Uma internet de 100 Mbps equivale a quantos MB/s de download real?", opcoes: [{texto:"100 MB/s",correta:false},{texto:"800 MB/s",correta:false},{texto:"12,5 MB/s",correta:true},{texto:"50 MB/s",correta:false}] },
+    { pergunta: "Qual a ordem correta do MENOR para o MAIOR?", opcoes: [{texto:"KB → MB → GB → TB",correta:true},{texto:"MB → KB → GB → TB",correta:false},{texto:"GB → MB → KB → TB",correta:false},{texto:"TB → GB → MB → KB",correta:false}] },
+    { pergunta: "1 Gigabyte equivale a:", opcoes: [{texto:"1.000 MB",correta:false},{texto:"1.024 MB",correta:true},{texto:"1.000.000 KB",correta:false},{texto:"512 MB",correta:false}] },
+    { pergunta: "Um arquivo de 4 GB em um pen drive de 4 GB cabe? (considere 1 GB = 1.024 MB)", opcoes: [{texto:"Sim, cabe exatamente",correta:false},{texto:"Não, pois o sistema de arquivos reserva espaço — na prática tem menos de 4 GB disponíveis",correta:true},{texto:"Cabe apenas se o arquivo for de vídeo",correta:false},{texto:"Sim, mas vai formatar o pen drive",correta:false}] },
+    { pergunta: "(VUNESP) A sigla 'b' minúsculo em Mbps representa:", opcoes: [{texto:"Byte",correta:false},{texto:"bit",correta:true},{texto:"Bloco",correta:false},{texto:"Banda",correta:false}] },
+    { pergunta: "Qual dispositivo tipicamente tem maior capacidade de armazenamento?", opcoes: [{texto:"Pen drive de 64 GB",correta:false},{texto:"SSD de 512 GB",correta:false},{texto:"HD externo de 2 TB",correta:true},{texto:"Cartão SD de 128 GB",correta:false}] }
+  ]
+});
+
+// ── 2. MEMÓRIA RAM, ROM, HD, SSD ─────────────────────────────────
+AULAS.push({
+  id: 46,
+  titulo: "Memória RAM, ROM, HD e SSD: tipos e diferenças",
+  descricao: "Entenda os tipos de memória do computador — tema frequente em concursos de informática",
+  icone: "🧠",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🧠 Por que existem tipos diferentes de memória?</h3>
+    <p style="font-size:14px;margin-bottom:12px">O computador precisa de memórias com características diferentes para cada função. É como numa empresa: tem o funcionário que trabalha rápido mas vai embora no fim do dia (RAM), e o arquivo permanente que fica guardado (HD/SSD).</p>
+    <div style="display:grid;gap:8px">
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⚡ <strong>Memória primária</strong> — rápida, usada pelo processador diretamente: RAM e ROM</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">💾 <strong>Memória secundária</strong> — armazenamento permanente de dados: HD, SSD, pen drive</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⚙️ <strong>Memória cache</strong> — ultrarápida, dentro do processador, guarda dados mais usados</div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Primária (RAM/ROM) = acesso direto pelo processador | Secundária (HD/SSD) = armazenamento permanente
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚡ RAM — Memória de Acesso Aleatório</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📌 <strong>RAM</strong> = Random Access Memory (Memória de Acesso Aleatório)</div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⚡ É a memória de <strong>trabalho</strong> do computador — guarda o que está sendo usado agora</div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔄 É <strong>volátil</strong> — perde tudo quando o computador é desligado</div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📊 Mais RAM = mais programas abertos ao mesmo tempo sem travar</div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:10px">
+      💡 <strong>Analogia:</strong> RAM é a mesa de trabalho. Quanto maior a mesa, mais documentos você consegue ter abertos ao mesmo tempo. Quando você vai embora (desliga o PC), a mesa fica vazia.
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> RAM = memória de trabalho | Volátil (perde ao desligar) | Mais RAM = mais velocidade e multitarefa
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔒 ROM — Memória Somente de Leitura</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📌 <strong>ROM</strong> = Read Only Memory (Memória Somente de Leitura)</div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔒 <strong>Não volátil</strong> — mantém os dados mesmo sem energia</div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🏭 Gravada pelo <strong>fabricante</strong> — o usuário normalmente não altera</div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⚙️ Contém o <strong>BIOS/UEFI</strong> — programa que inicializa o computador</div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:10px">
+      💡 <strong>Analogia:</strong> ROM é como um livro impresso — você só lê, não escreve. Fica guardado para sempre, mesmo sem energia.
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> ROM = somente leitura | Não volátil (mantém sem energia) | Contém o BIOS | Gravada pelo fabricante
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">💾 HD vs SSD — Armazenamento Permanente</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">💿 HD — Hard Disk Drive (Disco Rígido)</div>
+        <div style="display:grid;gap:5px;font-size:13px">
+          <div>⚙️ Funciona com <strong>discos magnéticos giratórios</strong> e cabeçote de leitura</div>
+          <div>🐢 Mais lento (velocidade ~100 MB/s típico)</div>
+          <div>💰 Mais barato por GB</div>
+          <div>📦 Maior capacidade por menor preço (2TB, 4TB, 8TB...)</div>
+          <div>⚠️ Mais frágil — sensível a impactos e vibração</div>
+        </div>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:8px">⚡ SSD — Solid State Drive (Unidade de Estado Sólido)</div>
+        <div style="display:grid;gap:5px;font-size:13px">
+          <div>⚡ Funciona com <strong>memória flash</strong> (sem partes móveis)</div>
+          <div>🚀 Muito mais rápido (velocidade ~500 MB/s a 7.000 MB/s NVMe)</div>
+          <div>💰 Mais caro por GB</div>
+          <div>🛡️ Mais resistente — sem partes mecânicas</div>
+          <div>🔋 Consome menos energia</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> HD = disco magnético, mais barato, mais lento | SSD = flash, mais rápido, mais caro, sem partes móveis<br>
+      Ambos = não voláteis (guardam dados sem energia)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Resumão: Tipos de Memória</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px">
+      <tr style="background:rgba(79,142,247,.15)">
+        <th style="padding:8px;border:1px solid var(--border)">Tipo</th>
+        <th style="padding:8px;border:1px solid var(--border)">Volátil?</th>
+        <th style="padding:8px;border:1px solid var(--border)">Velocidade</th>
+        <th style="padding:8px;border:1px solid var(--border)">Uso principal</th>
+      </tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)"><strong>Cache</strong></td><td style="padding:7px;border:1px solid var(--border)">Sim</td><td style="padding:7px;border:1px solid var(--border)">Ultrarrápida</td><td style="padding:7px;border:1px solid var(--border)">Dentro do processador</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)"><strong>RAM</strong></td><td style="padding:7px;border:1px solid var(--border)">Sim</td><td style="padding:7px;border:1px solid var(--border)">Muito rápida</td><td style="padding:7px;border:1px solid var(--border)">Memória de trabalho</td></tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)"><strong>ROM</strong></td><td style="padding:7px;border:1px solid var(--border)">Não</td><td style="padding:7px;border:1px solid var(--border)">Rápida</td><td style="padding:7px;border:1px solid var(--border)">BIOS, firmware</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)"><strong>SSD</strong></td><td style="padding:7px;border:1px solid var(--border)">Não</td><td style="padding:7px;border:1px solid var(--border)">Rápida</td><td style="padding:7px;border:1px solid var(--border)">Armazenamento principal</td></tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)"><strong>HD</strong></td><td style="padding:7px;border:1px solid var(--border)">Não</td><td style="padding:7px;border:1px solid var(--border)">Lenta</td><td style="padding:7px;border:1px solid var(--border)">Armazenamento em massa</td></tr>
+    </table>
+    <div style="padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+      ✅ <strong>Macete concurso:</strong> RAM e Cache = voláteis (perdem com desligamento) | ROM, SSD, HD = não voláteis (guardam sem energia)
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "Qual memória é VOLÁTIL — perde os dados ao desligar o computador?", opcoes: [{texto:"HD",correta:false},{texto:"ROM",correta:false},{texto:"RAM",correta:true},{texto:"SSD",correta:false}] },
+    { pergunta: "A memória ROM contém o BIOS. O que significa ROM?", opcoes: [{texto:"Random Only Memory",correta:false},{texto:"Read Only Memory",correta:true},{texto:"Read On Memory",correta:false},{texto:"Rapid Operation Memory",correta:false}] },
+    { pergunta: "Qual a principal vantagem do SSD em relação ao HD?", opcoes: [{texto:"Maior capacidade de armazenamento",correta:false},{texto:"Menor preço por GB",correta:false},{texto:"Maior velocidade e sem partes móveis",correta:true},{texto:"Compatível com mais sistemas operacionais",correta:false}] },
+    { pergunta: "Ao abrir vários programas ao mesmo tempo e o PC travar, qual componente provavelmente está escasso?", opcoes: [{texto:"HD",correta:false},{texto:"RAM",correta:true},{texto:"ROM",correta:false},{texto:"Fonte de alimentação",correta:false}] },
+    { pergunta: "(VUNESP) A memória usada para armazenar o programa de inicialização do computador (BIOS) é:", opcoes: [{texto:"RAM",correta:false},{texto:"Cache",correta:false},{texto:"ROM",correta:true},{texto:"Virtual",correta:false}] },
+    { pergunta: "Qual memória fica localizada DENTRO do processador para maior velocidade?", opcoes: [{texto:"RAM",correta:false},{texto:"ROM",correta:false},{texto:"Cache",correta:true},{texto:"Flash",correta:false}] },
+    { pergunta: "Um HD usa que tecnologia para armazenar dados?", opcoes: [{texto:"Memória flash",correta:false},{texto:"Discos magnéticos giratórios",correta:true},{texto:"Cristais líquidos",correta:false},{texto:"Circuitos integrados",correta:false}] },
+    { pergunta: "(CESPE) Memória não volátil é aquela que:", opcoes: [{texto:"Apaga os dados ao ser desligada",correta:false},{texto:"Mantém os dados mesmo sem energia elétrica",correta:true},{texto:"Só pode ser lida, nunca gravada",correta:false},{texto:"É usada exclusivamente por processadores",correta:false}] }
+  ]
+});
+
+// ── 3. IP, DNS, INTERNET x INTRANET ─────────────────────────────
+AULAS.push({
+  id: 47,
+  titulo: "Redes Avançado: IP, DNS, Internet x Intranet",
+  descricao: "Endereçamento IP, funcionamento do DNS e diferenças entre redes — para concursos",
+  icone: "🌐",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🌐 Internet x Intranet x Extranet</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🌍 INTERNET — rede pública global</div>
+        <p style="font-size:13px;margin:0">Rede mundial e pública, aberta a todos. Conecta bilhões de dispositivos ao redor do planeta. Sem fronteiras — qualquer pessoa com acesso pode entrar.</p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">🏢 INTRANET — rede privada interna</div>
+        <p style="font-size:13px;margin:0">Rede privada de uma organização. Usa as mesmas tecnologias da internet, mas o acesso é restrito aos funcionários/membros. Ex: sistema interno da escola, portal do funcionário.</p>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">🔗 EXTRANET — extensão controlada da intranet</div>
+        <p style="font-size:13px;margin:0">Permite acesso externo limitado à intranet para parceiros, fornecedores ou clientes específicos. Ex: fornecedor acessa o sistema de pedidos da empresa.</p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Internet = pública, global | Intranet = privada, interna da empresa | Extranet = intranet com acesso externo controlado
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📍 Endereço IP — o "CEP" do computador</h3>
+    <p style="font-size:14px;margin-bottom:12px">Todo dispositivo numa rede precisa de um endereço único para ser identificado — o <strong>IP (Internet Protocol)</strong>.</p>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">IPv4 — formato atual mais usado</div>
+        <div style="padding:8px 12px;background:rgba(0,0,0,.1);border-radius:6px;font-family:monospace;font-size:14px;margin-bottom:8px;text-align:center">192.168.1.1</div>
+        <p style="font-size:13px;margin:0">4 grupos de números (0-255) separados por ponto. Total: ~4,3 bilhões de endereços possíveis.</p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">IPv6 — novo padrão (mais endereços)</div>
+        <div style="padding:8px 12px;background:rgba(0,0,0,.1);border-radius:6px;font-family:monospace;font-size:13px;margin-bottom:8px;text-align:center">2001:0db8:85a3:0000:0000:8a2e:0370:7334</div>
+        <p style="font-size:13px;margin:0">128 bits em hexadecimal. Criado porque os endereços IPv4 estão se esgotando. Suporta quantidade quase ilimitada de dispositivos.</p>
+      </div>
+    </div>
+    <div style="display:grid;gap:8px">
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🏠 <strong>IP privado:</strong> usado dentro da rede local (ex: 192.168.x.x) — não válido na internet</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🌍 <strong>IP público:</strong> atribuído pelo provedor — identifica o dispositivo na internet</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📌 <strong>IP fixo:</strong> nunca muda | <strong>IP dinâmico:</strong> muda a cada conexão (mais comum)</div>
+    </div>
+    <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> IPv4 = 4 grupos 0-255 (ex: 192.168.1.1) | IPv6 = 128 bits hexadecimal | IP privado = rede local | IP público = internet
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔍 DNS — como o nome vira endereço</h3>
+    <p style="font-size:14px;margin-bottom:12px"><strong>DNS (Domain Name System)</strong> é como a "agenda telefônica" da internet — traduz nomes de sites em endereços IP.</p>
+    <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:10px;border:2px solid rgba(251,191,36,.3);margin-bottom:14px;font-size:13px">
+      <div style="font-weight:700;color:#f59e0b;margin-bottom:8px">🤔 Por que precisamos do DNS?</div>
+      <p style="margin:0">Ninguém decora endereços IP. Você digita <strong>www.google.com</strong> e o DNS traduz para <strong>142.250.218.46</strong> — o computador entende o número, você entende o nome.</p>
+    </div>
+    <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">🔄 Como funciona (passo a passo):</div>
+      <ol style="margin:0 0 0 18px;line-height:2.2;font-size:13px">
+        <li>Você digita <strong>www.escola.com.br</strong> no navegador</li>
+        <li>Seu computador pergunta ao <strong>servidor DNS</strong>: "qual é o IP desse site?"</li>
+        <li>O DNS responde: <strong>"é 200.100.50.1"</strong></li>
+        <li>Seu navegador se conecta a esse IP e carrega o site</li>
+      </ol>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> DNS = Domain Name System | Traduz nome de domínio → endereço IP | "Agenda telefônica" da internet<br>
+      Ex: www.google.com → 142.250.218.46
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Tipos de Rede: LAN, MAN, WAN</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>LAN</strong> — Local Area Network (Rede Local)<br>
+        <span style="color:var(--muted)">Área pequena: casa, escola, escritório. Alta velocidade. Ex: rede Wi-Fi da escola.</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>MAN</strong> — Metropolitan Area Network (Rede Metropolitana)<br>
+        <span style="color:var(--muted)">Área de uma cidade. Ex: rede de câmeras de prefeitura, rede entre campi de uma universidade.</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>WAN</strong> — Wide Area Network (Rede de Área Ampla)<br>
+        <span style="color:var(--muted)">Área grande: países, continentes. A Internet é a maior WAN do mundo.</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>WLAN</strong> — Wireless LAN = rede local sem fio (Wi-Fi)
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> LAN = local (escola/casa) | MAN = cidade | WAN = país/mundo (internet é uma WAN) | WLAN = Wi-Fi
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "Qual a diferença entre Internet e Intranet?", opcoes: [{texto:"Internet é mais rápida que Intranet",correta:false},{texto:"Internet é pública e global; Intranet é privada e restrita a uma organização",correta:true},{texto:"Intranet é mais segura por usar criptografia obrigatória",correta:false},{texto:"Não há diferença técnica, apenas de nome",correta:false}] },
+    { pergunta: "O formato de endereço IPv4 é:", opcoes: [{texto:"6 grupos de letras e números em hexadecimal",correta:false},{texto:"4 grupos de números de 0 a 255 separados por ponto",correta:true},{texto:"8 grupos de 4 dígitos hexadecimais",correta:false},{texto:"12 dígitos decimais sem separação",correta:false}] },
+    { pergunta: "O DNS (Domain Name System) serve para:", opcoes: [{texto:"Proteger a rede contra vírus e malware",correta:false},{texto:"Traduzir nomes de domínio em endereços IP",correta:true},{texto:"Atribuir endereços IP automaticamente aos dispositivos",correta:false},{texto:"Comprimir dados para transmissão mais rápida",correta:false}] },
+    { pergunta: "Uma rede LAN cobre:", opcoes: [{texto:"Países e continentes",correta:false},{texto:"Uma cidade inteira",correta:false},{texto:"Uma área pequena como uma casa ou escritório",correta:true},{texto:"Redes sem fio exclusivamente",correta:false}] },
+    { pergunta: "O endereço 192.168.0.1 é um exemplo de IP:", opcoes: [{texto:"Público — válido na internet",correta:false},{texto:"IPv6",correta:false},{texto:"Privado — usado em rede local",correta:true},{texto:"DNS",correta:false}] },
+    { pergunta: "A Internet é classificada como qual tipo de rede?", opcoes: [{texto:"LAN",correta:false},{texto:"MAN",correta:false},{texto:"WAN",correta:true},{texto:"WLAN",correta:false}] },
+    { pergunta: "(CESPE) O IPv6 foi criado principalmente para:", opcoes: [{texto:"Aumentar a velocidade da internet",correta:false},{texto:"Solucionar o esgotamento dos endereços IPv4",correta:true},{texto:"Melhorar a segurança das redes sem fio",correta:false},{texto:"Substituir o protocolo HTTP",correta:false}] },
+    { pergunta: "Extranet é:", opcoes: [{texto:"O mesmo que internet, com outro nome",correta:false},{texto:"Uma intranet acessível por parceiros externos de forma controlada",correta:true},{texto:"Uma rede exclusiva para uso governamental",correta:false},{texto:"Rede sem fio de alta velocidade",correta:false}] }
+  ]
+});
+
+// ── 4. ENGENHARIA SOCIAL e WORMS/TROJANS ─────────────────────────
+AULAS.push({
+  id: 48,
+  titulo: "Segurança Avançada: Engenharia Social, Worms e Trojans",
+  descricao: "Tipos de ameaças digitais detalhados — conteúdo frequente em concursos de TI",
+  icone: "🔐",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🧠 Engenharia Social — atacando o elo mais fraco</h3>
+    <p style="font-size:14px;margin-bottom:12px"><strong>Engenharia social</strong> é a arte de manipular pessoas para que revelem informações confidenciais ou realizem ações prejudiciais — sem precisar invadir sistemas tecnicamente.</p>
+    <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid rgba(248,113,113,.3);font-size:13px;margin-bottom:12px">
+      ⚠️ <strong>O elo mais fraco de qualquer sistema de segurança é o ser humano.</strong> Por isso a engenharia social funciona — explora confiança, medo, urgência e curiosidade.
+    </div>
+    <div style="display:grid;gap:8px">
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🎣 <strong>Phishing</strong> — e-mail/mensagem falsa se passando por empresa confiável</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📱 <strong>Vishing</strong> — golpe por ligação telefônica (voz + phishing)</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">💬 <strong>Smishing</strong> — golpe por SMS ou WhatsApp</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🎭 <strong>Pretexting</strong> — criminoso cria uma identidade falsa para obter informações</div>
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🚪 <strong>Baiting</strong> — deixar pen drives infectados em locais estratégicos esperando alguém conectar</div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Engenharia social = manipulação humana | Phishing (e-mail) | Vishing (voz) | Smishing (SMS) | Pretexting (identidade falsa) | Baiting (isca física)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🦠 Tipos de Malware: Vírus, Worm e Trojan</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:10px;border:2px solid rgba(248,113,113,.3)">
+        <div style="font-size:13px;font-weight:700;color:var(--danger);margin-bottom:6px">🦠 VÍRUS</div>
+        <p style="font-size:13px;margin:0;line-height:1.8">Precisa ser <strong>ativado pelo usuário</strong> (abrir arquivo, executar programa). Se replica anexando-se a outros arquivos. Não se espalha sozinho pela rede.<br>
+        <span style="color:var(--muted)">Ex: usuário baixa um arquivo infectado e executa.</span></p>
+      </div>
+      <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:10px;border:2px solid rgba(251,191,36,.3)">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:6px">🐛 WORM (Verme)</div>
+        <p style="font-size:13px;margin:0;line-height:1.8"><strong>Se replica e espalha automaticamente</strong> pela rede sem precisar de ação do usuário. Não precisa se anexar a arquivos — é um programa independente.<br>
+        <span style="color:var(--muted)">Ex: contamina centenas de PCs numa rede em minutos.</span></p>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:2px solid rgba(124,106,247,.3)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">🐴 TROJAN (Cavalo de Troia)</div>
+        <p style="font-size:13px;margin:0;line-height:1.8">Parece um programa legítimo mas abre uma <strong>"porta dos fundos"</strong> para o invasor. Não se replica. O usuário instala achando que é algo útil.<br>
+        <span style="color:var(--muted)">Ex: baixa um "programa grátis" que instala um espião.</span></p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Vírus = precisa de ativação do usuário | Worm = se espalha sozinho pela rede | Trojan = parece legítimo, abre porta para invasor
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">💣 Outros Tipos de Ameaças</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔒 <strong>Ransomware</strong> — criptografa os arquivos da vítima e exige resgate para liberar. Ex: ataque ao STJ em 2020.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        👁️ <strong>Spyware</strong> — espiona o usuário, coleta dados (senhas, cartão) e envia ao criminoso sem ser percebido.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📣 <strong>Adware</strong> — exibe propaganda indesejada no navegador ou sistema. Menos prejudicial, mas irritante.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🤖 <strong>Botnet</strong> — rede de computadores infectados controlados remotamente pelo hacker para ataques em massa.
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🚫 <strong>DDoS</strong> — ataque que sobrecarrega um servidor com milhares de requisições simultâneas para tirá-lo do ar.
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Ransomware = sequestra arquivos | Spyware = espiona | Adware = propaganda | Botnet = zumbis | DDoS = sobrecarga de servidor
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "O que é Engenharia Social no contexto de segurança da informação?", opcoes: [{texto:"Técnica de programação para criar sistemas seguros",correta:false},{texto:"Manipulação psicológica de pessoas para obter informações confidenciais",correta:true},{texto:"Método de criptografia de dados em redes",correta:false},{texto:"Engenharia de software aplicada a redes sociais",correta:false}] },
+    { pergunta: "Qual a principal diferença entre Vírus e Worm?", opcoes: [{texto:"Vírus é mais perigoso que Worm",correta:false},{texto:"Worm se espalha automaticamente pela rede sem ação do usuário; Vírus precisa ser ativado",correta:true},{texto:"Worm ataca apenas sistemas Windows; Vírus é multiplataforma",correta:false},{texto:"Não há diferença, são nomes diferentes para a mesma ameaça",correta:false}] },
+    { pergunta: "Um Trojan (Cavalo de Troia) é caracterizado por:", opcoes: [{texto:"Se replicar automaticamente pela rede sem intervenção do usuário",correta:false},{texto:"Parecer um programa legítimo mas abrir acesso para invasores",correta:true},{texto:"Criptografar arquivos e exigir resgate",correta:false},{texto:"Exibir propagandas indesejadas no navegador",correta:false}] },
+    { pergunta: "'Baiting' em engenharia social consiste em:", opcoes: [{texto:"Ligar para a vítima fingindo ser do suporte técnico",correta:false},{texto:"Enviar e-mail falso com link malicioso",correta:false},{texto:"Deixar mídia infectada (pen drive) em local estratégico esperando alguém usar",correta:true},{texto:"Criar perfil falso em redes sociais",correta:false}] },
+    { pergunta: "Um Ransomware realiza que tipo de ataque?", opcoes: [{texto:"Exibe propaganda indesejada no sistema",correta:false},{texto:"Espiona o usuário e envia dados ao criminoso",correta:false},{texto:"Criptografa os arquivos da vítima e exige pagamento para restaurar",correta:true},{texto:"Sobrecarrega o servidor com requisições",correta:false}] },
+    { pergunta: "(CESPE) O Smishing é uma variante de phishing que usa:", opcoes: [{texto:"E-mail corporativo",correta:false},{texto:"Ligações telefônicas",correta:false},{texto:"SMS e aplicativos de mensagens",correta:true},{texto:"Redes sociais exclusivamente",correta:false}] },
+    { pergunta: "Um ataque DDoS tem como objetivo:", opcoes: [{texto:"Roubar senhas dos usuários",correta:false},{texto:"Infectar computadores com ransomware",correta:false},{texto:"Sobrecarregar um servidor para tirá-lo do ar",correta:true},{texto:"Instalar spyware nos dispositivos",correta:false}] },
+    { pergunta: "Qual malware coleta informações do usuário (senhas, dados bancários) sem ser percebido?", opcoes: [{texto:"Worm",correta:false},{texto:"Adware",correta:false},{texto:"Spyware",correta:true},{texto:"Botnet",correta:false}] }
+  ]
+});
+
+// ── 5. METODOLOGIA CASCATA ───────────────────────────────────────
+AULAS.push({
+  id: 49,
+  titulo: "Metodologia Cascata (Waterfall) em Projetos",
+  descricao: "Modelo clássico de gestão de projetos — diferenças com o Ágil e aplicações práticas",
+  icone: "📋",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🌊 O que é a Metodologia Cascata?</h3>
+    <p style="font-size:14px;margin-bottom:12px">O modelo <strong>Cascata (Waterfall)</strong> é a abordagem tradicional e sequencial de gerenciamento de projetos. Cada fase só começa depois que a anterior termina completamente — como uma cascata d'água.</p>
+    <div style="display:flex;flex-direction:column;gap:4px;margin:16px 0">
+      <div style="padding:12px 16px;background:rgba(79,142,247,.15);border-radius:8px;border-left:4px solid var(--accent);font-size:13px;font-weight:600">1. Levantamento de Requisitos</div>
+      <div style="padding:4px 0 4px 24px;font-size:18px;color:var(--muted)">↓</div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.12);border-radius:8px;border-left:4px solid var(--accent);font-size:13px;font-weight:600">2. Análise e Design</div>
+      <div style="padding:4px 0 4px 24px;font-size:18px;color:var(--muted)">↓</div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.10);border-radius:8px;border-left:4px solid var(--accent);font-size:13px;font-weight:600">3. Implementação (Desenvolvimento)</div>
+      <div style="padding:4px 0 4px 24px;font-size:18px;color:var(--muted)">↓</div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.08);border-radius:8px;border-left:4px solid var(--accent);font-size:13px;font-weight:600">4. Testes e Verificação</div>
+      <div style="padding:4px 0 4px 24px;font-size:18px;color:var(--muted)">↓</div>
+      <div style="padding:12px 16px;background:rgba(79,142,247,.06);border-radius:8px;border-left:4px solid var(--accent);font-size:13px;font-weight:600">5. Manutenção</div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Cascata = sequencial, cada fase termina antes da próxima começar | Requisitos → Design → Implementação → Testes → Manutenção
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚖️ Cascata vs Ágil — Quando usar cada um?</h3>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px">
+      <tr style="background:rgba(79,142,247,.15)">
+        <th style="padding:8px;border:1px solid var(--border)">Critério</th>
+        <th style="padding:8px;border:1px solid var(--border)">🌊 Cascata</th>
+        <th style="padding:8px;border:1px solid var(--border)">⚡ Ágil</th>
+      </tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)">Requisitos</td><td style="padding:7px;border:1px solid var(--border)">Fixos e bem definidos</td><td style="padding:7px;border:1px solid var(--border)">Mudam com frequência</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">Entrega</td><td style="padding:7px;border:1px solid var(--border)">Produto final completo</td><td style="padding:7px;border:1px solid var(--border)">Entregas parciais e contínuas</td></tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)">Mudanças</td><td style="padding:7px;border:1px solid var(--border)">Difícil e custoso</td><td style="padding:7px;border:1px solid var(--border)">Bem-vinda e esperada</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">Documentação</td><td style="padding:7px;border:1px solid var(--border)">Extensa e obrigatória</td><td style="padding:7px;border:1px solid var(--border)">Leve e suficiente</td></tr>
+      <tr><td style="padding:7px;border:1px solid var(--border)">Cliente</td><td style="padding:7px;border:1px solid var(--border)">Participa pouco</td><td style="padding:7px;border:1px solid var(--border)">Envolvido constantemente</td></tr>
+      <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">Melhor para</td><td style="padding:7px;border:1px solid var(--border)">Construção civil, hardware</td><td style="padding:7px;border:1px solid var(--border)">Software, startups</td></tr>
+    </table>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Cascata = requisitos fixos, entrega única, mudanças difíceis | Ágil = requisitos flexíveis, entregas parciais, mudanças bem-vindas
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "A característica principal da Metodologia Cascata é:", opcoes: [{texto:"Entregas parciais e iterativas a cada sprint",correta:false},{texto:"Execução sequencial onde cada fase só começa após a anterior terminar",correta:true},{texto:"Envolvimento constante do cliente em todas as decisões",correta:false},{texto:"Ausência de documentação formal",correta:false}] },
+    { pergunta: "Em qual situação a Metodologia Cascata é mais indicada?", opcoes: [{texto:"Projetos com requisitos que mudam frequentemente",correta:false},{texto:"Desenvolvimento de aplicativos para startups",correta:false},{texto:"Projetos com requisitos bem definidos e estáveis, como obras de engenharia",correta:true},{texto:"Equipes pequenas sem experiência em gestão",correta:false}] },
+    { pergunta: "Qual a principal desvantagem da Metodologia Cascata?", opcoes: [{texto:"Falta de documentação ao longo do projeto",correta:false},{texto:"Dificuldade de acomodar mudanças de requisitos após o início",correta:true},{texto:"Entregas parciais que confundem o cliente",correta:false},{texto:"Não permite trabalho em equipe",correta:false}] },
+    { pergunta: "(FGV) No modelo Cascata, qual fase vem imediatamente após o Levantamento de Requisitos?", opcoes: [{texto:"Implementação",correta:false},{texto:"Testes",correta:false},{texto:"Análise e Design",correta:true},{texto:"Manutenção",correta:false}] },
+    { pergunta: "Em relação ao cliente, a Metodologia Cascata se diferencia do Ágil porque:", opcoes: [{texto:"O cliente participa ativamente em todas as fases",correta:false},{texto:"O cliente participa principalmente no início e na entrega final",correta:true},{texto:"O cliente não é consultado em nenhum momento",correta:false},{texto:"O cliente define as sprints semanalmente",correta:false}] }
+  ]
+});
+
+// ── 6. PLANO DE AULA E OBJETIVOS ─────────────────────────────────
+AULAS.push({
+  id: 50,
+  titulo: "Plano de Aula e Objetivos de Aprendizagem",
+  descricao: "Como elaborar um plano de aula eficiente — essencial para concursos de professor",
+  icone: "📝",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📝 O que é um Plano de Aula?</h3>
+    <p style="font-size:14px;margin-bottom:12px">O <strong>plano de aula</strong> é o roteiro detalhado do professor para uma ou mais aulas. É o instrumento que organiza intenção pedagógica, conteúdo, metodologia e avaliação.</p>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:12px">
+      💡 <strong>Por que planejar?</strong> Uma aula sem planejamento pode ser improvisada e pouco eficiente. O plano garante foco, sequência lógica e que os objetivos sejam alcançados.
+    </div>
+    <p style="font-size:13px;font-weight:600;margin-bottom:8px">📋 Elementos obrigatórios de um plano de aula:</p>
+    <div style="display:grid;gap:7px">
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">1. <strong>Identificação</strong> — disciplina, série, turma, data, professor, duração</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">2. <strong>Tema / Conteúdo</strong> — o que será ensinado</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">3. <strong>Objetivos</strong> — o que os alunos serão capazes de fazer ao final</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">4. <strong>Metodologia / Estratégias</strong> — como o conteúdo será ensinado</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">5. <strong>Recursos</strong> — materiais, equipamentos, tecnologias necessários</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">6. <strong>Avaliação</strong> — como verificar se os objetivos foram atingidos</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">7. <strong>Referências</strong> — livros e fontes usadas</div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Plano de aula = roteiro da aula | Elementos: Identificação → Tema → Objetivos → Metodologia → Recursos → Avaliação → Referências
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 Objetivos de Aprendizagem — Taxonomia de Bloom</h3>
+    <p style="font-size:14px;margin-bottom:12px">Os objetivos devem ser <strong>claros, mensuráveis e observáveis</strong>. A <strong>Taxonomia de Bloom</strong> organiza os objetivos do mais simples ao mais complexo:</p>
+    <div style="display:grid;gap:7px;margin-bottom:14px">
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>1. Lembrar</strong> — reconhecer, listar, nomear, definir<br><span style="color:var(--muted)">Ex: "O aluno será capaz de listar os tipos de ameaças digitais"</span>
+      </div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.10);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>2. Compreender</strong> — explicar, resumir, interpretar<br><span style="color:var(--muted)">Ex: "O aluno será capaz de explicar como funciona um firewall"</span>
+      </div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>3. Aplicar</strong> — usar, demonstrar, resolver<br><span style="color:var(--muted)">Ex: "O aluno será capaz de criar uma planilha com fórmulas básicas"</span>
+      </div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.12);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>4. Analisar</strong> — comparar, diferenciar, organizar<br><span style="color:var(--muted)">Ex: "O aluno será capaz de comparar HD e SSD"</span>
+      </div>
+      <div style="padding:10px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>5. Avaliar</strong> — julgar, argumentar, criticar<br><span style="color:var(--muted)">Ex: "O aluno será capaz de avaliar a melhor metodologia para um projeto"</span>
+      </div>
+      <div style="padding:10px 14px;background:rgba(124,106,247,.12);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <strong>6. Criar</strong> — elaborar, projetar, desenvolver<br><span style="color:var(--muted)">Ex: "O aluno será capaz de desenvolver um sistema de informação básico"</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie — Taxonomia de Bloom (do simples ao complexo):</strong><br>
+      Lembrar → Compreender → Aplicar → Analisar → Avaliar → Criar
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📊 Tipos de Avaliação</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">🔍 Diagnóstica — ANTES da aula</div>
+        <p style="font-size:13px;margin:0">Verifica o que os alunos já sabem antes de iniciar o conteúdo. Permite adaptar o planejamento.<br>
+        <span style="color:var(--muted)">Ex: sondagem inicial, questionário, conversa informal</span></p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">🔄 Formativa — DURANTE a aula</div>
+        <p style="font-size:13px;margin:0">Acompanha o processo de aprendizagem continuamente. Permite ajustes em tempo real.<br>
+        <span style="color:var(--muted)">Ex: exercícios em sala, observação, perguntas orais, atividades</span></p>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">✅ Somativa — APÓS o conteúdo</div>
+        <p style="font-size:13px;margin:0">Verifica o resultado final da aprendizagem. Geralmente gera nota.<br>
+        <span style="color:var(--muted)">Ex: prova, trabalho final, projeto, apresentação</span></p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Diagnóstica = antes (o que já sabe?) | Formativa = durante (está aprendendo?) | Somativa = depois (aprendeu?) — esta última costuma gerar nota
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "Qual elemento do plano de aula descreve O QUE o aluno será capaz de fazer ao final?", opcoes: [{texto:"Metodologia",correta:false},{texto:"Recursos",correta:false},{texto:"Objetivos de aprendizagem",correta:true},{texto:"Referências",correta:false}] },
+    { pergunta: "Na Taxonomia de Bloom, qual é o nível mais COMPLEXO de aprendizagem?", opcoes: [{texto:"Lembrar",correta:false},{texto:"Aplicar",correta:false},{texto:"Avaliar",correta:false},{texto:"Criar",correta:true}] },
+    { pergunta: "A avaliação DIAGNÓSTICA é realizada:", opcoes: [{texto:"Após a conclusão do conteúdo, para atribuir nota",correta:false},{texto:"Durante as aulas, para acompanhar o progresso",correta:false},{texto:"Antes do ensino do conteúdo, para verificar conhecimentos prévios",correta:true},{texto:"Apenas no final do semestre letivo",correta:false}] },
+    { pergunta: "A avaliação FORMATIVA tem como objetivo:", opcoes: [{texto:"Atribuir nota ao aluno ao final do bimestre",correta:false},{texto:"Verificar os conhecimentos prévios antes do conteúdo",correta:false},{texto:"Acompanhar o processo de aprendizagem e permitir ajustes",correta:true},{texto:"Classificar os alunos por desempenho",correta:false}] },
+    { pergunta: "(VUNESP) Um professor aplica uma prova ao final da unidade para atribuir nota. Esse é um exemplo de avaliação:", opcoes: [{texto:"Diagnóstica",correta:false},{texto:"Formativa",correta:false},{texto:"Somativa",correta:true},{texto:"Processual",correta:false}] },
+    { pergunta: "Um objetivo bem escrito na Taxonomia de Bloom deve ser:", opcoes: [{texto:"Amplo e subjetivo para abranger diferentes interpretações",correta:false},{texto:"Claro, mensurável e iniciado por um verbo de ação",correta:true},{texto:"Focado no que o professor vai ensinar, não no aluno",correta:false},{texto:"Baseado exclusivamente no livro didático adotado",correta:false}] },
+    { pergunta: "'O aluno será capaz de comparar HD e SSD listando 3 diferenças'. Qual nível de Bloom é esse?", opcoes: [{texto:"Lembrar",correta:false},{texto:"Compreender",correta:false},{texto:"Analisar",correta:true},{texto:"Criar",correta:false}] },
+    { pergunta: "A metodologia/estratégia no plano de aula descreve:", opcoes: [{texto:"O que os alunos aprenderão",correta:false},{texto:"Como o professor vai ensinar — recursos, dinâmicas e sequência didática",correta:true},{texto:"Como a nota será calculada",correta:false},{texto:"Quais materiais os alunos devem trazer",correta:false}] }
+  ]
+});
+
+// ── 7. LEGISLAÇÃO CEETEPS/ETEC ───────────────────────────────────
+AULAS.push({
+  id: 51,
+  titulo: "Legislação: CEETEPS, Regimento das ETECs e CLT",
+  descricao: "Estrutura do Centro Paula Souza, atribuições do professor e regime de trabalho — para o concurso",
+  icone: "📜",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏫 O que é o CEETEPS e o Centro Paula Souza?</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🏛️ <strong>CEETEPS</strong> = Centro Estadual de Educação Tecnológica Paula Souza
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📍 Autarquia do governo do <strong>Estado de São Paulo</strong>, vinculada à Secretaria de Ciência e Tecnologia
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎓 Administra as <strong>ETECs</strong> (Escolas Técnicas) e as <strong>FATECs</strong> (Faculdades de Tecnologia)
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📊 Maior rede de educação profissional pública do Brasil — mais de 200 ETECs e 73 FATECs
+      </div>
+    </div>
+    <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px;margin-bottom:10px">
+      🎯 <strong>Missão:</strong> oferecer educação profissional e tecnológica pública, gratuita e de qualidade ao cidadão do estado de São Paulo
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> CEETEPS = autarquia do Estado de SP | Administra ETECs e FATECs | Maior rede de ed. profissional pública do Brasil
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">👨‍🏫 Atribuições do Professor de ETEC</h3>
+    <p style="font-size:14px;margin-bottom:12px">O Regimento das ETECs define as principais obrigações do professor:</p>
+    <div style="display:grid;gap:7px;margin-bottom:14px">
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Planejar e executar as aulas de acordo com o Plano de Curso aprovado</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Elaborar e entregar o Plano de Trabalho Docente (PTD) no prazo estabelecido</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Registrar frequência e conteúdo no diário de classe (físico ou digital)</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Aplicar avaliações e lançar notas nos prazos definidos pela escola</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Participar de reuniões pedagógicas, conselhos de classe e formações</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Zelar pelo patrimônio da escola e pelo ambiente de aprendizagem</div>
+      <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ Respeitar e fazer respeitar os regulamentos internos da escola</div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie — Atribuições do professor ETEC:</strong><br>
+      PTD → registrar frequência/conteúdo → avaliar → participar de reuniões → zelar pelo patrimônio
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⏰ Regime de Trabalho: Hora-Aula e Hora-Atividade</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px">📚 Hora-Aula</div>
+        <p style="font-size:13px;margin:0">Duração de <strong>50 minutos</strong> nas ETECs (diferente de 1 hora cheia). É o tempo de aula efetiva com os alunos.</p>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⚙️ Hora-Atividade (30%)</div>
+        <p style="font-size:13px;margin:0">Para cada <strong>10 horas-aula</strong> trabalhadas, o professor tem direito a <strong>3 horas de hora-atividade</strong> (30%). Usadas para planejamento, correção, formação e reuniões — sem alunos presentes.</p>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">📋 Regime CLT</div>
+        <p style="font-size:13px;margin:0">Os professores do CEETEPS são contratados pelo regime da <strong>CLT (Consolidação das Leis do Trabalho)</strong> — não são estatutários. Isso significa FGTS, INSS, férias, 13º salário e rescisão conforme a CLT.</p>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:10px">
+      ⚠️ <strong>Atenção concurso:</strong> "CLT" e "não estatutário" são respostas frequentes. O professor da ETEC NÃO é funcionário público estatutário — é celetista.
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Hora-aula = 50 minutos | Hora-atividade = 30% das horas-aula (10h aula → 3h atividade) | Regime: CLT (não estatutário)
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏫 Estrutura e Organização das ETECs</h3>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🏛️ <strong>CEETEPS</strong> (Sede central, SP) → <strong>Grupos de Escolas</strong> (regionais) → <strong>ETECs</strong> (unidades escolares)
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        👔 <strong>Diretor de Escola</strong> — cargo máximo na ETEC, responsável pela gestão pedagógica e administrativa
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        📚 <strong>Coordenador Pedagógico</strong> — apoia o trabalho docente e acompanha o projeto pedagógico
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🗂️ <strong>Conselho de Escola</strong> — órgão colegiado com professores, alunos, pais e funcionários
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🎓 <strong>Cursos:</strong> Técnicos (integrado ao EM, concomitante, subsequente) e Qualificação Profissional
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> CEETEPS → Grupos de Escolas → ETECs | Diretor → Coord. Pedagógico → Professor<br>
+      Tipos de curso: integrado, concomitante, subsequente, qualificação
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "O CEETEPS é:", opcoes: [{texto:"Uma secretaria de estado de São Paulo",correta:false},{texto:"Uma autarquia do Estado de SP que administra ETECs e FATECs",correta:true},{texto:"Uma fundação federal de ensino técnico",correta:false},{texto:"Um sindicato de professores técnicos",correta:false}] },
+    { pergunta: "Os professores das ETECs são contratados sob qual regime?", opcoes: [{texto:"Estatutário — funcionários públicos de carreira",correta:false},{texto:"CLT — Consolidação das Leis do Trabalho",correta:true},{texto:"RJU — Regime Jurídico Único Federal",correta:false},{texto:"Comissionado — por indicação da direção",correta:false}] },
+    { pergunta: "A hora-atividade do professor de ETEC corresponde a:", opcoes: [{texto:"10% da carga horária em sala",correta:false},{texto:"50% da jornada semanal",correta:false},{texto:"30% das horas-aula — para planejamento e reuniões",correta:true},{texto:"20% da carga horária total",correta:false}] },
+    { pergunta: "Qual a duração da hora-aula nas ETECs?", opcoes: [{texto:"45 minutos",correta:false},{texto:"60 minutos",correta:false},{texto:"50 minutos",correta:true},{texto:"40 minutos",correta:false}] },
+    { pergunta: "O PTD (Plano de Trabalho Docente) é obrigação do professor e consiste em:", opcoes: [{texto:"Relatório de frequência dos alunos",correta:false},{texto:"Planejamento do conteúdo, metodologia e avaliação para o período letivo",correta:true},{texto:"Documento assinado pelo diretor para atribuição de aulas",correta:false},{texto:"Registro das notas lançadas no sistema",correta:false}] },
+    { pergunta: "(VUNESP – concurso CEETEPS) O Conselho de Escola nas ETECs é um órgão:", opcoes: [{texto:"Exclusivo da direção e coordenação pedagógica",correta:false},{texto:"Colegiado com participação de professores, alunos, pais e funcionários",correta:true},{texto:"Consultivo composto apenas por professores efetivos",correta:false},{texto:"Deliberativo composto apenas por representantes do CEETEPS",correta:false}] },
+    { pergunta: "Se um professor tem 20 horas-aula semanais, quantas horas de hora-atividade tem direito?", opcoes: [{texto:"2 horas",correta:false},{texto:"4 horas",correta:false},{texto:"6 horas",correta:true},{texto:"10 horas",correta:false}] },
+    { pergunta: "As ETECs oferecem curso técnico 'subsequente' para alunos que:", opcoes: [{texto:"Cursam o ensino médio ao mesmo tempo em outra escola",correta:false},{texto:"Já concluíram o ensino médio",correta:true},{texto:"Estão matriculados no ensino fundamental",correta:false},{texto:"Têm menos de 14 anos",correta:false}] }
+  ]
+});
+
+// ── 8. SIMULADO GERAL — 25 QUESTÕES ─────────────────────────────
+AULAS.push({
+  id: 52,
+  titulo: "Simulado Geral — Estilo Concurso CEETEPS (25 questões)",
+  descricao: "Simulado completo com questões dos principais tópicos do edital — pratique antes da prova!",
+  icone: "🎯",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 Simulado Completo — Como funciona</h3>
+    <p style="font-size:14px;margin-bottom:14px">Este simulado cobre os principais blocos do edital do concurso CEETEPS:</p>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">💻 Informática — Office (Excel, Word, PowerPoint)</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🖥️ Informática Geral — Hardware, Software, Memória, Unidades</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🌐 Redes e Internet — IP, DNS, tipos de rede</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔐 Segurança — malware, engenharia social, backup</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📊 Projetos de TI — metodologias, ciclo de vida</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🎓 Didática — plano de aula, Bloom, avaliação</div>
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📜 Legislação — CEETEPS, CLT, hora-atividade</div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⏱️ <strong>Dica:</strong> Na prova real você terá ~2 minutos por questão. Tente responder cada uma sem demorar mais que isso!
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "(Excel) A fórmula =SOMA(A1:A10) é equivalente a:", opcoes: [{texto:"=A1+A2+A3+A4+A5+A6+A7+A8+A9+A10",correta:true},{texto:"=MÉDIA(A1:A10)",correta:false},{texto:"=CONT.NÚM(A1:A10)",correta:false},{texto:"=MÁXIMO(A1:A10)-MÍNIMO(A1:A10)",correta:false}] },
+    { pergunta: "(Excel) A referência $A$1 é chamada de:", opcoes: [{texto:"Referência relativa",correta:false},{texto:"Referência mista",correta:false},{texto:"Referência absoluta",correta:true},{texto:"Referência circular",correta:false}] },
+    { pergunta: "(Excel) A função =SE(A1>7;\"Aprovado\";\"Reprovado\") retorna 'Aprovado' quando:", opcoes: [{texto:"A1 for igual a 7",correta:false},{texto:"A1 for maior que 7",correta:true},{texto:"A1 for menor que 7",correta:false},{texto:"A1 for diferente de 7",correta:false}] },
+    { pergunta: "(Word) Para centralizar um parágrafo no Word, o atalho é:", opcoes: [{texto:"Ctrl+Q",correta:false},{texto:"Ctrl+J",correta:false},{texto:"Ctrl+E",correta:true},{texto:"Ctrl+D",correta:false}] },
+    { pergunta: "(PowerPoint) O atalho para iniciar a apresentação do início é:", opcoes: [{texto:"Ctrl+P",correta:false},{texto:"F5",correta:true},{texto:"Shift+F5",correta:false},{texto:"Ctrl+F5",correta:false}] },
+    { pergunta: "(Hardware) Qual componente é responsável por processar os dados do computador?", opcoes: [{texto:"RAM",correta:false},{texto:"HD",correta:false},{texto:"CPU (Processador)",correta:true},{texto:"Placa de vídeo",correta:false}] },
+    { pergunta: "(Memória) Qual memória perde seus dados ao desligar o computador?", opcoes: [{texto:"ROM",correta:false},{texto:"HD",correta:false},{texto:"SSD",correta:false},{texto:"RAM",correta:true}] },
+    { pergunta: "(Unidades) 1 Gigabyte equivale a:", opcoes: [{texto:"1.000 Megabytes",correta:false},{texto:"1.024 Megabytes",correta:true},{texto:"1.000.000 Kilobytes",correta:false},{texto:"512 Megabytes",correta:false}] },
+    { pergunta: "(Redes) A Internet é classificada como:", opcoes: [{texto:"LAN",correta:false},{texto:"MAN",correta:false},{texto:"WAN",correta:true},{texto:"WLAN",correta:false}] },
+    { pergunta: "(Redes) O serviço DNS traduz:", opcoes: [{texto:"Endereços IP em nomes de domínio e vice-versa",correta:true},{texto:"Dados criptografados para texto legível",correta:false},{texto:"Arquivos de uma rede para outra",correta:false},{texto:"Protocolo HTTP em HTTPS",correta:false}] },
+    { pergunta: "(Segurança) O Ransomware é um malware que:", opcoes: [{texto:"Exibe propagandas indesejadas no sistema",correta:false},{texto:"Criptografa arquivos e exige resgate financeiro",correta:true},{texto:"Se espalha automaticamente pela rede",correta:false},{texto:"Espiona as atividades do usuário",correta:false}] },
+    { pergunta: "(Segurança) Engenharia social explora principalmente:", opcoes: [{texto:"Vulnerabilidades no sistema operacional",correta:false},{texto:"Falhas em protocolos de rede",correta:false},{texto:"A confiança e o comportamento humano",correta:true},{texto:"Senhas fracas em sistemas online",correta:false}] },
+    { pergunta: "(Segurança) A regra 3-2-1 de backup significa:", opcoes: [{texto:"3 backups, 2 locais diferentes, 1 cópia offsite",correta:true},{texto:"3 HDs, 2 pen drives, 1 nuvem",correta:false},{texto:"Backup a cada 3 dias, 2 vezes por semana, 1 mensal",correta:false},{texto:"3 usuários, 2 senhas, 1 administrador",correta:false}] },
+    { pergunta: "(Projetos) Qual metodologia é caracterizada por entregas iterativas e incrementais?", opcoes: [{texto:"Cascata (Waterfall)",correta:false},{texto:"Ágil (Scrum/Kanban)",correta:true},{texto:"PMBOK clássico",correta:false},{texto:"Modelo V",correta:false}] },
+    { pergunta: "(Projetos) O Sprint no Scrum é:", opcoes: [{texto:"Reunião diária de 15 minutos",correta:false},{texto:"Lista de funcionalidades do produto",correta:false},{texto:"Ciclo de trabalho com duração fixa (1 a 4 semanas)",correta:true},{texto:"Papel responsável por remover impedimentos",correta:false}] },
+    { pergunta: "(TIC) Uma plataforma como o Google Classroom é classificada como:", opcoes: [{texto:"ERP (Enterprise Resource Planning)",correta:false},{texto:"AVA (Ambiente Virtual de Aprendizagem)",correta:true},{texto:"CRM (Customer Relationship Management)",correta:false},{texto:"SIG (Sistema de Informações Gerenciais)",correta:false}] },
+    { pergunta: "(Didática) A Taxonomia de Bloom organiza os objetivos de aprendizagem do:", opcoes: [{texto:"Mais complexo para o mais simples",correta:false},{texto:"Mais simples (lembrar) para o mais complexo (criar)",correta:true},{texto:"Conteúdo conceitual para o procedimental",correta:false},{texto:"Individual para o coletivo",correta:false}] },
+    { pergunta: "(Didática) Metodologia ativa é aquela em que:", opcoes: [{texto:"O professor usa slides e quadro branco ao mesmo tempo",correta:false},{texto:"O aluno é protagonista do processo de aprendizagem",correta:true},{texto:"A avaliação é feita exclusivamente por prova escrita",correta:false},{texto:"O conteúdo é transmitido de forma expositiva e sistemática",correta:false}] },
+    { pergunta: "(Avaliação) Uma avaliação aplicada DURANTE o processo de ensino para ajustar a prática é:", opcoes: [{texto:"Diagnóstica",correta:false},{texto:"Somativa",correta:false},{texto:"Formativa",correta:true},{texto:"Classificatória",correta:false}] },
+    { pergunta: "(Legislação) Os professores do CEETEPS são regidos por:", opcoes: [{texto:"Estatuto dos Funcionários Públicos do Estado de SP",correta:false},{texto:"Regime Jurídico Único — RJU Federal",correta:false},{texto:"CLT — Consolidação das Leis do Trabalho",correta:true},{texto:"Lei do CEETEPS (regime próprio)",correta:false}] },
+    { pergunta: "(Legislação) A hora-atividade do professor de ETEC corresponde a que percentual das horas-aula?", opcoes: [{texto:"20%",correta:false},{texto:"25%",correta:false},{texto:"30%",correta:true},{texto:"40%",correta:false}] },
+    { pergunta: "(Legislação) As ETECs são administradas por:", opcoes: [{texto:"Secretaria de Educação do Estado de SP",correta:false},{texto:"MEC — Ministério da Educação",correta:false},{texto:"CEETEPS — Centro Paula Souza",correta:true},{texto:"Prefeituras municipais do Estado de SP",correta:false}] },
+    { pergunta: "(SIG) O princípio GIGO em sistemas de informação significa:", opcoes: [{texto:"O sistema deve ter interface gráfica intuitiva",correta:false},{texto:"Dados incorretos geram resultados incorretos",correta:true},{texto:"O gestor deve validar todos os dados pessoalmente",correta:false},{texto:"Sistemas integrados são mais eficientes que isolados",correta:false}] },
+    { pergunta: "(Segurança) Qual prática é ESSENCIAL para garantir a segurança de dados em caso de falha de hardware?", opcoes: [{texto:"Usar antivírus atualizado",correta:false},{texto:"Criar senhas complexas",correta:false},{texto:"Realizar backups regulares em local separado",correta:true},{texto:"Desligar o computador corretamente sempre",correta:false}] },
+    { pergunta: "(Geral) O software que gerencia os recursos do hardware e permite que outros programas funcionem é:", opcoes: [{texto:"Aplicativo",correta:false},{texto:"Sistema Operacional",correta:true},{texto:"Driver de dispositivo",correta:false},{texto:"Firmware",correta:false}] }
+  ]
+});
+
+
+// ── 9. EXCEL: REFERÊNCIA RELATIVA E ABSOLUTA ─────────────────────
+AULAS.push({
+  id: 53,
+  titulo: "Excel: Referência Relativa e Absoluta ($)",
+  descricao: "Entenda a diferença entre $A$1, A$1 e A1 — questão clássica em todo concurso de informática",
+  icone: "📊",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 Por que isso cai em todo concurso?</h3>
+    <p style="font-size:14px;margin-bottom:12px">Referência absoluta e relativa é uma das questões <strong>mais frequentes</strong> em concursos de informática. Quem entende esse conceito resolve a questão em 30 segundos.</p>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔄 <strong>Referência Relativa</strong> — muda quando você copia a fórmula para outra célula<br>
+        <span style="font-family:monospace;color:var(--accent)">A1, B2, C3</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔒 <strong>Referência Absoluta</strong> — NÃO muda quando você copia a fórmula<br>
+        <span style="font-family:monospace;color:var(--success)">$A$1, $B$2</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        🔀 <strong>Referência Mista</strong> — fixa só a coluna OU só a linha<br>
+        <span style="font-family:monospace;color:#a78bfa">$A1 (coluna fixa) | A$1 (linha fixa)</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      💡 <strong>Macete:</strong> o símbolo <strong>$</strong> "trava" o que vem depois dele. $A = coluna A travada. $1 = linha 1 travada. $A$1 = tudo travado.
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔄 Referência Relativa — se adapta ao copiar</h3>
+    <p style="font-size:14px;margin-bottom:12px">É o padrão do Excel. Quando você copia uma fórmula, as referências <strong>ajustam automaticamente</strong>:</p>
+    <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:10px">📋 Exemplo prático:</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:monospace">
+        <tr style="background:rgba(79,142,247,.15)"><th style="padding:7px;border:1px solid var(--border)">Célula</th><th style="padding:7px;border:1px solid var(--border)">Fórmula digitada</th><th style="padding:7px;border:1px solid var(--border)">O que calcula</th></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">C1</td><td style="padding:7px;border:1px solid var(--border)">=A1+B1</td><td style="padding:7px;border:1px solid var(--border)">Soma A1 com B1</td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">C2 (copiada)</td><td style="padding:7px;border:1px solid var(--border)">=A2+B2</td><td style="padding:7px;border:1px solid var(--border)">Ajustou para linha 2!</td></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">C3 (copiada)</td><td style="padding:7px;border:1px solid var(--border)">=A3+B3</td><td style="padding:7px;border:1px solid var(--border)">Ajustou para linha 3!</td></tr>
+      </table>
+    </div>
+    <div style="padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px;margin-bottom:10px">
+      ✅ <strong>Quando usar:</strong> quando você quer que a fórmula se adapte automaticamente ao ser copiada para outras linhas ou colunas — ex: calcular o total de cada linha de uma tabela.
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Referência relativa (A1) = muda ao copiar, ajusta linha e coluna automaticamente
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔒 Referência Absoluta — não muda ao copiar</h3>
+    <p style="font-size:14px;margin-bottom:12px">Use <strong>$</strong> antes da coluna e da linha para travar completamente a referência:</p>
+    <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:10px">📋 Exemplo — calcular percentual com taxa fixa em B1:</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;font-family:monospace">
+        <tr style="background:rgba(52,211,153,.15)"><th style="padding:7px;border:1px solid var(--border)">Célula</th><th style="padding:7px;border:1px solid var(--border)">Fórmula</th><th style="padding:7px;border:1px solid var(--border)">Resultado</th></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">C2</td><td style="padding:7px;border:1px solid var(--border)">=A2*$B$1</td><td style="padding:7px;border:1px solid var(--border)">A2 × taxa de B1</td></tr>
+        <tr style="background:rgba(52,211,153,.04)"><td style="padding:7px;border:1px solid var(--border)">C3 (copiada)</td><td style="padding:7px;border:1px solid var(--border)">=A3*$B$1</td><td style="padding:7px;border:1px solid var(--border)">A3 × taxa de B1 (B1 não mudou!)</td></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">C4 (copiada)</td><td style="padding:7px;border:1px solid var(--border)">=A4*$B$1</td><td style="padding:7px;border:1px solid var(--border)">A4 × taxa de B1 (B1 não mudou!)</td></tr>
+      </table>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px;margin-bottom:10px">
+      ⌨️ <strong>Atalho:</strong> selecione a referência na fórmula e pressione <strong>F4</strong> para alternar entre os tipos: A1 → $A$1 → A$1 → $A1 → A1
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Referência absoluta ($A$1) = NÃO muda ao copiar | Use quando uma célula deve ser sempre a mesma (taxa, alíquota, constante) | Atalho: F4
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔀 Referência Mista — trava só metade</h3>
+    <p style="font-size:14px;margin-bottom:12px">A referência mista trava <strong>só a coluna</strong> ou <strong>só a linha</strong>:</p>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">$A1 — Coluna travada, linha livre</div>
+        <p style="font-size:13px;margin:0">A coluna A nunca muda ao copiar para os lados, mas a linha se ajusta ao copiar para baixo.<br>
+        <span style="color:var(--muted)">Útil quando você copia uma fórmula para várias colunas mas quer manter sempre a coluna A.</span></p>
+      </div>
+      <div style="padding:14px;background:rgba(124,106,247,.08);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-size:13px;font-weight:700;color:#a78bfa;margin-bottom:6px">A$1 — Linha travada, coluna livre</div>
+        <p style="font-size:13px;margin:0">A linha 1 nunca muda ao copiar para baixo, mas a coluna se ajusta ao copiar para os lados.<br>
+        <span style="color:var(--muted)">Útil em tabelas de multiplicação onde a primeira linha tem valores fixos.</span></p>
+      </div>
+    </div>
+    <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">📊 Resumo dos 4 tipos:</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="background:rgba(79,142,247,.15)"><th style="padding:7px;border:1px solid var(--border)">Tipo</th><th style="padding:7px;border:1px solid var(--border)">Notação</th><th style="padding:7px;border:1px solid var(--border)">Coluna</th><th style="padding:7px;border:1px solid var(--border)">Linha</th></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">Relativa</td><td style="padding:7px;border:1px solid var(--border);font-family:monospace">A1</td><td style="padding:7px;border:1px solid var(--border)">Muda</td><td style="padding:7px;border:1px solid var(--border)">Muda</td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">Absoluta</td><td style="padding:7px;border:1px solid var(--border);font-family:monospace">$A$1</td><td style="padding:7px;border:1px solid var(--border)">Fixa</td><td style="padding:7px;border:1px solid var(--border)">Fixa</td></tr>
+        <tr><td style="padding:7px;border:1px solid var(--border)">Mista (col. fixa)</td><td style="padding:7px;border:1px solid var(--border);font-family:monospace">$A1</td><td style="padding:7px;border:1px solid var(--border)">Fixa</td><td style="padding:7px;border:1px solid var(--border)">Muda</td></tr>
+        <tr style="background:rgba(79,142,247,.04)"><td style="padding:7px;border:1px solid var(--border)">Mista (lin. fixa)</td><td style="padding:7px;border:1px solid var(--border);font-family:monospace">A$1</td><td style="padding:7px;border:1px solid var(--border)">Muda</td><td style="padding:7px;border:1px solid var(--border)">Fixa</td></tr>
+      </table>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> A1 = tudo muda | $A$1 = tudo fixo | $A1 = coluna fixa | A$1 = linha fixa | F4 alterna os tipos
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "A fórmula =A1+B1 está na célula C1. Ao copiá-la para C2, ela se torna:", opcoes: [{texto:"=A1+B1",correta:false},{texto:"=A2+B2",correta:true},{texto:"=$A$1+$B$1",correta:false},{texto:"=A2+B1",correta:false}] },
+    { pergunta: "Qual notação representa uma referência ABSOLUTA no Excel?", opcoes: [{texto:"A1",correta:false},{texto:"A$1",correta:false},{texto:"$A1",correta:false},{texto:"$A$1",correta:true}] },
+    { pergunta: "A fórmula =A2*$B$1 está na célula C2. Ao copiá-la para C3, ela se torna:", opcoes: [{texto:"=A2*$B$1",correta:false},{texto:"=A3*$B$2",correta:false},{texto:"=A3*$B$1",correta:true},{texto:"=$A$3*$B$1",correta:false}] },
+    { pergunta: "O atalho de teclado para alternar entre tipos de referência no Excel é:", opcoes: [{texto:"Ctrl+$",correta:false},{texto:"F4",correta:true},{texto:"Shift+F4",correta:false},{texto:"Ctrl+F4",correta:false}] },
+    { pergunta: "Em $A1, o que está travado?", opcoes: [{texto:"Apenas a linha 1",correta:false},{texto:"Coluna A e linha 1",correta:false},{texto:"Apenas a coluna A",correta:true},{texto:"Nada — é relativa",correta:false}] },
+    { pergunta: "(VUNESP) Uma fórmula usa $B$5 para referenciar a taxa de imposto. Ao copiar a fórmula para outras células, a referência a $B$5:", opcoes: [{texto:"Se ajusta para a linha correspondente",correta:false},{texto:"Se ajusta para a coluna correspondente",correta:false},{texto:"Permanece sempre como $B$5",correta:true},{texto:"Gera erro de referência circular",correta:false}] },
+    { pergunta: "Quando usar referência ABSOLUTA no Excel?", opcoes: [{texto:"Quando a fórmula deve se ajustar automaticamente ao ser copiada",correta:false},{texto:"Quando uma célula fixa (como taxa ou constante) deve ser sempre referenciada igual",correta:true},{texto:"Somente em fórmulas com PROCV",correta:false},{texto:"Quando há mais de uma planilha no arquivo",correta:false}] },
+    { pergunta: "(CESPE) Em A$1, ao copiar a fórmula para células à direita (mesma linha), o que acontece?", opcoes: [{texto:"A coluna muda, a linha 1 permanece fixa",correta:true},{texto:"A coluna permanece fixa, a linha muda",correta:false},{texto:"Coluna e linha permanecem fixas",correta:false},{texto:"Coluna e linha mudam",correta:false}] }
+  ]
+});
+
+// ── 10. EXCEL: PROCV E PROCX ─────────────────────────────────────
+AULAS.push({
+  id: 54,
+  titulo: "Excel: PROCV e PROCX — Busca e Consulta",
+  descricao: "As funções de busca mais cobradas em concursos — aprenda a usar e a interpretar questões",
+  icone: "📊",
+  passos: [
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🔍 Para que serve PROCV e PROCX?</h3>
+    <p style="font-size:14px;margin-bottom:12px">Imagine que você tem uma tabela com código e nome de produtos. Em outra planilha, você tem só o código — e quer que o Excel <strong>busque automaticamente</strong> o nome correspondente. É exatamente isso que o PROCV e o PROCX fazem.</p>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">🔍 <strong>PROCV</strong> = Procura Vertical — busca um valor em uma <strong>coluna</strong> e retorna outro valor da mesma linha</div>
+      <div style="padding:11px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">⚡ <strong>PROCX</strong> = versão moderna do PROCV, mais flexível e poderosa (Excel 2019/365)</div>
+      <div style="padding:11px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">📋 <strong>PROCH</strong> = Procura Horizontal — busca em <strong>linhas</strong> (menos cobrado)</div>
+    </div>
+    <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+      ⚠️ <strong>No concurso:</strong> PROCV aparece em questões de interpretação — "o que essa fórmula retorna?" — e PROCX nos editais mais recentes (2023/2024).
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">📋 PROCV — Sintaxe e Funcionamento</h3>
+    <div style="padding:12px 14px;background:rgba(0,0,0,.15);border-radius:8px;font-family:monospace;font-size:14px;margin-bottom:14px;text-align:center">
+      =PROCV(<span style="color:#60a5fa">valor_procurado</span>; <span style="color:#34d399">matriz_tabela</span>; <span style="color:#f59e0b">núm_índice_coluna</span>; <span style="color:#f87171">procurar_intervalo</span>)
+    </div>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#60a5fa">valor_procurado</span> — o que você quer encontrar (ex: código do produto, nome do aluno)
+      </div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#34d399">matriz_tabela</span> — o intervalo onde está a tabela de referência (ex: A1:D100)
+      </div>
+      <div style="padding:10px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#f59e0b">núm_índice_coluna</span> — número da coluna a retornar (1=primeira coluna, 2=segunda...)
+      </div>
+      <div style="padding:10px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#f87171">procurar_intervalo</span> — <strong>FALSO</strong> = busca exata (use sempre!) | VERDADEIRO = busca aproximada
+      </div>
+    </div>
+    <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">📋 Exemplo real:</div>
+      <div style="font-family:monospace;font-size:13px;padding:8px;background:rgba(0,0,0,.1);border-radius:6px;margin-bottom:8px">=PROCV(F2; A2:D100; 3; FALSO)</div>
+      <div style="font-size:13px;line-height:1.9">
+        Busca o valor de <strong>F2</strong> na <strong>1ª coluna</strong> do intervalo A2:D100<br>
+        Retorna o valor da <strong>3ª coluna</strong> da linha encontrada<br>
+        <strong>FALSO</strong> = correspondência exata obrigatória
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px;margin-bottom:10px">
+      ⚠️ <strong>Limitação do PROCV:</strong> só busca na <strong>primeira coluna</strong> da tabela, da esquerda para a direita. Não consegue buscar para a esquerda!
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> =PROCV(o que buscar; onde buscar; qual coluna retornar; FALSO)<br>
+      FALSO = correspondência exata | Sempre busca na 1ª coluna da tabela
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚡ PROCX — O substituto moderno do PROCV</h3>
+    <div style="padding:12px 14px;background:rgba(0,0,0,.15);border-radius:8px;font-family:monospace;font-size:13px;margin-bottom:14px;text-align:center">
+      =PROCX(<span style="color:#60a5fa">valor_procurado</span>; <span style="color:#34d399">matriz_procura</span>; <span style="color:#f59e0b">matriz_retorno</span>; [<span style="color:#a78bfa">se_não_encontrado</span>])
+    </div>
+    <div style="display:grid;gap:8px;margin-bottom:14px">
+      <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#60a5fa">valor_procurado</span> — o que você quer encontrar
+      </div>
+      <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#34d399">matriz_procura</span> — <strong>apenas a coluna</strong> onde buscar (ex: A2:A100)
+      </div>
+      <div style="padding:10px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#f59e0b">matriz_retorno</span> — <strong>apenas a coluna</strong> a retornar (ex: C2:C100)
+      </div>
+      <div style="padding:10px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+        <span style="font-family:monospace;color:#a78bfa">se_não_encontrado</span> — mensagem se não achar (ex: "Não encontrado")
+      </div>
+    </div>
+    <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:12px">
+      <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:6px">⚖️ PROCV vs PROCX — Diferenças principais:</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <tr style="background:rgba(52,211,153,.15)"><th style="padding:7px;border:1px solid var(--border)">Critério</th><th style="padding:7px;border:1px solid var(--border)">PROCV</th><th style="padding:7px;border:1px solid var(--border)">PROCX</th></tr>
+        <tr><td style="padding:6px;border:1px solid var(--border)">Direção de busca</td><td style="padding:6px;border:1px solid var(--border)">Só esquerda→direita</td><td style="padding:6px;border:1px solid var(--border)">Qualquer direção</td></tr>
+        <tr style="background:rgba(52,211,153,.04)"><td style="padding:6px;border:1px solid var(--border)">Se não encontrar</td><td style="padding:6px;border:1px solid var(--border)">Erro #N/D</td><td style="padding:6px;border:1px solid var(--border)">Mensagem personalizada</td></tr>
+        <tr><td style="padding:6px;border:1px solid var(--border)">Sintaxe</td><td style="padding:6px;border:1px solid var(--border)">Mais complexa</td><td style="padding:6px;border:1px solid var(--border)">Mais intuitiva</td></tr>
+        <tr style="background:rgba(52,211,153,.04)"><td style="padding:6px;border:1px solid var(--border)">Versão</td><td style="padding:6px;border:1px solid var(--border)">Todas as versões</td><td style="padding:6px;border:1px solid var(--border)">Excel 2019/365</td></tr>
+      </table>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> =PROCX(o que buscar; coluna de busca; coluna de retorno; "msg se não achar")<br>
+      PROCX é mais flexível: busca em qualquer direção e trata erro automaticamente
+    </div>`,
+
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 Questões típicas de concurso — PROCV</h3>
+    <p style="font-size:14px;margin-bottom:12px">Veja como interpretar fórmulas PROCV na hora da prova:</p>
+    <div style="display:grid;gap:10px">
+      <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:10px;border:2px solid rgba(251,191,36,.3)">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:8px">❓ Questão 1 — O que retorna esta fórmula?</div>
+        <div style="font-family:monospace;font-size:13px;padding:8px;background:rgba(0,0,0,.1);border-radius:6px;margin-bottom:8px">=PROCV("João"; A1:C10; 2; FALSO)</div>
+        <div style="font-size:13px;color:var(--muted)">Busca "João" na coluna A (1ª coluna de A1:C10) e retorna o valor da <strong>2ª coluna</strong> (coluna B) da linha onde João for encontrado.</div>
+      </div>
+      <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:10px;border:2px solid rgba(248,113,113,.3)">
+        <div style="font-size:13px;font-weight:700;color:var(--danger);margin-bottom:8px">❓ Questão 2 — Qual o erro?</div>
+        <div style="font-family:monospace;font-size:13px;padding:8px;background:rgba(0,0,0,.1);border-radius:6px;margin-bottom:8px">=PROCV(F2; A1:C10; 5; FALSO)</div>
+        <div style="font-size:13px;color:var(--muted)">⚠️ <strong>Erro!</strong> O índice de coluna é 5, mas a tabela A1:C10 tem apenas 3 colunas (A, B, C). O Excel retornará erro <strong>#REF!</strong></div>
+      </div>
+      <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:2px solid rgba(52,211,153,.3)">
+        <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:8px">✅ Questão 3 — VERDADEIRO vs FALSO</div>
+        <div style="font-size:13px;color:var(--muted)"><strong>FALSO</strong> = busca o valor exato. Se não achar, retorna <strong>#N/D</strong><br>
+        <strong>VERDADEIRO</strong> = busca aproximada (tabela deve estar ordenada). Menos preciso e raramente usado na prática.</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie — Para o concurso:</strong><br>
+      PROCV busca na 1ª coluna da matriz | índice maior que colunas = #REF! | valor não encontrado com FALSO = #N/D | PROCX resolve esses problemas
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "A fórmula =PROCV(A2; B1:D50; 2; FALSO) busca o valor de A2 em qual coluna?", opcoes: [{texto:"Coluna A",correta:false},{texto:"Coluna B (1ª coluna da matriz B1:D50)",correta:true},{texto:"Coluna C",correta:false},{texto:"Coluna D",correta:false}] },
+    { pergunta: "Na função PROCV, o argumento FALSO indica:", opcoes: [{texto:"Que a busca será aproximada",correta:false},{texto:"Que a busca será exata — o valor deve ser encontrado exatamente",correta:true},{texto:"Que a fórmula retorna FALSO se encontrar o valor",correta:false},{texto:"Que a tabela está em ordem decrescente",correta:false}] },
+    { pergunta: "=PROCV(F1; A1:C20; 5; FALSO) — O que acontece ao executar essa fórmula?", opcoes: [{texto:"Retorna o valor da 5ª coluna",correta:false},{texto:"Retorna erro #REF! pois a tabela tem apenas 3 colunas",correta:true},{texto:"Retorna o valor da última coluna disponível",correta:false},{texto:"Retorna zero",correta:false}] },
+    { pergunta: "Qual a principal limitação do PROCV em relação ao PROCX?", opcoes: [{texto:"Não funciona com texto, apenas números",correta:false},{texto:"Só busca da esquerda para a direita — não pode retornar colunas à esquerda da busca",correta:true},{texto:"Não pode ser usada com referências absolutas",correta:false},{texto:"Requer que a tabela esteja em ordem alfabética",correta:false}] },
+    { pergunta: "Em =PROCV(B2; $A$1:$D$100; 3; FALSO), o uso de $A$1:$D$100 serve para:", opcoes: [{texto:"Indicar que a busca é exata",correta:false},{texto:"Travar a referência da tabela ao copiar a fórmula para outras células",correta:true},{texto:"Buscar em todas as planilhas do arquivo",correta:false},{texto:"Ordenar os dados automaticamente",correta:false}] },
+    { pergunta: "O PROCX, comparado ao PROCV, tem como vantagem:", opcoes: [{texto:"Funciona em versões mais antigas do Excel (2010, 2013)",correta:false},{texto:"Permite busca em qualquer direção e tratamento de erro integrado",correta:true},{texto:"É mais rápido em tabelas com menos de 100 linhas",correta:false},{texto:"Não precisa especificar a coluna de retorno",correta:false}] },
+    { pergunta: "Qual erro o PROCV retorna quando não encontra o valor pesquisado (com FALSO)?", opcoes: [{texto:"#REF!",correta:false},{texto:"#VALOR!",correta:false},{texto:"#N/D",correta:true},{texto:"#DIV/0!",correta:false}] },
+    { pergunta: "(VUNESP) A fórmula =PROCV(\"001\"; A2:C50; 3; FALSO) retornará:", opcoes: [{texto:"O valor da célula A2",correta:false},{texto:"O valor da 3ª coluna (coluna C) da linha onde \"001\" for encontrado na coluna A",correta:true},{texto:"O número 3",correta:false},{texto:"VERDADEIRO se \"001\" existir na tabela",correta:false}] }
+  ]
+});
