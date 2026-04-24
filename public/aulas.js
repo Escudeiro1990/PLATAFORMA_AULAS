@@ -3674,147 +3674,237 @@ AULAS.push(
     icone: "📊",
     passos: [
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">📊 O que é o SIG?</h3>
-      <p>O <strong>SIG (Sistema de Informações Gerenciais)</strong> é um conjunto de recursos tecnológicos que coleta, organiza e apresenta informações para apoiar as decisões dos gestores.</p>
-      <div style="margin-top:14px;padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);font-size:13px;line-height:1.9">
-        💡 <strong>Analogia:</strong> Imagine o SIG como o <em>painel de instrumentos de um avião</em>: o piloto (gestor) não precisa sair do cockpit para saber a velocidade, altitude e combustível — tudo aparece organizado na tela para ele tomar decisões rápidas e seguras.
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 O que vamos ver hoje?</h3>
+      <p style="font-size:14px;margin-bottom:14px">Esta aula vai te preparar para trabalhar com informações como um gestor de verdade. Acompanhe cada passo com atenção!</p>
+      <div style="display:grid;gap:8px;margin-bottom:14px">
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">1️⃣ O que é dado e o que é informação — qual a diferença?</div>
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">2️⃣ O que é Sistema e o que é SIG</div>
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">3️⃣ Por que o SIG é importante nas empresas</div>
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">4️⃣ Os 3 níveis de decisão</div>
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">5️⃣ Boas práticas de cadastro de dados</div>
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">6️⃣ Como elaborar um SIG para uma empresa</div>
+        <div style="padding:11px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid rgba(52,211,153,.3);font-size:13px">7️⃣ 📝 Atividade prática — você como gestor</div>
       </div>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          📥 <strong>Coleta dados</strong> de vendas, estoque, finanças, RH...
-        </div>
-        <div style="padding:10px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ⚙️ <strong>Processa</strong> esses dados e transforma em informação organizada
-        </div>
-        <div style="padding:10px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          📈 <strong>Apresenta relatórios e gráficos</strong> para os gestores tomarem decisões
-        </div>
-      </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-        <strong>📓 Copie:</strong> SIG = Sistema de Informações Gerenciais<br>
-        Função: coletar dados → processar → gerar informações para a tomada de decisão
+      <div style="padding:12px;background:rgba(251,191,36,.08);border-left:3px solid var(--warn);border-radius:6px;font-size:13px">
+        💡 <strong>Frase do dia:</strong> "Dado sozinho não vale nada. O que importa é a <strong>informação gerada a partir dele</strong>."
       </div>`,
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 A Importância do SIG nas Empresas</h3>
-      <p>Por que toda empresa moderna precisa de um SIG? Veja as principais razões:</p>
-      <div style="display:grid;gap:8px;margin-top:12px">
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🔍 Dado x Informação — Qual a diferença?</h3>
+      <p style="font-size:14px;margin-bottom:14px">Antes de tudo, precisamos entender essa diferença fundamental:</p>
+      <div style="display:grid;gap:10px;margin-bottom:14px">
+        <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:10px;border:1px solid rgba(248,113,113,.3)">
+          <div style="font-size:13px;font-weight:700;color:var(--danger);margin-bottom:8px">📥 DADO — bruto, isolado, sem contexto</div>
+          <div style="display:grid;gap:6px">
+            <div style="padding:7px 12px;background:rgba(0,0,0,.15);border-radius:6px;font-size:13px;font-family:monospace">150 | João | R$ 2.300 | 15/04</div>
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px;margin-bottom:0">Esses números sozinhos não dizem nada. O que é 150? O que significa R$ 2.300?</p>
+        </div>
+        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:1px solid rgba(52,211,153,.3)">
+          <div style="font-size:13px;font-weight:700;color:var(--success);margin-bottom:8px">📊 INFORMAÇÃO — processada, com contexto e significado</div>
+          <div style="padding:10px 12px;background:rgba(0,0,0,.15);border-radius:6px;font-size:13px">
+            O vendedor <strong>João</strong> vendeu <strong>150 unidades</strong> no dia <strong>15/04</strong>, gerando <strong>R$ 2.300</strong> de receita para a empresa.
+          </div>
+          <p style="font-size:12px;color:var(--muted);margin-top:8px;margin-bottom:0">Agora sim! Com contexto, o gestor sabe exatamente o que aconteceu e pode tomar decisões.</p>
+        </div>
+      </div>
+      <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong><br>
+        <strong>Dado</strong> = número/texto bruto, sem contexto (ex: "150", "R$2.300")<br>
+        <strong>Informação</strong> = dado processado com significado (ex: "João vendeu 150 unidades e faturou R$2.300")<br>
+        O SIG transforma DADOS em INFORMAÇÕES úteis para o gestor.
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">⚙️ O que é um Sistema? E o que é SIG?</h3>
+      <p style="font-size:14px;margin-bottom:12px">Todo sistema funciona com 3 etapas básicas. Veja:</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0;flex-wrap:wrap">
+        <div style="padding:14px 18px;background:rgba(79,142,247,.15);border-radius:10px;border:2px solid rgba(79,142,247,.4);text-align:center;min-width:90px">
+          <div style="font-size:22px;margin-bottom:4px">📥</div>
+          <div style="font-weight:700;font-size:13px;color:var(--accent)">ENTRADA</div>
+          <div style="font-size:11px;color:var(--muted)">Dados brutos</div>
+        </div>
+        <div style="font-size:22px;color:var(--muted)">→</div>
+        <div style="padding:14px 18px;background:rgba(124,106,247,.15);border-radius:10px;border:2px solid rgba(124,106,247,.4);text-align:center;min-width:90px">
+          <div style="font-size:22px;margin-bottom:4px">⚙️</div>
+          <div style="font-weight:700;font-size:13px;color:#a78bfa">PROCESSAMENTO</div>
+          <div style="font-size:11px;color:var(--muted)">Organiza e calcula</div>
+        </div>
+        <div style="font-size:22px;color:var(--muted)">→</div>
+        <div style="padding:14px 18px;background:rgba(52,211,153,.15);border-radius:10px;border:2px solid rgba(52,211,153,.4);text-align:center;min-width:90px">
+          <div style="font-size:22px;margin-bottom:4px">📤</div>
+          <div style="font-weight:700;font-size:13px;color:var(--success)">SAÍDA</div>
+          <div style="font-size:11px;color:var(--muted)">Informação útil</div>
+        </div>
+      </div>
+      <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:10px;border:1px solid var(--border);margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:8px">🏢 Exemplo real — Loja de Eletrônicos:</div>
+        <div style="display:grid;gap:6px;font-size:13px">
+          <div style="padding:6px 10px;background:rgba(79,142,247,.08);border-radius:6px">📥 <strong>Entrada:</strong> registro das vendas do dia (produto, quantidade, valor, vendedor)</div>
+          <div style="padding:6px 10px;background:rgba(124,106,247,.08);border-radius:6px">⚙️ <strong>Processamento:</strong> o sistema soma, organiza por vendedor e calcula totais</div>
+          <div style="padding:6px 10px;background:rgba(52,211,153,.08);border-radius:6px">📤 <strong>Saída:</strong> relatório mostrando quem vendeu mais, qual produto saiu mais e o faturamento do dia</div>
+        </div>
+      </div>
+      <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:10px;border:1px solid rgba(251,191,36,.3);font-size:13px">
+        💡 <strong>Analogia:</strong> O SIG é como o <em>painel de instrumentos de um avião</em>. O piloto (gestor) não precisa sair da cabine para saber a velocidade, altitude e combustível — tudo aparece organizado para ele tomar decisões rápidas e seguras.
+      </div>
+      <div style="margin-top:10px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> SIG = Sistema de Informações Gerenciais<br>
+        Entrada (dados) → Processamento → Saída (informações para decisão)<br>
+        Objetivo: ajudar o gestor a tomar decisões certas com base em dados reais.
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🎯 Por que o SIG é Importante nas Empresas?</h3>
+      <p style="font-size:14px;margin-bottom:12px">Sem SIG, o gestor decide no "achismo". Com SIG, decide com base em dados. Veja as vantagens:</p>
+      <div style="display:grid;gap:8px;margin-bottom:14px">
         <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
           ✅ <strong>Reduz incertezas</strong><br>
-          <span style="color:var(--muted)">Decisões baseadas em dados reais, não em "achismo"</span>
+          <span style="color:var(--muted)">Decisões baseadas em dados reais, não em "achismo". Ex: saber qual produto vende mais antes de fazer um pedido grande ao fornecedor.</span>
         </div>
         <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
           ⚡ <strong>Agiliza processos</strong><br>
-          <span style="color:var(--muted)">Relatórios gerados em segundos, não em dias</span>
+          <span style="color:var(--muted)">Relatórios gerados em segundos. Antes levavam dias para ser feitos manualmente.</span>
         </div>
         <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🎯 <strong>Melhora o foco</strong><br>
-          <span style="color:var(--muted)">Gestores sabem exatamente onde estão os problemas e oportunidades</span>
+          🎯 <strong>Melhora o foco do gestor</strong><br>
+          <span style="color:var(--muted)">Ele sabe exatamente onde estão os problemas e as oportunidades. Não perde tempo com coisas irrelevantes.</span>
         </div>
         <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          💰 <strong>Reduz custos</strong><br>
-          <span style="color:var(--muted)">Evita desperdícios ao identificar ineficiências rapidamente</span>
+          💰 <strong>Reduz custos e desperdícios</strong><br>
+          <span style="color:var(--muted)">Identifica ineficiências rapidamente. Ex: produto parado no estoque há meses gera custo — o SIG alerta.</span>
         </div>
         <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          🔍 <strong>Monitora resultados</strong><br>
-          <span style="color:var(--muted)">Acompanha metas, vendas e desempenho em tempo real</span>
+          🔍 <strong>Monitora resultados em tempo real</strong><br>
+          <span style="color:var(--muted)">Acompanha metas, vendas e desempenho sem precisar esperar o fim do mês.</span>
         </div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-        <strong>📓 Copie — Importância do SIG:</strong><br>
-        Reduz incertezas | Agiliza processos | Melhora foco | Reduz custos | Monitora resultados
+      <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie — Vantagens do SIG:</strong><br>
+        Reduz incertezas | Agiliza processos | Melhora foco | Reduz custos | Monitora resultados em tempo real
       </div>`,
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">🤔 SIG como Ferramenta para Tomada de Decisão</h3>
-      <p>A tomada de decisão é uma das funções mais importantes do administrador. O SIG apoia três níveis de decisão:</p>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid rgba(248,113,113,.3);font-size:13px">
-          🏆 <strong>Nível Estratégico (Alta Direção)</strong><br>
-          <span style="color:var(--muted)">Decisões de longo prazo: expandir a empresa, abrir nova filial, lançar produto</span><br>
-          <span style="font-size:12px">📊 SIG fornece: relatórios de mercado, tendências, desempenho geral</span>
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🏆 Os 3 Níveis de Decisão nas Empresas</h3>
+      <p style="font-size:14px;margin-bottom:12px">Toda empresa tem 3 níveis hierárquicos e cada um usa o SIG de forma diferente:</p>
+      <div style="display:grid;gap:10px;margin-bottom:14px">
+        <div style="padding:14px;background:rgba(248,113,113,.08);border-radius:10px;border:2px solid rgba(248,113,113,.3);font-size:13px">
+          <div style="font-weight:700;color:var(--danger);margin-bottom:6px">🏆 ESTRATÉGICO — Alta Direção (Diretores / CEO)</div>
+          <div style="color:var(--muted);margin-bottom:6px">Decisões de <strong>longo prazo</strong>: expandir a empresa, abrir filial, lançar produto, fusão</div>
+          <div style="padding:6px 10px;background:rgba(0,0,0,.1);border-radius:6px">📊 SIG fornece: tendências de mercado, desempenho geral da empresa, comparativos anuais</div>
         </div>
-        <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:8px;border:1px solid rgba(251,191,36,.3);font-size:13px">
-          📋 <strong>Nível Tático (Gerência)</strong><br>
-          <span style="color:var(--muted)">Decisões de médio prazo: orçamento do setor, metas mensais, treinamento</span><br>
-          <span style="font-size:12px">📊 SIG fornece: indicadores de desempenho, comparativos mensais</span>
+        <div style="padding:14px;background:rgba(251,191,36,.08);border-radius:10px;border:2px solid rgba(251,191,36,.3);font-size:13px">
+          <div style="font-weight:700;color:#f59e0b;margin-bottom:6px">📋 TÁTICO — Gerência (Gerentes de setor)</div>
+          <div style="color:var(--muted);margin-bottom:6px">Decisões de <strong>médio prazo</strong>: metas mensais, orçamento do setor, treinamento da equipe</div>
+          <div style="padding:6px 10px;background:rgba(0,0,0,.1);border-radius:6px">📊 SIG fornece: indicadores de desempenho, comparativos mensais, relatório de vendas por setor</div>
         </div>
-        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid rgba(52,211,153,.3);font-size:13px">
-          ⚙️ <strong>Nível Operacional (Supervisão)</strong><br>
-          <span style="color:var(--muted)">Decisões do dia a dia: quantidade a pedir, escala de funcionários</span><br>
-          <span style="font-size:12px">📊 SIG fornece: estoque atual, pedidos do dia, presenças</span>
+        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:10px;border:2px solid rgba(52,211,153,.3);font-size:13px">
+          <div style="font-weight:700;color:var(--success);margin-bottom:6px">⚙️ OPERACIONAL — Supervisão (Supervisores / Encarregados)</div>
+          <div style="color:var(--muted);margin-bottom:6px">Decisões do <strong>dia a dia</strong>: escala de funcionários, quanto pedir ao fornecedor, organizar o estoque</div>
+          <div style="padding:6px 10px;background:rgba(0,0,0,.1);border-radius:6px">📊 SIG fornece: estoque atual, pedidos do dia, relatório de presença</div>
         </div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
         <strong>📓 Copie — 3 Níveis de Decisão:</strong><br>
-        Estratégico: longo prazo (diretoria) | Tático: médio prazo (gerência) | Operacional: dia a dia (supervisão)
+        🏆 Estratégico: longo prazo → diretoria<br>
+        📋 Tático: médio prazo → gerência<br>
+        ⚙️ Operacional: dia a dia → supervisão
       </div>`,
 
-      `<h3 style="margin-bottom:10px;color:var(--accent)">🗃️ Cadastro de Informações no SIG</h3>
-      <p>Para que o SIG funcione, é preciso <strong>cadastrar as informações corretamente</strong>. Dados incorretos geram relatórios errados e decisões ruins!</p>
-      <div style="margin-top:12px;padding:14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid rgba(248,113,113,.3);font-size:13px">
-        ⚠️ <strong>Princípio GIGO:</strong> <em>Garbage In, Garbage Out</em><br>
-        "Lixo que entra, lixo que sai" — se você cadastra dados errados, o sistema dará respostas erradas.
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🗃️ Boas Práticas no Cadastro de Dados</h3>
+      <p style="font-size:14px;margin-bottom:10px">Para que o SIG funcione, os dados precisam ser cadastrados <strong>corretamente</strong>. Um dado errado gera uma informação errada — e o gestor decide errado!</p>
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border:1px solid rgba(248,113,113,.3);font-size:13px;margin-bottom:12px">
+        ⚠️ <strong>Princípio GIGO — Garbage In, Garbage Out</strong><br>
+        <span style="color:var(--muted)">"Lixo que entra, lixo que sai." Se você cadastra dados errados, o sistema dará respostas erradas — e o gestor vai tomar decisões ruins.</span>
       </div>
-      <p style="margin-top:12px;margin-bottom:8px">Boas práticas no cadastro de dados:</p>
+      <p style="font-size:13px;font-weight:600;margin-bottom:8px">✅ Boas práticas:</p>
+      <div style="display:grid;gap:7px">
+        <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Padronizar o formato</strong> dos dados — datas, CEPs, telefones sempre no mesmo padrão</div>
+        <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Validar antes de salvar</strong> — conferir se o campo está correto, sem erros de digitação</div>
+        <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Manter os dados atualizados</strong> — endereço, telefone, preço e estoque devem estar sempre corretos</div>
+        <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Evitar duplicidades</strong> — o mesmo cliente ou produto não pode ser cadastrado duas vezes</div>
+        <div style="padding:9px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">✅ <strong>Fazer backup regularmente</strong> — para não perder os dados em caso de falha</div>
+      </div>
+      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie:</strong> GIGO = dados errados geram resultados errados<br>
+        Boas práticas: padronizar | validar | atualizar | sem duplicatas | fazer backup
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">🏗️ Como Elaborar um SIG para uma Empresa</h3>
+      <p style="font-size:14px;margin-bottom:12px">Vamos montar um SIG do zero? Siga essas 5 etapas:</p>
+      <div style="display:grid;gap:9px;margin-bottom:14px">
+        <div style="padding:13px;background:rgba(79,142,247,.08);border-radius:9px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:22px;flex-shrink:0">1️⃣</span>
+          <div><strong>Identificar as necessidades</strong><br><span style="color:var(--muted)">Que informações o gestor precisa? Que decisões ele precisa tomar? Ex: "preciso saber qual produto vende mais por mês"</span></div>
+        </div>
+        <div style="padding:13px;background:rgba(79,142,247,.08);border-radius:9px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:22px;flex-shrink:0">2️⃣</span>
+          <div><strong>Mapear as fontes de dados</strong><br><span style="color:var(--muted)">Onde estão os dados? Vendas, estoque, financeiro, RH, clientes... Quem os gera?</span></div>
+        </div>
+        <div style="padding:13px;background:rgba(79,142,247,.08);border-radius:9px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:22px;flex-shrink:0">3️⃣</span>
+          <div><strong>Definir os relatórios necessários</strong><br><span style="color:var(--muted)">Quais indicadores? Frequência: diário, semanal ou mensal? Ex: relatório de vendas por vendedor toda segunda-feira</span></div>
+        </div>
+        <div style="padding:13px;background:rgba(79,142,247,.08);border-radius:9px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:22px;flex-shrink:0">4️⃣</span>
+          <div><strong>Escolher as ferramentas</strong><br><span style="color:var(--muted)">Excel para pequenas empresas | ERP (SAP, TOTVS) para médias e grandes | BI (Power BI) para análises avançadas</span></div>
+        </div>
+        <div style="padding:13px;background:rgba(52,211,153,.08);border-radius:9px;border:1px solid rgba(52,211,153,.3);font-size:13px;display:flex;gap:12px;align-items:flex-start">
+          <span style="font-size:22px;flex-shrink:0">5️⃣</span>
+          <div><strong>Implantar, treinar e monitorar</strong><br><span style="color:var(--muted)">Treinar a equipe, cadastrar os dados e acompanhar se o sistema está gerando as informações corretas</span></div>
+        </div>
+      </div>
+      <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+        <strong>📓 Copie — 5 etapas para criar um SIG:</strong><br>
+        1. Necessidades → 2. Fontes de dados → 3. Relatórios → 4. Ferramentas → 5. Implantação e monitoramento
+      </div>`,
+
+      `<h3 style="margin-bottom:10px;color:var(--accent)">📝 Atividade Prática — Você é o Gestor!</h3>
+      <p style="font-size:14px;margin-bottom:14px">Agora é com vocês! Leiam o cenário abaixo e respondam as perguntas como se fossem o gestor da empresa.</p>
+      <div style="padding:16px;background:rgba(251,191,36,.08);border-radius:10px;border:2px solid rgba(251,191,36,.3);margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:10px">🏬 Cenário — Loja "TechMais Eletrônicos"</div>
+        <p style="font-size:13px;line-height:1.8;margin-bottom:8px">Você é o gerente da loja TechMais. No final do mês você recebe os seguintes dados brutos do sistema:</p>
+        <div style="background:rgba(0,0,0,.15);border-radius:8px;padding:12px;font-size:12px;font-family:monospace;line-height:2">
+          Vendedor Ana → 85 vendas → R$ 42.500<br>
+          Vendedor Carlos → 120 vendas → R$ 38.000<br>
+          Vendedor Bia → 60 vendas → R$ 31.200<br>
+          Produto mais vendido: Fone Bluetooth (230 unidades)<br>
+          Produto parado: Smartwatch X3 (2 unidades em 30 dias)<br>
+          Estoque crítico: Cabo USB-C (apenas 5 unidades restantes)<br>
+          Meta do mês: R$ 100.000 | Total faturado: R$ 111.700
+        </div>
+      </div>
+      <p style="font-size:13px;font-weight:700;margin-bottom:10px">❓ Responda no seu caderno ou Word:</p>
       <div style="display:grid;gap:8px">
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ✅ Padronizar o formato dos dados (datas, CEPs, telefones)
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>1.</strong> Quem foi o vendedor com maior <strong>faturamento</strong>? E quem fez mais <strong>vendas</strong>? O que esses dados dizem para você como gestor?
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ✅ Validar informações antes de salvar (campo obrigatório, tipo correto)
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>2.</strong> O Smartwatch X3 vendeu só 2 unidades no mês. O que você faria com esse produto? Dê pelo menos 2 ações gerenciais.
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ✅ Manter os dados atualizados (endereço, telefone, preço)
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>3.</strong> O estoque de Cabo USB-C está com apenas 5 unidades. Que decisão operacional você tomaria agora?
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ✅ Evitar duplicidades (mesmo cliente cadastrado duas vezes)
+        <div style="padding:11px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
+          <strong>4.</strong> A loja atingiu a meta? Qual foi o percentual de cumprimento? (Calcule: total ÷ meta × 100)
         </div>
-        <div style="padding:10px 14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px">
-          ✅ Fazer backup regularmente para não perder os dados
-        </div>
-      </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-        <strong>📓 Copie:</strong> GIGO: dados errados = resultados errados<br>
-        Boas práticas: padronizar, validar, atualizar, sem duplicatas, fazer backup
-      </div>`,
-
-      `<h3 style="margin-bottom:10px;color:var(--accent)">🏗️ Elaborando um SIG para a Sua Organização</h3>
-      <p>Como criar um <strong>Sistema de Informações Gerenciais</strong> adequado para cada tipo de empresa? Siga as etapas:</p>
-      <div style="display:grid;gap:8px;margin-top:12px">
-        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
-          <span style="font-size:22px">1️⃣</span>
-          <div><strong>Identificar as necessidades</strong><br><span style="color:var(--muted)">Que informações o gestor precisa? Quais decisões ele toma?</span></div>
-        </div>
-        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
-          <span style="font-size:22px">2️⃣</span>
-          <div><strong>Mapear as fontes de dados</strong><br><span style="color:var(--muted)">Onde os dados estão? Vendas, estoque, financeiro, clientes...</span></div>
-        </div>
-        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
-          <span style="font-size:22px">3️⃣</span>
-          <div><strong>Definir os relatórios necessários</strong><br><span style="color:var(--muted)">Quais indicadores? Relatório diário, semanal, mensal?</span></div>
-        </div>
-        <div style="padding:14px;background:rgba(79,142,247,.08);border-radius:8px;border:1px solid var(--border);font-size:13px;display:flex;gap:12px;align-items:flex-start">
-          <span style="font-size:22px">4️⃣</span>
-          <div><strong>Escolher as ferramentas</strong><br><span style="color:var(--muted)">Excel, ERP, BI (Business Intelligence), ou sistema próprio?</span></div>
-        </div>
-        <div style="padding:14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid rgba(52,211,153,.3);font-size:13px;display:flex;gap:12px;align-items:flex-start">
-          <span style="font-size:22px">5️⃣</span>
-          <div><strong>Implantar, treinar e monitorar</strong><br><span style="color:var(--muted)">Treinar a equipe, cadastrar dados e acompanhar os resultados</span></div>
+        <div style="padding:11px 14px;background:rgba(52,211,153,.08);border-radius:8px;border:1px solid rgba(52,211,153,.3);font-size:13px">
+          <strong>5.</strong> Com base nesses dados, monte um relatório gerencial resumido com: resultado do mês, destaques positivos, problemas identificados e 3 ações para o próximo mês.
         </div>
       </div>
-      <div style="margin-top:12px;padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
-        <strong>📓 Copie — Etapas para criar um SIG:</strong><br>
-        1. Necessidades → 2. Fontes → 3. Relatórios → 4. Ferramentas → 5. Implantação
+      <div style="margin-top:14px;padding:12px;background:rgba(52,211,153,.08);border-left:3px solid var(--success);border-radius:6px;font-size:13px">
+        ✅ <strong>Lembre-se:</strong> um bom gestor não só lê os dados — ele <strong>interpreta</strong> e <strong>age</strong> sobre eles!
       </div>`
     ],
     perguntas: [
       { pergunta: "O que significa a sigla SIG?", opcoes: [{texto:"Sistema de Integração Geral",correta:false},{texto:"Sistema de Informações Gerenciais",correta:true},{texto:"Software de Inteligência de Gestão",correta:false},{texto:"Sistema Integrado de Gerenciamento",correta:false}] },
-      { pergunta: "Para que serve um SIG?", opcoes: [{texto:"Apenas para controlar o estoque da empresa",correta:false},{texto:"Para coletar, processar e apresentar informações que apoiam decisões gerenciais",correta:true},{texto:"Para substituir os funcionários da empresa",correta:false},{texto:"Para instalar o sistema operacional nos computadores",correta:false}] },
+      { pergunta: "Qual a diferença entre DADO e INFORMAÇÃO?", opcoes: [{texto:"São a mesma coisa, apenas nomes diferentes",correta:false},{texto:"Dado é bruto e sem contexto; informação é processada e tem significado para quem decide",correta:true},{texto:"Informação é mais antiga que dado",correta:false},{texto:"Dado é mais completo que informação",correta:false}] },
+      { pergunta: "Para que serve um SIG?", opcoes: [{texto:"Apenas para controlar o estoque da empresa",correta:false},{texto:"Para coletar, processar e apresentar informações que apoiam as decisões gerenciais",correta:true},{texto:"Para substituir os funcionários da empresa",correta:false},{texto:"Para instalar o sistema operacional nos computadores",correta:false}] },
       { pergunta: "O princípio GIGO significa:", opcoes: [{texto:"Quando o sistema é muito lento precisa de upgrade",correta:false},{texto:"Dados errados geram resultados errados — lixo entra, lixo sai",correta:true},{texto:"O gerente deve supervisionar todos os dados pessoalmente",correta:false},{texto:"O SIG é gratuito para pequenas empresas",correta:false}] },
       { pergunta: "Qual nível de decisão é responsável por decisões de LONGO PRAZO como expandir a empresa?", opcoes: [{texto:"Operacional",correta:false},{texto:"Tático",correta:false},{texto:"Estratégico",correta:true},{texto:"Supervisório",correta:false}] },
       { pergunta: "A gerência de vendas decide as metas mensais do setor. Isso é uma decisão de nível:", opcoes: [{texto:"Estratégico",correta:false},{texto:"Tático",correta:true},{texto:"Operacional",correta:false},{texto:"Consultivo",correta:false}] },
       { pergunta: "Um supervisor decide quantos funcionários escalar no turno da tarde. Isso é nível:", opcoes: [{texto:"Estratégico",correta:false},{texto:"Tático",correta:false},{texto:"Operacional",correta:true},{texto:"Executivo",correta:false}] },
-      { pergunta: "Qual NÃO é uma boa prática no cadastro de dados no SIG?", opcoes: [{texto:"Padronizar o formato das informações",correta:false},{texto:"Evitar duplicidade de cadastros",correta:false},{texto:"Fazer backup regularmente",correta:false},{texto:"Cadastrar dados sem verificar se estão corretos para economizar tempo",correta:true}] },
-      { pergunta: "Qual é a primeira etapa para elaborar um SIG adequado à organização?", opcoes: [{texto:"Escolher as ferramentas tecnológicas",correta:false},{texto:"Treinar os funcionários",correta:false},{texto:"Identificar as necessidades de informação do gestor",correta:true},{texto:"Comprar um servidor novo",correta:false}] }
+      { pergunta: "Qual NÃO é uma boa prática no cadastro de dados no SIG?", opcoes: [{texto:"Padronizar o formato das informações",correta:false},{texto:"Evitar duplicidade de cadastros",correta:false},{texto:"Fazer backup regularmente",correta:false},{texto:"Cadastrar dados sem verificar para economizar tempo",correta:true}] },
+      { pergunta: "Qual é a primeira etapa para elaborar um SIG adequado?", opcoes: [{texto:"Escolher as ferramentas tecnológicas",correta:false},{texto:"Treinar os funcionários",correta:false},{texto:"Identificar as necessidades de informação do gestor",correta:true},{texto:"Comprar um servidor novo",correta:false}] },
+      { pergunta: "Na loja TechMais, o Smartwatch X3 vendeu apenas 2 unidades. Qual a MELHOR decisão gerencial?", opcoes: [{texto:"Ignorar, pois é apenas um produto",correta:false},{texto:"Fazer promoção, reposicionar ou descontinuar o produto",correta:true},{texto:"Pedir mais unidades ao fornecedor",correta:false},{texto:"Demitir o vendedor responsável",correta:false}] },
+      { pergunta: "A loja TechMais faturou R$111.700 com meta de R$100.000. O percentual de cumprimento foi:", opcoes: [{texto:"90%",correta:false},{texto:"100%",correta:false},{texto:"111,7%",correta:true},{texto:"11,7%",correta:false}] },
+      { pergunta: "Estoque de Cabo USB-C com apenas 5 unidades. Que decisão operacional o gestor deve tomar?", opcoes: [{texto:"Esperar o estoque zerar para solicitar",correta:false},{texto:"Fazer pedido de reposição imediatamente ao fornecedor",correta:true},{texto:"Remover o produto do catálogo",correta:false},{texto:"Aumentar o preço para vender menos",correta:false}] }
     ]
   },
 
