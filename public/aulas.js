@@ -6398,3 +6398,287 @@ AULAS.push({
     { pergunta: "(VUNESP) A fórmula =PROCV(\"001\"; A2:C50; 3; FALSO) retornará:", opcoes: [{texto:"O valor da célula A2",correta:false},{texto:"O valor da 3ª coluna (coluna C) da linha onde \"001\" for encontrado na coluna A",correta:true},{texto:"O número 3",correta:false},{texto:"VERDADEIRO se \"001\" existir na tabela",correta:false}] }
   ]
 });
+
+// ══════════════════════════════════════════════════════════════════
+// BLOCO DIREITO / LEGISLAÇÃO CONCURSO ETEC
+// ══════════════════════════════════════════════════════════════════
+
+AULAS.push({
+  id: 55,
+  titulo: "Mapa Mental: Legislação do Concurso ETEC",
+  descricao: "Decretos, leis e normas que mais caem no concurso — visualize e memorize com mapas mentais",
+  icone: "⚖️",
+  passos: [
+
+    // ── PASSO 1: VISÃO GERAL ────────────────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗺️ Visão Geral — O que estudar?</h3>
+    <p style="font-size:14px;margin-bottom:14px">A legislação do concurso ETEC pode parecer assustadora, mas organizada em blocos fica fácil. São <strong>7 grupos</strong> de leis e normas:</p>
+    <div style="display:grid;gap:8px;margin-bottom:16px">
+      <div style="padding:12px 14px;background:rgba(248,113,113,.08);border-radius:8px;border-left:4px solid var(--danger);font-size:13px">
+        🏛️ <strong>Bloco 1</strong> — Decretos de concurso público (SP)<br>
+        <span style="color:var(--muted);font-size:12px">Dec. 60.449/2014 | Dec. 63.651/2018 | Portaria CEETEPS 914/2015</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(79,142,247,.08);border-radius:8px;border-left:4px solid var(--accent);font-size:13px">
+        ⚖️ <strong>Bloco 2</strong> — Vínculo e trabalho docente<br>
+        <span style="color:var(--muted);font-size:12px">CLT | LC 1.240/2014 | LC 1.044/2008 | Lei 10.261/1968</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border-left:4px solid var(--success);font-size:13px">
+        💰 <strong>Bloco 3</strong> — Remuneração<br>
+        <span style="color:var(--muted);font-size:12px">LC 1.425/2025</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(124,106,247,.08);border-radius:8px;border-left:4px solid #a78bfa;font-size:13px">
+        🏫 <strong>Bloco 4</strong> — Normas ETEC/CEETEPS<br>
+        <span style="color:var(--muted);font-size:12px">Del. 87/2022 | Del. 6/2008 | Instrução CETEC 1/2013</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(251,191,36,.08);border-radius:8px;border-left:4px solid var(--warn);font-size:13px">
+        🇧🇷 <strong>Bloco 5</strong> — Constituição Federal (Art. 12)<br>
+        <span style="color:var(--muted);font-size:12px">Nacionalidade e direitos políticos</span>
+      </div>
+      <div style="padding:12px 14px;background:rgba(52,211,153,.08);border-radius:8px;border-left:4px solid var(--success);font-size:13px">
+        ♿ <strong>Bloco 6</strong> — Inclusão em concursos<br>
+        <span style="color:var(--muted);font-size:12px">LC 683/1992 — PcD em concursos públicos</span>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px">
+      🔥 <strong>Prioridade máxima:</strong> Deliberação CEETEPS nº 87/2022 (Regimento das ETECs) e CLT — caem em quase toda prova!
+    </div>`,
+
+    // ── PASSO 2: DECRETOS DE CONCURSO ───────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏛️ Bloco 1 — Decretos de Concurso Público (SP)</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(248,113,113,.12);font-size:13px;font-weight:700;color:var(--danger)">
+          📋 Decreto nº 60.449/2014 — Regula concursos públicos no Estado de SP
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Define as <strong>regras gerais</strong> para realização de concursos públicos no Estado de SP</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Estabelece <strong>etapas</strong>: inscrição, provas, títulos, classificação e homologação</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Define <strong>validade do concurso</strong>: 2 anos, prorrogável por mais 2</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Garante <strong>ampla divulgação</strong> no Diário Oficial do Estado</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(248,113,113,.12);font-size:13px;font-weight:700;color:var(--danger)">
+          📋 Decreto nº 63.651/2018 — Atualiza o Dec. 60.449
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 <strong>Moderniza</strong> as regras dos concursos públicos estaduais</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Permite <strong>inscrição e recursos online</strong></div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Reforça as regras de <strong>isenção de taxa</strong> para candidatos de baixa renda</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Complementa e atualiza o decreto anterior — <strong>os dois valem juntos</strong></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(248,113,113,.12);font-size:13px;font-weight:700;color:var(--danger)">
+          📋 Portaria CEETEPS–GDS nº 914/2015 — Regras dos concursos do Paula Souza
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Norma <strong>específica do CEETEPS</strong> para seus concursos</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Define critérios de <strong>classificação e desempate</strong></div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Regulamenta a <strong>prova de títulos</strong> e a prova escrita</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Estabelece regras para <strong>candidatos PcD</strong> e atendimento especial</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Dec. 60.449 = regras gerais concurso SP | Dec. 63.651 = atualização (online, isenção) | Portaria 914 = regras específicas CEETEPS (títulos, PcD, desempate)
+    </div>`,
+
+    // ── PASSO 3: CLT E VÍNCULO ───────────────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">⚖️ Bloco 2 — Vínculo e Trabalho Docente</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+
+      <div style="border:2px solid rgba(79,142,247,.4);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.15);font-size:13px;font-weight:700;color:var(--accent)">
+          🔥 CLT — Consolidação das Leis do Trabalho (CAI MUITO!)
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Professor da ETEC = <strong>empregado celetista</strong> (NÃO é estatutário)</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Direitos: <strong>FGTS, INSS, férias (30 dias), 13º salário, aviso prévio</strong></div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Rescisão: pode ser demitido com ou sem justa causa</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Diferença do estatutário: <strong>não tem estabilidade</strong> automática</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);font-size:13px;font-weight:700;color:var(--accent)">
+          📋 LC nº 1.240/2014 — Emprego Público no CEETEPS
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Lei específica que regulamenta o <strong>emprego público</strong> no CEETEPS</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Define <strong>cargos, carreiras e promoções</strong> dos servidores do Paula Souza</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Complementa a CLT com regras próprias do CEETEPS</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);font-size:13px;font-weight:700;color:var(--accent)">
+          📋 LC nº 1.044/2008 — Jornada de Trabalho Docente
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 <strong>Hora-aula = 50 minutos</strong> (não 60!)</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 <strong>Hora-atividade = 30%</strong> das horas-aula (planejamento, correção, reuniões)</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Ex: 20h/aula semanais → 6h de hora-atividade</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Proíbe redução da hora-atividade abaixo de 30%</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(79,142,247,.08);font-size:13px;font-weight:700;color:var(--accent)">
+          📋 Lei nº 10.261/1968 — Estatuto dos Funcionários Públicos do Estado de SP
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 <strong>Ética e deveres</strong> do servidor público</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 <strong>Penalidades</strong>: advertência → suspensão → demissão</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Deveres: pontualidade, urbanidade, sigilo, lealdade à instituição</div>
+          <div style="padding:7px 10px;background:rgba(79,142,247,.06);border-radius:6px">📌 Proibições: abandono de cargo, improbidade, acumulação ilícita</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> CLT = regime do professor ETEC (celetista, não estatutário) | LC 1.044 = hora-aula 50min, hora-atividade 30% | Lei 10.261 = ética, deveres e penalidades
+    </div>`,
+
+    // ── PASSO 4: NORMAS ETEC ────────────────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🏫 Bloco 3 — Normas Específicas ETEC/CEETEPS</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+
+      <div style="border:2px solid rgba(124,106,247,.5);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(124,106,247,.15);font-size:13px;font-weight:700;color:#a78bfa">
+          🔥 Deliberação CEETEPS nº 87/2022 — Regimento das ETECs (CAI MUITO!)
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 <strong>Principal norma</strong> que rege o funcionamento das ETECs</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Define <strong>atribuições do professor</strong>: PTD, diário, avaliação, conselho de classe</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Define <strong>estrutura da escola</strong>: Diretor → Coord. Pedagógico → Professor</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Regulamenta <strong>matrícula, frequência mínima (75%)</strong> e aprovação dos alunos</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Define o <strong>Conselho de Escola</strong> como órgão colegiado (alunos, pais, prof., funcionários)</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Tipos de curso: <strong>integrado, concomitante, subsequente</strong> e qualificação profissional</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);font-size:13px;font-weight:700;color:#a78bfa">
+          📋 Deliberação CEETEPS nº 6/2008 — Requisitos de Formação Docente (CRT)
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Define a <strong>CRT</strong> (Classificação e Registro de Títulos) dos docentes</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Estabelece os <strong>requisitos mínimos de formação</strong> para lecionar em cada área</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Organiza os títulos em categorias que valem pontos na classificação</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Graduação, especialização, mestrado e doutorado têm pesos diferentes</div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(124,106,247,.08);font-size:13px;font-weight:700;color:#a78bfa">
+          📋 Instrução CETEC nº 1/2013 — Regulamenta a Docência no Técnico
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Complementa as normas sobre <strong>atribuição de aulas</strong> nos cursos técnicos</div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Define prioridade na atribuição: <strong>efetivos → admitidos → eventuais</strong></div>
+          <div style="padding:7px 10px;background:rgba(124,106,247,.06);border-radius:6px">📌 Regulamenta o <strong>Plano de Trabalho Docente (PTD)</strong> e sua entrega</div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> Del. 87/2022 = regimento ETECs (PTD, frequência 75%, conselho, tipos de curso) | Del. 6/2008 = CRT e títulos docentes | Instrução 1/2013 = atribuição de aulas
+    </div>`,
+
+    // ── PASSO 5: CF e PcD ───────────────────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🇧🇷 Bloco 4 — Constituição Federal e Inclusão</h3>
+    <div style="display:grid;gap:10px;margin-bottom:14px">
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(251,191,36,.12);font-size:13px;font-weight:700;color:#f59e0b">
+          🇧🇷 Art. 12 da Constituição Federal — Nacionalidade
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(251,191,36,.06);border-radius:6px">
+            📌 <strong>Brasileiros natos</strong> — nascidos no Brasil (solo brasileiro) ou filhos de pai/mãe brasileiro no exterior a serviço do Brasil
+          </div>
+          <div style="padding:7px 10px;background:rgba(251,191,36,.06);border-radius:6px">
+            📌 <strong>Brasileiros naturalizados</strong> — estrangeiros que adquirem a nacionalidade brasileira por naturalização
+          </div>
+          <div style="padding:7px 10px;background:rgba(251,191,36,.06);border-radius:6px">
+            📌 Cargos <strong>privativos de brasileiro nato</strong>: Presidente, VP, Presidente da Câmara e Senado, STF, carreira diplomática, Oficial das Forças Armadas
+          </div>
+          <div style="padding:7px 10px;background:rgba(251,191,36,.06);border-radius:6px">
+            📌 <strong>Português equiparado:</strong> cidadão português com residência permanente no Brasil pode ter direitos iguais ao brasileiro naturalizado (reciprocidade)
+          </div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.12);font-size:13px;font-weight:700;color:var(--success)">
+          ♿ LC nº 683/1992 — Pessoas com Deficiência em Concursos Públicos (SP)
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Garante reserva de vagas para <strong>PcD em concursos públicos</strong> do Estado de SP</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Mínimo de <strong>1% das vagas</strong> reservadas para PcD</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Candidato PcD deve <strong>declarar a deficiência</strong> no ato da inscrição</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Garante <strong>atendimento especial</strong> na prova: tempo adicional, sala acessível, ledor</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Deficiência deve ser comprovada por <strong>laudo médico</strong></div>
+        </div>
+      </div>
+
+      <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden">
+        <div style="padding:12px 14px;background:rgba(52,211,153,.12);font-size:13px;font-weight:700;color:var(--success)">
+          💰 LC nº 1.425/2025 — Salário e Hora-Aula
+        </div>
+        <div style="padding:12px 14px;font-size:13px;display:grid;gap:6px">
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Lei mais recente — define a <strong>remuneração atual</strong> do professor ETEC</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Estabelece o <strong>valor da hora-aula</strong> por nível de formação (graduação, especialização, mestrado, doutorado)</div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Professores com <strong>maior titulação recebem hora-aula mais alta</strong></div>
+          <div style="padding:7px 10px;background:rgba(52,211,153,.06);border-radius:6px">📌 Pode ser cobrada em questão sobre <strong>valorização docente</strong></div>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px;background:rgba(79,142,247,.08);border-left:3px solid var(--accent);border-radius:6px;font-size:13px">
+      <strong>📓 Copie:</strong> CF Art. 12 = brasileiro nato x naturalizado | Cargos privativos de nato | LC 683 = PcD tem 1% das vagas, laudo médico, atendimento especial | LC 1.425 = salário atual por titulação
+    </div>`,
+
+    // ── PASSO 6: TABELA RESUMO ──────────────────────────────────
+    `<h3 style="margin-bottom:10px;color:var(--accent)">🗂️ Tabela Resumo — Cola de Concurso</h3>
+    <p style="font-size:13px;margin-bottom:12px;color:var(--muted)">Guarde esta tabela — é tudo que você precisa saber sobre cada lei:</p>
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <tr style="background:rgba(79,142,247,.2)">
+        <th style="padding:9px 8px;border:1px solid var(--border);text-align:left">Lei/Norma</th>
+        <th style="padding:9px 8px;border:1px solid var(--border);text-align:left">Assunto</th>
+        <th style="padding:9px 8px;border:1px solid var(--border);text-align:left">O que saber</th>
+      </tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">Dec. 60.449/2014</td><td style="padding:8px;border:1px solid var(--border)">Concurso SP</td><td style="padding:8px;border:1px solid var(--border)">Regras gerais | Validade 2+2 anos</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600">Dec. 63.651/2018</td><td style="padding:8px;border:1px solid var(--border)">Atualiza o anterior</td><td style="padding:8px;border:1px solid var(--border)">Inscrição online | Isenção de taxa</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">Portaria 914/2015</td><td style="padding:8px;border:1px solid var(--border)">Concurso CEETEPS</td><td style="padding:8px;border:1px solid var(--border)">Títulos | Desempate | PcD</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600">CLT</td><td style="padding:8px;border:1px solid var(--border)">Vínculo professor</td><td style="padding:8px;border:1px solid var(--border)">Celetista (não estatutário) | FGTS | 13º</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">LC 1.240/2014</td><td style="padding:8px;border:1px solid var(--border)">Emprego CEETEPS</td><td style="padding:8px;border:1px solid var(--border)">Cargos e carreiras do Paula Souza</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600">LC 1.044/2008</td><td style="padding:8px;border:1px solid var(--border)">Jornada docente</td><td style="padding:8px;border:1px solid var(--border)">Hora-aula 50min | Hora-atividade 30%</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">Lei 10.261/1968</td><td style="padding:8px;border:1px solid var(--border)">Estatuto Func. SP</td><td style="padding:8px;border:1px solid var(--border)">Ética | Deveres | Penalidades</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600;color:#a78bfa">Del. 87/2022 🔥</td><td style="padding:8px;border:1px solid var(--border)">Regimento ETECs</td><td style="padding:8px;border:1px solid var(--border)">PTD | Frequência 75% | Conselho</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">Del. 6/2008</td><td style="padding:8px;border:1px solid var(--border)">Formação docente</td><td style="padding:8px;border:1px solid var(--border)">CRT | Pontuação de títulos</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600">Instrução 1/2013</td><td style="padding:8px;border:1px solid var(--border)">Docência técnico</td><td style="padding:8px;border:1px solid var(--border)">Atribuição de aulas | PTD</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">CF Art. 12</td><td style="padding:8px;border:1px solid var(--border)">Nacionalidade</td><td style="padding:8px;border:1px solid var(--border)">Nato x Naturalizado | Cargos privativos</td></tr>
+      <tr style="background:rgba(79,142,247,.03)"><td style="padding:8px;border:1px solid var(--border);font-weight:600">LC 683/1992</td><td style="padding:8px;border:1px solid var(--border)">PcD em concursos</td><td style="padding:8px;border:1px solid var(--border)">1% das vagas | Laudo | Atendimento especial</td></tr>
+      <tr><td style="padding:8px;border:1px solid var(--border);font-weight:600">LC 1.425/2025</td><td style="padding:8px;border:1px solid var(--border)">Remuneração</td><td style="padding:8px;border:1px solid var(--border)">Valor hora-aula por titulação</td></tr>
+    </table>
+    <div style="margin-top:14px;padding:12px;background:rgba(248,113,113,.08);border-left:3px solid var(--danger);border-radius:6px;font-size:13px">
+      🔥 <strong>Priorize:</strong> CLT → Del. 87/2022 → LC 1.044/2008 → Lei 10.261/1968 → CF Art. 12
+    </div>`
+  ],
+  perguntas: [
+    { pergunta: "O professor da ETEC é contratado sob qual regime?", opcoes: [{texto:"Estatutário — servidor público de carreira",correta:false},{texto:"CLT — empregado celetista",correta:true},{texto:"Regime Jurídico Único Federal",correta:false},{texto:"Comissionado pela direção da escola",correta:false}] },
+    { pergunta: "Qual lei define a hora-atividade do professor como 30% das horas-aula?", opcoes: [{texto:"CLT",correta:false},{texto:"LC nº 1.240/2014",correta:false},{texto:"LC nº 1.044/2008",correta:true},{texto:"Del. CEETEPS 87/2022",correta:false}] },
+    { pergunta: "A Deliberação CEETEPS nº 87/2022 é o Regimento das ETECs. Ela define:", opcoes: [{texto:"Apenas as regras salariais dos professores",correta:false},{texto:"Atribuições do professor, frequência mínima, tipos de curso e estrutura da escola",correta:true},{texto:"Somente os requisitos de formação docente",correta:false},{texto:"As regras do concurso público estadual",correta:false}] },
+    { pergunta: "A frequência mínima obrigatória para aprovação do aluno nas ETECs é:", opcoes: [{texto:"50%",correta:false},{texto:"60%",correta:false},{texto:"75%",correta:true},{texto:"80%",correta:false}] },
+    { pergunta: "O Decreto nº 63.651/2018 é importante porque:", opcoes: [{texto:"Criou o CEETEPS",correta:false},{texto:"Define o salário dos professores",correta:false},{texto:"Atualiza as regras de concursos públicos do Estado de SP",correta:true},{texto:"Regulamenta a jornada docente",correta:false}] },
+    { pergunta: "A LC nº 683/1992 garante às pessoas com deficiência em concursos públicos do Estado de SP:", opcoes: [{texto:"50% das vagas disponíveis",correta:false},{texto:"Isenção total da taxa de inscrição",correta:false},{texto:"Reserva de no mínimo 1% das vagas e atendimento especial",correta:true},{texto:"Aprovação automática na prova de títulos",correta:false}] },
+    { pergunta: "(CF Art. 12) São brasileiros NATOS:", opcoes: [{texto:"Apenas os nascidos em território brasileiro",correta:false},{texto:"Nascidos no Brasil e filhos de brasileiro a serviço do país no exterior",correta:true},{texto:"Estrangeiros naturalizados após 10 anos de residência",correta:false},{texto:"Cidadãos portugueses com residência permanente no Brasil",correta:false}] },
+    { pergunta: "A Portaria CEETEPS-GDS nº 914/2015 regulamenta:", opcoes: [{texto:"A jornada de trabalho dos professores",correta:false},{texto:"Os salários e benefícios dos servidores",correta:false},{texto:"As regras específicas dos concursos do Centro Paula Souza",correta:true},{texto:"O regimento interno das ETECs",correta:false}] },
+    { pergunta: "Qual norma define os requisitos de formação (CRT) e pontuação de títulos dos docentes do CEETEPS?", opcoes: [{texto:"LC nº 1.044/2008",correta:false},{texto:"Deliberação CEETEPS nº 6/2008",correta:true},{texto:"Instrução CETEC nº 1/2013",correta:false},{texto:"Lei nº 10.261/1968",correta:false}] },
+    { pergunta: "A Lei nº 10.261/1968 (Estatuto dos Funcionários Públicos de SP) trata principalmente de:", opcoes: [{texto:"Regras salariais e benefícios",correta:false},{texto:"Ética, deveres, proibições e penalidades do servidor",correta:true},{texto:"Jornada de trabalho e hora-atividade",correta:false},{texto:"Regras de concurso público estadual",correta:false}] },
+    { pergunta: "Um professor tem 30 horas-aula semanais. Quantas horas de hora-atividade tem direito?", opcoes: [{texto:"6 horas",correta:false},{texto:"9 horas",correta:true},{texto:"10 horas",correta:false},{texto:"12 horas",correta:false}] },
+    { pergunta: "A Instrução CETEC nº 1/2013 define que a prioridade na atribuição de aulas é:", opcoes: [{texto:"Eventuais → admitidos → efetivos",correta:false},{texto:"Efetivos → admitidos → eventuais",correta:true},{texto:"Mestres → especialistas → graduados",correta:false},{texto:"Tempo de serviço → titulação → idade",correta:false}] }
+  ]
+});

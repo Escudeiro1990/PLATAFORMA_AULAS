@@ -1,5 +1,6 @@
 const express = require('express');
 const multer  = require('multer');
+const nodemailer = require('nodemailer');
 const { createClient } = require('@libsql/client');
 
 // Multer: armazena arquivo em memória (sem disco — compatível com Render)
@@ -39,7 +40,9 @@ const dbAll = async (sql, params = []) => {
 // Inicializar tabelas
 async function initDB() {
   await dbRun(`CREATE TABLE IF NOT EXISTS progresso (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, aula TEXT, nota INTEGER)`);
-  await dbRun(`CREATE TABLE IF NOT EXISTS alunos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE, rm TEXT UNIQUE, senha TEXT, turma TEXT, disciplina TEXT)`);
+  await dbRun(`CREATE TABLE IF NOT EXISTS alunos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE, rm TEXT UNIQUE, senha TEXT, turma TEXT, disciplina TEXT, email TEXT)`);
+  await dbRun(`ALTER TABLE alunos ADD COLUMN email TEXT`).catch(() => {});
+  await dbRun(`CREATE TABLE IF NOT EXISTS reset_tokens (id INTEGER PRIMARY KEY AUTOINCREMENT, aluno_id INTEGER NOT NULL, token TEXT NOT NULL, expira_em TEXT NOT NULL)`);
   await dbRun(`CREATE TABLE IF NOT EXISTS configuracoes (chave TEXT PRIMARY KEY, valor TEXT)`);
   await dbRun(`CREATE TABLE IF NOT EXISTS aulas_habilitadas (id INTEGER PRIMARY KEY AUTOINCREMENT, aluno_id INTEGER, aula_id INTEGER, UNIQUE(aluno_id, aula_id))`);
   await dbRun(`CREATE TABLE IF NOT EXISTS tentativas_print (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, turma TEXT, aula TEXT, horario TEXT)`);
@@ -225,7 +228,7 @@ app.get('/alunos', async (req, res) => {
 // ALTERAR DADOS DE ALUNO (professor)
 app.post('/aluno-alterar', async (req, res) => {
   try {
-    const { usuario, senha, aluno_id, novo_nome, novo_rm, nova_senha, nova_turma, nova_disciplina } = req.body;
+    const { usuario, senha, aluno_id, novo_nome, novo_rm, nova_senha, nova_turma, nova_disciplina, novo_email } = req.body;
     const ok = await verificarProfessorAsync(usuario, senha);
     if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
     const aluno = await dbGet(`SELECT * FROM alunos WHERE id = ?`, [aluno_id]);
@@ -235,7 +238,8 @@ app.post('/aluno-alterar', async (req, res) => {
     const sa        = (nova_senha && nova_senha.trim()) ? nova_senha.trim() : aluno.senha;
     const turma     = nova_turma      !== undefined ? nova_turma      : (aluno.turma      || '');
     const disciplina= nova_disciplina !== undefined ? nova_disciplina : (aluno.disciplina || '');
-    await dbRun(`UPDATE alunos SET nome = ?, rm = ?, senha = ?, turma = ?, disciplina = ? WHERE id = ?`, [nomeNovo, rm, sa, turma, disciplina, aluno_id]);
+    const email     = novo_email      !== undefined ? novo_email      : (aluno.email      || '');
+    await dbRun(`UPDATE alunos SET nome = ?, rm = ?, senha = ?, turma = ?, disciplina = ?, email = ? WHERE id = ?`, [nomeNovo, rm, sa, turma, disciplina, email, aluno_id]);
     if (nomeNovo !== aluno.nome) await dbRun(`UPDATE progresso SET nome = ? WHERE nome = ?`, [nomeNovo, aluno.nome]);
     res.json({ ok: true });
   } catch(e) {
@@ -826,6 +830,100 @@ app.post('/atividade-enviar', upload.single('arquivo'), async (req, res) => {
          enviado_em     = excluded.enviado_em`,
       [janela_id, aluno_nome, aluno_rm || '', turma || '', req.file.originalname, arquivo_base64, enviado_em]
     );
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ═══════════════════════════════════════════════════════════════
+// RECUPERAÇÃO DE SENHA
+// ═══════════════════════════════════════════════════════════════
+
+// PROFESSOR: redefinir senha de um aluno diretamente
+app.post('/professor-redefinir-senha', async (req, res) => {
+  try {
+    const { usuario, senha, aluno_id, nova_senha } = req.body;
+    const ok = await verificarProfessorAsync(usuario, senha);
+    if (!ok) return res.status(401).json({ erro: 'Não autorizado.' });
+    if (!nova_senha || nova_senha.trim().length < 4)
+      return res.status(400).json({ erro: 'A nova senha deve ter pelo menos 4 caracteres.' });
+    await dbRun(`UPDATE alunos SET senha = ? WHERE id = ?`, [nova_senha.trim(), aluno_id]);
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ erro: e.message }); }
+});
+
+// ALUNO: solicitar recuperação de senha por e-mail
+app.post('/recuperar-senha', async (req, res) => {
+  try {
+    const { rm, email } = req.body;
+    if (!rm || !email) return res.status(400).json({ erro: 'RM e e-mail são obrigatórios.' });
+
+    const aluno = await dbGet(`SELECT * FROM alunos WHERE rm = ?`, [rm.trim()]);
+    if (!aluno) return res.status(404).json({ erro: 'RM não encontrado.' });
+    if (!aluno.email || aluno.email.toLowerCase() !== email.toLowerCase())
+      return res.status(400).json({ erro: 'E-mail não corresponde ao cadastro.' });
+
+    // Gerar token único
+    const token = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+    const expira = new Date(Date.now() + 30 * 60 * 1000).toISOString(); // 30 minutos
+    await dbRun(`DELETE FROM reset_tokens WHERE aluno_id = ?`, [aluno.id]);
+    await dbRun(`INSERT INTO reset_tokens (aluno_id, token, expira_em) VALUES (?,?,?)`, [aluno.id, token, expira]);
+
+    // Configurar e-mail
+    const baseUrl = process.env.BASE_URL || 'https://plataforma-aulas.onrender.com';
+    const link = `${baseUrl}/redefinir-senha.html?token=${token}`;
+
+    const transporter = nodemailer.createTransport({
+      host:   process.env.EMAIL_HOST,
+      port:   parseInt(process.env.EMAIL_PORT || '587'),
+      secure: process.env.EMAIL_PORT === '465',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: { rejectUnauthorized: false }
+    });
+
+    await transporter.sendMail({
+      from: `"Plataforma Aulas" <${process.env.EMAIL_USER}>`,
+      to: aluno.email,
+      subject: '🔐 Recuperação de senha — Plataforma Aulas',
+      html: `
+        <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:30px;background:#1a1a2e;color:#e2e8f0;border-radius:12px">
+          <h2 style="color:#4f8ef7;margin-bottom:16px">🔐 Recuperação de Senha</h2>
+          <p>Olá, <strong>${aluno.nome}</strong>!</p>
+          <p>Recebemos uma solicitação para redefinir sua senha. Clique no botão abaixo:</p>
+          <div style="text-align:center;margin:28px 0">
+            <a href="${link}" style="background:#4f8ef7;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;font-weight:bold;font-size:16px">
+              Redefinir minha senha
+            </a>
+          </div>
+          <p style="font-size:13px;color:#94a3b8">⏱️ Este link expira em <strong>30 minutos</strong>.</p>
+          <p style="font-size:13px;color:#94a3b8">Se você não solicitou isso, ignore este e-mail.</p>
+        </div>
+      `
+    });
+
+    res.json({ ok: true });
+  } catch(e) {
+    console.error('Erro ao enviar e-mail:', e.message);
+    res.status(500).json({ erro: 'Erro ao enviar e-mail. Fale com o professor.' });
+  }
+});
+
+// ALUNO: verificar token e redefinir senha
+app.post('/redefinir-senha', async (req, res) => {
+  try {
+    const { token, nova_senha } = req.body;
+    if (!token || !nova_senha || nova_senha.trim().length < 4)
+      return res.status(400).json({ erro: 'Dados inválidos. A senha deve ter pelo menos 4 caracteres.' });
+
+    const registro = await dbGet(`SELECT * FROM reset_tokens WHERE token = ?`, [token]);
+    if (!registro) return res.status(400).json({ erro: 'Link inválido ou já utilizado.' });
+    if (new Date(registro.expira_em) < new Date())
+      return res.status(400).json({ erro: 'Link expirado. Solicite um novo.' });
+
+    await dbRun(`UPDATE alunos SET senha = ? WHERE id = ?`, [nova_senha.trim(), registro.aluno_id]);
+    await dbRun(`DELETE FROM reset_tokens WHERE token = ?`, [token]);
     res.json({ ok: true });
   } catch(e) { res.status(500).json({ erro: e.message }); }
 });

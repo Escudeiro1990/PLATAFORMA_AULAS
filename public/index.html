@@ -200,7 +200,19 @@
     <input id="login-senha" type="password" placeholder="Sua senha">
     <button class="btn" onclick="loginAluno()">Entrar →</button>
     <div class="msg" id="msg-login"></div>
+    <p class="dica">Esqueceu a senha? <span onclick="trocarAba('recuperar')" style="color:var(--accent);cursor:pointer">Recuperar acesso</span></p>
     <p class="dica">Primeira vez? <span onclick="trocarAba('cadastro')">Cadastre-se aqui</span></p>
+  </div>
+
+  <!-- RECUPERAR SENHA -->
+  <div class="form" id="form-recuperar" style="display:none">
+    <label>Seu RM (número de matrícula)</label>
+    <input id="rec-rm" placeholder="Ex: 123456" autocomplete="off">
+    <label>Seu e-mail cadastrado</label>
+    <input id="rec-email" type="email" placeholder="Ex: joao@gmail.com">
+    <button class="btn" onclick="recuperarSenha()">Enviar link de recuperação →</button>
+    <div class="msg" id="msg-recuperar"></div>
+    <p class="dica">Lembrou? <span onclick="trocarAba('login')">Voltar para o login</span></p>
   </div>
 
   <!-- CADASTRO ALUNO -->
@@ -221,6 +233,8 @@
     <input id="cad-senha" type="password" placeholder="Mínimo 4 caracteres">
     <label>Confirme a senha</label>
     <input id="cad-senha2" type="password" placeholder="Repita a senha">
+    <label>E-mail <span style="color:var(--muted);font-size:12px">(para recuperar senha)</span></label>
+    <input id="cad-email" type="email" placeholder="Ex: joao@gmail.com (opcional)">
     <button class="btn" onclick="cadastrarAluno()">Criar conta →</button>
     <div class="msg" id="msg-cadastro"></div>
     <p class="dica">Já tem conta? <span onclick="trocarAba('login')">Faça login</span></p>
@@ -317,7 +331,7 @@
 
   // ── Abas ──
   function trocarAba(aba) {
-    const nomes = ['login','cadastro','professor'];
+    const nomes = ['login','cadastro','professor','recuperar'];
     document.querySelectorAll('.aba').forEach((b,i) => b.classList.toggle('ativa', nomes[i] === aba));
     document.querySelectorAll('.form').forEach(f => f.classList.remove('ativo'));
     document.getElementById('form-' + aba).classList.add('ativo');
@@ -358,6 +372,7 @@
     const disciplina = document.getElementById('cad-disciplina').value;
     const senha      = document.getElementById('cad-senha').value;
     const senha2     = document.getElementById('cad-senha2').value;
+    const email      = document.getElementById('cad-email').value.trim();
     if (!nome || !rm || !senha)  return mostrarMsg('msg-cadastro', 'erro', 'Preencha todos os campos.');
     if (!turma)      return mostrarMsg('msg-cadastro', 'erro', 'Selecione sua turma.');
     if (!disciplina) return mostrarMsg('msg-cadastro', 'erro', 'Selecione a disciplina.');
@@ -366,7 +381,7 @@
     const res  = await fetch('/cadastro', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nome, rm, senha, turma, disciplina })
+      body: JSON.stringify({ nome, rm, senha, turma, disciplina, email })
     });
     const data = await res.json();
     if (res.ok) {
@@ -378,6 +393,23 @@
     } else {
       mostrarMsg('msg-cadastro', 'erro', data.erro);
     }
+  }
+
+  async function recuperarSenha() {
+    const rm    = document.getElementById('rec-rm').value.trim();
+    const email = document.getElementById('rec-email').value.trim();
+    if (!rm || !email) return mostrarMsg('msg-recuperar', 'erro', 'Preencha o RM e o e-mail.');
+    mostrarMsg('msg-recuperar', 'info', 'Enviando...');
+    try {
+      const r = await fetch('/recuperar-senha', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rm, email })
+      });
+      const j = await r.json();
+      if (r.ok) mostrarMsg('msg-recuperar', 'sucesso', '✅ Link enviado! Verifique seu e-mail (e o spam).');
+      else mostrarMsg('msg-recuperar', 'erro', j.erro || 'Erro ao enviar.');
+    } catch(e) { mostrarMsg('msg-recuperar', 'erro', 'Erro de conexão.'); }
   }
 
   async function loginProfessor() {

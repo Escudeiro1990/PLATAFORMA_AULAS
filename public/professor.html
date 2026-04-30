@@ -1399,6 +1399,27 @@ Instruções:
         setTimeout(() => { msg.style.display = 'none'; }, 2500);
       } catch(e) { alert('Erro: ' + e.message); }
     }
+
+    async function redefinirSenhaRapida() {
+      const aluno_id   = document.getElementById('edit-aluno-id').value;
+      const nova_senha = document.getElementById('edit-senha').value.trim();
+      if (!nova_senha || nova_senha.length < 4) return alert('Digite uma senha com pelo menos 4 caracteres.');
+      if (!confirm('Confirma a redefinição de senha para este aluno?')) return;
+      try {
+        const r = await fetch('/professor-redefinir-senha', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ usuario: profUsuario, senha: profSenha, aluno_id, nova_senha })
+        });
+        const j = await r.json();
+        if (!r.ok) return alert(j.erro || 'Erro ao redefinir.');
+        document.getElementById('edit-senha').value = '';
+        const st = document.getElementById('status-edit-aluno');
+        st.className = 'status-msg sucesso';
+        st.textContent = '✅ Senha redefinida com sucesso!';
+        setTimeout(() => { st.textContent = ''; st.className = 'status-msg'; }, 2500);
+      } catch(e) { alert('Erro: ' + e.message); }
+    }
   </script>
 </div>
 <!-- ═══════════════════════════════════════
@@ -1433,9 +1454,16 @@ Instruções:
         </select>
       </div>
     </div>
+    <div class="campo" style="margin-bottom:12px;">
+      <label>E-mail do Aluno</label>
+      <input type="email" id="edit-email" placeholder="E-mail para recuperação de senha (opcional)">
+    </div>
     <div class="campo" style="margin-bottom:18px;">
       <label>Nova Senha</label>
-      <input type="password" id="edit-senha" placeholder="Nova senha (deixe em branco para não alterar)">
+      <div style="display:flex;gap:8px;align-items:center">
+        <input type="password" id="edit-senha" placeholder="Nova senha (deixe em branco para não alterar)" style="flex:1">
+        <button onclick="redefinirSenhaRapida()" style="padding:10px 14px;background:rgba(248,113,113,.15);color:var(--danger);border:1px solid rgba(248,113,113,.3);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">🔑 Redefinir</button>
+      </div>
     </div>
     <div class="status-msg" id="status-edit-aluno"></div>
     <div class="modal-btns">
@@ -1826,19 +1854,20 @@ Instruções:
 
 
   async function salvarEdicaoAluno() {
-    const aluno_id       = document.getElementById('edit-aluno-id').value;
-    const novo_nome      = document.getElementById('edit-nome').value.trim();
-    const novo_rm        = document.getElementById('edit-rm').value.trim();
-    const nova_senha     = document.getElementById('edit-senha').value.trim();
-    const nova_turma     = document.getElementById('edit-turma').value;
-    const nova_disciplina= document.getElementById('edit-disciplina').value;
+    const aluno_id        = document.getElementById('edit-aluno-id').value;
+    const novo_nome       = document.getElementById('edit-nome').value.trim();
+    const novo_rm         = document.getElementById('edit-rm').value.trim();
+    const nova_senha      = document.getElementById('edit-senha').value.trim();
+    const nova_turma      = document.getElementById('edit-turma').value;
+    const nova_disciplina = document.getElementById('edit-disciplina').value;
+    const novo_email      = document.getElementById('edit-email').value.trim();
     const st = document.getElementById('status-edit-aluno');
 
     try {
       const r = await fetch('/aluno-alterar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ usuario: profUsuario, senha: profSenha, aluno_id, novo_nome, novo_rm, nova_senha, nova_turma, nova_disciplina })
+        body: JSON.stringify({ usuario: profUsuario, senha: profSenha, aluno_id, novo_nome, novo_rm, nova_senha, nova_turma, nova_disciplina, novo_email })
       });
       const d = await r.json();
       if (!r.ok) { st.className = 'status-msg erro'; st.textContent = '❌ ' + d.erro; return; }

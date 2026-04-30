@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redefinir Senha</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #0f0f1a; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+    .card { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 16px; padding: 36px 32px; width: 100%; max-width: 400px; }
+    .logo { font-size: 32px; text-align: center; margin-bottom: 8px; }
+    h1 { color: #4f8ef7; font-size: 20px; text-align: center; margin-bottom: 6px; }
+    p { color: #94a3b8; font-size: 13px; text-align: center; margin-bottom: 24px; }
+    label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 6px; }
+    input { width: 100%; padding: 12px 14px; background: #0f0f1a; border: 1.5px solid #2a2a4a; border-radius: 8px; color: #e2e8f0; font-size: 14px; margin-bottom: 16px; outline: none; transition: border .2s; }
+    input:focus { border-color: #4f8ef7; }
+    button { width: 100%; padding: 13px; background: #4f8ef7; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity .2s; }
+    button:hover { opacity: .85; }
+    .msg { margin-top: 14px; padding: 12px; border-radius: 8px; font-size: 13px; text-align: center; display: none; }
+    .msg.ok { background: rgba(52,211,153,.1); color: #34d399; border: 1px solid rgba(52,211,153,.3); }
+    .msg.erro { background: rgba(248,113,113,.1); color: #f87171; border: 1px solid rgba(248,113,113,.3); }
+    .voltar { display: block; text-align: center; margin-top: 16px; color: #4f8ef7; font-size: 13px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">🔐</div>
+    <h1>Redefinir Senha</h1>
+    <p>Digite sua nova senha abaixo</p>
+
+    <div id="form-redef">
+      <label>Nova senha</label>
+      <input type="password" id="nova-senha" placeholder="Mínimo 4 caracteres">
+      <label>Confirmar senha</label>
+      <input type="password" id="conf-senha" placeholder="Repita a senha">
+      <button onclick="redefinir()">Salvar nova senha</button>
+    </div>
+
+    <div class="msg" id="msg"></div>
+    <a class="voltar" href="index.html">← Voltar para o login</a>
+  </div>
+
+  <script>
+    const token = new URLSearchParams(location.search).get('token');
+    if (!token) {
+      document.getElementById('form-redef').innerHTML = '<p style="color:#f87171">Link inválido ou expirado.</p>';
+    }
+
+    async function redefinir() {
+      const nova = document.getElementById('nova-senha').value.trim();
+      const conf = document.getElementById('conf-senha').value.trim();
+      const msg  = document.getElementById('msg');
+      msg.style.display = 'none';
+
+      if (!nova || nova.length < 4) return mostrar('erro', 'A senha deve ter pelo menos 4 caracteres.');
+      if (nova !== conf) return mostrar('erro', 'As senhas não coincidem.');
+
+      try {
+        const r = await fetch('/redefinir-senha', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, nova_senha: nova })
+        });
+        const j = await r.json();
+        if (!r.ok) return mostrar('erro', j.erro || 'Erro ao redefinir.');
+        mostrar('ok', '✅ Senha redefinida com sucesso! Redirecionando...');
+        document.getElementById('form-redef').style.display = 'none';
+        setTimeout(() => location.href = 'index.html', 2000);
+      } catch(e) { mostrar('erro', 'Erro de conexão.'); }
+    }
+
+    function mostrar(tipo, texto) {
+      const msg = document.getElementById('msg');
+      msg.className = 'msg ' + tipo;
+      msg.textContent = texto;
+      msg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
