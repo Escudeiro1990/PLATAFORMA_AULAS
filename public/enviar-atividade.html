@@ -174,9 +174,9 @@ function renderForm(janela) {
     <div class="upload-box" id="box-${janela.id}">
       <span class="ic">📁</span>
       <p><strong>Clique para selecionar o arquivo</strong></p>
-      <p style="margin-top:6px;font-size:12px">PDF, Word (.doc/.docx) — máx. 20MB</p>
+      <p style="margin-top:6px;font-size:12px">PDF, Word (.doc/.docx) ou Excel (.xls/.xlsx) — máx. 20MB</p>
     </div>
-    <input type="file" id="file-${janela.id}" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+    <input type="file" id="file-${janela.id}" accept=".pdf,.doc,.docx,.xls,.xlsx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
     <div id="info-${janela.id}" style="display:none" class="arquivo-info">
       <span>📄</span>
       <span class="nome" id="nome-${janela.id}"></span>

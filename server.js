@@ -12,9 +12,11 @@ const upload = multer({
       'application/pdf',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     ];
     if (ok.includes(file.mimetype)) return cb(null, true);
-    cb(new Error('Apenas PDF ou Word (.doc/.docx) são permitidos.'));
+    cb(new Error('Apenas PDF, Word (.doc/.docx) ou Excel (.xls/.xlsx) são permitidos.'));
   },
 });
 
@@ -751,8 +753,11 @@ app.get('/atividade-download/:id', async (req, res) => {
     if (!row || !row.arquivo_base64) return res.status(404).json({ erro: 'Arquivo não encontrado.' });
     const buf = Buffer.from(row.arquivo_base64, 'base64');
     const ext = (row.arquivo_nome || '').split('.').pop().toLowerCase();
-    const mime = ext === 'pdf' ? 'application/pdf'
+    const mime = ext === 'pdf'  ? 'application/pdf'
                : ext === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+               : ext === 'doc'  ? 'application/msword'
+               : ext === 'xlsx' ? 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+               : ext === 'xls'  ? 'application/vnd.ms-excel'
                : 'application/octet-stream';
     res.setHeader('Content-Disposition', `attachment; filename="${row.arquivo_nome || 'arquivo'}"`);
     res.setHeader('Content-Type', mime);
