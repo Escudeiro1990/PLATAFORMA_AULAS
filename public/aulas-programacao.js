@@ -3281,6 +3281,422 @@ Content-Type: text/html
     Q('Quando usar alt=""?', 'Em imagens puramente decorativas', 'Em todas as imagens', 'Em gráficos importantes', 'Nunca'),
   ]);
 
+  PRAT[77] = { tarefas: ['<strong>Nível 1.</strong> Defina no <code>body</code> uma fonte, um tamanho de <code>16px</code> e um <code>line-height</code> de 1.6. Compare com o padrão do navegador.', '<strong>Nível 1.</strong> Escreva o mesmo tamanho de título em <code>px</code>, <code>rem</code> e <code>%</code> e mude o tamanho da fonte do navegador. Anote o que reage.', '<strong>Nível 2.</strong> Escreva <code>font-size: 18;</code> (sem unidade) e descubra, nas DevTools, como o navegador trata a linha.', '<strong>Nível 2.</strong> Meça o contraste de um texto da sua página nas DevTools e corrija se estiver abaixo de 4,5:1.'],
+    desafio: '<strong>Nível 3.</strong> Crie uma <strong>paleta</strong> da loja (fundo, texto, destaque, erro) com variáveis CSS (<code>--cor-destaque</code>) e use-a em toda a página, com contraste adequado.' };
+  PRAT[78] = { tarefas: ['<strong>Nível 1.</strong> Crie um card com <code>padding</code>, <code>border</code> e <code>margin</code> e use as DevTools para ver as 4 camadas do box model.', '<strong>Nível 1.</strong> Crie uma caixa com <code>width: 100%</code> e <code>padding: 20px</code> e observe a barra de rolagem horizontal. Corrija com <code>box-sizing: border-box</code>.', '<strong>Nível 2.</strong> Centralize um bloco com <code>width</code> definido e <code>margin: 0 auto</code>.', '<strong>Explique:</strong> com suas palavras, a diferença entre <code>block</code>, <code>inline</code> e <code>inline-block</code>.'],
+    desafio: '<strong>Nível 3.</strong> Monte um botão que seja <code>inline-block</code> com <code>padding</code>, borda arredondada e margem entre botões vizinhos, sem usar <code>&lt;br&gt;</code>.' };
+  PRAT[79] = { tarefas: ['<strong>Nível 1.</strong> Monte um menu com <code>display: flex</code>, <code>gap</code> e <code>justify-content: space-between</code>.', '<strong>Nível 1.</strong> Centralize um card na tela (horizontal e vertical) com Flexbox.', '<strong>Nível 2.</strong> Troque para <code>flex-direction: column</code> e preveja o que muda em <code>justify-content</code> e <code>align-items</code>.', '<strong>Explique:</strong> com suas palavras, o que são eixo principal e eixo cruzado.'],
+    desafio: '<strong>Nível 3.</strong> Faça o cabeçalho da loja: logo à esquerda, menu no centro e botão do carrinho à direita, e que quebre em linhas no celular (<code>flex-wrap</code>).' };
+  PRAT[80] = { tarefas: ['<strong>Nível 1.</strong> Crie uma vitrine com <code>grid-template-columns: repeat(3, 1fr)</code> e <code>gap</code>.', '<strong>Nível 2.</strong> Troque por <code>repeat(auto-fill, minmax(200px, 1fr))</code> e redimensione a janela.', '<strong>Nível 2.</strong> Faça o primeiro card ocupar 2 colunas (<code>grid-column: span 2</code>).', '<strong>Explique:</strong> com suas palavras, a diferença entre Flexbox e Grid e quando usar cada um.'],
+    desafio: '<strong>Nível 3.</strong> Monte o layout da página inteira com Grid: cabeçalho, menu lateral, conteúdo e rodapé, usando <code>grid-template-areas</code>.' };
+  PRAT[81] = { tarefas: ['<strong>Nível 1.</strong> Crie um botão com <code>:hover</code>, <code>:focus</code> e <code>:active</code> com estilos diferentes e teste com mouse e com Tab.', '<strong>Nível 1.</strong> Coloque um selo "NOVO" no canto de um card com <code>position: absolute</code> dentro de um pai <code>position: relative</code>.', '<strong>Nível 2.</strong> Fixe o cabeçalho no topo com <code>position: sticky</code> e <code>top: 0</code>.', '<strong>Nível 2.</strong> Acrescente uma <code>transition</code> suave na cor do botão.'],
+    desafio: '<strong>Nível 3.</strong> Faça um botão flutuante do carrinho (<code>position: fixed</code>) no canto da tela e que não cubra o conteúdo importante em celulares.' };
+  PRAT[82] = { tarefas: ['<strong>Nível 1.</strong> Confira a meta <code>viewport</code> no seu HTML e abra o modo celular nas DevTools (Ctrl+Shift+M).', '<strong>Nível 1.</strong> Escreva uma media query <code>@media (max-width: 600px)</code> que faça o menu ficar em coluna.', '<strong>Nível 2.</strong> Faça a vitrine mudar de 3 colunas para 1 no celular com media query.', '<strong>Nível 2.</strong> Aplique <code>img { max-width: 100%; height: auto; }</code> e veja a imagem acompanhar a tela.'],
+    desafio: '<strong>Nível 3.</strong> Deixe a loja inteira responsiva (celular, tablet e computador) e teste em 3 larguras. Anote o que mudou em cada uma.' };
+
+  // ══════════════════════════════════════════════════════
+  // 77 — CSS: UNIDADES, FONTES E CONTRASTE
+  // ══════════════════════════════════════════════════════
+  A(77, 'CSS 2: Unidades, Fontes e Contraste', 'Escolher tamanhos (px, rem, %), fontes e cores legíveis, e usar variáveis CSS', '🔤', [
+    P('💡', 'ENTENDA: tamanho e legibilidade',
+      `<p>Um site bonito que ninguém consegue <strong>ler</strong> não serve. Três decisões mudam muito a legibilidade: o <strong>tamanho</strong>, a <strong>fonte</strong> e o <strong>contraste</strong>.</p>`,
+      analogia(`é como <strong>uma placa na rua</strong>: se a letra é pequena demais, a cor some no fundo ou a fonte é rebuscada, ninguém entende, por mais bonita que seja.`),
+      caderno(['Legibilidade = tamanho + fonte + contraste'])),
+    P('📏', 'As unidades de medida',
+      code(`.caixa { width: 300px; }       /* px: fixo, pixels */
+h1     { font-size: 2rem; }    /* rem: relativo ao tamanho da fonte do site */
+p      { font-size: 1.1em; }   /* em: relativo ao tamanho do elemento pai */
+.faixa { width: 50%; }         /* %: relativo ao pai */
+.tela  { height: 100vh; }      /* vh/vw: % da altura/largura da janela */`),
+      lista(['<strong>px</strong>: tamanho absoluto, bom para bordas e detalhes pequenos', '<strong>rem</strong>: acompanha a fonte escolhida pelo usuário (<strong>melhor para textos</strong>)', '<strong>%</strong>: se adapta ao tamanho do pai (ótimo para larguras)', '<strong>vh / vw</strong>: relativos ao tamanho da janela']),
+      preveja(`se o navegador do usuário aumenta a fonte base de 16px para 20px, o que acontece com um título de <code>2rem</code>? E com um de <code>32px</code>?`),
+      box('verde', `<strong>Resposta:</strong> o de <code>2rem</code> vai de 32px para <strong>40px</strong> (acompanha); o de <code>32px</code> <strong>continua 32px</strong>. Por isso <code>rem</code> respeita quem precisa de letra maior.`)),
+    P('🔠', 'Fontes e texto',
+      code(`body {
+  font-family: "DM Sans", Arial, sans-serif;   /* fonte, alternativas, tipo genérico */
+  font-size: 1rem;
+  line-height: 1.6;                            /* espaço entre linhas */
+  color: #e8eaf0;
+}
+h1 { font-weight: 700; text-align: center; }
+a  { text-decoration: none; }`),
+      lista(['Liste <strong>fontes alternativas</strong>: se a primeira não existir no computador, o navegador usa a próxima', '<code>line-height: 1.5</code> a <code>1.7</code> melhora muito a leitura de parágrafos', 'Para usar fontes do <strong>Google Fonts</strong>, copie o <code>&lt;link&gt;</code> deles para o <code>&lt;head&gt;</code> e use o nome da fonte no <code>font-family</code>']),
+      caderno(['rem para textos · % para larguras · px para detalhes', 'font-family com alternativas', 'line-height 1.5 a 1.7 para parágrafos'])),
+    P('🐞', 'ENCONTRE O ERRO: o CSS "não pega"',
+      code(`p { font-size: 18; }         /* faltou a unidade */
+p { colour: red; }           /* nome da propriedade errado */
+p { color: #12345; }         /* cor com 5 dígitos */`),
+      lista(['<strong>Sintoma:</strong> a regra parece não ter efeito, e <strong>não há erro no console</strong>', '<strong>Causa:</strong> o CSS <strong>ignora silenciosamente</strong> o que não entende: valor sem unidade (<code>18</code>), propriedade escrita errado (<code>colour</code>), cor inválida', '<strong>Como achar:</strong> F12 → Elements → painel Styles. A linha inválida aparece <strong>riscada</strong>, com um ícone de aviso']),
+      atencao(`o CSS não "quebra" com erro: ele pula a linha e segue. Por isso, <strong>olhe o painel Styles</strong> sempre que uma regra não fizer efeito.`)),
+    P('🎨', 'Cores e contraste',
+      code(`color: red;                 /* nome */
+color: #4f8ef7;             /* hexadecimal */
+color: rgb(79, 142, 247);   /* vermelho, verde, azul */
+color: rgba(0, 0, 0, .5);   /* com transparência */`),
+      lista(['O <strong>contraste</strong> entre texto e fundo precisa ser de pelo menos <strong>4,5 para 1</strong> em texto comum', 'Cinza claro sobre branco e amarelo sobre branco costumam <strong>falhar</strong>', 'Nas DevTools, ao clicar na cor de um texto, o seletor mostra a razão de contraste']),
+      code(`:root {
+  --fundo: #0f1117;
+  --texto: #e8eaf0;
+  --destaque: #4f8ef7;
+}
+body   { background: var(--fundo); color: var(--texto); }
+button { background: var(--destaque); }`, 'Variáveis CSS: mude em um lugar só'),
+      caderno(['Contraste mínimo 4,5:1', 'Variáveis: --nome definida em :root e usada com var(--nome)'])),
+    P('🎯', 'DESAFIO: a paleta da loja',
+      lista(['Defina as variáveis de cor (fundo, texto, destaque, erro) e use-as em toda a página', 'Confira o contraste de cada combinação nas DevTools', 'Mude <strong>uma única variável</strong> e veja o site inteiro mudar']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que <code>rem</code> é melhor que <code>px</code> para textos? E por que o CSS não mostra erro quando você escreve um valor inválido?`)),
+  ], [
+    Q('Qual unidade acompanha o tamanho da fonte configurado pelo usuário?', 'rem', 'px', 'cm', 'pt fixo'),
+    Q('Com fonte base 20px, quanto vale 2rem?', '40px', '32px', '20px', '2px'),
+    Q('O que significa width: 50%?', 'Metade da largura do elemento pai', 'Metade da tela sempre', '50 pixels', 'Metade da altura'),
+    Q('Para que serve o line-height?', 'Controlar o espaço entre as linhas do texto', 'Mudar a cor da linha', 'Aumentar a borda', 'Alinhar o texto'),
+    Q('Por que listar fontes alternativas no font-family?', 'Para usar a próxima se a primeira não existir', 'Para misturar fontes na mesma palavra', 'Porque o CSS exige 3 fontes', 'Para deixar mais rápido'),
+    Q('font-size: 18; (sem unidade) faz o quê?', 'É ignorado pelo navegador, sem erro no console', 'Define 18px', 'Define 18 rem', 'Gera erro no console'),
+    Q('Onde você descobre que uma regra CSS foi ignorada?', 'No painel Styles do Elements, onde aparece riscada', 'No Network', 'No Application', 'No terminal'),
+    Q('Qual é o contraste mínimo recomendado para texto comum?', '4,5 para 1', '1,5 para 1', '2 para 1', '20 para 1'),
+    Q('Como declarar e usar uma variável CSS?', '--cor definida em :root e usada com var(--cor)', '$cor = azul', 'let cor = azul', '@cor: azul'),
+    Q('Qual é a vantagem das variáveis CSS?', 'Mudar a cor em um só lugar e atualizar o site todo', 'Deixar o CSS mais lento', 'Evitar usar cores', 'Substituir o HTML'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 78 — CSS: BOX MODEL E display
+  // ══════════════════════════════════════════════════════
+  A(78, 'CSS 3: Box Model e display', 'Entender o tamanho real das caixas, o box-sizing e a diferença entre block, inline e inline-block', '📦', [
+    P('💡', 'ENTENDA: tudo é uma caixa',
+      `<p>Para o navegador, <strong>todo elemento é uma caixa retangular</strong> com quatro camadas, de dentro para fora:</p>`,
+      lista(['📄 <strong>content</strong>: o conteúdo', '🔲 <strong>padding</strong>: espaço <em>interno</em>', '🖼️ <strong>border</strong>: a borda', '↔️ <strong>margin</strong>: espaço <em>externo</em>, entre caixas']),
+      analogia(`uma <strong>caixa de presente</strong>: o presente é o conteúdo, o papel de seda é o padding, a caixa é a borda e o espaço na prateleira até a próxima caixa é a margem.`),
+      code(`.card {
+  width: 300px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  margin: 16px;
+}`),
+      preveja(`qual é a largura <strong>total</strong> que o card ocupa na tela, contando padding e borda? (padrão do navegador: <code>content-box</code>)`),
+      box('verde', `<strong>Resposta:</strong> 300 + 20 + 20 (padding) + 2 + 2 (borda) = <strong>344px</strong> (sem contar a margem). O <code>width</code> vale <em>só para o conteúdo</em>.`)),
+    P('📐', 'box-sizing: border-box',
+      code(`* {
+  box-sizing: border-box;   /* o width passa a INCLUIR padding e borda */
+}
+
+.card {
+  width: 300px;             /* agora o card ocupa exatamente 300px */
+  padding: 20px;
+  border: 2px solid #ccc;
+}`),
+      `<p style="margin-top:12px">Com <code>border-box</code>, o <code>width</code> é o tamanho <strong>total</strong> da caixa. Quase todo projeto moderno começa o CSS com essa regra: facilita muito fazer contas de layout.</p>`,
+      caderno(['content-box (padrão): width = só o conteúdo', 'border-box: width = conteúdo + padding + borda', 'Comece o CSS com * { box-sizing: border-box; }'])),
+    P('🐞', 'ENCONTRE O ERRO: a barra de rolagem horizontal',
+      code(`.faixa {
+  width: 100%;
+  padding: 20px;
+}`),
+      lista(['<strong>Sintoma:</strong> a página ganha uma <strong>barra de rolagem horizontal</strong> e o conteúdo "vaza" para a direita', '<strong>Causa:</strong> com <code>content-box</code>, 100% + 40px de padding é <strong>mais largo</strong> que a tela', '<strong>Correção:</strong> <code>box-sizing: border-box</code>, para o padding ficar <em>dentro</em> dos 100%']),
+      box('azul', `<strong>Como investigar:</strong> F12 → passe o mouse sobre o elemento no painel Elements: o navegador pinta de <span style="color:#6fa8dc">azul</span> o conteúdo, <span style="color:#93c47d">verde</span> o padding e <span style="color:#f6b26b">laranja</span> a margem.`)),
+    P('🧱', 'display: block, inline e inline-block',
+      lista(['<strong>block</strong>: ocupa a linha toda, aceita width, height e margens (<code>div</code>, <code>p</code>, <code>h1</code>)', '<strong>inline</strong>: acompanha o texto, <strong>não aceita</strong> width/height (<code>span</code>, <code>a</code>, <code>strong</code>)', '<strong>inline-block</strong>: fica na linha, <strong>mas</strong> aceita width, height e padding (bom para botões)', '<strong>none</strong>: some da página (e do espaço)']),
+      code(`span { width: 200px; }                 /* NÃO funciona: span é inline */
+span { display: inline-block; width: 200px; }   /* agora funciona */
+
+.escondido { display: none; }          /* some completamente */`),
+      atencao(`<code>display: none</code> remove o elemento do espaço da página; <code>visibility: hidden</code> o esconde, mas <strong>mantém o espaço</strong> ocupado.`)),
+    P('🔧', 'MODIFIQUE: centralizar um bloco',
+      code(`.conteudo {
+  width: 900px;
+  max-width: 100%;       /* nunca maior que a tela */
+  margin: 0 auto;        /* 0 em cima/baixo, auto nas laterais: centraliza */
+}`),
+      lista(['<code>margin: 0 auto</code> só centraliza um <strong>bloco com largura definida</strong>', 'Teste sem o <code>width</code> e veja que não centraliza (o bloco já ocupa 100%)', 'Use <code>max-width</code> em vez de <code>width</code> fixo para o layout encolher no celular']),
+      caderno(['margin: 0 auto centraliza blocos com largura definida', 'max-width evita vazar em telas pequenas'])),
+    P('🎯', 'DESAFIO: o card da loja',
+      lista(['Monte um card com padding, borda, cantos arredondados e margem usando <code>border-box</code>', 'Use as DevTools para conferir se o tamanho total é o esperado', 'Coloque 3 botões inline-block com espaço entre eles']),
+      box('verde', `<strong>Explique com suas palavras:</strong> qual a diferença entre padding e margin? E por que o <code>box-sizing: border-box</code> facilita as contas de layout?`)),
+  ], [
+    Q('Quais são as camadas do box model, de dentro para fora?', 'content, padding, border, margin', 'margin, border, padding, content', 'border, content, margin, padding', 'content, margin, padding, border'),
+    Q('O que é o padding?', 'O espaço interno entre o conteúdo e a borda', 'O espaço externo entre caixas', 'A borda', 'A cor de fundo'),
+    Q('O que é a margin?', 'O espaço externo entre a caixa e as vizinhas', 'O espaço interno', 'A borda', 'O conteúdo'),
+    Q('Com content-box, width: 300px, padding: 20px e borda de 2px, qual a largura total?', '344px', '300px', '320px', '324px'),
+    Q('O que faz box-sizing: border-box?', 'O width passa a incluir padding e borda', 'Remove a borda', 'Esconde o padding', 'Aumenta a margem'),
+    Q('width: 100% com padding: 20px gera barra horizontal porque:', 'Com content-box a caixa fica mais larga que a tela', 'O padding é inválido', '100% não existe', 'A borda some'),
+    Q('Qual display aceita width e height e fica na mesma linha?', 'inline-block', 'inline', 'none', 'block'),
+    Q('O width de um span (inline) funciona?', 'Não, a menos que mude o display', 'Sim, sempre', 'Só em porcentagem', 'Só em rem'),
+    Q('Qual regra centraliza um bloco com largura definida?', 'margin: 0 auto', 'padding: auto', 'align: center', 'center: true'),
+    Q('Qual é a diferença entre display: none e visibility: hidden?', 'none remove o espaço; hidden mantém o espaço ocupado', 'São idênticos', 'hidden remove o elemento', 'none apenas muda a cor'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 79 — FLEXBOX
+  // ══════════════════════════════════════════════════════
+  A(79, 'CSS 4: Flexbox', 'Alinhar e distribuir elementos em uma linha ou coluna, e centralizar de verdade', '↔️', [
+    P('💡', 'ENTENDA: o pai manda nos filhos',
+      `<p>O <strong>Flexbox</strong> organiza elementos em <strong>uma direção</strong> (linha ou coluna). A ideia principal: você liga o flex <strong>no pai</strong> e ele passa a controlar os <strong>filhos</strong>.</p>`,
+      analogia(`um <strong>professor organizando a fila</strong>: os alunos (filhos) não decidem onde ficar. O professor (pai) manda: "em linha, com espaço igual entre vocês, todos alinhados pelo meio".`),
+      code(`<div class="menu">
+  <a href="#">Início</a>
+  <a href="#">Loja</a>
+  <a href="#">Carrinho</a>
+</div>
+
+.menu { display: flex; gap: 16px; }`),
+      caderno(['display: flex vai no PAI', 'Os filhos diretos viram "itens flex"'])),
+    P('🧭', 'Eixo principal e eixo cruzado',
+      lista(['O <strong>eixo principal</strong> é a direção em que os itens se alinham (por padrão, <strong>horizontal</strong>)', 'O <strong>eixo cruzado</strong> é o perpendicular (vertical, no padrão)', '<code>justify-content</code> distribui no <strong>eixo principal</strong>', '<code>align-items</code> alinha no <strong>eixo cruzado</strong>']),
+      code(`.menu {
+  display: flex;
+  justify-content: space-between;  /* distribui ao longo da linha */
+  align-items: center;             /* centraliza na vertical */
+  gap: 12px;
+}`),
+      lista(['<code>flex-start</code> / <code>center</code> / <code>flex-end</code>: no início, centro ou fim', '<code>space-between</code>: espaço <em>entre</em> os itens (primeiro e último nas pontas)', '<code>space-around</code> / <code>space-evenly</code>: espaço ao redor']),
+      preveja(`com <code>flex-direction: column</code>, o eixo principal vira vertical. Então o <code>justify-content</code> passa a mexer na vertical ou na horizontal?`),
+      box('verde', `<strong>Resposta:</strong> na <strong>vertical</strong>. O <code>justify-content</code> sempre age no <em>eixo principal</em>, e ele gira junto com o <code>flex-direction</code>.`)),
+    P('🎯', 'Centralizar de verdade',
+      code(`.tela {
+  display: flex;
+  justify-content: center;   /* centro na horizontal */
+  align-items: center;       /* centro na vertical */
+  min-height: 100vh;         /* a caixa precisa ter altura para centralizar nela */
+}`),
+      lista(['Esse é o jeito mais simples de centralizar um card no meio da tela', 'Sem <code>min-height</code>, o pai tem a altura do conteúdo e <strong>não há espaço sobrando</strong> para centralizar']),
+      caderno(['Centralizar: flex + justify-content: center + align-items: center', 'Precisa de altura no pai (min-height: 100vh)'])),
+    P('🐞', 'ENCONTRE O ERRO: o flex que não faz nada',
+      code(`.card { display: flex; }          /* aplicado no filho! */
+
+<div class="menu">
+  <div class="card">...</div>
+  <div class="card">...</div>
+</div>`),
+      lista(['<strong>Sintoma:</strong> os cards continuam um embaixo do outro', '<strong>Causa:</strong> o <code>display: flex</code> foi colocado <strong>nos filhos</strong>, e não no <code>.menu</code> (o pai). Ele ordena os filhos <em>dos cards</em>, não os cards entre si', '<strong>Correção:</strong> <code>.menu { display: flex; }</code>']),
+      atencao(`outro erro comum: <code>align-items: center</code> parece não funcionar porque o pai <strong>não tem altura maior que o conteúdo</strong>. Dê um <code>height</code> ou <code>min-height</code> para ver o efeito.`)),
+    P('🔧', 'MODIFIQUE: wrap e flex: 1',
+      code(`.lista { display: flex; flex-wrap: wrap; gap: 16px; }   /* quebra em novas linhas */
+.item  { flex: 1; min-width: 150px; }                    /* dividem o espaço igualmente */`),
+      lista(['<code>flex-wrap: wrap</code>: permite que os itens passem para a linha de baixo quando faltar espaço', '<code>flex: 1</code>: cada item <strong>cresce</strong> para ocupar o espaço disponível, em partes iguais', 'Dê <code>flex: 2</code> a um item e veja que ele ocupa o dobro']),
+      caderno(['flex-wrap: wrap quebra linhas', 'flex: 1 divide o espaço livre igualmente'])),
+    P('🎯', 'DESAFIO: o cabeçalho da loja',
+      lista(['Logo à esquerda, menu no centro e botão do carrinho à direita (<code>space-between</code>)', 'Todos alinhados na vertical pelo meio', 'No celular, os itens quebram em linhas (<code>flex-wrap</code>)']),
+      box('verde', `<strong>Explique com suas palavras:</strong> o que são eixo principal e eixo cruzado, e por que <code>justify-content</code> muda de direção quando se usa <code>flex-direction: column</code>?`)),
+  ], [
+    Q('Onde se coloca display: flex para organizar os filhos?', 'No elemento pai', 'Em cada filho', 'No body somente', 'No arquivo HTML'),
+    Q('O que faz justify-content?', 'Distribui os itens no eixo principal', 'Alinha no eixo cruzado', 'Muda a cor dos itens', 'Define a altura'),
+    Q('O que faz align-items?', 'Alinha os itens no eixo cruzado', 'Distribui no eixo principal', 'Cria colunas', 'Muda a fonte'),
+    Q('Qual valor coloca espaço ENTRE os itens, com o primeiro e o último nas pontas?', 'space-between', 'center', 'flex-start', 'stretch'),
+    Q('Com flex-direction: column, o justify-content age na:', 'Vertical', 'Horizontal', 'Diagonal', 'Nenhuma direção'),
+    Q('Para centralizar um card na tela (horizontal e vertical) usa-se:', 'display: flex; justify-content: center; align-items: center; e altura no pai', 'text-align: center apenas', 'margin: center', 'position: middle'),
+    Q('O flex foi colocado no filho e os itens continuam empilhados. Causa?', 'O display: flex precisa ir no pai', 'O gap está faltando', 'O HTML está errado', 'O navegador não suporta'),
+    Q('O align-items: center não centraliza na vertical. Causa provável?', 'O pai não tem altura além do conteúdo', 'O JavaScript está errado', 'A margem é negativa', 'O CSS não carregou'),
+    Q('O que faz flex-wrap: wrap?', 'Permite os itens passarem para a próxima linha', 'Impede quebra', 'Inverte os itens', 'Aumenta o gap'),
+    Q('O que faz flex: 1 em cada item?', 'Divide o espaço livre em partes iguais', 'Deixa o item com 1px', 'Esconde o item', 'Define a cor'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 80 — GRID
+  // ══════════════════════════════════════════════════════
+  A(80, 'CSS 5: Grid', 'Montar grades de linhas e colunas, como a vitrine de produtos, que se adaptam à tela', '🔳', [
+    P('💡', 'ENTENDA: linhas e colunas ao mesmo tempo',
+      `<p>O <strong>Grid</strong> organiza elementos em <strong>linhas e colunas</strong> ao mesmo tempo. É ideal para vitrines, galerias e o layout geral da página.</p>`,
+      analogia(`uma <strong>tabela de horários da escola</strong>: você define as colunas (dias) e as linhas (aulas), e cada atividade ocupa uma célula.`),
+      lista(['↔️ <strong>Flexbox</strong>: uma direção (linha <em>ou</em> coluna)', '🔳 <strong>Grid</strong>: duas direções (linhas <em>e</em> colunas)']),
+      caderno(['Flexbox = uma dimensão · Grid = duas dimensões'])),
+    P('⌨️', 'DIGITE: sua primeira grade',
+      code(`.vitrine {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* 3 colunas iguais */
+  gap: 16px;
+}`),
+      lista(['<code>display: grid</code>: liga o grid <strong>no pai</strong>', '<code>1fr</code>: <em>uma fração</em> do espaço livre. Três <code>1fr</code> = três colunas iguais', '<code>repeat(3, 1fr)</code> é o mesmo que escrever <code>1fr 1fr 1fr</code>', '<code>gap</code>: espaço entre linhas e colunas']),
+      code(`grid-template-columns: 200px 1fr;        /* uma fixa e uma que ocupa o resto */
+grid-template-columns: 1fr 2fr;          /* a segunda é o dobro da primeira */`),
+      preveja(`com <code>grid-template-columns: 1fr 2fr 1fr</code> e uma página de 800px sem gap, quantos pixels tem cada coluna?`),
+      box('verde', `<strong>Resposta:</strong> 200px, 400px e 200px (total de 4 frações: 800 ÷ 4 = 200 por fração).`)),
+    P('📱', 'A vitrine que se adapta sozinha',
+      code(`.vitrine {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}`),
+      lista(['<code>minmax(200px, 1fr)</code>: cada coluna tem <strong>no mínimo 200px</strong> e cresce para dividir o espaço', '<code>auto-fill</code>: cria <strong>quantas colunas couberem</strong>', 'Em tela grande: várias colunas. No celular: 1 ou 2. <strong>Sem media query!</strong>']),
+      atencao(`<code>auto-fill</code> mantém colunas vazias se houver poucos itens; <code>auto-fit</code> as encolhe para os itens ocuparem todo o espaço. Teste os dois com 2 ou 3 cards.`),
+      caderno(['1fr = uma fração do espaço livre', 'repeat(auto-fill, minmax(200px, 1fr)) = vitrine responsiva', 'auto-fit esticam os itens · auto-fill mantêm colunas vazias'])),
+    P('🐞', 'ENCONTRE O ERRO: o grid que vira uma coluna só',
+      code(`grid-template-columns: repeat(auto-fill, minmax(200px 1fr));
+/*                                                 ^ faltou a vírgula */`),
+      lista(['<strong>Sintoma:</strong> a vitrine fica em <strong>uma coluna só</strong>, ou o grid não funciona', '<strong>Causa:</strong> <code>minmax(200px 1fr)</code> está <strong>inválido</strong> (falta a vírgula). Lembre: o CSS <strong>ignora</strong> a linha inválida, sem avisar', '<strong>Como achar:</strong> F12 → Elements → Styles: a linha aparece riscada. Também há o botão <strong>grid</strong> ao lado do elemento para desenhar as linhas do grid na página']),
+      box('verde', `<strong>Outros erros comuns:</strong> esquecer o <code>display: grid</code> no pai, ou colocar o <code>grid-template-columns</code> nos filhos.`)),
+    P('🔧', 'MODIFIQUE: ocupar mais de uma célula e áreas nomeadas',
+      code(`.destaque { grid-column: span 2; }       /* ocupa 2 colunas */
+
+.pagina {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-areas:
+    "topo   topo"
+    "menu   conteudo"
+    "rodape rodape";
+  min-height: 100vh;
+}
+header { grid-area: topo; }
+nav    { grid-area: menu; }
+main   { grid-area: conteudo; }
+footer { grid-area: rodape; }`),
+      `<p style="margin-top:12px">Com <code>grid-template-areas</code>, você <strong>desenha o layout em texto</strong>: cada palavra é uma área, e os elementos escolhem sua área com <code>grid-area</code>.</p>`,
+      caderno(['grid-column: span 2 ocupa duas colunas', 'grid-template-areas desenha o layout da página inteira'])),
+    P('🎯', 'DESAFIO: a página da loja em grid',
+      lista(['Monte cabeçalho, menu lateral, conteúdo e rodapé com <code>grid-template-areas</code>', 'A vitrine dentro do conteúdo deve usar <code>repeat(auto-fill, minmax(...))</code>', 'No celular, o menu lateral passa para cima do conteúdo (próxima aula: media queries)']),
+      box('verde', `<strong>Explique com suas palavras:</strong> quando você escolhe Flexbox e quando escolhe Grid? Dê um exemplo da loja para cada um.`)),
+  ], [
+    Q('Qual é a principal diferença entre Flexbox e Grid?', 'Flexbox organiza em uma dimensão; Grid em duas', 'Não há diferença', 'Grid só funciona em tabelas', 'Flexbox só funciona para cores'),
+    Q('Onde se coloca display: grid?', 'No elemento pai', 'Nos filhos', 'No HTML', 'No JavaScript'),
+    Q('O que é 1fr?', 'Uma fração do espaço livre', 'Um pixel', 'Uma fonte', 'Uma cor'),
+    Q('O que cria repeat(3, 1fr)?', 'Três colunas iguais', 'Três linhas', 'Uma coluna de 3px', 'Três margens'),
+    Q('Com 1fr 2fr 1fr em 800px (sem gap), quanto mede a coluna do meio?', '400px', '200px', '800px', '267px'),
+    Q('O que faz minmax(200px, 1fr)?', 'A coluna tem no mínimo 200px e cresce para dividir o espaço', 'A coluna tem exatamente 200px', 'A coluna tem no máximo 200px', 'Esconde a coluna'),
+    Q('O que o auto-fill faz?', 'Cria quantas colunas couberem', 'Preenche com cor', 'Cria só uma coluna', 'Apaga os itens'),
+    Q('A vitrine ficou em uma coluna só. Causa possível com minmax(200px 1fr)?', 'Faltou a vírgula, e o CSS ignorou a linha inválida', 'O 1fr não existe', 'O auto-fill é proibido', 'O HTML está sem body'),
+    Q('Como fazer um item ocupar 2 colunas?', 'grid-column: span 2', 'width: 2', 'columns: 2', 'grid-size: 2'),
+    Q('Qual propriedade coloca um elemento em uma área nomeada?', 'grid-area', 'grid-name', 'area-name', 'display-area'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 81 — POSICIONAMENTO, :hover E :focus
+  // ══════════════════════════════════════════════════════
+  A(81, 'CSS 6: Posicionamento e Estados', 'Posicionar elementos (relative, absolute, fixed, sticky) e criar efeitos com :hover, :focus e transition', '📌', [
+    P('💡', 'ENTENDA: o fluxo normal e como sair dele',
+      `<p>Por padrão, os elementos seguem o <strong>fluxo normal</strong>: um depois do outro, de cima para baixo. A propriedade <code>position</code> permite <strong>tirar</strong> um elemento desse fluxo ou prendê-lo a algum lugar.</p>`,
+      lista(['<code>static</code>: o padrão, segue o fluxo', '<code>relative</code>: fica no lugar, mas serve de <strong>referência</strong> para filhos <code>absolute</code> (e pode ser deslocado)', '<code>absolute</code>: sai do fluxo e se posiciona em relação ao <strong>pai com position</strong>', '<code>fixed</code>: preso à <strong>janela</strong> (não sai do lugar ao rolar)', '<code>sticky</code>: rola junto até chegar a um ponto, e depois <strong>gruda</strong>']),
+      analogia(`um <strong>quadro de avisos</strong>: o papel normal fica na fila (static); o post-it colado no canto de um cartaz (absolute no pai relative); o aviso fixado na parede que sempre vê (fixed).`),
+      caderno(['relative = referência · absolute = posiciona no pai com position', 'fixed = preso à janela · sticky = gruda ao rolar'])),
+    P('⌨️', 'DIGITE: o selo "NOVO" no card',
+      code(`.card { position: relative; }       /* o pai vira a referência */
+
+.selo {
+  position: absolute;                /* sai do fluxo */
+  top: 8px;
+  right: 8px;
+  background: #f87171;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 99px;
+}`),
+      code(`<div class="card">
+  <span class="selo">NOVO</span>
+  <h3>Caneta</h3>
+</div>`),
+      preveja(`se eu <strong>remover</strong> o <code>position: relative</code> do <code>.card</code>, onde o selo vai aparecer?`),
+      box('verde', `<strong>Resposta:</strong> no canto superior direito da <strong>página inteira</strong> (ou do ancestral mais próximo que tenha <code>position</code>). Sem o pai com <code>position</code>, o <code>absolute</code> não tem referência.`)),
+    P('🐞', 'ENCONTRE O ERRO: z-index que não funciona',
+      code(`.menu  { z-index: 100; }          /* quero o menu por cima */
+.faixa { position: relative; z-index: 1; }`),
+      lista(['<strong>Sintoma:</strong> o menu continua <strong>atrás</strong> de outro elemento, mesmo com <code>z-index: 100</code>', '<strong>Causa:</strong> o <code>z-index</code> só funciona em elementos com <code>position</code> diferente de <code>static</code> (ou itens de flex/grid)', '<strong>Correção:</strong> <code>.menu { position: relative; z-index: 100; }</code>']),
+      atencao(`evite números gigantes de <code>z-index</code> (999999). Mantenha poucos níveis organizados: 1 para o conteúdo sobreposto, 10 para menus, 100 para modais.`),
+      caderno(['z-index só vale com position ≠ static', 'Maior z-index fica por cima'])),
+    P('🖱️', 'Estados: :hover, :focus e :active',
+      code(`button {
+  background: #4f8ef7;
+  transition: background .2s;        /* muda suavemente */
+}
+button:hover  { background: #3b6fd1; }        /* mouse em cima */
+button:focus  { outline: 3px solid #fbbf24; } /* selecionado pelo teclado */
+button:active { transform: scale(.97); }      /* enquanto é pressionado */`),
+      lista(['<code>:hover</code>: o mouse está sobre o elemento', '<code>:focus</code>: o elemento está selecionado (pelo teclado ou clique)', '<code>:active</code>: no momento do clique', '<code>transition</code>: anima a mudança entre dois estados']),
+      atencao(`quem usa <strong>teclado</strong> depende do <code>:focus</code> para ver onde está. Nunca escreva <code>outline: none</code> sem colocar um estilo de foco no lugar. Use <code>:focus-visible</code> para mostrar só no uso por teclado.`)),
+    P('🔧', 'MODIFIQUE: cabeçalho fixo e botão flutuante',
+      code(`header {
+  position: sticky;      /* gruda no topo ao rolar */
+  top: 0;
+  background: #0f1117;
+  z-index: 10;
+}
+
+.carrinho-flutuante {
+  position: fixed;       /* sempre no canto da janela */
+  right: 16px;
+  bottom: 16px;
+}`),
+      lista(['Experimente trocar <code>sticky</code> por <code>fixed</code> e observe o conteúdo "subindo" por baixo do cabeçalho', 'Acrescente um <code>padding-top</code> no conteúdo para ele não ficar escondido atrás do cabeçalho fixo']),
+      caderno(['sticky precisa de top (ou bottom) para funcionar', 'fixed tira do fluxo: reserve espaço para o conteúdo não ficar escondido'])),
+    P('🎯', 'DESAFIO: cards com efeitos',
+      lista(['O card sobe 4px no hover (<code>transform: translateY(-4px)</code>) com <code>transition</code>', 'O botão tem estilo de foco visível', 'O selo de "promoção" no canto do card usa <code>absolute</code> dentro de um pai <code>relative</code>']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o <code>absolute</code> precisa de um pai com <code>position</code>? E por que o <code>:focus</code> é importante?`)),
+  ], [
+    Q('Qual é o valor padrão de position?', 'static', 'relative', 'absolute', 'fixed'),
+    Q('Para um filho absolute se posicionar dentro do pai, o pai precisa ter:', 'position: relative (ou outro diferente de static)', 'display: block', 'z-index', 'overflow: hidden'),
+    Q('O que faz position: fixed?', 'Prende o elemento à janela, mesmo ao rolar', 'Deixa o elemento no fluxo', 'Esconde o elemento', 'Fixa o elemento no pai'),
+    Q('O que faz position: sticky com top: 0?', 'Rola com a página e gruda no topo ao chegar lá', 'Fica sempre no topo, desde o início', 'Esconde o elemento', 'Move o elemento para baixo'),
+    Q('Por que o z-index às vezes não tem efeito?', 'O elemento está com position: static', 'O número é muito grande', 'O CSS não permite', 'O z-index só vale para imagens'),
+    Q('Qual pseudoclasse atua quando o mouse está sobre o elemento?', ':hover', ':focus', ':active', ':visited'),
+    Q('Qual pseudoclasse mostra o elemento selecionado pelo teclado?', ':focus', ':hover', ':first', ':link'),
+    Q('Para que serve a transition?', 'Animar suavemente a mudança entre estilos', 'Criar um novo elemento', 'Esconder um elemento', 'Trocar a fonte'),
+    Q('Por que não remover o outline sem substituí-lo?', 'Quem navega pelo teclado perde a noção de onde está', 'Porque o outline é obrigatório', 'Porque quebra o JavaScript', 'Porque deixa o site lento'),
+    Q('O que acontece com um absolute sem pai com position?', 'Posiciona em relação à página (ancestral mais próximo com position)', 'Desaparece', 'Vira fixed', 'Vira static'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 82 — RESPONSIVIDADE E MEDIA QUERIES
+  // ══════════════════════════════════════════════════════
+  A(82, 'CSS 7: Responsividade e Media Queries', 'Fazer a página funcionar bem no celular, no tablet e no computador', '📱', [
+    P('💡', 'ENTENDA: uma página, muitas telas',
+      `<p>Mais da metade dos acessos à web vem do <strong>celular</strong>. Uma página <strong>responsiva</strong> se adapta ao tamanho da tela, sem precisar de uma versão separada.</p>`,
+      analogia(`a <strong>água</strong> que toma a forma do copo: o conteúdo é o mesmo, mas o layout se ajusta ao recipiente (a tela).`),
+      lista(['📱 Celular: ~360 a 430px de largura', '📟 Tablet: ~768px', '💻 Computador: 1024px ou mais']),
+      caderno(['Responsivo = o mesmo HTML se adapta a qualquer tela'])),
+    P('🧷', 'O primeiro passo: a meta viewport',
+      code(`<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>`),
+      `<p style="margin-top:12px">Sem essa linha, o celular finge ter uma tela de <strong>980px</strong> e <strong>diminui a página inteira</strong> para caber: tudo fica minúsculo. A meta <code>viewport</code> diz: "use a largura real do aparelho".</p>`,
+      atencao(`esquecer a <code>meta viewport</code> é o erro nº 1 de páginas que "ficam pequenininhas no celular". Confira sempre!`),
+      caderno(['meta viewport é obrigatória para a responsividade funcionar'])),
+    P('📐', 'Media queries: regras por tamanho de tela',
+      code(`.vitrine { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+@media (max-width: 800px) {
+  .vitrine { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .vitrine { grid-template-columns: 1fr; }
+  .menu { flex-direction: column; }
+}`),
+      lista(['<code>@media (max-width: 800px)</code>: "<em>quando a tela tiver <strong>até</strong> 800px de largura</em>, aplique estas regras"', 'As regras de dentro <strong>substituem</strong> as de fora (se vierem depois e tiverem a mesma força)', 'Os pontos de quebra (<em>breakpoints</em>) comuns: 500px, 800px, 1024px']),
+      preveja(`com a regra acima, quantas colunas tem a vitrine em uma tela de 450px? E em uma de 700px?`),
+      box('verde', `<strong>Resposta:</strong> 450px → 1 coluna (vale a regra de 500px, que vem por último); 700px → 2 colunas (vale a de 800px).`)),
+    P('🐞', 'ENCONTRE O ERRO: a media query que não funciona',
+      code(`@media (max-width: 500px) {
+  .menu { flex-direction: column; }
+}
+
+.menu { display: flex; flex-direction: row; }   /* escrito DEPOIS */`),
+      lista(['<strong>Sintoma:</strong> no celular, o menu continua em linha', '<strong>Causa:</strong> a ordem importa. A regra <code>.menu</code> escrita <strong>depois</strong> da media query tem a mesma força e <strong>vence</strong>', '<strong>Correção:</strong> escrever a media query <strong>depois</strong> das regras que ela quer substituir (normalmente, no final do arquivo)']),
+      box('azul', `<strong>Como testar:</strong> DevTools → ícone do celular (<strong>Ctrl+Shift+M</strong>) → escolha um aparelho ou arraste a largura. É o jeito mais rápido de testar, sem precisar de um celular.`),
+      caderno(['Media query vem DEPOIS das regras que sobrescreve', 'Ctrl+Shift+M abre o modo celular nas DevTools'])),
+    P('🧱', 'Mobile-first e medidas flexíveis',
+      lista(['<strong>Mobile-first</strong>: escreva o CSS <strong>para o celular primeiro</strong> e use <code>min-width</code> para melhorar em telas maiores', 'Use <code>%</code>, <code>fr</code>, <code>rem</code> e <code>max-width</code> em vez de <code>px</code> fixos nas larguras', 'Imagens: <code>max-width: 100%; height: auto;</code> para nunca passarem da tela']),
+      code(`/* base: celular (1 coluna) */
+.vitrine { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+@media (min-width: 600px)  { .vitrine { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .vitrine { grid-template-columns: repeat(4, 1fr); } }
+
+img { max-width: 100%; height: auto; }`),
+      caderno(['Mobile-first: base para celular + min-width para telas maiores', 'img { max-width: 100%; height: auto; }'])),
+    P('🎯', 'DESAFIO: a loja em três telas',
+      lista(['Teste a loja em <strong>360px</strong>, <strong>768px</strong> e <strong>1280px</strong> nas DevTools', 'No celular: 1 coluna, menu empilhado, botões com bom tamanho para o dedo', 'Anote o que você mudou em cada tamanho']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que a <code>meta viewport</code> é necessária? E por que a ordem das regras importa quando se usa media queries?`)),
+  ], [
+    Q('O que é uma página responsiva?', 'Uma página que se adapta a diferentes tamanhos de tela', 'Uma página que carrega mais rápido', 'Uma página sem CSS', 'Uma página só para celular'),
+    Q('Qual meta tag faz o celular usar a largura real do aparelho?', 'viewport', 'charset', 'description', 'author'),
+    Q('O que acontece sem a meta viewport?', 'O celular reduz a página inteira e tudo fica minúsculo', 'A página não abre', 'O CSS não funciona', 'O JavaScript para'),
+    Q('O que significa @media (max-width: 800px)?', 'Aplica as regras quando a tela tem até 800px', 'Aplica quando a tela tem mais de 800px', 'Fixa a largura em 800px', 'Define a altura máxima'),
+    Q('Qual atalho abre o modo celular nas DevTools?', 'Ctrl+Shift+M', 'Ctrl+P', 'Alt+F4', 'F5'),
+    Q('Por que a media query pode não surtir efeito?', 'Uma regra igual escrita depois dela vence', 'Media queries não funcionam com flex', 'O navegador as ignora', 'Elas só funcionam em px'),
+    Q('Onde se costuma escrever as media queries no arquivo?', 'Depois das regras que elas sobrescrevem', 'Antes de todas as regras', 'No HTML', 'Em outro idioma'),
+    Q('O que é mobile-first?', 'Escrever o CSS para o celular primeiro e melhorar para telas maiores', 'Usar só tela de celular', 'Criar apps nativos', 'Escrever o JavaScript antes'),
+    Q('Qual regra impede que uma imagem ultrapasse a tela?', 'img { max-width: 100%; height: auto; }', 'img { width: 1000px; }', 'img { overflow: hidden; }', 'img { display: none; }'),
+    Q('Por que preferir %, fr e rem a px fixos nas larguras?', 'Porque se adaptam ao tamanho da tela e do usuário', 'Porque px não existe', 'Porque são mais bonitos', 'Porque px é proibido'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
