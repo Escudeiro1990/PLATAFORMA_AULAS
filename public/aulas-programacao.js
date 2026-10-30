@@ -3703,6 +3703,9 @@ JSON.parse("undefined");
   }
 
 
+  // prática guiada por aula: GUIA[id] = [etapa, etapa, ...] (aplicada em pEnd)
+  var GUIA = {};
+
   // ══════════════════════════════════════════════════════
   // "ANTES DE FAZER, ENTENDA": explicação + exemplo resolvido de outro assunto, para cada função do módulo 8.
   // (os alunos reclamaram que só pediam para fazer, sem explicar)
@@ -5887,6 +5890,875 @@ Salvar com a descrição vazia           | Bordas vermelhas, nada guardado  |
   ]);
 
   // ══════════════════════════════════════════════════════
+  // PRÁTICA GUIADA · MÓDULO 4 (JavaScript fundamental)
+  // Em cada etapa: entenda (explicação + exemplo resolvido de OUTRO assunto) → faça → teste → dicas.
+  // Onde fazer: F12 → Console, em qualquer página.
+  // ══════════════════════════════════════════════════════
+
+  // ── 60: console e variáveis ───────────────────────────
+  ENT['PRÁTICA 1: guardar dados em variáveis e mostrar no console'] = exemplo(
+    `<p>Uma <strong>variável</strong> é uma caixa com etiqueta: <code>let</code> cria uma caixa que <strong>pode mudar</strong>; <code>const</code> cria uma que <strong>não muda</strong>. <strong>Texto</strong> vai entre aspas; <strong>número</strong>, sem aspas. O <code>console.log(a, b)</code> mostra valores no console, separados por espaço.</p>`,
+    `// EXEMPLO: dados de um aluno
+let aluno = "Ana";                  // texto: com aspas
+let idade = 15;                     // número: sem aspas
+const escola = "ETEC";              // const: não vai mudar
+
+console.log(aluno, idade, escola);  // Ana 15 ETEC
+console.log(typeof idade);          // "number"
+idade = idade + 1;                  // let pode mudar
+console.log(idade);                 // 16`,
+    ['<code>let aluno = "Ana";</code>: cria a caixa <code>aluno</code> e guarda o <strong>texto</strong> Ana (<code>=</code> aqui significa <em>guarde</em>)', '<code>let idade = 15;</code>: um <strong>número</strong>, sem aspas', '<code>const escola</code>: se você tentar <code>escola = "outra"</code>, dá erro (<em>Assignment to constant variable</em>)', '<code>typeof idade</code> responde o <strong>tipo</strong> do valor: <code>"number"</code>', '<code>idade = idade + 1;</code>: lê o valor atual (15), soma 1 e <strong>guarda de volta</strong> (16)'],
+    'Troque aluno/idade/escola por <strong>produto, preço e categoria</strong>. A estrutura é a mesma.');
+  ENT['PRÁTICA 2: texto não é número (converter com Number)'] = exemplo(
+    `<p>Tudo que vem de um campo de formulário é <strong>texto</strong>, mesmo que pareça número. E o <code>+</code> entre textos <strong>junta</strong> em vez de somar. Para calcular, converta com <code>Number(...)</code>.</p>`,
+    `// EXEMPLO: somar duas notas que chegaram como texto
+let nota1 = "8";
+let nota2 = "6";
+
+console.log(nota1 + nota2);                // "86"  (juntou!)
+console.log(Number(nota1) + Number(nota2)); // 14   (somou)
+let media = (Number(nota1) + Number(nota2)) / 2;
+console.log("Média:", media);              // Média: 7`,
+    ['<code>nota1 + nota2</code>: os dois são textos, então o <code>+</code> <strong>concatena</strong>: <code>"8" + "6"</code> = <code>"86"</code>', '<code>Number("8")</code> transforma o texto <code>"8"</code> no número <code>8</code>', 'Com números, o <code>+</code> <strong>soma</strong>', 'Os parênteses em <code>(a + b) / 2</code> fazem a soma acontecer <strong>antes</strong> da divisão'],
+    'Em vez de notas, serão <strong>preço e quantidade</strong>, e a conta é <code>preço × quantidade</code> (multiplicação).');
+  GUIA[60] = [
+    etapa('📦', 'PRÁTICA 1: guardar dados em variáveis e mostrar no console',
+      'Guarde os dados de um produto em variáveis e mostre no console.',
+      ['Crie <code>produto</code> (texto), <code>preco</code> (número) e <code>categoria</code> (<code>const</code>, texto)', 'Mostre os três com um único <code>console.log</code>', 'Mostre o <code>typeof</code> do preço', 'Aumente o preço em 1 real (<code>preco = preco + 1</code>) e mostre de novo'],
+      `let produto = "___";
+let preco = ___;
+const categoria = "___";
+
+console.log(produto, ___, ___);
+console.log(typeof ___);
+preco = ___ + 1;
+console.log(preco);`,
+      ['O console mostra, por exemplo: <code>Caneta 3.5 Papelaria</code>', 'O <code>typeof</code> mostra <code>"number"</code>', 'O último <code>console.log</code> mostra o preço <strong>já aumentado</strong>'],
+      ['O texto vai entre aspas; o número <strong>não</strong>. Se colocar aspas no preço, o <code>typeof</code> mostra <code>"string"</code>.', 'Para aumentar: <code>preco = preco + 1;</code> (lê, soma e guarda de volta).', 'Exemplo: <code>let produto = "Caneta"; let preco = 3.5; const categoria = "Papelaria";</code>'],
+    ),
+    etapa('🔢', 'PRÁTICA 2: texto não é número (converter com Number)',
+      'Reproduza o bug mais comum de quem lê campos de formulário e conserte.',
+      ['Crie <code>precoTexto = "20"</code> e <code>qtdTexto = "3"</code> (textos)', 'Mostre <code>precoTexto + qtdTexto</code> e veja o resultado <strong>errado</strong>', 'Calcule o <strong>total certo</strong> (preço vezes quantidade), convertendo com <code>Number</code>'],
+      `let precoTexto = "20";
+let qtdTexto = "3";
+
+console.log(precoTexto + ___);
+let total = Number(___) * ___(qtdTexto);
+console.log("Total:", ___);`,
+      ['A primeira conta mostra <code>"203"</code> (juntou)', 'O total certo é <code>60</code>', 'Troque os valores e confira com a calculadora'],
+      ['O <code>+</code> entre textos junta. Já o <code>*</code> converte os textos em número sozinho, mas é um hábito ruim: <strong>converta sempre</strong>.', 'Cada texto precisa do seu <code>Number(...)</code>.', '<code>let total = Number(precoTexto) * Number(qtdTexto);</code>'],
+    ),
+  ];
+
+  // ── 61: textos, operadores e decisões ─────────────────
+  ENT['PRÁTICA 1: montar um texto com crases (template string)'] = exemplo(
+    `<p>Juntar textos com <code>+</code> fica confuso. Com <strong>crases</strong> (<code>§ §</code>), você escreve a frase normalmente e coloca as variáveis dentro de <code>€{ }</code>: o JavaScript <strong>troca pelo valor</strong>.</p>`,
+    `// EXEMPLO: a ficha de um aluno
+let nome = "Ana";
+let turma = "1ºA";
+let nota = 8.5;
+
+console.log(§Aluna €{nome}, turma €{turma}, nota €{nota}§);
+// Aluna Ana, turma 1ºA, nota 8.5
+
+console.log(§Nota dobrada: €{nota * 2}§);   // dá para fazer contas dentro: 17`,
+    ['A frase fica entre <strong>crases</strong> (<code>§</code>), e não entre aspas', '<code>€{nome}</code> é substituído pelo valor da variável <code>nome</code>', 'Dentro do <code>€{ }</code> cabe <strong>qualquer expressão</strong>, até uma conta (<code>nota * 2</code>)'],
+    'A frase será: <em>Produto Caneta custa R$ 3.5 e restam 20 unidades</em>, com variáveis <code>produto</code>, <code>preco</code> e <code>estoque</code>.');
+  ENT['PRÁTICA 2: decidir com if / else if / else'] = exemplo(
+    `<p>O <code>if</code> executa um bloco <strong>só se</strong> a condição for verdadeira. Com <code>else if</code> e <code>else</code>, você cria <strong>várias faixas</strong>; <strong>só um</strong> bloco executa (o primeiro cuja condição for verdadeira, de cima para baixo). Para comparar use <code>===</code>, <code>&gt;=</code>, <code>&lt;</code>...; o <code>=</code> sozinho <strong>guarda</strong>, não compara.</p>`,
+    `// EXEMPLO: classificar a idade
+let idade = 16;
+
+if (idade >= 18) {
+  console.log("Adulto");
+} else if (idade >= 12) {
+  console.log("Adolescente");
+} else {
+  console.log("Criança");
+}
+// idade 16 -> "Adolescente"`,
+    ['<code>idade &gt;= 18</code> é falso para 16, então <strong>pula</strong> esse bloco', '<code>else if (idade &gt;= 12)</code> é verdadeiro: executa <code>"Adolescente"</code> e <strong>ignora o resto</strong>', 'O <code>else</code> (sem condição) pega <strong>todo o resto</strong>', 'A <strong>ordem</strong> importa: se o <code>&gt;= 12</code> viesse primeiro, quem tem 20 anos cairia nele'],
+    'As faixas serão da <strong>nota</strong>: 7 ou mais = Aprovado; 5 ou mais = Recuperação; resto = Reprovado.');
+  GUIA[61] = [
+    etapa('🔤', 'PRÁTICA 1: montar um texto com crases (template string)',
+      'Monte uma frase com variáveis usando crases.',
+      ['Crie <code>produto</code>, <code>preco</code> e <code>estoque</code>', 'Escreva, com crases, a frase: <em>Produto Caneta custa R$ 3.5 e restam 20 unidades</em>', 'Acrescente um segundo <code>console.log</code> com o <strong>valor total em estoque</strong> (<code>preco * estoque</code>) <strong>dentro</strong> do <code>€{ }</code>'],
+      `let produto = "Caneta";
+let preco = 3.5;
+let estoque = 20;
+
+console.log(§Produto €{___} custa R$ €{___} e restam €{___} unidades§);
+console.log(§Total em estoque: R$ €{___ * ___}§);`,
+      ['Primeira linha: <code>Produto Caneta custa R$ 3.5 e restam 20 unidades</code>', 'Segunda linha: <code>Total em estoque: R$ 70</code>', 'Mude as variáveis: a frase muda sozinha'],
+      ['As crases ficam na tecla ao lado do P (ABNT), com Shift em alguns teclados. Aspas simples/duplas <strong>não funcionam</strong> com <code>€{ }</code>.', 'Dentro do <code>€{ }</code> vai o <strong>nome da variável</strong>, sem aspas.', '<code>console.log(§Total em estoque: R$ €{preco * estoque}§);</code>'],
+    ),
+    etapa('🚦', 'PRÁTICA 2: decidir com if / else if / else',
+      'Classifique uma nota em três situações.',
+      ['Crie <code>nota = 6.5</code>', 'Se a nota for 7 ou mais: mostre "Aprovado"', 'Senão, se for 5 ou mais: "Recuperação"', 'Senão: "Reprovado"', 'Teste com as notas 8, 6.5, 5, 4.9 e 0'],
+      `let nota = 6.5;
+
+if (nota ___ 7) {
+  console.log("Aprovado");
+} else if (nota ___ 5) {
+  console.log("___");
+} else {
+  console.log("___");
+}`,
+      ['8 → Aprovado · 6.5 → Recuperação · 5 → Recuperação', '4.9 → Reprovado · 0 → Reprovado', 'Você consegue explicar por que <strong>a ordem</strong> dos testes importa'],
+      ['"7 ou mais" é <code>&gt;= 7</code> (maior <strong>ou igual</strong>). Com <code>&gt; 7</code>, a nota 7 cairia em Recuperação.', 'Cada bloco mostra uma palavra: Aprovado, Recuperação e Reprovado.', '<code>if (nota &gt;= 7) { ... } else if (nota &gt;= 5) { ... } else { ... }</code>'],
+    ),
+  ];
+
+  // ── 83: laços ─────────────────────────────────────────
+  ENT['PRÁTICA 1: repetir com for e somar com um acumulador'] = exemplo(
+    `<p>O <code>for</code> repete um bloco um número <strong>conhecido</strong> de vezes. Ele tem 3 partes: <code>for (início; condição; passo)</code>. Para <strong>somar</strong> o que vem a cada volta, use um <strong>acumulador</strong>: uma variável que começa em <strong>zero ANTES do laço</strong> e vai recebendo valores.</p>`,
+    `// EXEMPLO: somar os números de 1 a 5
+let soma = 0;                       // acumulador, ANTES do laço
+
+for (let i = 1; i <= 5; i++) {      // i começa em 1, repete enquanto i <= 5, e soma 1 a cada volta
+  soma = soma + i;
+  console.log("volta", i, "soma", soma);
+}
+
+console.log("Resultado:", soma);    // 15`,
+    ['<code>let i = 1</code>: onde começa. <code>i &lt;= 5</code>: <strong>enquanto</strong> for verdadeiro, repete. <code>i++</code>: ao fim de cada volta, soma 1 em <code>i</code>', '<code>soma = soma + i</code>: pega o que já tinha, soma <code>i</code> e guarda de volta', 'Volta 1: soma = 0+1 = 1. Volta 2: 1+2 = 3. Volta 3: 3+3 = 6... até 15', 'Se o <code>let soma = 0</code> ficasse <strong>dentro</strong> do laço, voltaria a zero a cada volta'],
+    'Você vai fazer o mesmo, mas com os números de 1 a 10 e depois com os preços de uma lista.');
+  ENT['PRÁTICA 2: repetir enquanto uma condição for verdadeira (while)'] = exemplo(
+    `<p>O <code>while</code> repete <strong>enquanto</strong> a condição for verdadeira, sem saber quantas voltas. <strong>Perigo:</strong> dentro dele, algo precisa <strong>mudar a condição</strong>, senão o laço <strong>nunca termina</strong> e a página trava.</p>`,
+    `// EXEMPLO: contagem regressiva de tentativas
+let tentativas = 3;
+
+while (tentativas > 0) {
+  console.log("Restam", tentativas, "tentativas");
+  tentativas = tentativas - 1;      // IMPORTANTE: muda a condição
+}
+
+console.log("Fim!");`,
+    ['<code>while (tentativas &gt; 0)</code>: repete enquanto ainda houver tentativas', 'O bloco mostra o valor e <strong>diminui 1</strong>', 'Quando <code>tentativas</code> vira 0, a condição fica falsa e o laço <strong>termina</strong>', 'Sem a linha <code>tentativas = tentativas - 1</code>, seria um <strong>laço infinito</strong>'],
+    'Será uma contagem regressiva a partir de 5.');
+  GUIA[83] = [
+    etapa('🔁', 'PRÁTICA 1: repetir com for e somar com um acumulador',
+      'Mostre os números de 1 a 10 e some todos.',
+      ['Crie o acumulador <code>soma = 0</code> <strong>antes</strong> do laço', 'Faça um <code>for</code> de 1 a 10 (<code>i &lt;= 10</code>)', 'Dentro, some <code>i</code> à <code>soma</code> e mostre a volta', 'Depois do laço, mostre a soma final'],
+      `let soma = ___;
+
+for (let i = 1; i ___ 10; i++) {
+  soma = soma + ___;
+  console.log("volta", i, "soma", soma);
+}
+
+console.log("Resultado:", ___);`,
+      ['Aparecem 10 linhas (uma por volta)', 'O resultado final é <code>55</code>', 'Faça a <strong>tabela das voltas no caderno</strong> antes e confira'],
+      ['A condição "de 1 a 10 <strong>inclusive</strong>" é <code>i &lt;= 10</code>. Com <code>i &lt; 10</code> pararia no 9.', 'O acumulador <strong>fora</strong> do laço. Se ficar dentro, o resultado é sempre o último número.', '<code>soma = soma + i;</code> e, no fim, <code>console.log("Resultado:", soma);</code>'],
+    ),
+    etapa('⏳', 'PRÁTICA 2: repetir enquanto uma condição for verdadeira (while)',
+      'Faça uma contagem regressiva com while.',
+      ['Crie <code>contador = 5</code>', 'Enquanto <code>contador &gt; 0</code>: mostre o valor e diminua 1', 'Depois do laço, mostre "Decolar!"'],
+      `let contador = ___;
+
+while (contador ___ 0) {
+  console.log(contador);
+  contador = contador ___ 1;
+}
+
+console.log("Decolar!");`,
+      ['Aparece 5, 4, 3, 2, 1 e depois "Decolar!"', 'Se travar a página, esqueceu de <strong>diminuir</strong> o contador', 'Mude o início para 3 e confira'],
+      ['A condição "enquanto for maior que zero" é <code>contador &gt; 0</code>.', 'Diminuir é <code>contador = contador - 1;</code>. Sem isso, o laço é infinito (feche a aba se travar).', '<code>while (contador &gt; 0) { console.log(contador); contador = contador - 1; }</code>'],
+    ),
+  ];
+
+  // ── 62: arrays e objetos ──────────────────────────────
+  ENT['PRÁTICA 1: array, a fileira de caixas numeradas'] = exemplo(
+    `<p>Um <strong>array</strong> guarda vários valores em <strong>posições numeradas a partir do 0</strong>. Pense em uma fileira de caixas: a primeira é a número <strong>0</strong>. <code>lista[2]</code> lê a posição 2; <code>lista.length</code> diz quantos itens há; <code>lista.push(x)</code> acrescenta no fim.</p>`,
+    `// EXEMPLO: uma fila de frutas
+let frutas = ["Maçã", "Uva", "Pera"];
+
+console.log(frutas[0]);                 // Maçã   (a primeira é a posição 0)
+console.log(frutas[2]);                 // Pera
+console.log(frutas.length);             // 3
+frutas.push("Manga");                   // acrescenta no fim
+console.log(frutas[frutas.length - 1]); // Manga  (o último)`,
+    ['Os itens ficam entre <code>[ ]</code>, separados por vírgula', 'A contagem das posições <strong>começa em 0</strong>: Maçã=0, Uva=1, Pera=2', '<code>frutas.length</code> é <strong>3</strong>; a última posição é <code>length - 1</code> (=2)', '<code>push</code> acrescenta no <strong>final</strong>, e o novo item ganha a próxima posição'],
+    'Em vez de frutas, serão <strong>5 produtos</strong> da loja.');
+  ENT['PRÁTICA 2: objeto (a ficha) e array de objetos com for'] = exemplo(
+    `<p>Um <strong>objeto</strong> é uma <strong>ficha</strong>: cada informação tem um <strong>nome</strong> (<code>nome: valor</code>). Lê-se com ponto: <code>aluno.nome</code>. Um <strong>array de objetos</strong> é uma pilha de fichas, e o <code>for</code> passa por <strong>cada ficha</strong>.</p>`,
+    `// EXEMPLO: a turma como array de fichas
+let turma = [
+  { nome: "Ana",   nota: 8 },
+  { nome: "Beto",  nota: 6 },
+  { nome: "Carla", nota: 9 }
+];
+
+console.log(turma[1].nome);           // Beto
+turma[1].nota = 7;                    // muda um campo da ficha
+
+let total = 0;
+for (let i = 0; i < turma.length; i++) {
+  console.log(turma[i].nome, turma[i].nota);
+  total = total + turma[i].nota;
+}
+console.log("Média:", total / turma.length);`,
+    ['<code>{ nome: "Ana", nota: 8 }</code>: <strong>uma ficha</strong> com dois campos', '<code>turma[1].nome</code>: "da posição 1, o campo nome"', '<code>for (let i = 0; i &lt; turma.length; i++)</code>: passa pelas posições <strong>0, 1, 2</strong> (use <code>&lt;</code>, nunca <code>&lt;=</code>)', 'Dentro do laço, <code>turma[i]</code> é <strong>a ficha da volta atual</strong>'],
+    'Cada ficha será um <strong>produto</strong> com <code>nome</code> e <code>preco</code>, e você vai calcular o <strong>total</strong> e o <strong>produto mais caro</strong>.');
+  GUIA[62] = [
+    etapa('🗃️', 'PRÁTICA 1: array, a fileira de caixas numeradas',
+      'Crie uma lista de produtos e treine posições.',
+      ['Crie o array <code>produtos</code> com 5 nomes', 'Mostre o <strong>primeiro</strong>, o <strong>último</strong> (sem contar de cabeça: use <code>length</code>) e a <strong>quantidade</strong>', 'Acrescente um sexto com <code>push</code> e mostre a nova quantidade'],
+      `let produtos = ["___", "___", "___", "___", "___"];
+
+console.log(produtos[___]);                     // o primeiro
+console.log(produtos[produtos.___ - 1]);        // o último
+console.log(produtos.length);
+produtos.___("Régua");
+console.log(produtos.length);`,
+      ['Primeiro e último são os que você escreveu nas pontas', 'A quantidade é <code>5</code> e depois <code>6</code>', 'Se aparecer <code>undefined</code>, você usou uma posição que não existe'],
+      ['A <strong>primeira</strong> posição é <code>0</code>.', 'O último é <code>produtos[produtos.length - 1]</code> (length é 5, última posição é 4).', '<code>produtos.push("Régua");</code>'],
+    ),
+    etapa('🧾', 'PRÁTICA 2: objeto (a ficha) e array de objetos com for',
+      'Monte fichas de produtos e percorra com um laço.',
+      ['Crie um array com <strong>3 objetos</strong> <code>{ nome, preco }</code>', 'Use um <code>for</code> para mostrar <code>nome - R$ preco</code> de cada um', 'Some os preços em um <strong>acumulador</strong> e mostre o total', 'Descubra o <strong>mais caro</strong> (guarde o maior visto até agora)'],
+      `let produtos = [
+  { nome: "Caneta",  preco: 3.5 },
+  { nome: "___",     preco: ___ },
+  { nome: "___",     preco: ___ }
+];
+
+let total = 0;
+let maisCaro = produtos[0];
+
+for (let i = 0; i < produtos.___; i++) {
+  console.log(produtos[i].nome, "-", produtos[i].___);
+  total = total + produtos[i].preco;
+  if (produtos[i].preco > maisCaro.___) {
+    maisCaro = produtos[___];
+  }
+}
+console.log("Total:", total, "Mais caro:", maisCaro.nome);`,
+      ['Aparecem 3 linhas e, no fim, o total e o nome do mais caro', 'Confira o total com uma calculadora', 'Troque os preços e veja o mais caro mudar'],
+      ['O laço vai de <code>0</code> até <code>produtos.length - 1</code>: use <code>i &lt; produtos.length</code>.', 'O mais caro: comece com o <strong>primeiro</strong> e troque sempre que achar um com preço <strong>maior</strong>.', '<code>if (produtos[i].preco &gt; maisCaro.preco) { maisCaro = produtos[i]; }</code>'],
+    ),
+  ];
+
+  // ── 84: map, filter, find, reduce ─────────────────────
+  ENT['PRÁTICA 1: map (transformar) e filter (filtrar)'] = exemplo(
+    `<p><code>map</code> e <code>filter</code> recebem uma <strong>função</strong> que é chamada <strong>uma vez para cada item</strong>. O <code>map</code> devolve um <strong>array novo com os resultados</strong> (mesmo tamanho). O <code>filter</code> devolve um array novo <strong>só com os itens em que a função devolveu <code>true</code></strong>. Nenhum altera o array original.</p>`,
+    `// EXEMPLO: notas de uma turma
+let notas = [4, 8, 6, 9];
+
+let dobradas = notas.map((n) => n * 2);          // [8, 16, 12, 18]
+let aprovadas = notas.filter((n) => n >= 6);     // [8, 6, 9]
+
+console.log(dobradas);
+console.log(aprovadas);
+console.log(notas);                              // [4, 8, 6, 9]  (continua igual)`,
+    ['<code>(n) =&gt; n * 2</code> é uma <strong>função de seta</strong>: "dado n, devolva n vezes 2"', '<code>map</code> chama a função para <strong>cada nota</strong> e junta os resultados em um array novo', '<code>filter</code> chama a função para cada nota e <strong>fica só com as que deram true</strong> (<code>n &gt;= 6</code>)', 'O array <code>notas</code> <strong>não muda</strong>: os métodos devolvem arrays novos, e você precisa <strong>guardá-los</strong> em variáveis'],
+    'A lista terá objetos <code>{ nome, preco }</code>. O <code>map</code> vai tirar só os <strong>nomes</strong>, e o <code>filter</code> vai ficar só com os <strong>baratos</strong>.');
+  ENT['PRÁTICA 2: reduce (juntar tudo em um valor)'] = exemplo(
+    `<p>O <code>reduce</code> percorre a lista <strong>acumulando</strong> um resultado. Ele recebe uma função com <strong>dois parâmetros</strong>: o <strong>acumulador</strong> (o que já foi acumulado) e o <strong>item atual</strong>; e um <strong>valor inicial</strong>. A função devolve o <strong>novo acumulado</strong>.</p>`,
+    `// EXEMPLO: somar notas
+let notas = [4, 8, 6, 9];
+
+let soma = notas.reduce((acumulado, n) => acumulado + n, 0);
+//                       ^ começa em 0 (valor inicial, o último argumento)
+
+console.log(soma);                  // 27
+console.log(soma / notas.length);   // 6.75  (média)`,
+    ['O <code>0</code> no fim é o <strong>valor inicial</strong> do acumulador', 'Volta 1: acumulado=0, n=4 → devolve 4', 'Volta 2: acumulado=4, n=8 → devolve 12', 'Volta 3: 12+6 = 18. Volta 4: 18+9 = <strong>27</strong>. O <code>reduce</code> devolve o último acumulado'],
+    'O acumulado será a soma de <code>preco</code> dos produtos: <code>acumulado + p.preco</code>.');
+  GUIA[84] = [
+    etapa('🔄', 'PRÁTICA 1: map (transformar) e filter (filtrar)',
+      'Tire os nomes e filtre os produtos baratos.',
+      ['Use a lista de 4 produtos do esqueleto', 'Com <code>map</code>, crie um array só com os <strong>nomes</strong>', 'Com <code>filter</code>, crie um array só com os de preço <strong>menor que 5</strong>', 'Mostre os dois e o array original'],
+      `let produtos = [
+  { nome: "Caneta",  preco: 3.5 },
+  { nome: "Caderno", preco: 18 },
+  { nome: "Lápis",   preco: 1.5 },
+  { nome: "Mochila", preco: 120 }
+];
+
+let nomes   = produtos.___((p) => p.___);
+let baratos = produtos.___((p) => p.preco ___ 5);
+
+console.log(nomes);
+console.log(baratos);
+console.log(produtos);`,
+      ['<code>nomes</code> → <code>["Caneta","Caderno","Lápis","Mochila"]</code>', '<code>baratos</code> → dois objetos (Caneta e Lápis)', '<code>produtos</code> continua com os 4 itens'],
+      ['Transformar cada item em outra coisa é <code>map</code>; ficar com alguns é <code>filter</code>.', 'A função de seta devolve o campo: <code>(p) =&gt; p.nome</code>.', '<code>produtos.map((p) =&gt; p.nome)</code> e <code>produtos.filter((p) =&gt; p.preco &lt; 5)</code>'],
+    ),
+    etapa('➕', 'PRÁTICA 2: reduce (juntar tudo em um valor)',
+      'Calcule o total dos preços e o total só dos baratos.',
+      ['Com <code>reduce</code>, some o campo <code>preco</code> de todos', 'Depois <strong>encadeie</strong>: <code>filter</code> primeiro (só os baratos) e <code>reduce</code> em seguida', 'Confira com a calculadora'],
+      `let total = produtos.reduce((acumulado, p) => acumulado + p.___, ___);
+let totalBaratos = produtos
+  .filter((p) => p.preco < 5)
+  .___((acumulado, p) => acumulado + p.preco, 0);
+
+console.log(total, totalBaratos);`,
+      ['<code>total</code> → <code>143</code> e <code>totalBaratos</code> → <code>5</code>', 'Sem o valor inicial <code>0</code>, o resultado vira texto estranho', 'Mude o limite de <code>5</code> para <code>20</code> e preveja o novo total antes de rodar'],
+      ['O valor inicial é o <strong>último argumento</strong> do reduce: <code>0</code>.', 'Encadear é colocar um método depois do outro: o <code>filter</code> devolve um array, e o <code>reduce</code> trabalha nele.', '<code>produtos.reduce((acumulado, p) =&gt; acumulado + p.preco, 0)</code>'],
+    ),
+  ];
+
+  // ── 63: funções ───────────────────────────────────────
+  ENT['PRÁTICA 1: função com parâmetros e return'] = exemplo(
+    `<p>Siga a <strong>receita da aula "Como escrever uma função"</strong>: 1) nome com verbo; 2) o que recebe; 3) o que devolve; 4) comentários com o plano; 5) código; 6) teste. Os <strong>parâmetros</strong> são os ingredientes; o <code>return</code> entrega o resultado.</p>`,
+    `// EXEMPLO: a área de um retângulo
+// 1. nome: calcularArea   2. recebe: largura e altura   3. devolve: o produto dos dois
+function calcularArea(largura, altura) {
+  // 4. plano: multiplicar e devolver
+  let area = largura * altura;
+  return area;
+}
+
+// 6. teste
+console.log(calcularArea(3, 4));    // 12
+console.log(calcularArea(10, 2));   // 20`,
+    ['<code>calcularArea(largura, altura)</code>: dois <strong>parâmetros</strong> (espaços para os valores que virão)', 'Ao chamar <code>calcularArea(3, 4)</code>, o <code>3</code> vai para <code>largura</code> e o <code>4</code> para <code>altura</code> (<strong>na ordem</strong>)', '<code>return area</code> <strong>entrega</strong> o resultado: sem ele, o resultado seria <code>undefined</code>', 'Quem chamou pode <strong>guardar</strong> o resultado: <code>let a = calcularArea(3, 4);</code>'],
+    'Será <code>calcularTotal(preco, quantidade)</code>: recebe os dois e <strong>devolve o produto</strong>.');
+  ENT['PRÁTICA 2: uma função que usa outra'] = exemplo(
+    `<p>Funções podem <strong>chamar outras funções</strong>. Isso é como montar uma receita com sub-receitas: cada uma faz <strong>uma coisa só</strong>, e a maior <strong>combina</strong> as menores. Assim cada parte é fácil de testar sozinha.</p>`,
+    `// EXEMPLO: preço com desconto
+function calcularDesconto(preco, percentual) {
+  return preco * percentual / 100;
+}
+
+function precoFinal(preco, percentual) {
+  let desconto = calcularDesconto(preco, percentual);   // usa a outra função
+  return preco - desconto;
+}
+
+console.log(precoFinal(200, 10));   // 180`,
+    ['<code>calcularDesconto</code> faz <strong>uma</strong> conta: quanto vale o desconto', '<code>precoFinal</code> <strong>chama</strong> <code>calcularDesconto</code> e usa o que ela devolveu', 'Testando <code>calcularDesconto(200, 10)</code> sozinha (=20), fica fácil achar um erro em cada parte', 'Cada função tem <strong>um nome que explica</strong> o que faz'],
+    'Você vai criar <code>ehPar(n)</code> (devolve true/false) e <code>classificar(n)</code>, que <strong>usa</strong> a <code>ehPar</code> para devolver "par" ou "ímpar".');
+  GUIA[63] = [
+    etapa('🧩', 'PRÁTICA 1: função com parâmetros e return',
+      'Escreva a função do total de uma compra, seguindo a receita.',
+      ['Escreva, <strong>primeiro</strong>, os comentários do plano', 'Crie <code>calcularTotal(preco, quantidade)</code>', 'Devolva o produto dos dois', 'Teste com 3 pares de números'],
+      `function calcularTotal(___, ___) {
+  // plano: multiplicar e devolver
+  let total = ___ * ___;
+  return ___;
+}
+
+console.log(calcularTotal(3.5, 4));`,
+      ['<code>calcularTotal(3.5, 4)</code> → <code>14</code>', '<code>calcularTotal(10, 3)</code> → <code>30</code>', 'Guarde o resultado em uma variável e mostre: <code>let t = calcularTotal(2, 5); console.log(t);</code>'],
+      ['Os parâmetros são os dois valores que a função precisa: preço e quantidade.', 'Sem <code>return</code>, o console mostra <code>undefined</code>.', '<code>function calcularTotal(preco, quantidade) { let total = preco * quantidade; return total; }</code>'],
+    ),
+    etapa('🔗', 'PRÁTICA 2: uma função que usa outra',
+      'Crie duas funções pequenas e combine.',
+      ['Crie <code>ehPar(n)</code>: devolve <code>true</code> se <code>n</code> for par (dica: o resto da divisão por 2 é zero: <code>n % 2 === 0</code>)', 'Crie <code>classificar(n)</code>: <strong>usa</strong> <code>ehPar</code> e devolve <code>"par"</code> ou <code>"ímpar"</code>', 'Teste cada uma <strong>sozinha</strong> e depois a combinação'],
+      `function ehPar(n) {
+  return n % 2 === ___;
+}
+
+function classificar(n) {
+  if (___(n)) {
+    return "par";
+  } else {
+    return "___";
+  }
+}
+
+console.log(ehPar(4), ehPar(7));
+console.log(classificar(4), classificar(7));`,
+      ['<code>ehPar(4)</code> → <code>true</code> e <code>ehPar(7)</code> → <code>false</code>', '<code>classificar(4)</code> → <code>"par"</code> e <code>classificar(7)</code> → <code>"ímpar"</code>', 'Teste também com 0 e com um número negativo'],
+      ['<code>n % 2</code> é o resto da divisão por 2: <code>0</code> para pares, <code>1</code> para ímpares.', 'Uma comparação já é um valor (<code>true</code>/<code>false</code>): pode devolvê-la direto com <code>return</code>.', '<code>function ehPar(n) { return n % 2 === 0; }</code>'],
+    ),
+  ];
+
+  // ── 85: escopo ────────────────────────────────────────
+  ENT['PRÁTICA 1: achar e corrigir um erro de escopo'] = exemplo(
+    `<p><strong>Escopo</strong> é a região do código em que uma variável <strong>existe</strong>. Uma variável criada <strong>dentro</strong> de uma função só existe lá dentro. Se você tentar usá-la <strong>fora</strong>, o JavaScript diz <code>ReferenceError: x is not defined</code>. Para levar um valor para fora, a função deve <strong>devolvê-lo</strong> (<code>return</code>).</p>`,
+    `// EXEMPLO COM ERRO
+function somar(a, b) {
+  let resultado = a + b;        // "resultado" só existe aqui dentro
+}
+somar(2, 3);
+console.log(resultado);          // ReferenceError: resultado is not defined
+
+// CORRIGIDO
+function somar2(a, b) {
+  let resultado = a + b;
+  return resultado;              // devolve para fora
+}
+let r = somar2(2, 3);            // guarda o valor que a função devolveu
+console.log(r);                  // 5`,
+    ['A variável <code>resultado</code> nasce e <strong>morre</strong> dentro da função', 'Fora dela, o nome não existe: <code>ReferenceError</code>', 'A correção <strong>não</strong> é declarar fora: é <strong>devolver</strong> com <code>return</code> e <strong>guardar</strong> no lugar que chamou', 'Dentro do bloco <code>{ }</code> de um <code>if</code> ou <code>for</code>, <code>let</code> também só vale <strong>no bloco</strong>'],
+    'Você vai reproduzir o erro com o <code>total</code> de um laço e corrigir.');
+  GUIA[85] = [
+    etapa('🧭', 'PRÁTICA 1: achar e corrigir um erro de escopo',
+      'Reproduza o erro e conserte sem tirar a variável da função.',
+      ['Escreva a função <code>somarPrecos(lista)</code> que soma os preços, mas <strong>sem</strong> o <code>return</code> (erro proposital)', 'Chame e mostre o resultado: veja o <code>undefined</code>', 'Tente mostrar <code>total</code> <strong>fora</strong> da função: veja o <code>ReferenceError</code>', 'Corrija com <code>return</code> e guarde o resultado em uma variável'],
+      `function somarPrecos(lista) {
+  let total = 0;
+  for (let i = 0; i < lista.length; i++) {
+    total = total + lista[i];
+  }
+  // TODO: devolva o total aqui
+}
+
+let resultado = somarPrecos([10, 20, 30]);
+console.log(resultado);          // undefined (erro!)
+console.log(total);              // ReferenceError`,
+      ['Antes da correção: <code>undefined</code> e depois <code>ReferenceError: total is not defined</code>', 'Depois de colocar o <code>return</code>: <code>resultado</code> vale <code>60</code>', 'Você sabe explicar <strong>por que</strong> o <code>console.log(total)</code> continuará dando erro (e por que isso é <strong>normal</strong>)'],
+      ['A função calcula, mas <strong>não entrega</strong>. Falta uma palavra no fim da função.', 'O <code>total</code> continuará não existindo fora: o certo é usar <code>resultado</code>, que recebe o valor devolvido.', 'No fim da função: <code>return total;</code>'],
+    ),
+  ];
+
+  // ══════════════════════════════════════════════════════
+  // PRÁTICA GUIADA · MÓDULO 5 (DOM e eventos)
+  // Use sempre a mesma página de treino (criada na aula "DOM 1") e teste no Console dela.
+  // ══════════════════════════════════════════════════════
+
+  // ── 65: DOM 1 ─────────────────────────────────────────
+  ENT['PRÁTICA 0: criar a página de treino'] = exemplo(
+    `<p>Para treinar o DOM, você precisa de uma página com elementos para mexer. Vamos criar <strong>uma só vez</strong> a <code>treino.html</code>, e usá-la em <strong>todas</strong> as práticas do módulo. Cada elemento tem um <code>id</code>: é por ele que o JavaScript vai achá-lo.</p>`,
+    `<!-- treino.html: abra no navegador e use o Console (F12) -->
+<h1 id="titulo">Minha loja</h1>
+<input type="text" id="nome" placeholder="Nome do produto">
+<input type="number" id="preco" placeholder="Preço">
+<button id="btn" type="button">Clique</button>
+<p id="mensagem"></p>
+<ul id="lista">
+  <li>Caneta</li>
+  <li>Caderno</li>
+  <li>Lápis</li>
+</ul>`,
+    ['<code>h1</code>, <code>input</code> (texto e número), <code>button</code>, <code>p</code> e <code>ul</code> com 3 <code>li</code>: as peças que vamos manipular', 'Cada peça importante tem um <code>id</code>: <code>titulo</code>, <code>nome</code>, <code>preco</code>, <code>btn</code>, <code>mensagem</code>, <code>lista</code>', 'Não precisa de CSS nem de script por enquanto: usaremos o <strong>Console</strong>'],
+    'Nada muda: esta é a página que as próximas práticas usam.');
+  ENT['PRÁTICA 1: achar elementos e ler o que foi digitado'] = exemplo(
+    `<p>Antes de mexer em um elemento, o JavaScript precisa <strong>achá-lo</strong>. <code>document.querySelector("#id")</code> procura pelo <strong>seletor de CSS</strong> (o <code>#</code> significa "id") e devolve <strong>o elemento</strong> (ou <code>null</code> se não achar). Para o texto digitado em um campo: <code>.value</code> (sempre <strong>texto</strong>).</p>`,
+    `// EXEMPLO: uma página com <input id="aluno"> e <h2 id="turma">1ºA</h2>
+let campo = document.querySelector("#aluno");     // acha o campo
+let titulo = document.querySelector("#turma");    // acha o título
+
+console.log(campo.value);          // o que foi digitado (texto)
+console.log(titulo.textContent);   // o texto do título: "1ºA"
+console.log(typeof campo.value);   // "string"
+
+document.querySelector("#naoExiste");   // null (não achou)`,
+    ['<code>querySelector("#aluno")</code> devolve <strong>o elemento inteiro</strong>, não só o texto', '<code>campo.value</code> é o texto digitado agora (muda quando o usuário digita)', '<code>titulo.textContent</code> é o texto <strong>dentro</strong> de um elemento comum', 'Id errado → <code>null</code> → depois <code>Cannot read properties of null</code>: o erro mais comum do DOM'],
+    'Os ids serão <code>#nome</code> e <code>#preco</code> e o título é <code>#titulo</code> da página de treino.');
+  GUIA[65] = [
+    etapa('🧪', 'PRÁTICA 0: criar a página de treino',
+      'Crie o arquivo que você usará nas próximas práticas.',
+      ['Crie <code>treino.html</code> com o esqueleto do HTML (<code>!</code> + Tab)', 'Dentro do <code>body</code>, digite o conteúdo do exemplo (com os mesmos ids)', 'Abra no navegador e abra o Console (F12)'],
+      `<h1 id="___">Minha loja</h1>
+<input type="text" id="___" placeholder="Nome do produto">
+<input type="number" id="___" placeholder="Preço">
+<button id="btn" type="button">Clique</button>
+<p id="mensagem"></p>
+<ul id="lista">
+  <li>Caneta</li>
+  <li>Caderno</li>
+  <li>Lápis</li>
+</ul>`,
+      ['A página mostra título, dois campos, botão e uma lista de 3 itens', 'No console: <code>document.querySelector("#titulo")</code> devolve o elemento (e não <code>null</code>)', 'O mesmo para <code>#nome</code> e <code>#preco</code>'],
+      ['Os ids são: <code>titulo</code>, <code>nome</code> e <code>preco</code> (nessa ordem no esqueleto).', 'Se o console devolver <code>null</code>, o id está diferente (confira letra por letra).', '<code>&lt;h1 id="titulo"&gt;</code> · <code>&lt;input type="text" id="nome"&gt;</code> · <code>&lt;input type="number" id="preco"&gt;</code>'],
+    ),
+    etapa('🔎', 'PRÁTICA 1: achar elementos e ler o que foi digitado',
+      'Leia os campos da página de treino.',
+      ['Digite <code>Caneta</code> e <code>3.5</code> nos campos', 'No console, guarde cada campo em uma variável (<code>querySelector</code>)', 'Mostre o <code>.value</code> de cada um e o <code>typeof</code> do preço', 'Converta o preço para número e some 1'],
+      `let campoNome = document.querySelector("#___");
+let campoPreco = document.querySelector("#___");
+
+console.log(campoNome.___);
+console.log(campoPreco.value, typeof campoPreco.value);
+console.log(Number(campoPreco.___) + 1);`,
+      ['Aparece <code>Caneta</code> e <code>3.5 "string"</code>', 'A conta mostra <code>4.5</code> (e <strong>não</strong> <code>"3.51"</code>)', 'Mude o texto digitado e rode de novo: o <code>.value</code> acompanha'],
+      ['Os ids são <code>nome</code> e <code>preco</code>. O <code>#</code> vai <strong>dentro das aspas</strong>.', '<code>.value</code> é a propriedade que devolve o que foi digitado.', '<code>Number(campoPreco.value) + 1</code>'],
+    ),
+    etapa('📚', 'PRÁTICA 2: vários elementos de uma vez (querySelectorAll)',
+      'Descubra quantos itens há na lista e leia cada um.',
+      ['Use <code>querySelectorAll("#lista li")</code> (todos os <code>li</code> dentro de <code>#lista</code>)', 'Mostre <strong>quantos</strong> são (<code>length</code>)', 'Mostre o <strong>texto</strong> do segundo (posição 1) e do último'],
+      `let itens = document.querySelectorAll("#lista ___");
+
+console.log(itens.___);
+console.log(itens[1].textContent);
+console.log(itens[itens.length - 1].___);`,
+      ['<code>3</code>, depois <code>Caderno</code> e <code>Lápis</code>', 'Compare com <code>querySelector("#lista li")</code>: devolve <strong>só o primeiro</strong>', 'Funciona como um array: posição começa em <strong>0</strong>'],
+      ['<code>querySelectorAll</code> devolve <strong>todos</strong> que combinam; <code>querySelector</code> devolve só o primeiro.', 'O seletor <code>"#lista li"</code> significa "os li que estão dentro de #lista".', '<code>itens.length</code> e <code>itens[itens.length - 1].textContent</code>'],
+    ),
+  ];
+
+  // ── 66: DOM 2 ─────────────────────────────────────────
+  ENT['PRÁTICA 1: mudar o texto e ligar/desligar uma classe'] = exemplo(
+    `<p>Depois de achar um elemento, você pode <strong>mudar</strong> o que ele mostra: <code>textContent</code> troca o <strong>texto</strong>; <code>classList.add("x")</code> <strong>liga</strong> uma classe CSS; <code>classList.remove("x")</code> desliga; <code>classList.toggle("x")</code> alterna. O jeito certo de mudar a aparência é <strong>ligar uma classe que já existe no CSS</strong>.</p>`,
+    `// EXEMPLO: um aviso na página (<p id="aviso">)
+let aviso = document.querySelector("#aviso");
+
+aviso.textContent = "Cadastro salvo!";      // troca o texto
+aviso.classList.add("sucesso");              // liga a classe .sucesso (definida no CSS)
+
+aviso.classList.toggle("sucesso");           // desliga (estava ligada)
+aviso.classList.toggle("sucesso");           // liga de novo`,
+    ['<code>textContent = "..."</code> substitui o texto <strong>como texto puro</strong> (seguro)', '<code>classList.add</code> só funciona se a classe <strong>existir no CSS</strong> (o JS só liga/desliga o nome)', '<code>toggle</code> faz o <strong>contrário</strong> do estado atual: liga se estava desligada, desliga se estava ligada'],
+    'O elemento será o <code>#mensagem</code> da página de treino, e a classe será <code>destaque</code>, que você vai criar no CSS.');
+  ENT['PRÁTICA 2: criar elementos e colocá-los na página'] = exemplo(
+    `<p>Para <strong>criar</strong> um elemento: <code>document.createElement("li")</code> (nasce solto, invisível). Você coloca o texto com <code>.textContent</code> e o <strong>pendura</strong> em outro com <code>pai.appendChild(filho)</code>: só então ele aparece.</p>`,
+    `// EXEMPLO: acrescentar uma fruta a uma lista (<ul id="frutas">)
+let lista = document.querySelector("#frutas");
+
+let li = document.createElement("li");   // 1. cria o <li> (ainda solto)
+li.textContent = "Manga";                 // 2. coloca o texto
+lista.appendChild(li);                    // 3. pendura na lista: agora aparece`,
+    ['O <code>li</code> criado <strong>não aparece</strong> até ser pendurado com <code>appendChild</code>', '<code>appendChild</code> coloca o novo elemento <strong>no fim</strong> da lista', 'Com <code>textContent</code> o texto fica <strong>seguro</strong> (nenhuma tag é interpretada)'],
+    'A lista será o <code>#lista</code> do treino, e o texto virá do que o usuário digitou em <code>#nome</code>.');
+  GUIA[66] = [
+    etapa('✏️', 'PRÁTICA 1: mudar o texto e ligar/desligar uma classe',
+      'Troque o título e destaque a mensagem.',
+      ['No <code>treino.html</code>, crie um <code>&lt;style&gt;</code> com <code>.destaque { background: yellow; font-weight: bold; }</code>', 'No console, troque o texto do <code>#titulo</code> para "Loja do Beto"', 'Escreva "Olá!" no <code>#mensagem</code> e <strong>ligue</strong> a classe <code>destaque</code>', 'Use <code>toggle</code> duas vezes e observe'],
+      `let titulo = document.querySelector("#titulo");
+let mensagem = document.querySelector("#mensagem");
+
+titulo.___ = "Loja do Beto";
+mensagem.textContent = "Olá!";
+mensagem.classList.___("destaque");
+mensagem.classList.___("destaque");   // desliga
+mensagem.classList.___("destaque");   // liga`,
+      ['O título muda <strong>na hora</strong>, sem recarregar', 'A mensagem aparece com fundo amarelo; depois do 1º toggle, sem; depois do 2º, com', 'Sem o CSS da classe, o <code>classList.add</code> funciona, mas <strong>nada muda visualmente</strong>'],
+      ['A propriedade do texto é <code>textContent</code>. A que liga uma classe é <code>classList.add</code>.', 'O <code>toggle</code> inverte o estado atual: não precisa saber se está ligada.', '<code>mensagem.classList.add("destaque");</code> e <code>mensagem.classList.toggle("destaque");</code>'],
+    ),
+    etapa('➕', 'PRÁTICA 2: criar elementos e colocá-los na página',
+      'Acrescente à lista o que foi digitado no campo nome.',
+      ['Digite <code>Borracha</code> no campo nome', 'Crie um <code>li</code> (<code>createElement</code>)', 'Coloque nele o texto digitado (<code>.value</code> do campo)', 'Pendure o <code>li</code> na lista (<code>appendChild</code>)'],
+      `let campo = document.querySelector("#nome");
+let lista = document.querySelector("#lista");
+
+let li = document.___("li");
+li.textContent = campo.___;
+lista.___(li);`,
+      ['Aparece um <strong>4º item</strong> "Borracha" na lista', 'Rode de novo: aparece <strong>outro</strong> (a lista cresce)', 'Digite um nome com <code>&lt;b&gt;</code>: aparece <strong>como texto</strong>, sem negrito'],
+      ['Criar elemento: <code>document.createElement("li")</code>. Pendurar: <code>appendChild</code>.', 'O texto do <code>li</code> vem do campo: <code>campo.value</code>.', '<code>let li = document.createElement("li"); li.textContent = campo.value; lista.appendChild(li);</code>'],
+    ),
+  ];
+
+  // ── 86: DOM 3 ─────────────────────────────────────────
+  ENT['PRÁTICA 1: desenhar uma lista a partir de um array'] = exemplo(
+    `<p>Em uma lista dinâmica há <strong>duas coisas</strong>: os <strong>dados</strong> (um array) e a <strong>tela</strong> (os elementos). A <strong>regra de ouro</strong>: a função que desenha <strong>sempre limpa primeiro</strong> e <strong>sempre desenha a partir dos dados</strong>. Assim, não importa quantas vezes você a chamar: o resultado é o mesmo.</p>`,
+    `// EXEMPLO: desenhar a lista de compras
+let compras = ["Pão", "Leite"];
+
+function desenhar() {
+  let lista = document.querySelector("#compras");
+  lista.innerHTML = "";                        // 1. limpa
+
+  for (let i = 0; i < compras.length; i++) {   // 2. percorre os DADOS
+    let li = document.createElement("li");     // 3. cria
+    li.textContent = compras[i];               //    texto
+    lista.appendChild(li);                     //    pendura
+  }
+}
+
+compras.push("Café");   // muda os dados...
+desenhar();             // ...e redesenha: a tela acompanha`,
+    ['<code>lista.innerHTML = ""</code> esvazia a lista. Sem isso, cada chamada <strong>acrescentaria de novo</strong> (itens duplicados)', 'O <code>for</code> lê o <strong>array</strong>, e não a tela', 'Mudar os dados <strong>não</strong> muda a tela sozinha: é preciso <strong>chamar <code>desenhar()</code></strong>'],
+    'Os dados serão um array <code>itens</code> e a lista será o <code>#lista</code> do treino.');
+  ENT['PRÁTICA 2: remover um item e redesenhar'] = exemplo(
+    `<p>Remover é <strong>mudar os dados e redesenhar</strong>, nunca só apagar o elemento da tela. <code>array.splice(posição, quantidade)</code> remove itens do array: <code>splice(1, 1)</code> remove <strong>1 item</strong> a partir da posição 1.</p>`,
+    `// EXEMPLO: botão "x" em cada item de compras
+function desenhar() {
+  let lista = document.querySelector("#compras");
+  lista.innerHTML = "";
+  for (let i = 0; i < compras.length; i++) {
+    let li = document.createElement("li");
+    li.textContent = compras[i] + " ";
+
+    let botao = document.createElement("button");
+    botao.textContent = "x";
+    botao.addEventListener("click", function () {
+      compras.splice(i, 1);       // remove do ARRAY (a posição i desta volta)
+      desenhar();                 // e redesenha
+    });
+
+    li.appendChild(botao);
+    lista.appendChild(li);
+  }
+}`,
+    ['Cada volta cria um botão cujo clique usa o <code>i</code> <strong>daquela volta</strong> (por isso remove o item certo)', '<code>compras.splice(i, 1)</code> tira o item do <strong>array</strong>', '<code>desenhar()</code> refaz a tela com o array já sem o item', 'Se só apagássemos o <code>li</code> da tela, o item <strong>voltaria</strong> no próximo <code>desenhar()</code>'],
+    'O array será <code>itens</code>, a lista é <code>#lista</code> e o botão será <strong>Remover</strong>.');
+  GUIA[86] = [
+    etapa('🖼️', 'PRÁTICA 1: desenhar uma lista a partir de um array',
+      'Desenhe os itens de um array e prove que chamar duas vezes não duplica.',
+      ['Crie o array <code>itens = ["Caneta", "Caderno", "Lápis"]</code>', 'Escreva <code>desenhar()</code>: limpa a <code>#lista</code>, percorre o array e cria um <code>li</code> por item', 'Chame <code>desenhar()</code> <strong>duas vezes</strong> e conte os itens', 'Faça <code>itens.push("Régua")</code> e chame <code>desenhar()</code>'],
+      `let itens = ["Caneta", "Caderno", "Lápis"];
+
+function desenhar() {
+  let lista = document.querySelector("#lista");
+  lista.___ = "";
+  for (let i = 0; i < itens.___; i++) {
+    let li = document.createElement("li");
+    li.textContent = itens[___];
+    lista.appendChild(___);
+  }
+}
+
+desenhar();
+desenhar();`,
+      ['A lista mostra <strong>3 itens</strong> (não 6) depois das duas chamadas', 'Depois do <code>push</code> e do <code>desenhar()</code>, aparecem 4', 'Se aparecerem itens repetidos, faltou limpar com <code>innerHTML = ""</code>'],
+      ['Limpar: <code>lista.innerHTML = "";</code> (a primeira linha da função).', 'O texto de cada <code>li</code> vem da <strong>posição <code>i</code></strong> do array.', '<code>li.textContent = itens[i]; lista.appendChild(li);</code>'],
+    ),
+    etapa('🗑️', 'PRÁTICA 2: remover um item e redesenhar',
+      'Acrescente um botão Remover em cada item.',
+      ['Dentro do laço de <code>desenhar</code>, crie um <code>button</code> com o texto "Remover"', 'Ligue o clique: <code>itens.splice(i, 1)</code> e depois <code>desenhar()</code>', 'Pendure o botão no <code>li</code> antes de pendurar o <code>li</code> na lista', 'Teste removendo o primeiro, o do meio e o último'],
+      `let botao = document.createElement("button");
+botao.textContent = "Remover";
+botao.addEventListener("click", function () {
+  itens.___(i, 1);
+  ___();
+});
+li.appendChild(___);`,
+      ['Clicar em Remover tira <strong>aquele</strong> item (e só ele)', 'Funciona para o primeiro, o do meio e o último', 'No console, <code>itens</code> mostra o array <strong>já sem</strong> o item removido'],
+      ['<code>splice(posição, quantidade)</code>: <code>splice(i, 1)</code> tira 1 item na posição <code>i</code>.', 'Sem o <code>desenhar()</code> no final, o array muda, mas a tela <strong>não</strong>.', '<code>itens.splice(i, 1); desenhar();</code> e <code>li.appendChild(botao);</code>'],
+    ),
+  ];
+
+  // ── 67: eventos ───────────────────────────────────────
+  ENT['PRÁTICA 1: reagir ao clique de um botão'] = exemplo(
+    `<p>Um <strong>evento</strong> é algo que acontece na página (um clique, uma tecla). Com <code>elemento.addEventListener("evento", função)</code> você diz: "<strong>quando</strong> isso acontecer, <strong>execute</strong> esta função". <strong>Atenção:</strong> a função vai <strong>sem parênteses</strong> (se tiver parênteses, ela roda <em>na hora</em>, e não no clique).</p>`,
+    `// EXEMPLO: um contador de cliques
+let cliques = 0;
+let botao = document.querySelector("#curtir");
+let numero = document.querySelector("#numero");
+
+botao.addEventListener("click", function () {
+  cliques = cliques + 1;              // 1. muda o DADO
+  numero.textContent = cliques;       // 2. atualiza a TELA
+});`,
+    ['<code>"click"</code> é o nome do evento (não <code>"onclick"</code>)', 'A função entre <code>{ }</code> só executa <strong>quando o clique acontece</strong>', 'Padrão do projeto todo: <strong>evento → muda os dados → atualiza a tela</strong>', 'Sem a linha 2, a variável aumenta, mas o usuário <strong>não vê</strong>'],
+    'O botão é <code>#btn</code> e o resultado vai no <code>#mensagem</code> do treino.');
+  ENT['PRÁTICA 2: reagir a cada letra digitada'] = exemplo(
+    `<p>O evento <code>"input"</code> dispara a <strong>cada letra digitada</strong> em um campo (o <code>"change"</code> só dispara ao sair do campo). É ideal para <strong>ver o resultado enquanto digita</strong>: busca, contador de caracteres...</p>`,
+    `// EXEMPLO: mostrar quantas letras já foram digitadas
+let campo = document.querySelector("#comentario");
+let contagem = document.querySelector("#contagem");
+
+campo.addEventListener("input", function () {
+  contagem.textContent = campo.value.length + " letras";
+});`,
+    ['<code>campo.value</code> é o texto <strong>atual</strong> (já com a letra que acabou de ser digitada)', '<code>.length</code> de um texto é a <strong>quantidade de caracteres</strong>', 'A função roda <strong>a cada tecla</strong>, então a contagem acompanha'],
+    'Será o campo <code>#nome</code> do treino e o resultado em <code>#mensagem</code>.');
+  GUIA[67] = [
+    etapa('👆', 'PRÁTICA 1: reagir ao clique de um botão',
+      'Faça o botão do treino contar cliques.',
+      ['Crie <code>cliques = 0</code>', 'Ligue o clique de <code>#btn</code> a uma função', 'A função soma 1 e <strong>mostra</strong> no <code>#mensagem</code> ("Cliques: 3")', 'Acrescente depois um segundo botão "Zerar" (crie no HTML) que volta a 0'],
+      `let cliques = 0;
+let btn = document.querySelector("#___");
+let mensagem = document.querySelector("#mensagem");
+
+btn.addEventListener("___", function () {
+  cliques = cliques + ___;
+  mensagem.textContent = "Cliques: " + ___;
+});`,
+      ['Cada clique mostra o número <strong>aumentando</strong>', 'Recarregar a página volta a 0 (a variável é da memória)', 'Se o contador muda no console mas não na tela, faltou o <code>textContent</code>'],
+      ['O nome do evento é <code>"click"</code> (entre aspas, sem "on").', 'A função de clique faz <strong>duas</strong> coisas: muda a variável e atualiza a tela.', '<code>btn.addEventListener("click", function () { cliques = cliques + 1; mensagem.textContent = "Cliques: " + cliques; });</code>'],
+    ),
+    etapa('⌨️', 'PRÁTICA 2: reagir a cada letra digitada',
+      'Mostre o tamanho do que o usuário digita no campo nome.',
+      ['Ligue o evento <code>"input"</code> do campo <code>#nome</code>', 'A cada letra, escreva no <code>#mensagem</code> quantos caracteres há', 'Mostre também o texto <strong>em maiúsculas</strong> (<code>toUpperCase()</code>)'],
+      `let campo = document.querySelector("#nome");
+
+campo.addEventListener("___", function () {
+  mensagem.textContent = campo.value.___ + " letras: " + campo.value.___();
+});`,
+      ['Digitar "Caneta" mostra <code>6 letras: CANETA</code>', 'Apagar letras atualiza <strong>na hora</strong>', 'Com <code>"change"</code> no lugar de <code>"input"</code>, só atualizaria ao sair do campo'],
+      ['O evento por letra é <code>"input"</code>.', '<code>.length</code> (sem parênteses) é a quantidade; <code>.toUpperCase()</code> (com parênteses) é um <strong>método</strong>.', '<code>campo.value.length</code> e <code>campo.value.toUpperCase()</code>'],
+    ),
+  ];
+
+  // ── 87: formulários ───────────────────────────────────
+  ENT['PRÁTICA 1: interceptar o envio do formulário (submit)'] = exemplo(
+    `<p>Por padrão, ao enviar um <code>&lt;form&gt;</code>, o navegador <strong>recarrega a página</strong> e coloca os campos na URL. Para tratar tudo no JavaScript, escutamos o evento <code>"submit"</code> e chamamos <code>evento.preventDefault()</code>, que <strong>cancela o envio padrão</strong>.</p>`,
+    `<!-- HTML do exemplo -->
+<form id="cadastro">
+  <input type="text" id="aluno" placeholder="Nome">
+  <button type="submit">Enviar</button>
+</form>
+
+// JavaScript
+let form = document.querySelector("#cadastro");
+
+form.addEventListener("submit", function (evento) {
+  evento.preventDefault();                       // NÃO recarrega a página
+  console.log("Enviado:", document.querySelector("#aluno").value);
+});`,
+    ['O <code>submit</code> é do <strong>formulário</strong> (e dispara também ao apertar Enter)', 'A função recebe um parâmetro, o <code>evento</code>', '<code>evento.preventDefault()</code>: sem isso, a página <strong>recarrega</strong> e o console some', 'Dentro da função você faz o que quiser: validar, guardar...'],
+    'Você vai montar o <code>&lt;form&gt;</code> de produtos no <code>treino.html</code> e tratar o envio.');
+  ENT['PRÁTICA 2: validar os campos e mostrar mensagens'] = exemplo(
+    `<p>Validar é conferir os dados <strong>antes</strong> de usá-los. Um jeito claro: uma variável <code>ok</code> que começa <code>true</code> e vira <code>false</code> se <strong>qualquer</strong> campo estiver errado; no fim, só segue se <code>ok</code> continuar <code>true</code>. Cada erro ganha uma <strong>mensagem ao lado do campo</strong>.</p>`,
+    `// EXEMPLO: validar nome e idade
+form.addEventListener("submit", function (evento) {
+  evento.preventDefault();
+  let ok = true;
+  let nome = document.querySelector("#aluno").value.trim();
+  let idade = Number(document.querySelector("#idade").value);
+
+  if (nome.length < 3) {
+    document.querySelector("#erroAluno").textContent = "Mínimo 3 letras";
+    ok = false;
+  } else {
+    document.querySelector("#erroAluno").textContent = "";
+  }
+
+  if (Number.isNaN(idade) || idade <= 0) {
+    document.querySelector("#erroIdade").textContent = "Idade inválida";
+    ok = false;
+  } else {
+    document.querySelector("#erroIdade").textContent = "";
+  }
+
+  if (ok) console.log("Tudo certo!");
+});`,
+    ['<code>.trim()</code> tira espaços das pontas (para "   " não passar)', 'Cada campo tem <strong>seu</strong> <code>if/else</code>: erro → mensagem e <code>ok = false</code>; certo → <strong>limpa</strong> a mensagem', '<code>Number.isNaN(idade)</code> pega o texto inválido (porque <code>NaN &lt;= 0</code> é <code>false</code>, a checagem sozinha não bastaria)', 'No fim, <code>if (ok)</code> executa só se <strong>todos</strong> os campos passaram'],
+    'Os campos serão <code>#nome</code> (mínimo 3 letras) e <code>#preco</code> (maior que zero).');
+  GUIA[87] = [
+    etapa('📨', 'PRÁTICA 1: interceptar o envio do formulário (submit)',
+      'Envolva o campo nome e o preço em um formulário e trate o envio.',
+      ['No <code>treino.html</code>, coloque o <code>input</code> nome, o <code>input</code> preço e um <code>&lt;button type="submit"&gt;</code> <strong>dentro</strong> de um <code>&lt;form id="cadastro"&gt;</code>', 'Escute o <code>submit</code> e chame <code>evento.preventDefault()</code>', 'Mostre no console o nome e o preço digitados', 'Teste apertando <strong>Enter</strong> dentro de um campo'],
+      `let form = document.querySelector("#___");
+
+form.addEventListener("___", function (evento) {
+  evento.___();
+  console.log(document.querySelector("#nome").value, document.querySelector("#preco").value);
+});`,
+      ['Clicar em Enviar (ou Enter) mostra os valores no console <strong>sem recarregar</strong> a página', 'Sem o <code>preventDefault</code>, a página recarrega e a URL ganha <code>?...</code>', 'Os campos continuam preenchidos depois do envio'],
+      ['O evento é <code>"submit"</code> (do formulário, e não do botão).', 'O método que cancela o envio padrão tem o nome <code>preventDefault</code>.', '<code>form.addEventListener("submit", function (evento) { evento.preventDefault(); ... });</code>'],
+    ),
+    etapa('✅', 'PRÁTICA 2: validar os campos e mostrar mensagens',
+      'Recuse nome curto e preço inválido, com mensagem ao lado de cada campo.',
+      ['Acrescente, ao lado de cada campo, um <code>&lt;span id="erroNome"&gt;</code> e <code>&lt;span id="erroPreco"&gt;</code>', 'No <code>submit</code>: <code>ok = true</code>; leia nome (com <code>trim</code>) e preço (com <code>Number</code>)', 'Nome com menos de 3 letras → mensagem e <code>ok = false</code>', 'Preço inválido (NaN ou até 0) → mensagem e <code>ok = false</code>', 'Se <code>ok</code>, mostre "Tudo certo!" no <code>#mensagem</code>'],
+      `let ok = true;
+let nome = document.querySelector("#nome").value.___();
+let preco = ___(document.querySelector("#preco").value);
+
+if (nome.length < ___) {
+  document.querySelector("#erroNome").textContent = "Mínimo 3 letras";
+  ok = false;
+} else {
+  document.querySelector("#erroNome").textContent = "";
+}
+// TODO: o mesmo para o preço (use Number.isNaN)
+
+if (ok) {
+  document.querySelector("#mensagem").textContent = "Tudo certo!";
+}`,
+      ['Nome "Ab" → mensagem de erro; "   " → também erro (trim)', 'Preço vazio, 0, -3 ou "abc" → mensagem de erro', 'Tudo certo → as mensagens somem e aparece "Tudo certo!"'],
+      ['Sempre <strong>limpe</strong> a mensagem no <code>else</code>, senão ela fica na tela depois de corrigir.', 'O preço inválido é <code>Number.isNaN(preco) || preco &lt;= 0</code>.', '<code>if (Number.isNaN(preco) || preco &lt;= 0) { ...erroPreco...; ok = false; } else { ...limpa... }</code>'],
+    ),
+  ];
+
+  // ── 88: mini-projeto ──────────────────────────────────
+  ENT['PRÁTICA 1: guardar e ler uma lista no localStorage'] = exemplo(
+    `<p>O localStorage só guarda <strong>texto</strong>. Para guardar um <strong>array</strong> inteiro: <code>JSON.stringify</code> ao guardar e <code>JSON.parse</code> ao ler. E na <strong>primeira visita</strong> não há nada guardado: o <code>getItem</code> devolve <code>null</code>. Por isso a função de ler devolve uma <strong>lista vazia</strong> nesse caso, evitando erro.</p>`,
+    `// EXEMPLO: guardar a lista de compras
+function lerCompras() {
+  let texto = localStorage.getItem("compras");
+  if (texto === null) return [];            // primeira visita: lista vazia
+  return JSON.parse(texto);                 // texto -> array
+}
+
+function salvarCompras(compras) {
+  localStorage.setItem("compras", JSON.stringify(compras));   // array -> texto
+}
+
+let c = lerCompras();    // []
+c.push("Pão");
+salvarCompras(c);
+console.log(lerCompras());   // ["Pão"]`,
+    ['<code>texto === null</code>: a chave ainda não existe (primeira vez)', 'Devolver <code>[]</code> evita o erro <em>Cannot read properties of null (reading push)</em>', '<code>JSON.stringify</code> e <code>JSON.parse</code> são um <strong>par</strong>: ida e volta', 'Depois de mudar a lista, é preciso <strong>salvar de novo</strong> (o array em memória não é o do localStorage)'],
+    'A chave será <code>"tarefas"</code> e cada tarefa será um objeto <code>{ id, texto, concluida }</code>.');
+  ENT['PRÁTICA 2: adicionar uma tarefa e redesenhar'] = exemplo(
+    `<p>Todas as ações do mini-projeto seguem o <strong>mesmo ciclo</strong>: <strong>ler</strong> a lista → <strong>mudar</strong> → <strong>salvar</strong> → <strong>redesenhar</strong>. Para identificar cada item sem depender da posição (que muda ao remover), cada um recebe um <strong>id único</strong>, como <code>Date.now()</code> (milissegundos desde 1970).</p>`,
+    `// EXEMPLO: adicionar uma compra
+function adicionarCompra(texto) {
+  let compras = lerCompras();                          // 1. LER
+  compras.push({ id: Date.now(), texto: texto });     // 2. MUDAR
+  salvarCompras(compras);                              // 3. SALVAR
+  desenharCompras();                                   // 4. REDESENHAR
+}`,
+    ['As <strong>4 linhas</strong> são sempre as mesmas, em todas as ações (só muda o passo 2)', '<code>Date.now()</code> gera um número que muda a cada milissegundo: serve de id', 'Quem chama só precisa passar o texto: <code>adicionarCompra("Pão")</code>', 'O desenho vem <strong>do localStorage</strong>, e não da variável: assim sobrevive ao F5'],
+    'A tarefa terá também <code>concluida: false</code>, e o desenho mostrará cada tarefa em um <code>li</code>.');
+  ENT['PRÁTICA 3: marcar como feita e remover'] = exemplo(
+    `<p>Para achar <strong>uma</strong> tarefa pelo id, usa-se <code>find</code>; para <strong>remover</strong> uma, usa-se <code>filter</code> (que deixa passar todas <strong>menos</strong> a escolhida). Continuam valendo as 4 etapas: ler → mudar → salvar → redesenhar.</p>`,
+    `// EXEMPLO: marcar uma compra como comprada e remover outra
+function alternarCompra(id) {
+  let compras = lerCompras();
+  let c = compras.find((x) => x.id === id);     // acha a compra pelo id
+  if (c) c.comprada = !c.comprada;               // inverte true/false
+  salvarCompras(compras);
+  desenharCompras();
+}
+
+function removerCompra(id) {
+  let compras = lerCompras().filter((x) => x.id !== id);   // todas, menos esta
+  salvarCompras(compras);
+  desenharCompras();
+}`,
+    ['<code>find((x) =&gt; x.id === id)</code> devolve <strong>o item</strong> com aquele id (ou <code>undefined</code>)', '<code>if (c)</code> protege contra não achar', '<code>!c.comprada</code> inverte: <code>true</code> vira <code>false</code> e vice-versa', '<code>filter((x) =&gt; x.id !== id)</code>: "fique com os que <strong>não</strong> têm esse id"'],
+    'O campo se chama <code>concluida</code> e as funções, <code>alternarTarefa</code> e <code>removerTarefa</code>.');
+  GUIA[88] = [
+    etapa('💾', 'PRÁTICA 1: guardar e ler uma lista no localStorage',
+      'Crie as duas funções que sustentam o projeto.',
+      ['Crie <code>lerTarefas()</code>: lê a chave <code>"tarefas"</code>; se for <code>null</code>, devolve <code>[]</code>; senão, <code>JSON.parse</code>', 'Crie <code>salvarTarefas(tarefas)</code>: guarda com <code>JSON.stringify</code>', 'Teste no console: leia (vazio), acrescente um objeto, salve, leia de novo'],
+      `function lerTarefas() {
+  let texto = localStorage.getItem("___");
+  if (texto === ___) return [];
+  return JSON.___(texto);
+}
+
+function salvarTarefas(tarefas) {
+  localStorage.setItem("tarefas", JSON.___(tarefas));
+}`,
+      ['A primeira leitura devolve <code>[]</code>', 'Depois de salvar <code>[{id:1, texto:"Estudar", concluida:false}]</code>, a leitura devolve <strong>o mesmo array</strong>', 'Recarregue (F5): a leitura <strong>continua</strong> devolvendo'],
+      ['A chave é <code>"tarefas"</code>. O <code>getItem</code> devolve <code>null</code> quando não existe.', 'Sem o tratamento do <code>null</code>, o <code>JSON.parse(null)</code> devolve <code>null</code> e o <code>push</code> seguinte quebra.', '<code>if (texto === null) return [];</code>'],
+    ),
+    etapa('➕', 'PRÁTICA 2: adicionar uma tarefa e redesenhar',
+      'Escreva <code>adicionarTarefa(texto)</code> e <code>desenharTarefas()</code>.',
+      ['<code>adicionarTarefa(texto)</code>: ler → acrescentar <code>{ id: Date.now(), texto, concluida: false }</code> → salvar → redesenhar', '<code>desenharTarefas()</code>: limpa a <code>#lista</code>, lê as tarefas e cria um <code>li</code> para cada (com o texto)', 'Chame <code>desenharTarefas()</code> ao abrir a página', 'Teste: adicione 3 tarefas e aperte F5'],
+      `function adicionarTarefa(texto) {
+  let tarefas = ___();
+  tarefas.push({ id: Date.___(), texto: texto, concluida: ___ });
+  ___(tarefas);
+  desenharTarefas();
+}
+
+function desenharTarefas() {
+  let lista = document.querySelector("#lista");
+  lista.innerHTML = "";
+  let tarefas = lerTarefas();
+  for (let tarefa of tarefas) {
+    let li = document.createElement("li");
+    li.textContent = tarefa.___;
+    lista.appendChild(li);
+  }
+}
+
+desenharTarefas();`,
+      ['As tarefas aparecem na lista a cada <code>adicionarTarefa("...")</code>', 'F5 mantém todas', 'Cada tarefa tem um <code>id</code> diferente (veja com <code>lerTarefas()</code> no console)'],
+      ['As <strong>4 linhas</strong>: <code>ler → mudar (push) → salvar → desenhar</code>.', 'O objeto tem 3 campos: <code>id</code>, <code>texto</code> e <code>concluida</code> (começa <code>false</code>).', '<code>let tarefas = lerTarefas(); tarefas.push({ id: Date.now(), texto: texto, concluida: false }); salvarTarefas(tarefas); desenharTarefas();</code>'],
+    ),
+    etapa('✅', 'PRÁTICA 3: marcar como feita e remover',
+      'Complete o mini-projeto.',
+      ['<code>alternarTarefa(id)</code>: ler → achar com <code>find</code> → inverter <code>concluida</code> → salvar → redesenhar', '<code>removerTarefa(id)</code>: ler → <code>filter</code> sem a tarefa → salvar → redesenhar', 'No <code>desenharTarefas</code>, ligue o clique do <code>li</code> a <code>alternarTarefa</code> e acrescente um botão que chama <code>removerTarefa</code>', 'Mostre as feitas com <code>text-decoration: line-through</code> (classe <code>feito</code>)'],
+      `function alternarTarefa(id) {
+  let tarefas = lerTarefas();
+  let t = tarefas.___((x) => x.id === id);
+  if (t) t.concluida = !t.___;
+  salvarTarefas(tarefas);
+  desenharTarefas();
+}
+
+function removerTarefa(id) {
+  let tarefas = lerTarefas().___((x) => x.id ___ id);
+  salvarTarefas(tarefas);
+  desenharTarefas();
+}`,
+      ['Clicar na tarefa a <strong>marca/desmarca</strong> (riscada); F5 mantém', 'Remover tira só a escolhida; F5 mantém', 'Clicar no botão remover <strong>não</strong> marca a tarefa (veja o <code>stopPropagation</code> da aula)'],
+      ['<code>find</code> devolve o item; <code>filter</code> devolve uma lista nova <strong>sem</strong> ele.', 'Em <code>filter</code>, "todas menos esta" é <code>x.id !== id</code>.', '<code>tarefas.find((x) =&gt; x.id === id)</code> e <code>lerTarefas().filter((x) =&gt; x.id !== id)</code>'],
+    ),
+  ];
+
+  // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
   // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
@@ -5905,6 +6777,14 @@ Salvar com a descrição vazia           | Bordas vermelhas, nada guardado  |
   ];
   var ORDEM = [];
   MODULOS.forEach(function (m) { if (m.nivel) ORDEM.push(m.nivel); ORDEM = ORDEM.concat(m.ids); });
+  // prática guiada (módulos 4 e 5): explicação + exemplo resolvido + esqueleto + teste + dicas, antes das tarefas
+  function guiaHtml(g) {
+    return '<div style="margin-top:22px;background:var(--card);border:1.5px solid rgba(79,142,247,.4);border-radius:16px;padding:24px">' +
+      '<div style="font-family:Sora,sans-serif;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:6px">🧭 PRATIQUE PASSO A PASSO</div>' +
+      '<p style="font-size:13px;color:var(--muted);margin-bottom:6px">Em cada etapa: primeiro <strong>entenda</strong> (explicação e exemplo resolvido), depois <strong>faça</strong>, depois <strong>teste</strong>. Travou? Abra as dicas <strong>em ordem</strong> (a solução comentada é o último recurso, e é para digitar).</p>' +
+      g.join('<hr style="border:none;border-top:1px solid var(--border);margin:18px 0">') + '</div>';
+  }
+  NOVAS.forEach(function (a) { if (GUIA[a.id]) a.pratica = guiaHtml(GUIA[a.id]) + (a.pratica || ''); });
   // numera os títulos do módulo 8 ("Loja 1: ...", "Loja 2: ...") pela posição real das aulas
   MODULOS[7].ids.forEach(function (id, i) {
     NOVAS.forEach(function (a) { if (a.id === id) a.titulo = a.titulo.replace(/^Loja \d+:/, 'Loja ' + (i + 1) + ':'); });
