@@ -1613,6 +1613,163 @@ git push`),
     Q('O que NÃO deve existir no código publicado?', 'Senhas e chaves de acesso', 'Comentários explicativos', 'Um README', 'Caminhos relativos'),
   ]);
 
+  PRAT[107] = { tarefas: ['<strong>Nível 1.</strong> Para cada um dos 5 desafios de bug, <strong>escreva no caderno a causa antes de ler a resposta</strong>.', '<strong>Nível 2.</strong> Reproduza no seu computador dois dos bugs (digite o código com o erro) e corrija cada um.', '<strong>Nível 2.</strong> Marque, na lista de revisão por módulo, o que você ainda não consegue explicar sem olhar. Volte a essas aulas.', '<strong>Explique:</strong> escolha um bug e explique a um colega: sintoma, causa e como investigar com o console.'],
+    desafio: '<strong>Nível 3.</strong> Quebre <strong>de propósito</strong> um trecho da sua loja (um erro por vez), peça a um colega para achar o bug usando só o console e depois troquem.' };
+  PRAT[108] = { tarefas: ['<strong>Nível 1.</strong> Revise o checklist de entrega do projeto final e confira cada item na sua loja.', '<strong>Nível 2.</strong> Faça um teste da loja seguindo o roteiro: cadastrar, alterar, excluir, comprar, remover do carrinho, recarregar a página.', '<strong>Nível 2.</strong> Treine em voz alta a explicação das funções <code>salvarProduto</code>, <code>atualizarGrid</code>, <code>comprar</code> e <code>excluirProduto</code>.', '<strong>Explique:</strong> grave ou escreva, com suas palavras, o caminho completo: do clique do botão até o dado aparecer na tela.'],
+    desafio: '<strong>Nível 3.</strong> Faça a <strong>defesa individual</strong>: o professor escolhe uma função do seu projeto e pede que você explique, altere (por exemplo, adicionar um campo) e corrija um bug ao vivo.' };
+
+  // ══════════════════════════════════════════════════════
+  // 107 — REVISÕES E DESAFIOS DE DEPURAÇÃO   (módulo 11)
+  // ══════════════════════════════════════════════════════
+  A(107, 'Revisão: Desafios de Depuração', 'Revisar os módulos achando bugs reais em HTML, CSS, JavaScript, DOM e localStorage', '🔍', [
+    P('🧭', 'COMO USAR ESTA REVISÃO',
+      `<p>Em vez de reler a teoria, você vai <strong>investigar 5 códigos com defeito</strong>, cada um de um módulo. Para cada um:</p>`,
+      lista(['1️⃣ Leia o <strong>sintoma</strong> (o que o usuário vê)', '2️⃣ <strong>Escreva no caderno a causa provável</strong> antes de continuar', '3️⃣ Só então leia a explicação e compare', '4️⃣ Anote o que você errou: é o que precisa revisar']),
+      box('amarelo', `<strong>Não vale pular a etapa 2.</strong> Quem lê a resposta sem tentar não aprende a achar bugs, só a reconhecer a solução depois.`),
+      caderno(['Sintoma → hipótese (escrita) → conferir → corrigir', 'Errar a hipótese é o melhor momento de aprendizagem'])),
+    P('🎨', 'BUG 1 · HTML e CSS: o estilo não aparece',
+      code(`<head>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+
+/* arquivo real da pasta: estilo.css */`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> a página aparece sem cores nem layout.</p>`,
+      preveja(`onde você olharia primeiro? (dica: F12 → aba Network, procure uma linha vermelha)`),
+      box('verde', `<strong>Causa:</strong> o <code>href</code> diz <code>estilos.css</code>, mas o arquivo se chama <code>estilo.css</code>. O Network mostra <strong>404</strong> nesse arquivo. <strong>Correção:</strong> o nome precisa ser <em>idêntico</em>.`)),
+    P('🔢', 'BUG 2 · JavaScript: o total sai errado',
+      code(`let preco = document.getElementById("preco").value;   // usuário digitou 20
+let qtd   = document.getElementById("qtd").value;     // usuário digitou 3
+console.log(preco + qtd);                              // mostra 203`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> o total deveria ser <code>60</code> (preço × quantidade) ou a soma <code>23</code>; aparece <code>203</code>.</p>`,
+      preveja(`por que "20" e "3" viraram 203? (lembre o que <code>.value</code> sempre devolve)`),
+      box('verde', `<strong>Causa:</strong> <code>.value</code> devolve <strong>texto</strong>, e o <code>+</code> entre textos <strong>junta</strong>. <strong>Correção:</strong> <code>Number(preco) + Number(qtd)</code> (e, para o total da compra, <code>Number(preco) * Number(qtd)</code>).`)),
+    P('🧱', 'BUG 3 · DOM: o botão não faz nada',
+      code(`document.getElementById("btnSalvar").addEventListener("click", salvarProduto());
+
+// no HTML: <button id="btnSalvar">Salvar</button>`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> ao abrir a página, o produto é salvo sozinho (ou dá erro), e o clique não faz nada.</p>`,
+      preveja(`o que muda entre <code>salvarProduto</code> e <code>salvarProduto()</code> dentro do <code>addEventListener</code>?`),
+      box('verde', `<strong>Causa:</strong> com parênteses, a função <strong>roda na hora</strong> e o que o evento recebe é o resultado dela (<code>undefined</code>). <strong>Correção:</strong> passar <strong>sem parênteses</strong>: <code>addEventListener("click", salvarProduto)</code>.`)),
+    P('🗄️', 'BUG 4 · localStorage: aparece [object Object]',
+      code(`function salvarProduto() {
+  let produto = { id: "p1", nome: "Caneta", preco: 3.5 };
+  localStorage.setItem("p1", produto);
+}
+
+// F12 → Application mostra:  p1  →  [object Object]`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> o produto "salva", mas ao ler os dados todos estão perdidos.</p>`,
+      preveja(`o que o localStorage faz com tudo que entra nele?`),
+      box('verde', `<strong>Causa:</strong> o localStorage só guarda <strong>texto</strong>; o objeto foi convertido para <code>"[object Object]"</code>. <strong>Correção:</strong> <code>localStorage.setItem("p1", JSON.stringify(produto))</code> ao guardar e <code>JSON.parse(...)</code> ao ler.`)),
+    P('🛒', 'BUG 5 · Loja: o carrinho mistura os produtos',
+      code(`function desenharCarrinho() {
+  let total = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    let chave = localStorage.key(i);
+    let item = JSON.parse(localStorage.getItem(chave));
+    total = total + item.preco;
+  }
+  console.log(total);
+}`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> o total do carrinho é muito maior do que a soma dos itens comprados.</p>`,
+      preveja(`quais chaves o laço está somando? Há algum filtro?`),
+      box('verde', `<strong>Causa:</strong> falta o filtro por família: o laço soma <strong>produtos (<code>p</code>) e itens do carrinho (<code>c</code>)</strong> juntos. <strong>Correção:</strong> <code>if (chave[0] !== "c") continue;</code> logo depois de ler a chave.`),
+      caderno(['Bug de total: confira o tipo (texto × número) e o filtro p/c', 'Bug de clique: parênteses no addEventListener', 'Bug de [object Object]: faltou stringify/parse'])),
+    P('✅', 'REVISÃO EM UMA PÁGINA',
+      `<p>Marque o que você consegue <strong>explicar sem olhar</strong>. O que não marcar é o que revisar:</p>`,
+      lista(['🌐 Cliente, servidor e as 3 linguagens', '🧱 Tags, atributos, formulário com <code>label</code> e <code>id</code>', '🎨 Seletores, caixa, Flexbox e Grid', '⚡ Variáveis, tipos, <code>if</code>, <code>for</code>, arrays, objetos e funções', '👆 Selecionar elementos, <code>textContent</code>, eventos e <code>.value</code>', '🐞 Ler erro do console e investigar com <code>console.log</code>', '🗄️ <code>setItem</code>, <code>getItem</code>, <code>JSON.stringify</code> e <code>JSON.parse</code>', '🛒 Chaves <code>p</code> e <code>c</code>, <code>atualizarGrid</code>, <code>comprar</code>', '⏱️ <code>fetch</code>, <code>async/await</code> e <code>try/catch</code>', '🌿 <code>commit</code>, <code>push</code> e GitHub Pages']),
+      box('azul', `Cada item tem uma aula e um <strong>teste de nivelamento</strong> no módulo correspondente. Use-os para conferir o que ainda está fraco.`)),
+  ], [
+    Q('O CSS não carrega e o Network mostra 404 em estilos.css. Causa provável?', 'O nome do arquivo não é idêntico ao do href', 'O JavaScript está errado', 'Faltou o <body>', 'O navegador está desatualizado'),
+    Q('Com preco = "20" e qtd = "3" (textos), o que mostra preco + qtd?', '203', '23', '60', 'NaN'),
+    Q('Como obter o total correto da compra (preço vezes quantidade)?', 'Number(preco) * Number(qtd)', 'preco + qtd', 'preco.qtd', 'Text(preco) * qtd'),
+    Q('addEventListener("click", salvarProduto()) faz o quê?', 'Executa salvarProduto na hora, e não no clique', 'Executa só no clique', 'Cria o botão', 'Apaga o evento'),
+    Q('localStorage.setItem("p1", objeto) guarda:', '"[object Object]"', 'O objeto completo', 'O objeto em JSON', 'Um erro'),
+    Q('Qual é a correção correta do bug anterior?', 'JSON.stringify ao guardar e JSON.parse ao ler', 'Trocar setItem por getItem', 'Guardar com let', 'Usar innerHTML'),
+    Q('O total do carrinho está maior que a soma dos itens. O que provavelmente falta no laço?', 'O filtro chave[0] === "c"', 'O let total', 'O JSON.parse', 'O return'),
+    Q('Qual aba do F12 ajuda a achar um arquivo não encontrado (404)?', 'Network', 'Application', 'Elements', 'Sources apenas'),
+    Q('Qual é o primeiro passo ao investigar um bug?', 'Ler o sintoma e a mensagem de erro e levantar uma hipótese', 'Apagar o código e recomeçar', 'Copiar uma solução da internet', 'Mudar vários trechos ao mesmo tempo'),
+    Q('Por que escrever a hipótese ANTES de ler a resposta?', 'Para treinar a investigação, e não apenas reconhecer a solução', 'Porque a resposta muda depois', 'Porque o professor corrige', 'Não é necessário'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 108 — SIMULADO FINAL, PROJETO E DEFESA   (módulo 11)
+  // ══════════════════════════════════════════════════════
+  var TAB = 'width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px';
+  var TH = 'padding:8px;border:1px solid var(--border);text-align:left;background:rgba(79,142,247,.15)';
+  var TD = 'padding:8px;border:1px solid var(--border);vertical-align:top;line-height:1.5';
+  function linhaRubrica(crit, pts, exc, ade, par, ins) {
+    return '<tr><td style="' + TD + '"><strong>' + crit + '</strong><br>(' + pts + ' pts)</td><td style="' + TD + '">' + exc + '</td><td style="' + TD + '">' + ade + '</td><td style="' + TD + '">' + par + '</td><td style="' + TD + '">' + ins + '</td></tr>';
+  }
+  function tabelaRubrica(linhas) {
+    return '<div style="overflow-x:auto"><table style="' + TAB + '"><tr><th style="' + TH + '">Critério</th><th style="' + TH + '">Excelente</th><th style="' + TH + '">Adequado</th><th style="' + TH + '">Parcial</th><th style="' + TH + '">Insuficiente</th></tr>' + linhas.join('') + '</table></div>';
+  }
+  A(108, 'Avaliação: Simulado Final, Projeto e Defesa', 'Simulado de 30 questões, rubrica do projeto da loja (10 pontos), defesa individual e portfólio', '🏆', [
+    P('📋', 'COMO SERÁ A AVALIAÇÃO',
+      lista(['📝 <strong>Simulado</strong>: 30 questões de múltipla escolha, ao final desta aula (gera a nota de 0 a 10)', '🛒 <strong>Projeto final</strong>: a loja virtual funcionando, avaliada pela rubrica de 10 pontos', '🗣️ <strong>Defesa individual</strong>: você explica o seu código ao professor (1 dos critérios da rubrica)', '🌐 <strong>Portfólio</strong>: loja publicada no GitHub Pages, com repositório e README']),
+      box('azul', `<strong>Distribuição do simulado:</strong> HTML e CSS (5) · JavaScript básico (8) · Arrays, objetos e funções (5) · DOM e eventos (4) · localStorage e JSON (4) · Depuração, segurança e APIs (4).`),
+      caderno(['Simulado (30 questões) + Projeto (rubrica) + Defesa + Portfólio', 'O projeto vale 10 pontos, e explicar o próprio código vale 1,0'])),
+    P('📐', 'RUBRICA DO PROJETO FINAL (1 de 2)',
+      `<p>Escala de pontos: <strong>Excelente</strong> = pontuação máxima · <strong>Adequado</strong> ≈ 75% · <strong>Parcial</strong> ≈ 50% · <strong>Insuficiente</strong> = 0 a 25%.</p>`,
+      tabelaRubrica([
+        linhaRubrica('HTML e CSS', '1,0', 'HTML semântico, formulário com <code>label</code>, layout organizado e legível, responsivo', 'Estrutura correta, com poucos desvios de organização ou legibilidade', 'Estrutura incompleta ou layout confuso; não se adapta ao celular', 'Página não carrega corretamente ou sem estilo'),
+        linhaRubrica('Cadastro e validação', '1,5', 'Cadastra, converte tipos e <strong>recusa dados inválidos</strong> com mensagem clara', 'Cadastra corretamente; validação cobre só parte dos casos', 'Cadastra, mas sem validar ou convertendo tipos de forma incorreta', 'Não cadastra ou quebra com dados comuns'),
+        linhaRubrica('Listagem e atualização', '1,5', '<code>atualizarGrid</code> limpa, percorre, filtra <code>p</code> e redesenha; atualiza sempre que os dados mudam', 'Lista correta; atualiza na maioria das situações', 'Lista com falhas (duplica itens, mistura <code>p</code> e <code>c</code>)', 'Não lista ou não persiste ao recarregar'),
+        linhaRubrica('Alteração e exclusão', '1,0', 'Altera mantendo o id e exclui também a cópia do carrinho', 'Altera e exclui corretamente, com pequenas falhas de atualização', 'Só uma das duas funciona ou deixa "produto fantasma"', 'Nenhuma funciona'),
+      ])),
+    P('📐', 'RUBRICA DO PROJETO FINAL (2 de 2)',
+      tabelaRubrica([
+        linhaRubrica('Carrinho e total', '1,5', 'Compra, quantidade, remoção e <strong>total correto</strong>, mesmo após recarregar', 'Compra e total corretos; faltam quantidade ou remoção', 'Compra funciona, mas o total sai errado em alguns casos', 'Carrinho não funciona'),
+        linhaRubrica('localStorage e JSON', '1,5', 'Usa <code>stringify</code>/<code>parse</code> corretamente, convenção <code>p</code>/<code>c</code> e trata dados ausentes', 'Uso correto, com falhas em casos raros', 'Usa, mas com erros (ex.: <code>[object Object]</code>) corrigidos só com ajuda', 'Não guarda ou perde os dados'),
+        linhaRubrica('Organização, depuração e segurança', '1,0', 'Código organizado, nomes claros, sem senhas; <code>textContent</code> ou texto tratado; resolve bugs com o console', 'Organizado, com pequenas falhas de nomes ou comentários', 'Código confuso ou com <code>innerHTML</code> sem cuidado', 'Código desorganizado e inseguro'),
+        linhaRubrica('Explicação individual', '1,0', 'Explica cada função com as próprias palavras, <strong>altera e corrige ao vivo</strong>', 'Explica bem a maioria; precisa de pouca ajuda', 'Explica de forma superficial ou só lendo o código', 'Não consegue explicar o que entregou'),
+      ]),
+      box('amarelo', `<strong>Atenção:</strong> um projeto que funciona, mas que o aluno <strong>não consegue explicar</strong>, perde pontos nos critérios em que a explicação é necessária. Copiar sem entender não é aprovado.`)),
+    P('🗣️', 'DEFESA INDIVIDUAL: O QUE O PROFESSOR PODE PEDIR',
+      lista(['"Explique o que acontece desde o clique em <strong>Salvar</strong> até o produto aparecer na tabela."', '"Por que o produto é guardado com <code>JSON.stringify</code>?"', '"Altere o código para <strong>adicionar um campo novo</strong> ao produto."', '"Aqui há um bug. Descubra a causa usando o console."', '"Por que as chaves começam com <code>p</code> e <code>c</code>?"', '"O que aconteceria se esta linha fosse apagada?"']),
+      box('verde', `<strong>Como se preparar:</strong> explique em voz alta, sem olhar o código, o caminho completo dos dados. Se travar, é o ponto que precisa revisar.`),
+      caderno(['Defesa = explicar + alterar + corrigir ao vivo', 'Prepare-se explicando em voz alta'])),
+    P('✅', 'CHECKLIST DE ENTREGA',
+      lista(['☐ A loja cadastra, lista, altera, exclui, compra e remove do carrinho', '☐ O total do carrinho está correto, inclusive depois de recarregar', '☐ Dados inválidos são recusados com mensagem', '☐ Os dados ficam no localStorage com a convenção <code>p</code> + id e <code>c</code> + id', '☐ Código organizado, nomes claros, sem senhas', '☐ Repositório no GitHub com README e commits com boas mensagens', '☐ Loja publicada no GitHub Pages e testada no celular', '☐ Você consegue explicar cada função sem olhar']),
+      box('azul', `Depois de entregar, faça o <strong>simulado abaixo</strong>. Ele não precisa ser o último passo: se preferir, responda antes e use o resultado para revisar.`)),
+  ], [
+    // HTML e CSS (5)
+    Q('Qual tag deve conter o texto visível principal da página?', '<body>', '<head>', '<meta>', '<title>'),
+    Q('Para que serve o atributo alt de uma imagem?', 'Descrever a imagem para leitores de tela e para quando ela não carrega', 'Trocar a imagem por outra', 'Aumentar o tamanho', 'Definir o endereço da imagem'),
+    Q('Como o CSS seleciona o elemento com id="titulo"?', '#titulo', '.titulo', 'titulo()', '*titulo'),
+    Q('Qual propriedade do CSS cria espaço INTERNO entre o conteúdo e a borda?', 'padding', 'margin', 'gap', 'border'),
+    Q('Qual regra alinha filhos lado a lado dentro de um pai?', 'display: flex', 'display: none', 'position: lost', 'float: text'),
+    // JavaScript básico (8)
+    Q('Qual é o resultado de "5" + 3 ?', '"53"', '8', '"8"', 'NaN'),
+    Q('Qual é o resultado de 10 % 3 ?', '1', '3', '0', '3,33'),
+    Q('Qual operador compara dois valores sem converter o tipo?', '===', '=', '==>', '=+'),
+    Q('Depois de let x = 4; x = x * 3; quanto vale x?', '12', '7', '43', '4'),
+    Q('Em const a = 1; a = 2; o que acontece?', 'Erro: não se pode reatribuir uma const', 'a passa a valer 2', 'a passa a valer 3', 'Nada acontece'),
+    Q('Quantas voltas dá for (let i = 0; i < 4; i++) ?', '4', '3', '5', 'Infinitas'),
+    Q('Com nota = 6, o que mostra if (nota >= 7) "A"; else if (nota >= 5) "B"; else "C"?', 'B', 'A', 'C', 'A e B'),
+    Q('O que é typeof "10"?', '"string"', '"number"', '"boolean"', '"undefined"'),
+    // Arrays, objetos, funções (5)
+    Q('Dado frutas = ["Maçã","Uva","Pera"], o que é frutas[1]?', '"Uva"', '"Maçã"', '"Pera"', 'undefined'),
+    Q('Qual método adiciona um item no fim do array?', 'push()', 'add()', 'append()', 'insert()'),
+    Q('Dado p = {nome:"Caneta", preco:3.5}, como ler o preço?', 'p.preco', 'p(preco)', 'p->preco', 'preco.p'),
+    Q('O que faz return dentro de uma função?', 'Devolve um valor e encerra a função', 'Repete a função', 'Mostra no console', 'Apaga a variável'),
+    Q('Dado function f(a, b) { return a * b; }, quanto é f(3, 4)?', '12', '7', '34', 'undefined'),
+    // DOM e eventos (4)
+    Q('Qual comando acha o elemento com id="nome"?', 'document.getElementById("nome")', 'document.get("nome")', 'find("#nome")', 'document.nome()'),
+    Q('Qual propriedade devolve o que foi digitado em um input?', '.value', '.text', '.digitado', '.content'),
+    Q('Qual é a forma correta de ligar a função salvar ao clique?', 'botao.addEventListener("click", salvar)', 'botao.addEventListener("click", salvar())', 'botao.click = salvar()', 'botao.on(salvar)'),
+    Q('Qual é a diferença entre textContent e innerHTML?', 'innerHTML interpreta HTML; textContent trata tudo como texto', 'São iguais', 'textContent interpreta HTML', 'innerHTML só funciona em botões'),
+    // localStorage e JSON (4)
+    Q('O que o localStorage guarda, sempre?', 'Texto', 'Objetos', 'Funções', 'Imagens'),
+    Q('Qual comando transforma um objeto em texto JSON?', 'JSON.stringify(obj)', 'JSON.parse(obj)', 'obj.toNumber()', 'Text(obj)'),
+    Q('Qual comando devolve o NOME da gaveta na posição i?', 'localStorage.key(i)', 'localStorage.getItem(i)', 'localStorage.name(i)', 'localStorage.at(i)'),
+    Q('O que faz "c" + id.slice(1), com id = "p123"?', 'Gera "c123"', 'Gera "cp123"', 'Gera "p123c"', 'Gera "123"'),
+    // Depuração, segurança e APIs (4)
+    Q('TypeError: Cannot read properties of null normalmente indica:', 'O elemento não foi encontrado (id errado, por exemplo)', 'Faltou um ponto e vírgula', 'A internet caiu', 'O CSS está errado'),
+    Q('Por que nunca guardar senhas no localStorage?', 'Qualquer pessoa com acesso ao navegador pode lê-las', 'Porque elas não cabem', 'Porque o JavaScript proíbe', 'Porque somem sozinhas'),
+    Q('O que o fetch(url) devolve?', 'Uma Promise', 'Os dados prontos', 'Um número', 'Um erro obrigatório'),
+    Q('Qual é a melhor mensagem de commit?', 'Adiciona validação do formulário de produtos', 'arrumei', 'asdf', 'agora vai'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
