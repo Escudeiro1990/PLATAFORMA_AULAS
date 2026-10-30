@@ -35,6 +35,8 @@
     .card-titulo { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
     .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
     .card-badge { margin-top: 16px; display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 99px; background: rgba(79,142,247,.12); color: var(--accent); }
+    .aula-card.proxima { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(79,142,247,.35); }
+    .card-badge.proxima { background: var(--accent); color: #fff; font-weight: 700; }
     .card-badge.concluida { background: rgba(52,211,153,.12); color: var(--success); }
     .curso-dest { max-width: 640px; margin: 0 auto 18px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, rgba(79,142,247,.12), rgba(124,106,247,.12)); border: 1.5px solid rgba(124,106,247,.4); border-radius: 14px; padding: 20px 22px; text-decoration: none; color: var(--text); transition: border-color .2s, transform .2s; }
     .curso-dest:hover { border-color: var(--accent2); transform: translateY(-3px); }
@@ -216,18 +218,18 @@
       return;
     }
 
-    function criarCard(aula) {
+    function criarCard(aula, rotulo) {
       var nota = notasAluno[aula.titulo];
       var concluida = nota !== undefined;
       var card = document.createElement('a');
       card.href = 'aula.html?id=' + aula.id;
-      card.className = 'aula-card';
+      card.className = 'aula-card' + (rotulo ? ' proxima' : '');
       card.innerHTML =
         '<span class="card-icone">' + aula.icone + '</span>' +
         '<div class="card-titulo">' + aula.titulo + '</div>' +
         '<div class="card-desc">' + aula.descricao + '</div>' +
-        '<span class="card-badge' + (concluida ? ' concluida' : '') + '">' +
-          (concluida ? '✓ Concluída — Nota ' + nota + '/10' : 'Iniciar aula') +
+        '<span class="card-badge' + (concluida ? ' concluida' : rotulo ? ' proxima' : '') + '">' +
+          (concluida ? '✓ Concluída — Nota ' + nota + '/10' : rotulo ? rotulo : 'Iniciar aula') +
         '</span>';
       return card;
     }
@@ -239,18 +241,26 @@
 
     // trilha de Programação Web: um bloco por módulo, com o progresso
     var cabecalho = false;
+    var proximaGlobal = null;
+    var faixaProxima = document.createElement('div');
+    var faixaPos = null;
     modulos.forEach(function(m) {
       var doModulo = lista.filter(function(a) { return a.modulo === m.n; });
       // ordem do módulo = ordem definida (teste de nivelamento primeiro)
       var ordem = (m.nivel ? [m.nivel] : []).concat(m.ids);
       doModulo.sort(function(a, b) { return ordem.indexOf(a.id) - ordem.indexOf(b.id); });
       if (!doModulo.length) return;
+      var proximaId = null;
+      for (var k = 0; k < doModulo.length; k++) { if (m.nivel && doModulo[k].id === m.nivel) continue; if (notasAluno[doModulo[k].titulo] === undefined) { proximaId = doModulo[k].id; break; } }
+      var algumaFeita = doModulo.some(function(a) { return notasAluno[a.titulo] !== undefined; });
+      if (proximaId !== null && !proximaGlobal) { proximaGlobal = { id: proximaId, titulo: doModulo.filter(function(a) { return a.id === proximaId; })[0].titulo, modulo: m, comecou: algumaFeita }; }
       if (!cabecalho) {
         cabecalho = true;
         var t = document.createElement('div');
         t.style.cssText = 'grid-column:1/-1;margin-top:18px;font-family:Sora,sans-serif;font-size:18px;font-weight:700;';
         t.innerHTML = '🧭 Trilha de Programação Web<div style="font-family:DM Sans,sans-serif;font-weight:400;font-size:13px;color:var(--muted);margin-top:4px;">Cada módulo é independente: faça na ordem ou comece pelo que precisa. No começo de cada módulo há um <strong>teste de nivelamento</strong>: com nota 7 ou mais, você pode pular o módulo.</div>';
         grid.appendChild(t);
+        faixaPos = t;
       }
       var feitas = doModulo.filter(function(a) { return notasAluno[a.titulo] !== undefined; }).length;
       var h = document.createElement('div');
@@ -266,9 +276,14 @@
           ph.textContent = "🧩 " + p.nome;
           grid.appendChild(ph);
         });
-        grid.appendChild(criarCard(aula));
+        grid.appendChild(criarCard(aula, aula.id === proximaId ? (algumaFeita ? '▶ Próxima aula' : '▶ Comece aqui') : null));
       });
     });
+    if (proximaGlobal && faixaPos) {
+      faixaProxima.style.cssText = 'grid-column:1/-1;padding:12px 16px;border:1.5px solid var(--accent);border-radius:12px;background:rgba(79,142,247,.1);font-size:14px;line-height:1.6;';
+      faixaProxima.innerHTML = '▶ <strong>' + (proximaGlobal.comecou ? 'Sua próxima aula' : 'Comece por aqui') + ':</strong> <a href="aula.html?id=' + proximaGlobal.id + '" style="color:var(--accent);font-weight:700;">' + proximaGlobal.titulo + '</a> <span style="color:var(--muted);">(Módulo ' + proximaGlobal.modulo.n + ' — ' + proximaGlobal.modulo.nome + '). Siga a ordem dos cards: a aula com o selo azul é a próxima.</span>';
+      grid.insertBefore(faixaProxima, faixaPos.nextSibling);
+    }
   }
 
   // --- Mostrar provas ---
