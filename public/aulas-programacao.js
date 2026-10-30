@@ -34,10 +34,13 @@
     return H(ico, titulo) + partes.join('\n');
   }
   // Pergunta: a certa vem primeiro; a posição dela varia de pergunta em pergunta
+  // A posição da correta é sorteada a partir do próprio texto da pergunta: varia, mas é sempre a mesma a cada carga da página
+  function hashTexto(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   function Q(pergunta, certa) {
     var erradas = Array.prototype.slice.call(arguments, 2);
     var ops = erradas.map(function (t) { return { texto: esc(deco(t)), correta: false }; });
-    ops.splice(contQ++ % (ops.length + 1), 0, { texto: esc(deco(certa)), correta: true });
+    var pos = hashTexto(pergunta + '|' + certa) % (ops.length + 1);
+    ops.splice(pos, 0, { texto: esc(deco(certa)), correta: true });
     return { pergunta: esc(deco(pergunta)), opcoes: ops };
   }
   // Teste de nivelamento: aula só de quiz. Nota 7 ou mais = o aluno pode pular o módulo.
@@ -54,6 +57,7 @@
 
   // Prática de cada aula (aparece DEPOIS do quiz): tarefas para marcar + um desafio.
   // As caixas "Faça agora" do conteúdo são movidas para cá automaticamente, como primeiras tarefas.
+  var REV = {};   // revisões: perguntas novas e passos extras aplicados às aulas (ver pEnd)
   var PRAT = {
     56: { tarefas: ['Abra o site da sua escola, aperte F12, vá em <strong>Elements</strong> e encontre o texto de um título. Anote no caderno qual tag ele usa.', 'No <strong>Console</strong>, digite três contas: <code>2 + 2</code>, <code>10 * 5</code> e <code>"Oi" + " turma"</code>. Anote o que apareceu.', 'Crie a pasta <code>projeto-loja</code> com três arquivos vazios: <code>index.html</code>, <code>estilo.css</code> e <code>script.js</code>.'],
       desafio: 'Explique no caderno, com a <strong>sua analogia</strong> (não a da aula), a diferença entre HTML, CSS e JavaScript. Mostre ao professor.' },
@@ -3851,6 +3855,309 @@ img { max-width: 100%; height: auto; }`),
   ]);
 
   // ══════════════════════════════════════════════════════
+  // REVISÃO (aulas 56 a 63): quizzes com leitura de código, previsão e bugs reais,
+  // alternativas erradas que representam erros de aluno, e passo "Encontre o erro" onde faltava
+  // ══════════════════════════════════════════════════════
+  REV[56] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: o script que não acha o botão',
+      code(`<head>
+  <script src="script.js"></script>   <!-- carregado ANTES do botão existir -->
+</head>
+<body>
+  <button id="btn">Clique</button>
+</body>
+
+// script.js
+document.getElementById("btn").addEventListener("click", function () { });
+// Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')`),
+      lista(['<strong>Sintoma:</strong> o botão aparece, mas não reage, e o console mostra o erro acima', '<strong>Causa:</strong> o navegador lê o HTML <strong>de cima para baixo</strong>. Quando o script roda no <code>head</code>, o botão ainda não existe, então <code>getElementById</code> devolve <code>null</code>', '<strong>Correção:</strong> colocar o <code>&lt;script&gt;</code> <strong>no fim do body</strong> (ou usar o atributo <code>defer</code>)']),
+      box('verde', `<strong>Como investigar:</strong> leia o erro: <em>"Cannot read properties of null"</em> quer dizer que algo que você esperava existir é <code>null</code>. Pergunte: <em>"o elemento já existia quando o script rodou?"</em>`))],
+    perguntas: [
+      Q('Você digita um endereço e aperta Enter. O que o navegador faz primeiro?', 'Envia uma requisição ao servidor pedindo os arquivos da página', 'Procura o site dentro do seu computador', 'Executa o JavaScript do servidor na sua tela', 'Baixa o site inteiro antes de mostrar qualquer coisa'),
+      Q('Uma página abre com o texto certo, mas sem cores e sem layout. Qual das três linguagens provavelmente não foi aplicada?', 'CSS', 'HTML', 'JavaScript', 'Nenhuma: o HTML já resolve cores sozinho'),
+      Q('Um botão aparece na tela, mas nada acontece ao clicar. Onde está o problema mais provável?', 'No JavaScript que deveria reagir ao clique', 'No CSS que desenha o botão', 'No DNS do site', 'No tamanho da tela'),
+      Q('O script usa document.getElementById("btn") e está no head, antes do botão. O que acontece?', 'Devolve null, porque o botão ainda não existe quando o script roda', 'Funciona normalmente, o navegador espera o body', 'O navegador cria o botão sozinho', 'O navegador avisa e pausa o script'),
+      Q('Qual aba mostra a lista de todos os arquivos pedidos ao servidor, com o status de cada um?', 'Network', 'Elements', 'Application', 'Console'),
+      Q('O HTML tem <link href="estilo.css"> mas o arquivo da pasta se chama Estilo.css. Qual é a causa provável de o CSS não carregar?', 'O nome difere (maiúscula): em muitos servidores isso é outro arquivo', 'O CSS só funciona dentro do body', 'O link não pode ter o atributo href', 'O arquivo precisa ser .html'),
+      Q('Qual afirmação sobre as linguagens é verdadeira?', 'Sem CSS a página continua funcionando, só fica sem estilo', 'Sem CSS o navegador se recusa a abrir a página', 'Sem JavaScript nenhum texto aparece', 'Sem HTML o CSS monta a estrutura sozinho'),
+      Q('Por que o arquivo principal do site se chama index.html?', 'É a página que o servidor entrega quando ninguém pede um arquivo específico', 'É o arquivo onde ficam todos os estilos', 'É o programa que roda o servidor', 'É um nome exigido só pelo Windows'),
+      Q('No console você digita 2 + 2 e aparece 4. O que isso mostra?', 'O console executa JavaScript na hora e mostra o resultado', 'O console só guarda mensagens de erro', 'O console salva a conta no arquivo', 'O console só funciona em páginas salvas'),
+      Q('Qual é o método de estudo defendido nesta trilha?', 'Prever, digitar, executar, comparar e explicar', 'Copiar, colar, executar e seguir adiante', 'Ler, decorar e repetir', 'Executar, ignorar o erro e trocar de código'),
+    ] };
+
+  REV[57] = {
+    dropLast: true,   // a semântica é aprofundada na aula 76; abre espaço para o passo de erro
+    extra: [P('🐞', 'ENCONTRE O ERRO: tudo ficou em negrito',
+      code(`<h1>Minha loja</h1>
+<p><strong>Promoção da semana
+<p>Canetas com 20% de desconto.</p>
+<p>Cadernos com 10% de desconto.</p>`),
+      lista(['<strong>Sintoma:</strong> do segundo parágrafo em diante, <strong>todo o texto</strong> aparece em negrito', '<strong>Causa:</strong> a tag <code>&lt;strong&gt;</code> foi <strong>aberta e nunca fechada</strong>. O navegador não dá erro: ele "adivinha" e mantém o negrito até o fim', '<strong>Como investigar:</strong> F12 → <strong>Elements</strong>: veja que os outros parágrafos ficaram <em>dentro</em> do <code>strong</code>', '<strong>Correção:</strong> fechar com <code>&lt;/strong&gt;</code> logo depois de "semana"']),
+      atencao(`HTML não mostra mensagem de erro: ele tenta consertar sozinho, às vezes do jeito errado. Por isso, <strong>feche todas as tags</strong> e confira o resultado no painel Elements.`))],
+    perguntas: [
+      Q('O que acontece se você abre <strong> e esquece de fechá-la?', 'O negrito continua nos elementos seguintes, sem mensagem de erro', 'O navegador mostra um erro e não abre a página', 'Só a palavra seguinte fica em negrito', 'O negrito é ignorado'),
+      Q('Como você descobre onde uma tag deveria ter sido fechada?', 'Pelo painel Elements, vendo quais elementos ficaram dentro dela', 'Pela aba Network', 'Pelo Application', 'Não é possível descobrir'),
+      Q('Em <img src="foto.jpg" alt="Caneta azul">, o que acontece se a imagem não carregar?', 'O texto do alt aparece no lugar', 'O navegador mostra uma tela branca', 'A página inteira deixa de abrir', 'O navegador escolhe outra imagem'),
+      Q('Quantas colunas e linhas (contando o cabeçalho) tem uma tabela com 1 <tr> de <th><th> e 3 <tr> de <td><td>?', '2 colunas e 4 linhas', '3 colunas e 2 linhas', '4 colunas e 2 linhas', '2 colunas e 3 linhas'),
+      Q('Qual é a diferença entre <ul> e <ol>?', 'ul mostra marcadores; ol mostra números em ordem', 'ul é para links; ol é para imagens', 'ul é ordenada; ol não é', 'Não há diferença'),
+      Q('Dois elementos de uma página usam id="titulo". Qual regra foi quebrada?', 'O id precisa ser único na página', 'A class precisa ser única', 'O id não pode ter letras', 'O id só pode ser usado em um h1'),
+      Q('O que faz <a href="sobre.html">Sobre</a> ?', 'Cria um link que leva à página sobre.html', 'Carrega a imagem sobre.html', 'Importa o CSS sobre.html', 'Executa o arquivo sobre.html'),
+      Q('Qual é o papel do <head>?', 'Guardar informações da página que não aparecem na tela, como o título da aba', 'Mostrar o cabeçalho visível do site', 'Guardar apenas o CSS', 'Ser o primeiro parágrafo da página'),
+      Q('Por que usar títulos h1, h2 e h3 em vez de aumentar a fonte de um parágrafo?', 'Eles dão estrutura ao conteúdo, o tamanho se muda no CSS', 'Porque parágrafos não aceitam fonte grande', 'Porque títulos carregam mais rápido', 'Porque o navegador exige'),
+      Q('Em <input type="text"> não existe a tag de fechamento. Isso está certo?', 'Sim: input é uma tag sem conteúdo, não precisa fechar', 'Não, o navegador vai dar erro', 'Sim, mas só dentro de um form', 'Não, falta o </input>'),
+    ] };
+
+  REV[58] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: o campo errado é lido',
+      code(`<input type="text" id="nome" placeholder="Nome do cliente">
+<input type="text" id="nome" placeholder="Nome do produto">   <!-- mesmo id! -->
+
+// JavaScript
+let nome = document.getElementById("nome").value;   // lê SEMPRE o primeiro`),
+      lista(['<strong>Sintoma:</strong> o programa grava o nome do <strong>cliente</strong> onde deveria gravar o do <strong>produto</strong>, e não há erro no console', '<strong>Causa:</strong> o <code>id</code> deve ser <strong>único</strong>. Com dois iguais, <code>getElementById</code> devolve só o primeiro', '<strong>Também afeta:</strong> o <code>label for="nome"</code> sempre foca o primeiro campo', '<strong>Correção:</strong> ids diferentes: <code>nomeCliente</code> e <code>nomeProduto</code>']),
+      box('azul', `<strong>Dica de investigação:</strong> no console, rode <code>document.querySelectorAll("#nome").length</code>. Se der mais de <code>1</code>, há ids repetidos.`))],
+    perguntas: [
+      Q('Dois inputs têm o mesmo id e o código lê getElementById("nome").value. Qual campo é lido?', 'O primeiro da página', 'O último da página', 'Os dois, juntos', 'Dá um erro no console'),
+      Q('Como descobrir no console se há ids repetidos?', 'document.querySelectorAll("#nome").length devolvendo mais de 1', 'Rodando console.log(id)', 'Olhando a aba Network', 'Não é possível descobrir'),
+      Q('O que acontece ao clicar em um <label for="nome"> com um input id="nome" correto?', 'O foco vai para o input correspondente', 'O texto do label é apagado', 'O input é enviado', 'Nada, o label é só decorativo'),
+      Q('Um campo type="number" recebe 15. Qual o resultado de campo.value + 5 ?', '"155"', '20', 'NaN', '15'),
+      Q('Qual é o resultado de Number(campo.value) + 5, se o campo tem 15?', '20', '"155"', '15', 'NaN'),
+      Q('Qual é a diferença entre placeholder e label?', 'O placeholder some ao digitar; o label continua descrevendo o campo', 'São iguais, só mudam o nome', 'O label some ao digitar', 'O placeholder é obrigatório para acessibilidade'),
+      Q('Por que o botão de um formulário costuma levar type="button" neste projeto?', 'Para não recarregar a página ao clicar, já que o JavaScript trata o clique', 'Para o botão ficar azul', 'Porque button sem type não aparece', 'Para enviar os dados ao servidor'),
+      Q('Qual é um id ruim para um campo que o JavaScript vai usar?', 'Preço do Produto (com espaços e acento)', 'precoProduto', 'preco', 'btnSalvar'),
+    ] };
+
+  REV[59] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: a regra que não pega',
+      code(`<h1 id="titulo">Loja</h1>
+
+/* CSS */
+.titulo { color: red; }      /* ponto = classe */`),
+      lista(['<strong>Sintoma:</strong> o título continua com a cor normal', '<strong>Causa:</strong> o CSS procura um elemento com <strong>classe</strong> <code>titulo</code> (ponto), mas o HTML tem <strong>id</strong> <code>titulo</code> (cerquilha)', '<strong>Como investigar:</strong> F12 → <strong>Elements</strong> → selecione o título e veja o painel <strong>Styles</strong>: a sua regra nem aparece na lista', '<strong>Correção:</strong> <code>#titulo { color: red; }</code> (ou trocar o HTML para <code>class="titulo"</code>)']),
+      caderno(['# = id · . = classe', 'Regra que não aparece no painel Styles = o seletor não encontrou o elemento']))],
+    perguntas: [
+      Q('O HTML tem <h1 id="titulo"> e o CSS tem .titulo { color: red; }. O título muda de cor?', 'Não: .titulo procura uma classe, e o elemento tem um id', 'Sim, ponto e cerquilha são iguais', 'Sim, mas só no Chrome', 'Não, porque h1 não aceita cor'),
+      Q('Qual seletor escolhe todos os elementos com class="destaque"?', '.destaque', '#destaque', 'destaque', '*destaque'),
+      Q('Um elemento tem width: 200px, padding: 20px e borda 0, no padrão do navegador (content-box). Qual espaço horizontal ele ocupa?', '240px', '200px', '220px', '180px'),
+      Q('Qual é o efeito de display: flex no elemento pai?', 'Os filhos diretos passam a ser organizados em linha, por padrão', 'O pai fica invisível', 'Os filhos ganham a cor do pai', 'O pai vira uma imagem'),
+      Q('Para criar espaço entre dois cards dentro de um flex, o ideal é:', 'gap no pai', 'color no filho', 'src no pai', 'href nos cards'),
+      Q('O que faz button:hover { background: blue; }?', 'Muda o fundo enquanto o mouse está sobre o botão', 'Muda o fundo para sempre depois do primeiro clique', 'Cria um botão azul novo', 'Apaga o botão'),
+      Q('Duas regras valem para o mesmo p: p { color: gray; } e .destaque { color: red; }. O p tem class="destaque". Qual cor vence?', 'Vermelha, porque a classe é mais específica que a tag', 'Cinza, porque veio primeiro', 'Cinza, porque é a tag', 'Nenhuma: dá conflito e some o texto'),
+      Q('O que significa grid-template-columns: repeat(3, 1fr)?', 'Três colunas de largura igual', 'Três linhas', 'Uma coluna de 3 pixels', 'Três margens'),
+      Q('Uma regra CSS não surte efeito e o painel Styles do Elements não a mostra para o elemento. O que isso indica?', 'O seletor da regra não encontrou aquele elemento', 'O navegador está lento', 'O CSS está certo, o HTML é que mudou de cor', 'A propriedade precisa de !important sempre'),
+      Q('Qual é a diferença entre padding e margin?', 'padding é espaço interno; margin é espaço externo', 'padding é espaço externo; margin é interno', 'São sinônimos', 'margin só vale para imagens'),
+    ] };
+
+  REV[60] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: as primeiras mensagens do console',
+      code(`let nome = "Ana";
+console.log(Nome);
+// Uncaught ReferenceError: Nome is not defined
+
+const taxa = 0.1;
+taxa = 0.2;
+// Uncaught TypeError: Assignment to constant variable.`),
+      lista(['<strong>ReferenceError: Nome is not defined</strong>: você usou um nome que <strong>não existe</strong>. Aqui, o <code>N</code> maiúsculo criou outro nome. Confira a grafia', '<strong>Assignment to constant variable</strong>: você tentou trocar o valor de uma <code>const</code>. Se o valor precisa mudar, use <code>let</code>']),
+      box('verde', `<strong>Como ler um erro:</strong> tipo (<code>ReferenceError</code>), o que houve (<code>Nome is not defined</code>) e onde (arquivo e linha). Vá direto à linha indicada.`))],
+    perguntas: [
+      Q('Depois de let x = 5; x = x * 2; x = x + 1; quanto vale x?', '11', '10', '6', '5'),
+      Q('let nome = "Ana"; console.log(Nome); Qual é o resultado?', 'ReferenceError: Nome is not defined', 'Ana', 'undefined', 'null'),
+      Q('const taxa = 0.1; taxa = 0.2; Qual é o resultado?', 'TypeError: Assignment to constant variable', 'taxa passa a valer 0.2', 'taxa vale 0.3', 'Nada acontece, sem erro'),
+      Q('Qual é o resultado de "10" + 5 ?', '"105"', '15', '5', 'NaN'),
+      Q('Qual é o resultado de Number("10") + 5 ?', '15', '"105"', '105', 'NaN'),
+      Q('Qual é o resultado de typeof 3.5 ?', '"number"', '"float"', '"decimal"', '"string"'),
+      Q('Um campo de formulário contém 20 e outro contém 3 (ambos lidos com .value). O que mostra console.log(a + b)?', '203', '23', '60', 'NaN'),
+      Q('Qual destes nomes de variável é válido e claro?', 'totalCarrinho', 'total do carrinho', '1total', 'total-carrinho'),
+      Q('Qual é o resultado de Number("abc") ?', 'NaN', '0', 'undefined', 'Erro de sintaxe'),
+      Q('Para que serve o console.log em um programa que roda sem erro, mas com resultado errado?', 'Para ver os valores das variáveis em cada ponto e achar onde sai errado', 'Para corrigir o erro automaticamente', 'Para gravar o resultado no arquivo', 'Para impedir a execução do resto do código'),
+    ] };
+
+  REV[61] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: o if que sempre entra',
+      code(`let nota = 4;
+
+if (nota = 7) {                       // um sinal de igual só!
+  console.log("Aprovado");
+} else {
+  console.log("Reprovado");
+}
+console.log(nota);                    // 7`),
+      lista(['<strong>Sintoma:</strong> imprime "Aprovado" mesmo com nota 4, e a <strong>nota passa a valer 7</strong>', '<strong>Causa:</strong> <code>=</code> <strong>guarda</strong> um valor. A condição virou "guarde 7 em nota", que é verdadeiro, e ainda <strong>trocou o valor</strong> da variável', '<strong>Correção:</strong> usar <code>===</code> para <strong>comparar</strong>: <code>if (nota === 7)</code> (ou <code>&gt;=</code> para "7 ou mais")']),
+      atencao(`esse é um dos bugs mais difíceis de enxergar, porque <strong>não dá erro</strong>. Se um <code>if</code> sempre entra, olhe os sinais de igual.`))],
+    perguntas: [
+      Q('let nota = 4; if (nota = 7) { ... }. O que acontece?', 'A condição é verdadeira e a nota passa a valer 7', 'A condição é falsa, pois 4 não é 7', 'Dá um erro de sintaxe', 'O if compara e ignora'),
+      Q('Qual é o resultado de 5 === "5" ?', 'false', 'true', 'NaN', 'Erro'),
+      Q('Qual é o resultado de 2 + 3 * 4 ?', '14', '20', '24', '9'),
+      Q('Qual é o resultado de 17 % 5 ?', '2', '3', '3.4', '0'),
+      Q('Com preco = 100 e desconto = 0.1, o que calcula preco - preco * desconto?', '90', '9', '99.9', '10'),
+      Q('Com nota = 6.5, qual bloco executa? if (nota >= 7) {A} else if (nota >= 5) {B} else {C}', 'B', 'A', 'C', 'A e B'),
+      Q('Em console.log(§Total: €{preco}§), o que aparece com preco = 12.5?', 'Total: 12.5', 'Total: €{preco}', 'Total: preco', 'Erro de sintaxe'),
+      Q('O que acontece em if (idade >= 18 && temDocumento) com idade = 20 e temDocumento = false?', 'A condição é falsa', 'A condição é verdadeira, pois 20 >= 18', 'Dá erro', 'Executa o else apenas se idade for menor que 18'),
+      Q('Qual é a melhor forma de validar "nome vazio OU preço inválido"?', 'if (nome === "" || preco <= 0)', 'if (nome === "" && preco <= 0)', 'if (nome = "" || preco <= 0)', 'if (nome === "", preco <= 0)'),
+      Q('Em console.log(§Olá, €{nome}§), com a variável nome nunca declarada, o resultado é:', 'ReferenceError: nome is not defined', 'Olá, undefined', 'Olá, (texto vazio)', 'Olá, nome'),
+    ] };
+
+  REV[62] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: undefined e o erro do campo',
+      code(`let produtos = [{ nome: "Caneta", preco: 3.5 }, { nome: "Lápis", preco: 1.5 }];
+
+console.log(produtos[2].nome);
+// Uncaught TypeError: Cannot read properties of undefined (reading 'nome')
+
+console.log(produtos[0].Nome);      // undefined  (sem erro!)`),
+      lista(['<strong>1º caso:</strong> o array só tem as posições 0 e 1. <code>produtos[2]</code> é <code>undefined</code>, e pedir <code>.nome</code> de <code>undefined</code> <strong>quebra</strong>', '<strong>2º caso:</strong> <code>Nome</code> com N maiúsculo <strong>não é</strong> o campo <code>nome</code>. O JavaScript devolve <code>undefined</code>, <strong>sem avisar</strong>', '<strong>Como investigar:</strong> <code>console.log(produtos)</code> mostra os campos exatos e quantos itens existem']),
+      caderno(['Posição que não existe = undefined', 'Campo com maiúscula errada = undefined, sem erro', 'console.log do objeto mostra os nomes certos']))],
+    perguntas: [
+      Q('let p = [{nome:"A"},{nome:"B"}]; console.log(p[2].nome) resulta em:', 'TypeError: Cannot read properties of undefined', 'undefined', '"C"', 'null'),
+      Q('Dado o mesmo array, o que mostra p[0].Nome (com N maiúsculo)?', 'undefined', '"A"', 'Erro de sintaxe', 'null'),
+      Q('Com frutas = ["Maçã","Uva","Pera"], o que mostra frutas[frutas.length - 1]?', '"Pera"', '"Maçã"', 'undefined', '3'),
+      Q('Com for (let i = 0; i <= frutas.length; i++) console.log(frutas[i].toUpperCase()), qual problema acontece na última volta?', 'frutas[3] é undefined e quebra o programa', 'O laço roda uma volta a menos', 'O toUpperCase não existe', 'Nada, o laço está correto'),
+      Q('Com precos = [10, 20, 30] e total começando em 0, qual é o total depois do laço que soma tudo?', '60', '30', '10', '0'),
+      Q('Dado o objeto produto = { id: "p1", nome: "Caneta" }, o que faz produto.preco = 4?', 'Cria um campo novo preco com valor 4', 'Dá erro, pois o campo não existe', 'Altera o campo nome', 'Não faz nada'),
+      Q('Qual é a forma correta de adicionar um item ao final de um array?', 'lista.push(item)', 'lista.add(item)', 'lista.append(item)', 'lista[item]'),
+      Q('Por que o total do carrinho precisa começar em 0 ANTES do laço?', 'Para acumular os valores de todas as voltas', 'Porque o for obriga', 'Para o laço não repetir', 'Para evitar o erro de sintaxe'),
+      Q('Se total for criado DENTRO do laço (let total = 0 a cada volta), qual será o resultado final fora do laço?', 'Não existirá fora do laço (ReferenceError), e dentro valeria só o item da volta', 'A soma correta', 'Zero sempre', 'NaN'),
+      Q('Como se descobre rapidamente os campos exatos de um objeto no console?', 'console.log(objeto)', 'console.fields(objeto)', 'objeto.length', 'typeof objeto.nome'),
+    ] };
+
+  REV[63] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: a função que devolve undefined',
+      code(`function somar(a, b) {
+  let resultado = a + b;           // calcula, mas não devolve
+}
+
+console.log(somar(2, 3));          // undefined
+console.log(somar);                // ƒ somar(a, b) { ... }  (a própria função!)`),
+      lista(['<strong>1º sintoma:</strong> <code>undefined</code>. <strong>Causa:</strong> faltou o <code>return</code>: a função calculou, mas não <strong>entregou</strong> o resultado', '<strong>2º sintoma:</strong> aparece o texto da função. <strong>Causa:</strong> faltaram os <strong>parênteses</strong>. <code>somar</code> é a função; <code>somar(2, 3)</code> é a <strong>chamada</strong>', '<strong>Correção:</strong> <code>return a + b;</code> e chamar com parênteses']),
+      caderno(['Sem return, a função devolve undefined', 'nome → a função · nome() → executar a função']))],
+    perguntas: [
+      Q('function somar(a, b) { let r = a + b; } console.log(somar(2, 3)) mostra:', 'undefined', '5', '23', 'Erro'),
+      Q('Qual é a correção para o caso acima?', 'Acrescentar return r;', 'Trocar let por const', 'Chamar somar sem parênteses', 'Trocar a por b'),
+      Q('console.log(somar) (sem parênteses) mostra:', 'O texto da própria função', 'O resultado da soma', 'undefined', 'Um erro de sintaxe'),
+      Q('function f(n) { return n * 2; console.log("fim"); } Ao chamar f(4), o que acontece com o console.log?', 'Não executa, pois o return encerra a função', 'Executa antes do return', 'Executa duas vezes', 'Executa depois do retorno'),
+      Q('function f(a, b) { return a * b; } console.log(f(3, 4)) mostra:', '12', '7', '34', 'undefined'),
+      Q('Qual é a diferença entre console.log(x) e return x dentro de uma função?', 'log mostra no console; return entrega o valor para quem chamou', 'São sinônimos', 'return mostra no console', 'log encerra a função'),
+      Q('Uma função foi escrita, mas nunca chamada. O que acontece?', 'Nada: ela só executa quando é chamada', 'Executa uma vez ao abrir a página', 'O navegador avisa com um erro', 'Executa todas as vezes que outra função roda'),
+      Q('Qual é a vantagem de dar nomes como salvarProduto e atualizarGrid às funções?', 'O nome explica o que cada uma faz e facilita achar bugs', 'O JavaScript só aceita nomes longos', 'Deixa o código mais rápido', 'Evita o uso de return'),
+      Q('Por que "uma função, uma responsabilidade" ajuda a depurar?', 'Dá para testar cada função sozinha no console', 'Porque o navegador roda uma função por vez', 'Porque assim não precisa de parâmetros', 'Porque funções pequenas não dão erro'),
+      Q('function saudar(nome) { return "Olá, " + nome; } Qual é o valor de saudar("Ana")?', '"Olá, Ana"', '"Olá, nome"', 'undefined', '"Ana"'),
+    ] };
+
+  // ══════════════════════════════════════════════════════
+  // REVISÃO (aulas 64 a 69)
+  // ══════════════════════════════════════════════════════
+  REV[64] = {
+    perguntas: [
+      Q('O console mostra "Uncaught ReferenceError: preco is not defined at script.js:7". O que fazer primeiro?', 'Ir à linha 7 do script.js e conferir se "preco" foi declarado e se a grafia está igual', 'Reinstalar o navegador', 'Apagar o arquivo script.js', 'Ignorar: erros de ReferenceError não importam'),
+      Q('Qual mensagem indica que algo que o código esperava existir é null?', 'TypeError: Cannot read properties of null', 'SyntaxError: Unexpected token', 'ReferenceError: x is not defined', 'RangeError: Invalid array length'),
+      Q('O código roda sem nenhum erro, mas o total do carrinho está errado. Qual é a melhor investigação?', 'console.log dos valores (e do tipo) dentro do laço', 'Apagar e reescrever o programa', 'Trocar de navegador', 'Procurar uma mensagem de erro no Network'),
+      Q('["10","20"] somados com + em um laço resultam em "01020". Qual é a causa?', 'Os valores são texto, e o + junta textos', 'O array tem itens demais', 'O laço começa em 1', 'O zero inicial está proibido'),
+      Q('Qual é a correção para o caso acima?', 'Converter com Number() antes de somar', 'Trocar o + por -', 'Usar while em vez de for', 'Trocar let por const'),
+      Q('Um SyntaxError costuma apontar para:', 'Um parêntese, chave ou aspas faltando ou sobrando', 'Uma variável escrita com letra maiúscula', 'Uma imagem que não carregou', 'Falta de internet'),
+      Q('Ao pedir ajuda, qual é a informação mais útil para quem vai te ajudar?', 'A mensagem de erro completa, a linha e o que você já tentou', 'A frase "não funciona"', 'Um print do desktop inteiro', 'O código do colega ao lado'),
+      Q('Por que escrever uma hipótese ANTES de testar uma correção?', 'Para aprender com o acerto ou o erro da hipótese, em vez de tentar às cegas', 'Porque o navegador pede', 'Para o professor corrigir', 'Para fazer o código rodar mais rápido'),
+      Q('Depois de achar o bug, o que fazer com os console.log de teste?', 'Apagar antes de entregar', 'Deixar todos, ajudam o usuário', 'Trocá-los por alert', 'Colocar dentro de comentários HTML'),
+      Q('Qual é o primeiro passo de qualquer investigação de bug?', 'Descrever o sintoma: o que esperava × o que aconteceu', 'Mudar o máximo de coisas possível', 'Copiar uma solução de outro projeto', 'Reiniciar o computador'),
+    ] };
+
+  REV[65] = {
+    perguntas: [
+      Q('document.getElementById("preco").value devolve um texto, mesmo em type="number". Como obter um número?', 'Number(document.getElementById("preco").value)', 'document.getElementById("preco").number', 'Number(document.getElementById("preco"))', 'getElementById("preco") + 0'),
+      Q('O que acontece se o id passado ao getElementById não existe?', 'Devolve null', 'Cria o elemento', 'Devolve 0', 'Para a página'),
+      Q('Depois de let el = document.getElementById("xyz") (inexistente), o que faz el.textContent = "Oi"?', 'TypeError: Cannot set properties of null', 'Cria o elemento com o texto Oi', 'Nada, sem erro', 'ReferenceError: el is not defined'),
+      Q('Com <li>A</li><li>B</li><li>C</li> na página, quantos elementos devolve document.querySelectorAll("li")?', '3', '1', '0', '4'),
+      Q('E o que devolve document.querySelector("li")?', 'O primeiro li (A)', 'Os três li', 'O último li (C)', 'null'),
+      Q('Qual seletor escolhe o elemento com class="destaque"?', 'querySelector(".destaque")', 'querySelector("destaque")', 'querySelector("#destaque")', 'getElementById(".destaque")'),
+      Q('O JavaScript muda o texto de um h1 pelo DOM. O que acontece com o arquivo index.html no disco?', 'Nada: o DOM é uma cópia na memória do navegador', 'O arquivo é reescrito', 'O servidor atualiza o arquivo', 'O arquivo é apagado'),
+      Q('Em <input type="text" id="nome">, qual expressão lê o que o usuário digitou?', 'document.getElementById("nome").value', 'document.getElementById("nome").text', 'document.getElementById("nome").content', 'document.nome'),
+      Q('Por que o DOM é descrito como uma "árvore"?', 'Elementos ficam dentro de outros, formando pais, filhos e irmãos', 'Porque o navegador usa folhas de estilo', 'Porque cada elemento só pode ter um filho', 'Porque os elementos crescem sozinhos'),
+    ] };
+
+  REV[66] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: "Cannot set properties of null"',
+      code(`<h1 id="titulo">Loja</h1>
+
+document.getElementById("titullo").textContent = "Loja do Beto";
+// Uncaught TypeError: Cannot set properties of null (setting 'textContent')`),
+      lista(['<strong>Sintoma:</strong> o título não muda e o console mostra o erro acima', '<strong>Causa:</strong> o id está escrito <strong>diferente</strong> do HTML (<code>titullo</code> com dois <code>l</code>). O <code>getElementById</code> devolveu <code>null</code>, e <code>null</code> não tem <code>textContent</code> para mudar', '<strong>Como investigar:</strong> rode no console <code>document.getElementById("titullo")</code>: se devolver <code>null</code>, o id está errado. Compare com o HTML, letra por letra']),
+      caderno(['Cannot set/read properties of null = o elemento não foi achado', 'Confira o id no HTML, letra por letra']))],
+    perguntas: [
+      Q('Com <div id="caixa"></div>, o que mostra na tela caixa.textContent = "<b>Oi</b>"?', 'O texto <b>Oi</b> escrito literalmente', 'Oi em negrito', 'Nada', 'Erro de sintaxe'),
+      Q('E com caixa.innerHTML = "<b>Oi</b>"?', 'Oi em negrito', 'O texto <b>Oi</b> escrito literalmente', 'Nada', 'Erro de sintaxe'),
+      Q('Por que innerHTML com texto digitado por usuários é arriscado?', 'Ele pode conter HTML ou scripts que o navegador executa', 'Porque innerHTML é lento demais', 'Porque o usuário não pode digitar símbolos', 'Porque innerHTML não aceita acentos'),
+      Q('Qual linha liga a classe "ativo" em um elemento?', 'el.classList.add("ativo")', 'el.class = "ativo"', 'el.addClass("ativo")', 'el.ativo = true'),
+      Q('Um botão usa classList.toggle("ativo"). O que acontece a cada clique, a partir do estado sem a classe?', 'Liga, desliga, liga, desliga...', 'Liga e continua ligada', 'Desliga e continua desligada', 'Dá erro no segundo clique'),
+      Q('Como o JavaScript escreve a propriedade CSS font-size?', 'el.style.fontSize', 'el.style.font-size', 'el.style["font_size"]', 'el.fontsize'),
+      Q('A função desenhar() não faz innerHTML = "" antes do laço e é chamada 2 vezes com 3 itens. Quantos itens aparecem?', '6', '3', '2', '0'),
+      Q('Para criar um li com texto e colocá-lo dentro de um ul, qual é a sequência?', 'createElement("li"), definir o textContent, appendChild no ul', 'appendChild no ul, depois createElement', 'createElement e pronto, aparece sozinho', 'innerHTML do li = ul'),
+      Q('Qual é a melhor forma de mudar a aparência de um elemento pelo JavaScript?', 'Ligar ou desligar uma classe que já está definida no CSS', 'Escrever todos os estilos linha a linha no JavaScript', 'Alterar o arquivo CSS no disco', 'Usar sempre innerHTML'),
+    ] };
+
+  REV[67] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: o clique que nunca dispara',
+      code(`document.getElementById("btn").addEventListener("onclick", function () {
+  console.log("Clicou!");
+});`),
+      lista(['<strong>Sintoma:</strong> clicar no botão <strong>não faz nada</strong> e <strong>não há erro</strong> no console', '<strong>Causa:</strong> o nome do evento é <code>"click"</code>, e não <code>"onclick"</code>. O <code>onclick</code> é o nome do <em>atributo HTML</em>. O <code>addEventListener</code> aceita qualquer texto como nome de evento: se não existir, ele fica esperando para sempre', '<strong>Correção:</strong> <code>addEventListener("click", ...)</code>']),
+      box('verde', `<strong>Como investigar:</strong> coloque um <code>console.log</code> na primeira linha da função. Se nunca aparece, o problema está em <strong>ligar</strong> o evento, e não dentro da função.`))],
+    perguntas: [
+      Q('Qual é o nome correto do evento de clique no addEventListener?', '"click"', '"onclick"', '"clique"', '"press"'),
+      Q('O botão tem addEventListener("onclick", f). O que acontece ao clicar?', 'Nada, e sem mensagem de erro', 'A função f executa normalmente', 'Aparece um erro no console', 'A função executa duas vezes'),
+      Q('Qual é a diferença entre addEventListener("click", salvar) e addEventListener("click", salvar())?', 'O segundo executa salvar na hora, e não no clique', 'O segundo é a forma correta', 'Não há diferença', 'O primeiro dá erro de sintaxe'),
+      Q('Em um formulário com evento submit, o que acontece se faltar evento.preventDefault()?', 'A página recarrega e os dados aparecem na URL (GET)', 'Nada de especial', 'O formulário é apagado', 'O JavaScript para de funcionar para sempre'),
+      Q('Qual evento dispara a cada letra digitada em um campo?', '"input"', '"change"', '"submit"', '"load"'),
+      Q('No contador, contador = contador + 1 roda, mas a tela continua em 0. O que faltou?', 'Atualizar o texto da tela (textContent) depois de mudar a variável', 'Trocar let por const', 'Reiniciar o navegador', 'Usar var'),
+      Q('Dentro de uma função de clique há um console.log que nunca aparece. Onde é mais provável o problema?', 'Na forma de ligar o evento (nome do evento, id errado ou parênteses)', 'Dentro do console.log', 'No CSS', 'No servidor'),
+      Q('O padrão repetido em todo o projeto é:', 'Evento → muda os dados → redesenha a tela', 'Desenha a tela → muda os dados → evento', 'Redesenha a tela sem mudar os dados', 'Muda o HTML direto no arquivo'),
+    ] };
+
+  REV[68] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: valores estranhos na gaveta',
+      code(`localStorage.setItem("idade", 15);
+console.log(localStorage.getItem("idade") + 1);     // "151"  (texto!)
+
+localStorage.setItem("nome");                       // esqueceu o valor
+console.log(localStorage.getItem("nome"));          // "undefined"  (um TEXTO)`),
+      lista(['<strong>"151":</strong> o <code>getItem</code> devolve <strong>texto</strong>, e <code>"15" + 1</code> junta. Para somar: <code>Number(localStorage.getItem("idade")) + 1</code>', '<strong>"undefined":</strong> sem o segundo argumento, o JavaScript guarda o <strong>texto</strong> <code>"undefined"</code>. Parece um valor vazio, mas <strong>não é <code>null</code></strong>. O <code>if (valor === null)</code> não o detecta']),
+      caderno(['getItem sempre devolve texto (ou null)', 'setItem sem valor guarda o TEXTO "undefined"']))],
+    perguntas: [
+      Q('localStorage.setItem("idade", 15); localStorage.getItem("idade") + 1 resulta em:', '"151"', '16', 'NaN', '15'),
+      Q('Como obter 16 a partir da chave "idade" que guarda 15?', 'Number(localStorage.getItem("idade")) + 1', 'localStorage.getItem("idade") + 1', 'localStorage.idade.number() + 1', 'getItem("idade").add(1)'),
+      Q('Qual é o valor de localStorage.getItem("naoExiste")?', 'null', 'undefined', '0', '"" (texto vazio)'),
+      Q('O que localStorage.setItem("nome") guarda (sem o segundo argumento)?', 'O texto "undefined"', 'null', 'Texto vazio', 'Nada, a chave não é criada'),
+      Q('Um programador testa if (valor === null) para saber se a chave existe e valor é "undefined" (texto). O que acontece?', 'O teste falha: o texto "undefined" não é null', 'O teste acerta', 'Dá erro de sintaxe', 'O localStorage apaga a chave'),
+      Q('Duas abas abertas no mesmo site guardam dados na mesma chave. O que acontece?', 'Compartilham o mesmo localStorage: a última gravação vale', 'Cada aba tem sua gaveta separada', 'Só a primeira aba pode gravar', 'Dá erro na segunda aba'),
+      Q('Onde ver, editar ou apagar as chaves guardadas no localStorage?', 'F12 → Application → Local Storage', 'F12 → Network', 'F12 → Elements', 'Configurações do Windows'),
+      Q('setItem usado duas vezes com a mesma chave e valores diferentes: o que sobra?', 'O último valor', 'Os dois valores', 'O primeiro valor', 'Um erro'),
+      Q('Qual destes dados NÃO deve ser guardado no localStorage?', 'Uma senha', 'A preferência de tema', 'A lista de produtos de teste', 'O último filtro escolhido'),
+      Q('Se você guarda o número 10 e o lê de volta, qual é o typeof do resultado?', '"string"', '"number"', '"object"', '"undefined"'),
+    ] };
+
+  REV[69] = {
+    extra: [P('🐞', 'ENCONTRE O ERRO: "is not valid JSON"',
+      code(`localStorage.setItem("p1", { nome: "Caneta" });          // faltou o stringify
+let produto = JSON.parse(localStorage.getItem("p1"));
+// Uncaught SyntaxError: "[object Object]" is not valid JSON
+
+JSON.parse(localStorage.getItem("naoExiste"));              // devolve null (sem erro)
+JSON.parse("undefined");
+// Uncaught SyntaxError: "undefined" is not valid JSON`),
+      lista(['<strong>1º caso:</strong> o objeto foi guardado sem <code>JSON.stringify</code>, virou o texto <code>"[object Object]"</code> e <strong>perdeu os dados</strong>. O <code>parse</code> não consegue ler isso. <em>(Em navegadores mais antigos, a mensagem é "Unexpected token o in JSON at position 1".)</em>', '<strong>2º caso:</strong> <code>JSON.parse(null)</code> devolve <code>null</code> sem erro, e o problema aparece <strong>depois</strong>: <code>null.nome</code> quebra', '<strong>Correção:</strong> sempre <code>stringify</code> ao guardar e <code>parse</code> ao ler; e conferir <code>null</code> antes de usar']),
+      box('azul', `Para limpar o que foi guardado errado: F12 → Application → Local Storage → apague a chave com defeito e grave de novo do jeito certo.`))],
+    perguntas: [
+      Q('localStorage.setItem("p1", { nome: "Caneta" }) guarda o quê?', 'O texto "[object Object]"', 'O objeto com o nome', 'O JSON do objeto', 'Nada, dá erro'),
+      Q('O que acontece em JSON.parse("[object Object]")?', 'SyntaxError: "[object Object]" is not valid JSON', 'Devolve o objeto original', 'Devolve null', 'Devolve texto vazio'),
+      Q('JSON.parse(null) devolve:', 'null', 'undefined', 'Um erro de sintaxe', 'Um objeto vazio {}'),
+      Q('Para guardar { id: "p1", preco: 3.5 } corretamente:', 'localStorage.setItem("p1", JSON.stringify(obj))', 'localStorage.setItem("p1", obj)', 'localStorage.setItem("p1", JSON.parse(obj))', 'localStorage.setItem(JSON.stringify("p1"), obj)'),
+      Q('Para usar produto.preco depois de ler da gaveta:', 'let produto = JSON.parse(localStorage.getItem("p1"))', 'let produto = localStorage.getItem("p1")', 'let produto = JSON.stringify(localStorage.getItem("p1"))', 'let produto = localStorage.p1()'),
+      Q('localStorage tem 3 chaves. Quais valores de i percorrem todas com localStorage.key(i)?', '0, 1 e 2', '1, 2 e 3', '0, 1, 2 e 3', '1 e 2'),
+      Q('Em um laço, if (chave[0] === "p") deixa passar o quê?', 'Só as chaves que começam com p (produtos)', 'Só as que terminam com p', 'Todas as chaves', 'As que contêm p em qualquer lugar'),
+      Q('Dado id = "p4821", qual é o valor de "c" + id.slice(1) ?', '"c4821"', '"cp4821"', '"p4821c"', '"c4821p"'),
+      Q('O que acontece se o laço da loja não filtrar por p ou c e fizer JSON.parse de uma chave de outro assunto, como "tema" com valor claro?', 'Pode dar SyntaxError, pois o valor não é JSON', 'Sempre funciona', 'O JSON.parse devolve true', 'O laço pula sozinho'),
+      Q('Qual é a vantagem de guardar cada produto em uma chave própria, em vez de um array inteiro em uma chave só?', 'Alterar ou excluir um produto mexe só naquela chave', 'O localStorage fica mais rápido sempre', 'O JSON deixa de ser necessário', 'Não existe vantagem'),
+    ] };
+
+  // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
   // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
@@ -3869,6 +4176,14 @@ img { max-width: 100%; height: auto; }`),
   ];
   var ORDEM = [];
   MODULOS.forEach(function (m) { if (m.nivel) ORDEM.push(m.nivel); ORDEM = ORDEM.concat(m.ids); });
+  // aplica as revisões (perguntas novas, passos extras) às aulas já criadas
+  NOVAS.forEach(function (a) {
+    var r = REV[a.id];
+    if (!r) return;
+    if (r.perguntas) a.perguntas = r.perguntas;
+    if (r.dropLast) a.passos.pop();
+    (r.extra || []).forEach(function (p) { if (a.passos.length < 7) a.passos.splice(a.passos.length - 1, 0, p); });
+  });
   function pos(a) { var i = ORDEM.indexOf(a.id); return i < 0 ? 999 : i; }
   NOVAS.sort(function (a, b) { return pos(a) - pos(b); });
 
