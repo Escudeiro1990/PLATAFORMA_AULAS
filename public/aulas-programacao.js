@@ -2509,6 +2509,546 @@ botao.addEventListener("click", function () {
     Q('Por que a validação na página não basta para segurança de verdade?', 'Porque tudo no navegador pode ser lido e alterado pelo usuário', 'Porque o JavaScript não valida', 'Porque o navegador apaga a validação', 'Porque só vale no celular'),
   ]);
 
+  PRAT[83] = { tarefas: ['<strong>Nível 1.</strong> Digite um <code>for</code> que mostre os números de 1 a 10 no console, e um <code>while</code> que faça o mesmo.', '<strong>Nível 1.</strong> Faça a tabelinha de cada volta (<code>i</code>, <code>total</code>) de um laço que soma <code>[10, 20, 30]</code> <strong>antes</strong> de rodar.', '<strong>Nível 2.</strong> Troque <code>&lt;</code> por <code>&lt;=</code> em um laço sobre um array e anote o que muda.', '<strong>Explique:</strong> com suas palavras, quando usar <code>for</code> e quando usar <code>while</code>.'],
+    desafio: '<strong>Nível 3.</strong> Escreva um laço que percorre a lista de produtos e para (<code>break</code>) no primeiro produto com preço acima de 100, mostrando o nome dele.' };
+  PRAT[84] = { tarefas: ['<strong>Nível 1.</strong> Dado um array de 4 produtos, use <code>map</code> para obter só os nomes.', '<strong>Nível 1.</strong> Use <code>filter</code> para obter os produtos com preço menor que 20.', '<strong>Nível 2.</strong> Use <code>find</code> para achar um produto pelo id e <code>reduce</code> para somar os preços.', '<strong>Explique:</strong> com suas palavras, a diferença entre <code>map</code>, <code>filter</code>, <code>find</code> e <code>reduce</code>.'],
+    desafio: '<strong>Nível 3.</strong> Calcule, em uma única expressão encadeada (<code>filter</code> e <code>reduce</code>), o <strong>total dos produtos da categoria "Papelaria"</strong>.' };
+  PRAT[85] = { tarefas: ['<strong>Nível 1.</strong> Provoque de propósito os erros <code>total is not defined</code> (variável dentro da função usada fora) e <code>Assignment to constant variable</code>.', '<strong>Nível 2.</strong> Corrija cada um e explique no caderno por que a correção funciona.', '<strong>Nível 2.</strong> Pegue um trecho do seu projeto e renomeie 3 variáveis ruins (<code>x</code>, <code>a1</code>) para nomes claros.', '<strong>Explique:</strong> com suas palavras, o que é escopo e por que ele existe.'],
+    desafio: '<strong>Nível 3.</strong> Revise uma função grande do seu projeto: divida em duas funções menores, cada uma com uma responsabilidade, sem mudar o comportamento.' };
+  PRAT[86] = { tarefas: ['<strong>Nível 1.</strong> Crie uma lista de compras: um campo, um botão Adicionar e um <code>ul</code> que recebe os itens com <code>createElement</code>.', '<strong>Nível 1.</strong> Acrescente um botão <strong>Remover</strong> em cada item usando <code>remove()</code>.', '<strong>Nível 2.</strong> Mostre a contagem "X itens" e atualize ao adicionar e remover.', '<strong>Explique:</strong> com suas palavras, a diferença entre apagar o elemento da tela e apagar o item dos dados.'],
+    desafio: '<strong>Nível 3.</strong> Faça a lista guardar seus itens em um array e redesenhar a tela a partir dele, para a tela e os dados nunca ficarem diferentes.' };
+  PRAT[87] = { tarefas: ['<strong>Nível 1.</strong> Monte um formulário (nome, e-mail, idade) com o evento <code>submit</code> e <code>preventDefault()</code>. Confirme que a página não recarrega.', '<strong>Nível 2.</strong> Valide cada campo e mostre a mensagem <strong>ao lado do campo</strong>, em vermelho.', '<strong>Nível 2.</strong> Marque o campo inválido com uma classe CSS e leve o foco até ele (<code>focus()</code>).', '<strong>Explique:</strong> com suas palavras, por que o HTML <code>required</code> não substitui a validação em JavaScript.'],
+    desafio: '<strong>Nível 3.</strong> Valide em tempo real (evento <code>input</code>): o campo fica verde quando válido e vermelho quando inválido, e o botão Enviar só habilita com tudo certo.' };
+  PRAT[88] = { tarefas: ['<strong>Nível 1.</strong> Monte a lista de tarefas com <code>lerTarefas</code>, <code>salvarTarefas</code> e <code>desenharTarefas</code>. Confira se sobrevive ao recarregar.', '<strong>Nível 1.</strong> Acrescente adicionar, marcar como concluída e remover.', '<strong>Nível 2.</strong> Mostre "X pendentes" usando <code>filter</code>.', '<strong>Explique:</strong> com suas palavras, quando guardar uma lista inteira em uma só chave e quando usar uma chave por item (como na loja).'],
+    desafio: '<strong>Nível 3.</strong> Acrescente os filtros Todas / Pendentes / Concluídas e o botão "Limpar concluídas".' };
+
+  // ══════════════════════════════════════════════════════
+  // 83 — LAÇOS for E while
+  // ══════════════════════════════════════════════════════
+  A(83, 'JavaScript 6: Laços for e while', 'Repetir ações com for, while e for...of, prever cada volta e evitar o laço infinito', '🔁', [
+    P('💡', 'ENTENDA: repetir sem copiar e colar',
+      `<p>Um <strong>laço</strong> executa um bloco várias vezes. Existem duas ideias:</p>`,
+      lista(['🔢 <strong>for</strong>: quando você sabe <em>quantas vezes</em> repetir (ex.: percorrer todos os itens de uma lista)', '❓ <strong>while</strong>: quando repete <em>enquanto uma condição for verdadeira</em>, sem saber quantas voltas (ex.: até o usuário acertar a senha)']),
+      analogia(`o <strong>for</strong> é "dê 10 voltas na pista". O <strong>while</strong> é "continue correndo <em>enquanto</em> o tempo não acabar".`),
+      caderno(['for = número de voltas conhecido', 'while = repete enquanto a condição for verdadeira'])),
+    P('🧠', 'PREVEJA: faça a tabelinha',
+      code(`let total = 0;
+for (let i = 1; i <= 4; i++) {
+  total = total + i;
+}
+console.log(total);`),
+      preveja(`monte no caderno uma tabela com as colunas <code>volta</code>, <code>i</code> e <code>total</code>. Quanto vale <code>total</code> no final?`),
+      box('verde', `<strong>Resposta:</strong> volta 1 (i=1, total=1), volta 2 (i=2, total=3), volta 3 (i=3, total=6), volta 4 (i=4, total=10). Resultado: <code>10</code>. O laço <strong>para</strong> quando <code>i</code> chega a 5, pois <code>5 &lt;= 4</code> é falso.`)),
+    P('⌨️', 'DIGITE: while e for...of',
+      code(`let tentativas = 3;
+while (tentativas > 0) {
+  console.log("Restam " + tentativas + " tentativas");
+  tentativas = tentativas - 1;     // IMPORTANTE: a condição precisa mudar!
+}
+console.log("Fim");`),
+      code(`let nomes = ["Ana", "Beto", "Carla"];
+
+for (let nome of nomes) {          // for...of: cada item, sem precisar de índice
+  console.log("Olá, " + nome);
+}`),
+      lista(['<code>for (let nome of nomes)</code>: a cada volta, <code>nome</code> recebe o próximo item. Mais simples quando você <strong>não precisa da posição</strong>', 'Use o <code>for</code> tradicional quando precisar do <strong>índice</strong> (<code>i</code>)']),
+      code(`for (let i = 0; i < 10; i++) {
+  if (i === 3) continue;   // pula esta volta
+  if (i === 6) break;      // sai do laço
+  console.log(i);          // mostra 0 1 2 4 5
+}`, 'break e continue')),
+    P('🐞', 'ENCONTRE O ERRO: o laço infinito',
+      code(`let i = 0;
+while (i < 5) {
+  console.log(i);
+  // esqueceu de aumentar o i
+}`),
+      lista(['<strong>Sintoma:</strong> a página trava e o navegador avisa que ela "não está respondendo"', '<strong>Causa:</strong> a condição <code>i &lt; 5</code> <strong>nunca deixa de ser verdadeira</strong>, pois <code>i</code> nunca muda', '<strong>Correção:</strong> garantir que algo dentro do laço <strong>aproxime a condição do fim</strong> (<code>i = i + 1</code>)']),
+      atencao(`teste laços novos com poucos valores e um <code>console.log</code>. Se travar, feche a aba. Nos laços <code>for</code>, o aumento do <code>i++</code> já está no cabeçalho, então é mais difícil esquecer.`),
+      caderno(['Todo while precisa de algo que mude a condição', 'Laço infinito trava a página', 'break sai · continue pula a volta'])),
+    P('🔧', 'MODIFIQUE: o erro do <=',
+      code(`let frutas = ["Maçã", "Uva", "Pera"];
+
+for (let i = 0; i <= frutas.length; i++) {      // <= em vez de <
+  console.log(frutas[i].toUpperCase());
+}
+// Uncaught TypeError: Cannot read properties of undefined (reading 'toUpperCase')`),
+      lista(['<strong>Causa:</strong> com <code>&lt;=</code>, a última volta usa <code>i = 3</code>, mas a lista só tem as posições 0, 1 e 2. <code>frutas[3]</code> é <code>undefined</code>', '<strong>Correção:</strong> usar <code>&lt;</code> (<em>off-by-one</em>, o erro de "um a mais")', 'Troque o código para <code>for...of</code> e veja que o problema deixa de existir']),
+      caderno(['i < lista.length (menor, não menor ou igual)', 'Erro de "um a mais" = off-by-one', 'for...of evita o erro do índice'])),
+    P('🛒', 'APLICANDO: total do carrinho',
+      code(`let carrinho = [
+  { nome: "Caneta",  preco: 3.5,  quantidade: 2 },
+  { nome: "Caderno", preco: 18,   quantidade: 1 }
+];
+
+let total = 0;
+for (let item of carrinho) {
+  total = total + item.preco * item.quantidade;
+}
+console.log("Total: R$ " + total.toFixed(2));    // Total: R$ 25.00`),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o <code>total</code> começa em 0 <em>antes</em> do laço? O que aconteceria se ele fosse criado dentro?`)),
+  ], [
+    Q('Quando usar o for?', 'Quando sabemos quantas vezes repetir', 'Só para textos', 'Quando não há condição', 'Apenas com números negativos'),
+    Q('O while repete:', 'Enquanto a condição for verdadeira', 'Uma única vez', 'Até acabar a memória', 'Só se a condição for falsa'),
+    Q('Com let total = 0; for (let i = 1; i <= 4; i++) total += i; quanto é total?', '10', '6', '4', '15'),
+    Q('O que acontece se esquecermos de mudar a variável da condição em um while?', 'O laço fica infinito e a página trava', 'O laço roda uma vez', 'O laço não roda', 'O navegador corrige'),
+    Q('O que faz o break dentro de um laço?', 'Sai do laço', 'Pula só a volta atual', 'Repete a volta', 'Apaga o laço'),
+    Q('O que faz o continue?', 'Pula para a próxima volta', 'Sai do laço', 'Encerra o programa', 'Reinicia o laço do zero'),
+    Q('Em for (let n of nomes), o que é n a cada volta?', 'O próximo item do array', 'A posição do item', 'O tamanho do array', 'O último item'),
+    Q('for (let i = 0; i <= frutas.length; i++) dá erro porque:', 'A última volta usa uma posição que não existe', 'O for não aceita <=', 'frutas.length não existe', 'i começa em 0'),
+    Q('Que erro costuma aparecer nesse caso?', "TypeError: Cannot read properties of undefined", 'SyntaxError: Unexpected token', 'ReferenceError: i is not defined', 'RangeError'),
+    Q('Por que o total começa em 0 antes do laço?', 'Para acumular os valores de todas as voltas', 'Porque o for exige', 'Para o laço rodar mais rápido', 'Para evitar o erro de sintaxe'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 84 — map, filter, find, reduce
+  // ══════════════════════════════════════════════════════
+  A(84, 'JavaScript 7: map, filter, find e reduce', 'Transformar, filtrar, procurar e somar listas de forma curta, com funções de seta', '🧰', [
+    P('💡', 'ENTENDA: ferramentas prontas para listas',
+      `<p>Quase todo laço que você escreve faz uma de quatro coisas. O JavaScript tem um método para cada uma:</p>`,
+      lista(['🔄 <code>map</code>: <strong>transforma</strong> cada item (devolve um array do mesmo tamanho)', '🔎 <code>filter</code>: <strong>filtra</strong>, ficando só com os itens que passam num teste', '🎯 <code>find</code>: <strong>procura</strong> o primeiro item que passa no teste', '➕ <code>reduce</code>: <strong>junta</strong> tudo em um único valor (uma soma, por exemplo)']),
+      analogia(`uma <strong>linha de montagem</strong>: o <code>map</code> pinta cada peça, o <code>filter</code> descarta as defeituosas, o <code>find</code> pega a primeira peça azul e o <code>reduce</code> conta quantas há no total.`),
+      caderno(['map = transforma · filter = filtra', 'find = acha o primeiro · reduce = junta em um valor'])),
+    P('➡️', 'Funções de seta (arrow functions)',
+      `<p>Esses métodos recebem uma função. Uma forma curta de escrevê-la é a <strong>função de seta</strong>:</p>`,
+      code(`// função normal
+function dobro(n) { return n * 2; }
+
+// função de seta: parâmetro => resultado
+let dobro2 = (n) => n * 2;
+
+console.log(dobro(4));    // 8
+console.log(dobro2(4));   // 8`),
+      lista(['Sem chaves, o valor depois da seta é <strong>devolvido automaticamente</strong>', 'Com chaves <code>{ }</code>, é preciso escrever <code>return</code>']),
+      atencao(`esquecer o <code>return</code> quando se usa chaves é um dos erros mais comuns: a função devolve <code>undefined</code>.`)),
+    P('⌨️', 'DIGITE: os quatro com produtos',
+      code(`let produtos = [
+  { id: 1, nome: "Caneta",  preco: 3.5 },
+  { id: 2, nome: "Caderno", preco: 18 },
+  { id: 3, nome: "Lápis",   preco: 1.5 }
+];
+
+let nomes   = produtos.map((p) => p.nome);               // ["Caneta","Caderno","Lápis"]
+let baratos = produtos.filter((p) => p.preco < 5);       // Caneta e Lápis
+let caderno = produtos.find((p) => p.id === 2);          // o objeto do Caderno
+let total   = produtos.reduce((soma, p) => soma + p.preco, 0);   // 23`),
+      lista(['<code>reduce</code> recebe <strong>dois</strong> parâmetros: o acumulador (<code>soma</code>) e o item (<code>p</code>), e um valor inicial (<code>0</code>)']),
+      preveja(`quanto vale <code>nomes.length</code>? E <code>baratos.length</code>? E o que seria <code>produtos.find((p) => p.id === 99)</code>?`),
+      box('verde', `<strong>Resultado:</strong> 3, 2 e <code>undefined</code> (o <code>find</code> devolve <code>undefined</code> quando <strong>não encontra</strong>).`)),
+    P('🐞', 'ENCONTRE O ERRO: três armadilhas',
+      code(`// 1) find que não encontra
+let p = produtos.find((x) => x.id === 99);
+console.log(p.nome);
+// TypeError: Cannot read properties of undefined (reading 'nome')
+
+// 2) map sem return
+let precos = produtos.map((p) => { p.preco });     // [undefined, undefined, undefined]
+
+// 3) reduce sem valor inicial, com objetos
+let soma = produtos.reduce((s, p) => s + p.preco);  // "[object Object]3.51.5"`),
+      lista(['<strong>1:</strong> confira se o <code>find</code> achou algo antes de usar: <code>if (p) { ... }</code>', '<strong>2:</strong> com chaves, falta o <code>return</code>. Use <code>(p) =&gt; p.preco</code> ou <code>{ return p.preco; }</code>', '<strong>3:</strong> sem o valor inicial, o primeiro acumulador é o <em>primeiro objeto</em>, e <code>objeto + número</code> vira texto. Sempre passe o <code>0</code>']),
+      caderno(['find não achou = undefined (confira antes de usar)', 'Com chaves precisa de return', 'reduce com objetos: informe o valor inicial 0'])),
+    P('🔧', 'MODIFIQUE: encadear',
+      code(`let totalBaratos = produtos
+  .filter((p) => p.preco < 5)
+  .reduce((soma, p) => soma + p.preco, 0);
+
+console.log(totalBaratos);   // 5`),
+      lista(['Troque o limite de <code>5</code> para <code>20</code> e preveja o resultado', 'Use <code>map</code> para criar uma lista de textos <code>"Caneta - R$ 3.50"</code>', 'Use <code>find</code> para o produto mais barato <em>acima de</em> R$ 2']),
+      atencao(`<code>filter</code>, <code>map</code> e <code>find</code> <strong>não alteram o array original</strong>: eles devolvem algo novo. Guarde o resultado em uma variável.`)),
+    P('🛒', 'APLICANDO NA LOJA',
+      code(`// total do carrinho com reduce
+let total = itens.reduce((soma, i) => soma + i.preco * i.quantidade, 0);
+
+// produto pelo id
+let produto = lerProdutos().find((p) => p.id === idProduto);
+
+// busca na vitrine
+let achados = lerProdutos().filter((p) => p.nome.toLowerCase().includes(texto));`),
+      box('verde', `<strong>Explique com suas palavras:</strong> qual método você usaria para (a) somar o carrinho, (b) achar um produto pelo id, (c) mostrar só os de uma categoria, (d) listar os nomes? E por quê?`)),
+  ], [
+    Q('Qual método transforma cada item e devolve um array do mesmo tamanho?', 'map', 'filter', 'find', 'reduce'),
+    Q('Qual método fica só com os itens que passam em um teste?', 'filter', 'map', 'find', 'reduce'),
+    Q('Qual método devolve o primeiro item que passa no teste?', 'find', 'filter', 'map', 'reduce'),
+    Q('Qual método junta a lista em um único valor, como uma soma?', 'reduce', 'map', 'find', 'filter'),
+    Q('O que devolve find quando nenhum item passa no teste?', 'undefined', 'null', '0', 'Um array vazio'),
+    Q('Por que produtos.find(p => p.id === 99).nome pode dar erro?', 'Se não encontrar, o resultado é undefined e undefined.nome quebra', 'Porque find não existe', 'Porque id não pode ser número', 'Porque faltou o return'),
+    Q('O que o map((p) => { p.preco }) devolve?', 'Um array de undefined (faltou o return)', 'Um array com os preços', 'Um único número', 'Um erro de sintaxe'),
+    Q('Em reduce((soma, p) => soma + p.preco, 0), o que é o 0?', 'O valor inicial do acumulador', 'O índice', 'O número de itens', 'O preço mínimo'),
+    Q('Dado [3,8,12,5].filter(n => n > 4).length, qual o valor?', '3', '4', '2', '1'),
+    Q('O filter altera o array original?', 'Não, devolve um array novo', 'Sim, remove os itens', 'Sim, mas só de números', 'Só se usar let'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 85 — ESCOPO E BOAS PRÁTICAS
+  // ══════════════════════════════════════════════════════
+  A(85, 'JavaScript 8: Escopo e Boas Práticas', 'Entender onde cada variável existe e escrever código que outras pessoas conseguem ler', '🧭', [
+    P('💡', 'ENTENDA: onde a variável "vive"',
+      `<p><strong>Escopo</strong> é a região do código em que uma variável <strong>existe</strong>. Fora dela, o JavaScript não a enxerga.</p>`,
+      analogia(`os <strong>cômodos de uma casa</strong>: o que está no quarto (dentro da função) não é visto na sala (fora dela). Já o que está no corredor (escopo global) todos os cômodos enxergam.`),
+      code(`let escola = "ETEC";             // global: todos enxergam
+
+function mostrar() {
+  let aluno = "Ana";             // local: só existe dentro da função
+  console.log(escola, aluno);    // ETEC Ana
+}
+
+mostrar();
+console.log(escola);             // ETEC
+console.log(aluno);              // ReferenceError: aluno is not defined`),
+      caderno(['Variável dentro da função só existe dentro dela', 'Fora do escopo: ReferenceError: x is not defined'])),
+    P('🧱', 'Escopo de bloco: let e const',
+      `<p><code>let</code> e <code>const</code> valem <strong>apenas dentro do bloco</strong> <code>{ ... }</code> em que foram criados (um <code>if</code>, um <code>for</code>...):</p>`,
+      code(`if (true) {
+  let mensagem = "dentro do if";
+}
+console.log(mensagem);   // ReferenceError: mensagem is not defined
+
+for (let i = 0; i < 3; i++) { }
+console.log(i);          // ReferenceError: i is not defined`),
+      preveja(`se você precisa do <code>total</code> <em>depois</em> do <code>for</code>, onde deve declará-lo?`),
+      box('verde', `<strong>Resposta:</strong> <strong>antes</strong> do laço, fora do bloco. Foi exatamente o que fizemos no total do carrinho: <code>let total = 0;</code> antes do <code>for</code>.`)),
+    P('🔒', 'let, const e as mensagens de erro',
+      lista(['<code>let</code>: o valor pode ser trocado', '<code>const</code>: a <strong>variável</strong> não pode ser reatribuída (mas, se guarda um objeto ou array, o <em>conteúdo</em> pode mudar)']),
+      code(`const taxa = 0.1;
+taxa = 0.2;
+// TypeError: Assignment to constant variable.
+
+let nome = "Ana";
+let nome = "Beto";
+// SyntaxError: Identifier 'nome' has already been declared
+
+const lista = [1, 2];
+lista.push(3);        // pode! o array muda, a variável continua a mesma
+console.log(lista);   // [1, 2, 3]`),
+      atencao(`regra prática: use <code>const</code> por padrão e <code>let</code> só quando o valor <strong>precisa mudar</strong>. Evite <code>var</code>, um jeito antigo, com regras de escopo confusas.`),
+      caderno(['const por padrão · let quando muda', 'const não permite reatribuir, mas o conteúdo de arrays/objetos pode mudar', 'Declarar duas vezes o mesmo nome = SyntaxError'])),
+    P('🐞', 'ENCONTRE O ERRO: a variável que "sumiu"',
+      code(`function calcularTotal(lista) {
+  let total = 0;
+  for (let item of lista) {
+    total = total + item.preco;
+  }
+}
+
+let resultado = calcularTotal([{ preco: 5 }, { preco: 7 }]);
+console.log(resultado);   // undefined`),
+      lista(['<strong>Sintoma:</strong> o total é <code>undefined</code>, e não há erro no console', '<strong>Causa:</strong> a função calcula o <code>total</code>, mas <strong>não devolve</strong> nada. A variável existia só dentro da função', '<strong>Correção:</strong> acrescentar <code>return total;</code> no final']),
+      box('azul', `<strong>Escopo e return trabalham juntos:</strong> a função enxerga o que está dentro dela; para levar um resultado para fora, ela precisa <strong>devolvê-lo</strong>.`)),
+    P('🧼', 'Boas práticas: código que outros leem',
+      lista(['📛 <strong>Nomes claros</strong>: <code>precoComDesconto</code>, não <code>x2</code>', '🧩 <strong>Funções pequenas</strong>: uma responsabilidade cada', '🔢 <strong>Sem números mágicos</strong>: <code>const TAXA = 0.1</code> em vez de <code>0.1</code> espalhado', '💬 <strong>Comentários úteis</strong>: explicam o "porquê", não repetem o óbvio', '↔️ <strong>Indentação</strong> consistente', '🚫 <strong>Evite variáveis globais</strong> desnecessárias']),
+      code(`// ruim
+let x = p * 0.9;
+
+// bom
+const DESCONTO = 0.1;
+let precoComDesconto = preco * (1 - DESCONTO);`),
+      caderno(['Nome claro · função pequena · sem número mágico', 'Comente o porquê, não o óbvio'])),
+    P('🎯', 'DESAFIO: refatorar',
+      lista(['Pegue uma função grande do seu projeto', 'Divida em funções menores, com nomes claros', 'Troque números soltos por constantes', 'Confira que o comportamento continua o mesmo']),
+      box('verde', `<strong>Explique com suas palavras:</strong> o que é escopo e por que ele é útil? (Dica: pense em duas funções que usam uma variável chamada <code>total</code> sem uma atrapalhar a outra.)`)),
+  ], [
+    Q('O que é escopo?', 'A região do código em que uma variável existe', 'Um tipo de variável', 'Uma função do navegador', 'Um erro de sintaxe'),
+    Q('Uma variável criada com let dentro de uma função pode ser usada fora dela?', 'Não, dá ReferenceError', 'Sim, sempre', 'Sim, se for número', 'Só com const'),
+    Q('O que mostra console.log(i) depois de um for (let i = 0; ...)?', 'ReferenceError: i is not defined', '0', 'O último valor de i', 'undefined'),
+    Q('Se preciso do total depois do laço, onde declarar let total?', 'Antes do laço, fora do bloco', 'Dentro do laço', 'Dentro do if', 'Depois do laço'),
+    Q('O que causa TypeError: Assignment to constant variable?', 'Tentar reatribuir uma const', 'Usar let duas vezes', 'Esquecer o return', 'Usar um array vazio'),
+    Q('const lista = [1,2]; lista.push(3); funciona?', 'Sim, o conteúdo do array pode mudar', 'Não, const bloqueia tudo', 'Só com let', 'Só em funções'),
+    Q('O que causa SyntaxError: Identifier \'nome\' has already been declared?', 'Declarar duas vezes o mesmo nome com let/const', 'Esquecer o ponto e vírgula', 'Usar var', 'Usar return'),
+    Q('A função calcula o total mas resultado é undefined. O que faltou?', 'return total;', 'let total', 'console.log', 'Um laço'),
+    Q('Qual é uma boa prática?', 'Usar nomes claros e funções com uma responsabilidade', 'Usar nomes curtos como x e a1', 'Colocar tudo em uma função só', 'Espalhar números soltos pelo código'),
+    Q('O que é um "número mágico"?', 'Um número solto no código sem explicação do que significa', 'Um número aleatório', 'Um número muito grande', 'Um número negativo'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 86 — DOM 3: CRIAR E REMOVER ELEMENTOS
+  // ══════════════════════════════════════════════════════
+  A(86, 'DOM 3: Criar e Remover Elementos', 'Adicionar e apagar itens da página e manter a tela sempre igual aos dados', '🧩', [
+    P('💡', 'ENTENDA: a tela é o retrato dos dados',
+      `<p>Em uma lista dinâmica, há <strong>duas coisas</strong>: os <strong>dados</strong> (um array) e a <strong>tela</strong> (os elementos). Se você mexe em uma e esquece a outra, elas ficam diferentes.</p>`,
+      analogia(`os dados são o <strong>quadro de avisos na secretaria</strong>; a tela é a <strong>foto</strong> dele no mural. Apagar um aviso do quadro não apaga a foto. É preciso <em>tirar uma foto nova</em>.`),
+      caderno(['Dados = array · Tela = elementos', 'Mudou os dados? Redesenhe a tela a partir deles'])),
+    P('⌨️', 'DIGITE: adicionar e remover itens',
+      code(`<input type="text" id="item">
+<button id="btnAdicionar">Adicionar</button>
+<ul id="lista"></ul>
+
+<script>
+  let itens = [];
+
+  function desenhar() {
+    let lista = document.getElementById("lista");
+    lista.innerHTML = "";                         // 1. limpa
+    for (let i = 0; i < itens.length; i++) {      // 2. percorre os DADOS
+      let li = document.createElement("li");
+      li.textContent = itens[i] + " ";
+
+      let botao = document.createElement("button");
+      botao.textContent = "Remover";
+      botao.addEventListener("click", function () {
+        itens.splice(i, 1);                       // remove do array
+        desenhar();                               // redesenha
+      });
+
+      li.appendChild(botao);
+      lista.appendChild(li);
+    }
+  }
+
+  document.getElementById("btnAdicionar").addEventListener("click", function () {
+    let campo = document.getElementById("item");
+    if (campo.value.trim() === "") return;
+    itens.push(campo.value.trim());
+    campo.value = "";
+    desenhar();
+  });
+</script>`),
+      lista(['<code>itens.splice(i, 1)</code>: remove 1 item na posição <code>i</code> do array', '<code>li.appendChild(botao)</code>: coloca o botão <em>dentro</em> do item', 'Depois de mudar o array, <code>desenhar()</code> refaz a lista']),
+      preveja(`se a lista tem 3 itens e você remove o do meio, o que o <code>desenhar()</code> mostra? E se esquecer de chamar <code>desenhar()</code>?`)),
+    P('🗑️', 'Outras formas de remover',
+      code(`let li = document.querySelector("li");
+
+li.remove();                                  // remove o próprio elemento
+lista.removeChild(li);                        // jeito mais antigo (o pai remove o filho)
+lista.innerHTML = "";                         // esvazia o elemento todo`),
+      atencao(`<code>li.remove()</code> apaga <strong>só da tela</strong>. Se o item continua no array (ou no localStorage), ele <strong>volta</strong> na próxima vez que a tela for desenhada. Por isso o padrão seguro é: <strong>1) mudar os dados, 2) redesenhar</strong>.`),
+      caderno(['elemento.remove() apaga só da tela', 'Padrão seguro: mudar os dados e redesenhar', 'lista.innerHTML = "" esvazia tudo'])),
+    P('🐞', 'ENCONTRE O ERRO: itens duplicados e itens que voltam',
+      lista(['<strong>Duplicados:</strong> a função de desenhar não limpa a lista antes (<code>innerHTML = ""</code>) e cada chamada <strong>acrescenta tudo de novo</strong>', '<strong>Itens que voltam:</strong> o programador usou <code>li.remove()</code>, mas não tirou o item do array: ao redesenhar, ele reaparece', '<strong>Elemento não encontrado:</strong> <code>Uncaught TypeError: Cannot read properties of null (reading \'appendChild\')</code>: o <code>id</code> da lista está diferente no HTML e no JavaScript']),
+      box('verde', `<strong>Regra:</strong> a função de desenhar <strong>sempre limpa primeiro</strong> e <strong>sempre desenha a partir dos dados</strong>. Assim, não importa quantas vezes você chame: o resultado é o mesmo.`)),
+    P('🔧', 'MODIFIQUE: contador e marcar como feito',
+      code(`// mostrar quantos itens
+document.getElementById("contador").textContent = itens.length + " itens";
+
+// marcar como feito: alterna uma classe CSS
+li.addEventListener("click", function () {
+  li.classList.toggle("feito");
+});`),
+      lista(['Crie o CSS <code>.feito { text-decoration: line-through; color: gray; }</code>', 'Mostre "Lista vazia" quando <code>itens.length === 0</code>', 'Faça o campo receber o foco (<code>campo.focus()</code>) depois de adicionar']),
+      atencao(`ao marcar como feito só com <code>classList</code>, o estado <strong>não está nos dados</strong>: some ao redesenhar. Na aula do mini-projeto você vai guardar esse estado no objeto.`)),
+    P('🎯', 'DESAFIO: lista de compras com preço',
+      lista(['Cada item é um objeto <code>{ nome, preco }</code> (e não só um texto)', 'Mostre o total <strong>somado</strong> abaixo da lista, atualizado ao adicionar e remover', 'Recuse itens com nome vazio ou preço inválido']),
+      box('verde', `<strong>Explique com suas palavras:</strong> qual a diferença entre apagar o elemento da tela e apagar o item dos dados? Por que o padrão "mudar os dados e redesenhar" é mais seguro?`)),
+  ], [
+    Q('Em uma lista dinâmica, o que são "dados" e "tela"?', 'Dados são o array; tela são os elementos desenhados', 'São a mesma coisa', 'Dados são o CSS; tela é o JS', 'Dados são o HTML; tela é o array'),
+    Q('Qual é o padrão seguro ao remover um item?', 'Mudar os dados e redesenhar a tela', 'Só usar remove() no elemento', 'Só mexer no CSS', 'Reiniciar o navegador'),
+    Q('O que faz itens.splice(i, 1)?', 'Remove 1 item na posição i do array', 'Adiciona um item', 'Copia o array', 'Ordena o array'),
+    Q('O que acontece com li.remove() se o item continua no array?', 'Ele volta quando a tela for redesenhada', 'Some para sempre', 'Quebra o array', 'Apaga o array'),
+    Q('Por que a lista aparece duplicada a cada chamada de desenhar?', 'A função não limpou o conteúdo antes de desenhar', 'O for está errado', 'O navegador duplica', 'O array foi copiado'),
+    Q('Qual comando esvazia o conteúdo de um elemento?', 'elemento.innerHTML = ""', 'elemento.empty', 'elemento.delete()', 'elemento.null'),
+    Q('TypeError: Cannot read properties of null (reading \'appendChild\') indica:', 'O elemento não foi achado (id diferente do HTML)', 'Faltou o return', 'O array está vazio', 'Faltou let'),
+    Q('Qual método coloca um elemento DENTRO de outro?', 'appendChild', 'createElement', 'remove', 'querySelector'),
+    Q('Por que a função desenhar deve sempre limpar primeiro?', 'Para o resultado ser o mesmo, não importa quantas vezes for chamada', 'Para economizar memória', 'Porque o navegador exige', 'Para o array ficar vazio'),
+    Q('Um item marcado como feito só com classList some ao redesenhar. Por quê?', 'O estado não está nos dados', 'O CSS foi apagado', 'O navegador limpa as classes', 'Faltou o evento'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 87 — FORMULÁRIOS E VALIDAÇÃO COM JS
+  // ══════════════════════════════════════════════════════
+  A(87, 'DOM 4: Formulários e Validação com JavaScript', 'Tratar o envio sem recarregar a página, validar campo a campo e mostrar mensagens claras', '📋', [
+    P('💡', 'ENTENDA: o envio do formulário recarrega a página',
+      `<p>Por padrão, um <code>&lt;form&gt;</code> <strong>envia os dados e recarrega a página</strong> ao clicar em um botão. Para tratar tudo no JavaScript, precisamos <strong>interceptar</strong> o envio.</p>`,
+      analogia(`o carteiro vem buscar a carta assim que você a coloca na caixa. O <code>preventDefault()</code> diz: <strong>"espere, ainda vou conferir a carta"</strong>.`),
+      code(`<form id="formulario">
+  <label for="nome">Nome</label>
+  <input type="text" id="nome" required minlength="3">
+  <span id="erro-nome" class="erro"></span>
+
+  <label for="email">E-mail</label>
+  <input type="email" id="email" required>
+  <span id="erro-email" class="erro"></span>
+
+  <button type="submit">Enviar</button>
+</form>`),
+      caderno(['Formulário envia e recarrega por padrão', 'submit + event.preventDefault() para tratar no JS'])),
+    P('⌨️', 'DIGITE: interceptar e validar',
+      code(`let formulario = document.getElementById("formulario");
+
+formulario.addEventListener("submit", function (evento) {
+  evento.preventDefault();                       // não recarrega
+
+  let nome  = document.getElementById("nome").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let ok = true;
+
+  if (nome.length < 3) {
+    mostrarErro("nome", "O nome precisa ter pelo menos 3 letras.");
+    ok = false;
+  } else {
+    mostrarErro("nome", "");
+  }
+
+  if (!email.includes("@")) {
+    mostrarErro("email", "Informe um e-mail válido.");
+    ok = false;
+  } else {
+    mostrarErro("email", "");
+  }
+
+  if (ok) {
+    console.log("Formulário válido:", nome, email);
+  }
+});
+
+function mostrarErro(campo, texto) {
+  document.getElementById("erro-" + campo).textContent = texto;
+}`),
+      lista(['Cada campo tem um <code>&lt;span&gt;</code> de erro ao lado, com id <code>erro-nome</code>, <code>erro-email</code>', 'A variável <code>ok</code> começa verdadeira e vira <code>false</code> se <strong>qualquer</strong> campo falhar', 'Mostre <strong>todas</strong> as mensagens de uma vez, e não só a primeira']),
+      preveja(`o que acontece se os dois campos estiverem vazios? Quantas mensagens aparecem?`)),
+    P('🐞', 'ENCONTRE O ERRO: a página recarrega e a URL muda',
+      code(`formulario.addEventListener("submit", function () {
+  // esqueceu o evento.preventDefault()
+  salvar();
+});
+
+// endereço depois de enviar:  index.html?nome=Ana&email=ana%40x.com`),
+      lista(['<strong>Sintoma:</strong> a página pisca, os dados <strong>aparecem na URL</strong> e o que o JavaScript fez some', '<strong>Causa:</strong> sem <code>preventDefault()</code>, o navegador completa o envio padrão (método GET, com os campos na URL) e recarrega', '<strong>Correção:</strong> receber o <code>evento</code> e chamar <code>evento.preventDefault()</code> logo na primeira linha']),
+      atencao(`isso também mostra por que <strong>nunca</strong> se envia senha em formulário GET: ela apareceria no endereço e no histórico do navegador.`)),
+    P('🔧', 'MODIFIQUE: marcar o campo e dar foco',
+      code(`function mostrarErro(campo, texto) {
+  let input = document.getElementById(campo);
+  document.getElementById("erro-" + campo).textContent = texto;
+
+  if (texto !== "") {
+    input.classList.add("invalido");     // borda vermelha pelo CSS
+    input.focus();                        // leva o cursor até o campo
+  } else {
+    input.classList.remove("invalido");
+  }
+}`),
+      code(`.invalido { border: 2px solid #f87171; }
+.erro { color: #f87171; font-size: 13px; }`, 'CSS'),
+      lista(['Com vários erros, dê foco só ao <strong>primeiro</strong> campo inválido', 'Valide em tempo real com o evento <code>input</code>, e não só no envio'])),
+    P('🛡️', 'HTML required × validação em JavaScript',
+      lista(['O HTML (<code>required</code>, <code>minlength</code>, <code>type="email"</code>) é <strong>uma primeira ajuda</strong> e já funciona sem JS', 'Mas o usuário pode <strong>remover</strong> esses atributos nas DevTools, e o navegador não é o único que envia dados', 'Por isso: o JavaScript valida para ajudar o usuário, e <strong>o servidor valida de novo</strong> em sistemas reais']),
+      box('amarelo', `<strong>Resumo:</strong> HTML ajuda, JavaScript melhora a experiência, servidor garante a segurança.`),
+      caderno(['required/minlength: ajuda, mas pode ser burlada', 'JS: melhora a experiência do usuário', 'Segurança de verdade: validar também no servidor'])),
+    P('🎯', 'DESAFIO: validação em tempo real',
+      lista(['Valide com o evento <code>input</code>: o campo fica <strong>verde</strong> quando válido e <strong>vermelho</strong> quando inválido', 'O botão Enviar fica <strong>desabilitado</strong> (<code>botao.disabled = true</code>) até tudo estar válido', 'Mostre "Cadastro enviado!" ao final']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o <code>required</code> do HTML não substitui a validação em JavaScript?`)),
+  ], [
+    Q('O que o formulário faz por padrão ao ser enviado?', 'Envia os dados e recarrega a página', 'Valida sozinho com JavaScript', 'Guarda no localStorage', 'Não faz nada'),
+    Q('Para que serve evento.preventDefault() no submit?', 'Impedir o envio padrão e o recarregamento', 'Apagar o formulário', 'Enviar duas vezes', 'Fechar a página'),
+    Q('A página recarrega e a URL ganha ?nome=Ana&email=... O que faltou?', 'evento.preventDefault()', 'Um laço', 'O localStorage', 'Um id'),
+    Q('Para que serve a variável ok começando como true?', 'Virar false se qualquer campo for inválido', 'Contar os campos', 'Guardar o nome', 'Evitar erros de sintaxe'),
+    Q('Por que mostrar todas as mensagens de erro de uma vez?', 'Para o usuário corrigir tudo de uma vez', 'Porque o JavaScript exige', 'Para o código ficar mais curto', 'Não é recomendável'),
+    Q('Qual método leva o cursor até um campo?', 'campo.focus()', 'campo.select()', 'campo.go()', 'campo.cursor()'),
+    Q('Por que usar uma classe CSS (invalido) para marcar o campo?', 'Para manter a aparência no CSS e só ligar a classe no JS', 'Porque style não existe', 'Para esconder o campo', 'Para guardar o valor'),
+    Q('Por que required e minlength do HTML não bastam?', 'O usuário pode removê-los nas DevTools', 'O HTML não funciona em celulares', 'O navegador os ignora sempre', 'Eles só valem para números'),
+    Q('Quem garante a segurança de verdade dos dados em um sistema real?', 'O servidor, que valida de novo', 'O CSS', 'O placeholder do campo', 'O navegador do usuário'),
+    Q('Por que nunca enviar senha em um formulário GET?', 'Ela apareceria no endereço e no histórico do navegador', 'GET não aceita texto', 'Fica muito lento', 'O CSS bloqueia'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 88 — MINI-PROJETO: LISTA DE TAREFAS
+  // ══════════════════════════════════════════════════════
+  A(88, 'Mini-projeto: Lista de Tarefas', 'Juntar DOM, eventos, arrays, objetos e localStorage em um projeto pequeno e completo', '✅', [
+    P('💡', 'ENTENDA: o projeto de treino antes da loja',
+      `<p>Antes da loja, vamos montar uma <strong>lista de tarefas</strong>: é pequena, mas usa <strong>tudo que você aprendeu</strong>: formulário, eventos, array de objetos, <code>localStorage</code>, <code>filter</code> e redesenho da tela.</p>`,
+      analogia(`o <strong>treino de pista</strong> antes da corrida: mesmos movimentos, circuito menor.`),
+      code(`// uma tarefa:
+{ id: 1700000001, texto: "Estudar JavaScript", concluida: false }
+
+// o localStorage guarda a LISTA INTEIRA em uma chave só:
+localStorage.setItem("tarefas", JSON.stringify(tarefas));`),
+      lista(['Aqui usamos <strong>uma chave</strong> com o array inteiro (<code>"tarefas"</code>)', 'Na loja, usamos <strong>uma chave por produto</strong> (<code>p…</code>). Cada jeito tem vantagens, que você vai comparar no fim']),
+      caderno(['Mini-projeto = pratica tudo em pequeno', 'Tarefa = objeto { id, texto, concluida }', 'Uma chave com o array inteiro'])),
+    P('⌨️', 'DIGITE: ler e salvar',
+      code(`function lerTarefas() {
+  let texto = localStorage.getItem("tarefas");
+  if (texto === null) return [];          // primeira visita: lista vazia
+  return JSON.parse(texto);
+}
+
+function salvarTarefas(tarefas) {
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+}`),
+      preveja(`o que aconteceria sem a linha <code>if (texto === null) return [];</code> na primeira visita? (lembre: <code>JSON.parse(null)</code> devolve <code>null</code>)`),
+      box('verde', `<strong>Resposta:</strong> <code>lerTarefas()</code> devolveria <code>null</code>, e a próxima linha, <code>tarefas.push(...)</code>, daria <code>TypeError: Cannot read properties of null (reading 'push')</code>. O valor padrão <code>[]</code> evita o erro.`)),
+    P('🖼️', 'DIGITE: desenhar e as ações',
+      code(`function desenharTarefas() {
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
+  let tarefas = lerTarefas();
+
+  for (let tarefa of tarefas) {
+    let li = document.createElement("li");
+    li.textContent = tarefa.texto;
+    if (tarefa.concluida) li.classList.add("feito");
+
+    li.addEventListener("click", function () { alternarTarefa(tarefa.id); });
+
+    let botao = document.createElement("button");
+    botao.textContent = "x";
+    botao.addEventListener("click", function (e) {
+      e.stopPropagation();                  // não conta como clique no li
+      removerTarefa(tarefa.id);
+    });
+    li.appendChild(botao);
+    lista.appendChild(li);
+  }
+  let pendentes = tarefas.filter((t) => !t.concluida).length;
+  document.getElementById("contador").textContent = pendentes + " pendentes";
+}
+
+function adicionarTarefa(texto) {
+  let tarefas = lerTarefas();
+  tarefas.push({ id: Date.now(), texto: texto, concluida: false });
+  salvarTarefas(tarefas);
+  desenharTarefas();
+}
+function alternarTarefa(id) {
+  let tarefas = lerTarefas();
+  let t = tarefas.find((x) => x.id === id);
+  if (t) t.concluida = !t.concluida;
+  salvarTarefas(tarefas);
+  desenharTarefas();
+}
+function removerTarefa(id) {
+  let tarefas = lerTarefas().filter((t) => t.id !== id);
+  salvarTarefas(tarefas);
+  desenharTarefas();
+}
+
+desenharTarefas();    // ao abrir a página`),
+      lista(['Todas as ações seguem o mesmo ciclo: <strong>ler → mudar → salvar → redesenhar</strong>', '<code>find</code> acha a tarefa; <code>filter</code> cria a lista sem a tarefa removida; <code>!t.concluida</code> inverte o valor', '<code>e.stopPropagation()</code> impede que o clique no botão "x" também dispare o clique do <code>li</code>']),
+      caderno(['Ciclo: ler → mudar → salvar → redesenhar', 'Padrão idêntico ao atualizarGrid da loja'])),
+    P('🐞', 'ENCONTRE O ERRO: clicar no "x" marca a tarefa também',
+      lista(['<strong>Sintoma:</strong> ao remover uma tarefa, ela é marcada como concluída (ou o clique faz duas coisas)', '<strong>Causa:</strong> o clique no botão "sobe" para o elemento pai (<code>li</code>), que também tem um <code>click</code>. Isso se chama <strong>propagação de eventos</strong> (<em>bubbling</em>)', '<strong>Correção:</strong> <code>e.stopPropagation()</code> dentro do clique do botão']),
+      atencao(`outro erro típico: usar o <strong>índice</strong> (<code>i</code>) como identificador. Depois de remover uma tarefa, os índices mudam. Por isso usamos um <code>id</code> único (<code>Date.now()</code>).`)),
+    P('🔧', 'MODIFIQUE: filtros e limpeza',
+      code(`let filtro = "todas";
+
+function tarefasFiltradas() {
+  let tarefas = lerTarefas();
+  if (filtro === "pendentes")  return tarefas.filter((t) => !t.concluida);
+  if (filtro === "concluidas") return tarefas.filter((t) => t.concluida);
+  return tarefas;
+}
+
+function limparConcluidas() {
+  salvarTarefas(lerTarefas().filter((t) => !t.concluida));
+  desenharTarefas();
+}`),
+      lista(['Crie três botões (Todas, Pendentes, Concluídas) que mudam <code>filtro</code> e redesenham', 'Adapte <code>desenharTarefas</code> para usar <code>tarefasFiltradas()</code>', 'Recuse texto vazio ao adicionar (<code>trim()</code>)']),
+      caderno(['Filtrar muda o que é desenhado, não o que é guardado'])),
+    P('⚖️', 'COMPARE: uma chave ou uma por item?',
+      lista(['📦 <strong>Uma chave com o array</strong> (lista de tarefas): simples de ler e filtrar; qualquer mudança regrava a lista toda. Bom para listas pequenas e coesas', '🗃️ <strong>Uma chave por item</strong> (loja, <code>p…</code> e <code>c…</code>): mudar um produto mexe só nele; permite separar famílias por prefixo. Exige percorrer as chaves para listar']),
+      box('verde', `<strong>Explique com suas palavras:</strong> em qual situação você escolheria cada um? E por que a loja usa o prefixo <code>p</code> e <code>c</code>?`),
+      box('azul', `<strong>Próximo passo:</strong> você já domina o ciclo ler → mudar → salvar → redesenhar. Na trilha da loja virtual, ele se repete com produtos, carrinho e quantidades.`)),
+  ], [
+    Q('O que uma tarefa guarda neste mini-projeto?', 'id, texto e concluida', 'Só o texto', 'O HTML do item', 'A posição na tela'),
+    Q('Por que lerTarefas() devolve [] quando getItem retorna null?', 'Para a primeira visita funcionar sem erros', 'Porque null é inválido no CSS', 'Para apagar a lista', 'Porque o JSON exige'),
+    Q('Sem esse tratamento, qual erro aparece ao fazer tarefas.push(...)?', "TypeError: Cannot read properties of null (reading 'push')", 'ReferenceError: tarefas is not defined', 'SyntaxError', 'RangeError'),
+    Q('Qual é o ciclo de toda ação neste projeto?', 'Ler, mudar, salvar e redesenhar', 'Desenhar, apagar e fechar', 'Salvar, ler e ignorar', 'Mudar a tela e esquecer os dados'),
+    Q('O que o filter((t) => t.id !== id) faz em removerTarefa?', 'Cria a lista sem a tarefa removida', 'Apaga o localStorage', 'Marca a tarefa como feita', 'Duplica a tarefa'),
+    Q('Por que usar um id único em vez do índice?', 'Porque os índices mudam quando se remove um item', 'Porque o índice não existe no JS', 'Porque o id é mais curto', 'Porque o JSON não aceita índice'),
+    Q('Clicar no "x" também marca a tarefa. Qual a causa?', 'A propagação do evento para o elemento pai', 'O localStorage', 'O CSS', 'O fetch'),
+    Q('Qual é a correção para isso?', 'e.stopPropagation()', 'e.preventDefault()', 'return false no li', 'Apagar o li'),
+    Q('Como contar as tarefas pendentes?', 'tarefas.filter((t) => !t.concluida).length', 'tarefas.length', 'tarefas.find(...)', 'tarefas.concluida'),
+    Q('Qual é uma vantagem de uma chave por item, como na loja?', 'Mudar um item mexe só nele e permite separar famílias por prefixo', 'É sempre mais rápido para listar', 'Usa menos código', 'Evita o JSON'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
