@@ -3698,6 +3698,159 @@ img { max-width: 100%; height: auto; }`),
   ]);
 
   // ══════════════════════════════════════════════════════
+  // TESTES DE NIVELAMENTO (um por módulo): nota 7 ou mais = pode pular o módulo
+  // ══════════════════════════════════════════════════════
+  N(109, 1, 'Nivelamento: Módulo 1 · Fundamentos da Web', [
+    Q('Em uma visita a um site, quem guarda os arquivos da página?', 'O servidor', 'O navegador', 'O monitor', 'O teclado'),
+    Q('Qual linguagem define a ESTRUTURA da página?', 'HTML', 'CSS', 'JavaScript', 'SQL'),
+    Q('Qual linguagem faz a página REAGIR ao clique?', 'JavaScript', 'HTML', 'CSS', 'Markdown'),
+    Q('Na URL https://loja.com/produtos?cat=papel#preco, o que vem depois do ? ?', 'A query string', 'O protocolo', 'O domínio', 'O caminho'),
+    Q('O que significa o s em https?', 'Conexão segura', 'Servidor', 'Site', 'Simples'),
+    Q('O status 404 significa:', 'Recurso não encontrado', 'Sucesso', 'Erro do servidor', 'Redirecionamento'),
+    Q('Qual família de status indica erro do servidor?', '5xx', '2xx', '3xx', '1xx'),
+    Q('ERR_NAME_NOT_RESOLVED indica:', 'O domínio está errado ou não existe', 'O caminho está errado', 'A senha está errada', 'O arquivo é muito grande'),
+    Q('Qual tecla abre as ferramentas do desenvolvedor?', 'F12', 'F1', 'F5', 'Esc'),
+    Q('Qual é o nome do arquivo principal de um site?', 'index.html', 'principal.doc', 'site.exe', 'home.txt'),
+    Q('Alterei o arquivo e nada mudou no navegador. Uma causa comum é:', 'Não salvei, ou o navegador usou o cache', 'O HTML foi apagado', 'O CSS parou de funcionar', 'O servidor caiu sempre'),
+    Q('Qual é a melhor forma de aprender com um exercício de código?', 'Prever, digitar, comparar e explicar', 'Copiar e colar', 'Só ler a resposta', 'Pedir o código pronto'),
+  ]);
+
+  N(110, 2, 'Nivelamento: Módulo 2 · HTML', [
+    Q('Qual tag cria o título mais importante da página?', '<h1>', '<title>', '<head>', '<header>'),
+    Q('Qual lista é NUMERADA?', '<ol>', '<ul>', '<li>', '<dl>'),
+    Q('Qual atributo diz para onde um link leva?', 'href', 'src', 'alt', 'id'),
+    Q('Para que serve o alt de uma imagem?', 'Descrever a imagem em texto', 'Trocar a imagem', 'Aumentar a imagem', 'Dizer onde está o arquivo'),
+    Q('Em paginas/contato.html, qual o caminho para imagens/logo.png?', '../imagens/logo.png', 'imagens/logo.png', 'logo.png', './logo.png'),
+    Q('Qual é a diferença entre id e class?', 'id é único na página; class pode repetir', 'id pode repetir; class é único', 'São iguais', 'id é só para imagens'),
+    Q('O que liga um label ao seu input?', 'O for do label igual ao id do input', 'A cor igual', 'A ordem no arquivo', 'Nada'),
+    Q('Qual input esconde o que o usuário digita?', 'type="password"', 'type="text"', 'type="hidden"', 'type="number"'),
+    Q('Qual tag representa o menu de navegação?', '<nav>', '<aside>', '<footer>', '<menu-item>'),
+    Q('O que o <head> contém?', 'Informações que não aparecem na tela, como o título da aba', 'Todo o conteúdo visível', 'Apenas imagens', 'O rodapé'),
+    Q('Quantos h1 uma página deve ter, em geral?', 'Um', 'Quantos quiser', 'Nenhum', 'Seis'),
+    Q('A imagem aparece quebrada e o Network mostra 404. Qual causa é possível?', 'Nome, pasta ou maiúsculas diferentes do arquivo real', 'O HTML está em minúsculas', 'O CSS está certo', 'Falta o <title>'),
+  ]);
+
+  N(111, 3, 'Nivelamento: Módulo 3 · CSS', [
+    Q('Como o CSS seleciona o elemento com id="titulo"?', '#titulo', '.titulo', 'titulo()', '*titulo'),
+    Q('Qual propriedade cria espaço INTERNO entre conteúdo e borda?', 'padding', 'margin', 'gap', 'outline'),
+    Q('Com content-box, width 300px, padding 20px e borda 2px, a largura total é:', '344px', '300px', '322px', '320px'),
+    Q('O que faz box-sizing: border-box?', 'O width passa a incluir padding e borda', 'Remove a borda', 'Esconde o padding', 'Muda a margem'),
+    Q('Qual regra alinha filhos lado a lado dentro de um pai?', 'display: flex', 'display: line', 'float: none', 'position: row'),
+    Q('Com flex-direction: column, o justify-content age na:', 'Vertical', 'Horizontal', 'Diagonal', 'Em nada'),
+    Q('O que cria grid-template-columns: repeat(3, 1fr)?', 'Três colunas iguais', 'Três linhas', 'Uma coluna de 3px', 'Três margens'),
+    Q('Para um filho absolute se posicionar dentro do pai, o pai precisa de:', 'position: relative (ou outro diferente de static)', 'display: grid', 'z-index', 'float'),
+    Q('Qual unidade acompanha o tamanho da fonte do usuário?', 'rem', 'px', 'mm', 'pt fixo'),
+    Q('font-size: 18; (sem unidade) faz o quê?', 'É ignorado, sem erro no console', 'Define 18px', 'Define 18rem', 'Dá erro no console'),
+    Q('Qual meta tag faz a página funcionar bem no celular?', 'viewport', 'charset', 'author', 'keywords'),
+    Q('@media (max-width: 600px) aplica as regras quando a tela:', 'Tem até 600px de largura', 'Tem mais de 600px', 'Tem exatamente 600px', 'Está em modo escuro'),
+  ]);
+
+  N(112, 4, 'Nivelamento: Módulo 4 · JavaScript fundamental', [
+    Q('Qual é o resultado de "5" + 3 ?', '"53"', '8', 'NaN', '"8"'),
+    Q('Depois de let x = 4; x = x * 3; quanto vale x?', '12', '7', '43', '4'),
+    Q('Em const a = 1; a = 2; o que acontece?', 'TypeError: Assignment to constant variable', 'a vale 2', 'a vale 3', 'Nada'),
+    Q('Qual operador compara sem converter o tipo?', '===', '=', '=>', '=+'),
+    Q('Com nota = 6, o que mostra if (nota >= 7) "A"; else if (nota >= 5) "B"; else "C"?', 'B', 'A', 'C', 'A e B'),
+    Q('Quantas voltas dá for (let i = 0; i < 4; i++) ?', '4', '3', '5', 'Infinitas'),
+    Q('O que causa um while que nunca termina?', 'A condição nunca deixa de ser verdadeira', 'Usar let', 'Usar console.log', 'Ter uma função dentro'),
+    Q('Dado frutas = ["Maçã","Uva","Pera"], o que é frutas[frutas.length - 1]?', '"Pera"', '"Maçã"', 'undefined', '3'),
+    Q('Qual método devolve um array novo só com os itens que passam num teste?', 'filter', 'map', 'find', 'push'),
+    Q('Dado p = {nome:"Caneta", preco:3.5}, como ler o preço?', 'p.preco', 'p(preco)', 'p->preco', 'p[preco()]'),
+    Q('Dado function f(a, b) { return a * b; }, quanto é f(3, 4)?', '12', '7', '34', 'undefined'),
+    Q('Uma variável criada com let dentro de uma função pode ser usada fora dela?', 'Não: ReferenceError', 'Sim, sempre', 'Sim, se for número', 'Só com const'),
+  ]);
+
+  N(113, 5, 'Nivelamento: Módulo 5 · DOM e eventos', [
+    Q('Qual comando acha o elemento com id="nome"?', 'document.getElementById("nome")', 'document.get("nome")', 'find("#nome")', 'document.nome()'),
+    Q('Qual propriedade devolve o que foi digitado em um input?', '.value', '.text', '.digitado', '.content'),
+    Q('Que tipo de dado vem de input.value, mesmo em type="number"?', 'Texto (string)', 'Número', 'Booleano', 'Objeto'),
+    Q('Qual é a diferença entre textContent e innerHTML?', 'innerHTML interpreta HTML; textContent trata como texto', 'São iguais', 'textContent interpreta HTML', 'innerHTML só funciona em botões'),
+    Q('Qual forma liga corretamente a função salvar ao clique?', 'botao.addEventListener("click", salvar)', 'botao.addEventListener("click", salvar())', 'botao.click = salvar()', 'botao.on(salvar)'),
+    Q('addEventListener("click", salvar()) faz o quê?', 'Executa salvar na hora, e não no clique', 'Executa só no clique', 'Cria o botão', 'Apaga o evento'),
+    Q('Qual método coloca um elemento DENTRO de outro?', 'appendChild', 'createElement', 'remove', 'querySelector'),
+    Q('Por que a lista aparece duplicada a cada chamada de desenhar?', 'A função não limpou o conteúdo antes de desenhar', 'O for está errado', 'O navegador duplica', 'O array foi copiado'),
+    Q('Para que serve evento.preventDefault() no submit?', 'Impedir o envio padrão e o recarregamento', 'Apagar o formulário', 'Enviar duas vezes', 'Fechar a página'),
+    Q('TypeError: Cannot read properties of null (reading \'addEventListener\') indica:', 'O elemento não foi achado (id diferente)', 'Faltou um ponto e vírgula', 'A internet caiu', 'O CSS está errado'),
+    Q('Qual evento dispara a cada letra digitada?', 'input', 'submit', 'load', 'blur'),
+    Q('O que o classList.toggle("ativo") faz?', 'Liga a classe se estava desligada e desliga se estava ligada', 'Apaga a classe do CSS', 'Cria o elemento', 'Troca o id'),
+  ]);
+
+  N(114, 6, 'Nivelamento: Módulo 6 · Depuração', [
+    Q('ReferenceError: preco is not defined significa:', 'A variável preco não existe', 'Faltou um parêntese', 'O elemento não foi achado', 'A internet caiu'),
+    Q('SyntaxError normalmente indica:', 'Faltou ou sobrou um sinal, como parêntese ou chave', 'Variável com nome errado', 'Elemento não encontrado', 'Falta de internet'),
+    Q('Qual aba mostra os arquivos pedidos e o status de cada um?', 'Network', 'Elements', 'Console', 'Application'),
+    Q('Qual aba permite ver e editar o localStorage?', 'Application', 'Network', 'Console', 'Elements'),
+    Q('Um valor aparece como [object Object] no localStorage. Causa provável?', 'Faltou JSON.stringify ao guardar', 'Faltou JSON.parse ao guardar', 'O navegador está antigo', 'A chave é curta'),
+    Q('O código roda sem erro, mas o resultado está errado. O que fazer primeiro?', 'Colocar console.log para ver os valores', 'Apagar tudo', 'Copiar solução da internet', 'Trocar de navegador'),
+    Q('Alterei o CSS e nada mudou. Atalho para recarregar sem cache?', 'Ctrl+F5', 'Ctrl+S', 'Alt+F4', 'F1'),
+    Q('Qual tecla executa a linha atual e vai para a próxima, com o código pausado?', 'F10', 'F8', 'F5', 'F12'),
+    Q('Para que serve um breakpoint?', 'Pausar a execução em uma linha para inspecionar as variáveis', 'Apagar o código', 'Mostrar um erro', 'Salvar o arquivo'),
+    Q('["10","20"] somado com + em um laço dá "01020". Por quê?', 'Os valores são texto e o + junta', 'O array está quebrado', 'O for está errado', 'O zero não pode somar'),
+    Q('Qual é o primeiro passo ao investigar um bug?', 'Ler o sintoma e a mensagem de erro e levantar uma hipótese', 'Apagar o projeto', 'Mudar vários trechos de uma vez', 'Pedir o código pronto'),
+    Q('Para pedir ajuda do jeito certo, mostre:', 'A mensagem de erro, a linha e o que já tentou', 'Só "não funciona"', 'Um print sem contexto', 'Nada, o professor adivinha'),
+  ]);
+
+  N(115, 7, 'Nivelamento: Módulo 7 · Armazenamento', [
+    Q('Qual comando GUARDA um dado no localStorage?', 'localStorage.setItem(chave, valor)', 'localStorage.getItem(chave)', 'localStorage.write(chave)', 'localStorage.put(chave)'),
+    Q('O que getItem devolve quando a chave não existe?', 'null', 'undefined', '0', 'Texto vazio'),
+    Q('Que tipo de dado o localStorage guarda sempre?', 'Texto', 'Objetos', 'Funções', 'Imagens'),
+    Q('Qual comando transforma um objeto em texto JSON?', 'JSON.stringify(obj)', 'JSON.parse(obj)', 'obj.toText()', 'Text(obj)'),
+    Q('Depois de ler um produto com getItem, para usar produto.nome faz-se:', 'JSON.parse', 'JSON.stringify', 'Nada', 'removeItem'),
+    Q('Qual comando devolve o NOME da chave na posição i?', 'localStorage.key(i)', 'localStorage.getItem(i)', 'localStorage.name(i)', 'localStorage.at(i)'),
+    Q('O que faz "c" + id.slice(1) com id = "p123"?', 'Gera "c123"', 'Gera "cp123"', 'Gera "p123c"', 'Gera "123"'),
+    Q('Qual é a diferença entre sessionStorage e localStorage?', 'sessionStorage some ao fechar a aba', 'localStorage some ao fechar a aba', 'Não há diferença', 'sessionStorage guarda mais dados'),
+    Q('Por que nunca guardar senhas no navegador?', 'Qualquer pessoa com acesso ao navegador pode lê-las', 'Elas não cabem', 'O JavaScript proíbe', 'Elas somem sozinhas'),
+    Q('O que é XSS?', 'Texto digitado que vira código executado na página', 'Um tipo de CSS', 'Um erro de rede', 'Uma forma de guardar dados'),
+    Q('Qual é a forma mais segura de mostrar o nome de um produto na página?', 'createElement e textContent', 'innerHTML com o nome concatenado', 'document.write', 'eval'),
+    Q('Estourar o limite do armazenamento (cerca de 5 MB) causa:', 'Um erro de quota ao usar setItem', 'Nada', 'Apagar tudo sozinho', 'Mudar o tipo dos dados'),
+  ]);
+
+  N(116, 8, 'Nivelamento: Módulo 8 · Projeto Loja Virtual', [
+    Q('Qual é a chave de um produto com id "1700" na convenção da loja?', '"p1700"', '"c1700"', '"produto"', '"1700p"'),
+    Q('Qual é a chave do carrinho do produto p1700?', '"c1700"', '"p1700"', '"cp1700"', '"carrinho"'),
+    Q('Qual é o fluxo básico de todas as telas da loja?', 'Gravar, ler, percorrer e desenhar', 'Desenhar, apagar, fechar', 'Percorrer, apagar, gravar', 'Ler sem desenhar'),
+    Q('Por que o atualizarGrid() é chamado ao final do script?', 'Para desenhar os dados já guardados ao abrir a página', 'Para apagar o localStorage', 'Para validar o formulário', 'Para esvaziar o carrinho'),
+    Q('A tabela de produtos mostra o carrinho misturado. Causa provável?', 'Faltou filtrar por chave[0] === "p"', 'Faltou o CSS', 'O navegador está lento', 'O id está sem acento'),
+    Q('Number("abc") <= 0 vale:', 'false (e o preço inválido passaria na validação)', 'true', 'NaN', 'Erro'),
+    Q('Qual função detecta NaN corretamente?', 'Number.isNaN(valor)', 'valor === NaN', 'valor == "NaN"', 'valor.isNumber()'),
+    Q('Ao excluir um produto, o que mais deve ser apagado?', 'A cópia no carrinho (chave c…)', 'O CSS', 'O HTML', 'Nada'),
+    Q('O total do carrinho aparece como NaN com itens antigos. Causa provável?', 'item.quantidade é undefined', 'O JSON está inválido', 'O laço está errado', 'O toFixed não funciona'),
+    Q('Como evitar esse NaN?', 'let qtd = item.quantidade || 1;', 'Apagar o localStorage', 'Usar innerHTML', 'Trocar let por const'),
+    Q('Por que a busca "some" os produtos se o resultado do filter não foi guardado?', 'O filter devolve um array novo e o original continua igual', 'filter apaga os itens', 'O localStorage bloqueia', 'O input quebra'),
+    Q('Depois de mudar os dados da loja, o que sempre fazer?', 'Chamar a função que redesenha a tela', 'Recarregar o navegador', 'Apagar o JSON', 'Trocar o id'),
+  ]);
+
+  N(117, 9, 'Nivelamento: Módulo 9 · JavaScript assíncrono', [
+    Q('Qual a ordem das mensagens: log("A"); setTimeout(() => log("B"), 0); log("C");', 'A, C, B', 'A, B, C', 'B, A, C', 'C, B, A'),
+    Q('Em setTimeout(f, 2000), o que é 2000?', 'O tempo de espera em milissegundos', 'O tempo em segundos', 'O número de repetições', 'A linha do código'),
+    Q('O que o setInterval faz?', 'Repete a função a cada intervalo', 'Executa uma única vez', 'Espera um clique', 'Apaga a função'),
+    Q('O que o fetch(url) devolve?', 'Uma Promise', 'Os dados prontos', 'Um número', 'Um erro obrigatório'),
+    Q('let d = fetch(url); console.log(d.name) mostra:', 'undefined, porque d é uma Promise', 'O nome', 'Um erro de sintaxe', 'null'),
+    Q('Para que serve resposta.json()?', 'Converter a resposta em um objeto', 'Enviar a resposta', 'Apagar a resposta', 'Guardar no localStorage'),
+    Q('O que o await faz dentro de uma função async?', 'Espera a Promise terminar e entrega o resultado', 'Cancela o pedido', 'Repete o pedido', 'Transforma em texto'),
+    Q('Onde o await pode ser usado (em um script comum)?', 'Dentro de funções declaradas com async', 'Em qualquer lugar', 'Só no CSS', 'Somente no HTML'),
+    Q('Quando o bloco catch é executado?', 'Quando acontece um erro dentro do try', 'Sempre', 'Nunca', 'Quando o try funciona'),
+    Q('Por que um endereço que devolve 404 não cai no catch sozinho?', 'O fetch só rejeita se não conseguir falar com o servidor', 'O catch só funciona com números', '404 não é erro', 'O await ignora respostas'),
+    Q('Como detectar uma resposta 404 ou 500?', 'Conferindo resposta.ok', 'Conferindo resposta.json', 'Usando setTimeout', 'Apagando o try'),
+    Q('Por que usar textContent ao mostrar dados vindos de uma API?', 'Dados externos podem conter código malicioso', 'É mais rápido que o fetch', 'innerHTML não existe', 'textContent aceita HTML'),
+  ]);
+
+  N(118, 10, 'Nivelamento: Módulo 10 · Profissionalismo', [
+    Q('Qual é a função do Git?', 'Guardar o histórico do projeto e permitir voltar a versões antigas', 'Hospedar o site', 'Executar o JavaScript', 'Corrigir erros sozinho'),
+    Q('Qual é a diferença entre Git e GitHub?', 'Git é o programa local; GitHub é o site com a cópia online', 'São o mesmo programa', 'GitHub funciona sem Git', 'Git é um editor'),
+    Q('O que é um commit?', 'Um ponto de salvamento com uma mensagem', 'Uma cópia no GitHub', 'Um erro', 'Um tipo de arquivo'),
+    Q('Qual comando cria um repositório na pasta?', 'git init', 'git start', 'git new', 'git create'),
+    Q('O que faz git add . ?', 'Separa as mudanças para o próximo commit', 'Envia ao GitHub', 'Cria o repositório', 'Apaga o histórico'),
+    Q('Qual é a melhor mensagem de commit?', 'Adiciona validação do formulário de produtos', 'arrumei', 'asdf', 'agora vai'),
+    Q('Author identity unknown *** Please tell me who you are. Qual é a solução?', 'Configurar user.name e user.email com git config', 'Reinstalar o Windows', 'Apagar a pasta .git', 'Fazer git push'),
+    Q('Para que serve o .gitignore?', 'Listar arquivos que não devem ir para o repositório', 'Apagar arquivos', 'Acelerar o Git', 'Criar commits'),
+    Q('O que NUNCA deve ser publicado em um repositório?', 'Senhas, chaves e o arquivo .env', 'O README', 'O index.html', 'O CSS'),
+    Q('O que o GitHub Pages publica?', 'Páginas estáticas (HTML, CSS e JavaScript)', 'Servidores Node com banco', 'Bancos de dados', 'E-mails'),
+    Q('Por que Foto.PNG pode funcionar no seu PC e falhar no GitHub Pages?', 'O GitHub diferencia maiúsculas e minúsculas nos nomes', 'O GitHub não aceita imagens', 'O Windows apaga a imagem', 'Imagens não funcionam em HTML'),
+    Q('Como atualizar um site já publicado no GitHub Pages?', 'Fazer commit e push das mudanças', 'Apagar o repositório e criar outro', 'Enviar um e-mail', 'Reinstalar o Git'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
   // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
