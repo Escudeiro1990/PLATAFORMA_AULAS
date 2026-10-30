@@ -3049,6 +3049,238 @@ function limparConcluidas() {
     Q('Qual é uma vantagem de uma chave por item, como na loja?', 'Mudar um item mexe só nele e permite separar famílias por prefixo', 'É sempre mais rápido para listar', 'Usa menos código', 'Evita o JSON'),
   ]);
 
+  PRAT[73] = { tarefas: ['<strong>Nível 1.</strong> Pegue 3 endereços de sites que você usa e separe, no caderno, o protocolo, o domínio e o caminho de cada um.', '<strong>Nível 1.</strong> Abra o <strong>Network</strong> em um site, recarregue e anote 3 arquivos com o status <code>200</code>.', '<strong>Nível 2.</strong> Digite um endereço inexistente do mesmo site (ex.: <code>/pagina-que-nao-existe</code>) e anote o status que o Network mostra.', '<strong>Explique:</strong> com suas palavras, o caminho completo de uma página, do Enter até aparecer na tela.'],
+    desafio: '<strong>Nível 3.</strong> Faça um diagrama (cliente, DNS, servidor) mostrando o que acontece quando você digita <code>https://exemplo.com/loja?categoria=papelaria</code>, indicando cada parte da URL.' };
+  PRAT[74] = { tarefas: ['<strong>Nível 1.</strong> Instale (ou localize) o VS Code, crie a pasta <code>loja-virtual</code> e abra-a no editor.', '<strong>Nível 1.</strong> Crie o <code>index.html</code> com o esqueleto (digite <code>!</code> e <strong>Tab</strong>) e abra no navegador.', '<strong>Nível 2.</strong> Instale a extensão <strong>Live Server</strong> e abra a página por ela. Mude o título, salve e veja a página atualizar sozinha.', '<strong>Explique:</strong> com suas palavras, a diferença entre abrir o arquivo com duplo clique e abrir com o Live Server.'],
+    desafio: '<strong>Nível 3.</strong> Crie a estrutura de pastas completa do projeto (HTML, CSS, JS e imagens), faça o primeiro teste e ensine um colega a configurar o mesmo ambiente.' };
+  PRAT[75] = { tarefas: ['<strong>Nível 1.</strong> Crie 3 páginas (<code>index.html</code>, <code>sobre.html</code>, <code>contato.html</code>) ligadas por links entre si.', '<strong>Nível 1.</strong> Coloque uma imagem numa pasta <code>imagens/</code> e exiba na página com <code>alt</code>.', '<strong>Nível 2.</strong> Mova a imagem de pasta de propósito e leia o erro 404 no Network. Corrija o caminho.', '<strong>Explique:</strong> com suas palavras, a diferença entre caminho relativo e absoluto.'],
+    desafio: '<strong>Nível 3.</strong> Monte um site de 3 páginas em subpastas (<code>paginas/</code>) com links que usam <code>../</code> corretamente e navegação que funciona de todas as páginas.' };
+  PRAT[76] = { tarefas: ['<strong>Nível 1.</strong> Reescreva uma página usando <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code> e <code>footer</code> no lugar de <code>div</code>.', '<strong>Nível 1.</strong> Confira a ordem dos títulos (<code>h1</code>, <code>h2</code>...) e acrescente <code>alt</code> em todas as imagens.', '<strong>Nível 2.</strong> Navegue pela página <strong>só com o teclado</strong> (Tab, Enter) e anote o que ficou inacessível.', '<strong>Nível 2.</strong> Rode a auditoria de <strong>Acessibilidade</strong> do Lighthouse (DevTools) e corrija 2 problemas apontados.'],
+    desafio: '<strong>Nível 3.</strong> Deixe o formulário da loja <strong>100% acessível</strong>: labels ligados, foco visível, contraste suficiente e mensagens de erro que um leitor de tela consiga ler.' };
+
+  // ══════════════════════════════════════════════════════
+  // 73 — URL E HTTP
+  // ══════════════════════════════════════════════════════
+  A(73, 'Web 2: URL, HTTP e o Caminho de uma Página', 'Ler um endereço por partes, entender pedido e resposta e interpretar os códigos 200, 404 e 500', '🔗', [
+    P('💡', 'ENTENDA: o endereço tem partes',
+      `<p>Um endereço da web, a <strong>URL</strong>, é como um endereço de correio: cada parte diz uma coisa.</p>`,
+      code(`https://www.exemplo.com.br:443/loja/produtos?categoria=papelaria#preco
+\\___/   \\_____________/ \\_/ \\_____________/ \\__________________/ \\____/
+  1            2          3        4                  5             6`),
+      lista(['1️⃣ <strong>Protocolo</strong> (<code>https</code>): a "língua" da conversa; o <code>s</code> indica conexão <strong>segura</strong> (o cadeado)', '2️⃣ <strong>Domínio</strong>: o nome do servidor', '3️⃣ <strong>Porta</strong> (geralmente escondida)', '4️⃣ <strong>Caminho</strong>: qual página ou recurso dentro do site', '5️⃣ <strong>Query string</strong> (depois do <code>?</code>): informações extras, no formato <code>nome=valor</code>', '6️⃣ <strong>Âncora</strong> (depois do <code>#</code>): um ponto dentro da página']),
+      analogia(`é como um endereço: <strong>país</strong> (protocolo), <strong>cidade</strong> (domínio), <strong>rua</strong> (caminho), <strong>"apto 12"</strong> (âncora).`),
+      caderno(['URL = protocolo + domínio + caminho + ?query + #âncora', 'https = conexão segura', '?nome=valor passa informações pela URL'])),
+    P('📨', 'HTTP: o pedido e a resposta',
+      `<p>O navegador e o servidor conversam em <strong>HTTP</strong>: o navegador faz uma <strong>requisição</strong> e o servidor devolve uma <strong>resposta</strong>.</p>`,
+      lista(['<strong>Método</strong> <code>GET</code>: "me dê este recurso" (abrir uma página)', '<strong>Método</strong> <code>POST</code>: "receba estes dados" (enviar um formulário)', 'A resposta vem com um <strong>código de status</strong> e o conteúdo']),
+      code(`GET /loja/produtos HTTP/1.1
+Host: www.exemplo.com.br
+
+HTTP/1.1 200 OK
+Content-Type: text/html
+...conteúdo da página...`, 'Pedido e resposta (simplificados)'),
+      caderno(['GET = pedir · POST = enviar dados', 'Toda resposta tem um código de status'])),
+    P('🚦', 'Os códigos de status',
+      lista(['<strong>2xx</strong> sucesso: <code>200 OK</code>', '<strong>3xx</strong> redirecionamento: <code>301</code> (mudou de endereço)', '<strong>4xx</strong> erro de quem <em>pediu</em>: <code>404 Not Found</code> (não existe), <code>403 Forbidden</code> (sem permissão)', '<strong>5xx</strong> erro do <em>servidor</em>: <code>500 Internal Server Error</code>']),
+      preveja(`você digita <code>loja.com/produtos-que-nao-existem</code>. Qual status você espera? É erro seu ou do servidor?`),
+      box('verde', `<strong>Resposta:</strong> <code>404</code>: o servidor funcionou, mas aquele recurso não existe. É da família 4xx: o pedido é que estava errado.`)),
+    P('🐞', 'ENCONTRE O ERRO: mensagens de endereço',
+      lista(['<code>ERR_NAME_NOT_RESOLVED</code> (<em>"Não foi possível encontrar o endereço DNS do servidor"</em>): o <strong>domínio</strong> está escrito errado ou não existe. O DNS não achou o endereço', '<code>404 Not Found</code>: o servidor existe, mas o <strong>caminho</strong> está errado', '<code>ERR_CONNECTION_REFUSED</code>: o servidor existe, mas <strong>não está aceitando conexões</strong> (por exemplo, o seu servidor local não foi ligado)', '<code>ERR_CONNECTION_TIMED_OUT</code>: demorou demais para responder']),
+      box('azul', `<strong>O DNS</strong> é a "agenda telefônica" da internet: transforma o nome (<code>exemplo.com.br</code>) no endereço numérico (IP) do servidor. Sem ele, só se acessaria por números.`),
+      caderno(['Nome do site errado = ERR_NAME_NOT_RESOLVED', 'Caminho errado = 404', 'DNS transforma nome em endereço IP'])),
+    P('🔧', 'MODIFIQUE: veja no Network',
+      lista(['Abra qualquer site, aperte <strong>F12 → Network</strong> e recarregue', 'Clique no primeiro item (o documento): veja o <strong>método</strong>, o <strong>status</strong> e os <strong>cabeçalhos</strong>', 'Procure um arquivo de imagem e veja o <em>tamanho</em> e o <em>tempo</em> de carregamento', 'Digite na barra um endereço com <code>?busca=teste</code> no final e veja o que muda na URL']),
+      atencao(`dados na <strong>query string</strong> ficam visíveis na barra de endereço e no histórico. Nunca coloque senhas nela.`)),
+    P('🎯', 'DESAFIO: conte a história de uma página',
+      lista(['Descreva, passo a passo, o que acontece entre digitar um endereço e a página aparecer: DNS, pedido HTTP, resposta, HTML, CSS e JavaScript', 'Use as palavras: <strong>cliente, servidor, requisição, resposta, status</strong>']),
+      box('verde', `<strong>Explique com suas palavras</strong> a diferença entre um erro 404 e um erro 500. De quem é o "problema" em cada caso?`)),
+  ], [
+    Q('Qual parte da URL indica a conexão segura?', 'https', 'www', '.com.br', '#'),
+    Q('Em https://loja.com/produtos?cat=papel, o que é /produtos?', 'O caminho', 'O protocolo', 'O domínio', 'A porta'),
+    Q('O que é o ?cat=papel no final do endereço?', 'A query string, com informações extras', 'O protocolo', 'O servidor', 'A âncora'),
+    Q('Qual método HTTP pede uma página?', 'GET', 'POST', 'SEND', 'OPEN'),
+    Q('Qual método costuma enviar os dados de um formulário?', 'POST', 'GET', 'READ', 'FIND'),
+    Q('O que significa o status 200?', 'Sucesso: a resposta chegou', 'Arquivo não encontrado', 'Erro do servidor', 'Sem permissão'),
+    Q('O que significa o status 404?', 'O recurso pedido não foi encontrado', 'Sucesso', 'Erro dentro do servidor', 'Conexão recusada'),
+    Q('Qual família de status indica erro do servidor?', '5xx', '2xx', '3xx', '4xx'),
+    Q('ERR_NAME_NOT_RESOLVED indica:', 'O domínio está errado ou não existe', 'O caminho está errado', 'O servidor travou', 'A senha está errada'),
+    Q('Para que serve o DNS?', 'Transformar o nome do site no endereço (IP) do servidor', 'Deixar o site mais bonito', 'Guardar a senha', 'Compactar arquivos'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 74 — AMBIENTE DE TRABALHO
+  // ══════════════════════════════════════════════════════
+  A(74, 'Web 3: Ambiente de Trabalho', 'Configurar o editor, criar a pasta do projeto, abrir a página no navegador e evitar os erros clássicos do primeiro dia', '🧰', [
+    P('💡', 'ENTENDA: as ferramentas do programador',
+      `<p>Para programar na web você precisa de três coisas:</p>`,
+      lista(['📝 <strong>Editor de código</strong>: onde você escreve (recomendado: <strong>Visual Studio Code</strong>, gratuito)', '🌍 <strong>Navegador</strong>: onde você vê o resultado (Chrome ou Edge)', '📁 <strong>Uma pasta</strong> para o projeto, com os arquivos dentro']),
+      analogia(`o editor é o <strong>caderno</strong>, o navegador é o <strong>leitor</strong> que lê o que você escreveu, e a pasta é a <strong>mochila</strong> que mantém tudo junto.`),
+      caderno(['Editor (VS Code) + navegador + pasta do projeto'])),
+    P('⌨️', 'DIGITE: o primeiro projeto',
+      lista(['1️⃣ Crie uma pasta chamada <code>loja-virtual</code> (sem acentos e sem espaços)', '2️⃣ No VS Code: <strong>File → Open Folder</strong> e escolha a pasta', '3️⃣ Crie um arquivo <code>index.html</code>', '4️⃣ Digite <code>!</code> e aperte <strong>Tab</strong>: o VS Code monta o esqueleto do HTML sozinho (isso se chama <em>Emmet</em>)', '5️⃣ Escreva um <code>&lt;h1&gt;Olá!&lt;/h1&gt;</code> dentro do <code>body</code>, salve com <strong>Ctrl+S</strong> e dê duplo clique no arquivo para abrir no navegador']),
+      code(`loja-virtual/
+  index.html
+  estilo.css
+  script.js`, 'Estrutura inicial'),
+      preveja(`você mudou o texto do <code>h1</code> no editor, mas não salvou. Ao recarregar o navegador, aparece o texto novo ou o antigo?`),
+      box('verde', `<strong>Resposta:</strong> o antigo. O navegador lê o <strong>arquivo salvo</strong>. No VS Code, um <strong>ponto</strong> ao lado do nome da aba indica "alterações não salvas".`)),
+    P('🔄', 'Live Server: a página que se atualiza sozinha',
+      lista(['Instale a extensão <strong>Live Server</strong> (aba de extensões do VS Code)', 'Clique com o botão direito no <code>index.html</code> → <strong>Open with Live Server</strong>', 'A página abre em um endereço como <code>http://127.0.0.1:5500</code> e <strong>recarrega sozinha</strong> toda vez que você salva']),
+      lista(['<code>file:///C:/...</code>: arquivo aberto <strong>direto do disco</strong> (duplo clique)', '<code>http://127.0.0.1:5500/...</code>: aberto por um <strong>servidor local</strong> (Live Server). Mais parecido com um site de verdade']),
+      atencao(`algumas coisas, como <code>fetch</code> em arquivos locais, <strong>só funcionam</strong> através de um servidor (Live Server), e não com duplo clique.`),
+      caderno(['Ctrl+S salva · o ponto na aba = não salvo', 'Live Server recarrega a página ao salvar', 'file:/// = direto do disco · http://127.0.0.1 = servidor local'])),
+    P('🐞', 'ENCONTRE O ERRO: os erros do primeiro dia',
+      lista(['<strong>"Mudei o código e nada mudou"</strong>: não salvou (ponto na aba), editou o arquivo de <em>outra pasta</em>, ou o navegador usou o <em>cache</em> (Ctrl+F5)', '<strong>Página mostra o código HTML escrito</strong>: o arquivo foi salvo como <code>index.html.txt</code>. O Windows costuma <strong>esconder as extensões</strong>. Ative "Extensões de nomes de arquivos" no Explorador', '<strong>Acentos viram "Ã§Ã£o"</strong>: faltou <code>&lt;meta charset="UTF-8"&gt;</code> no <code>head</code> (ou o arquivo foi salvo em outra codificação)', '<strong>Imagem ou CSS não aparece</strong>: caminho ou nome errado. Veja o 404 no Network']),
+      box('azul', `<strong>Dica:</strong> nomes de arquivos e pastas <strong>sem acentos, sem espaços e em minúsculas</strong> (<code>minha-loja</code>, não <code>Minha Loja Nova</code>) evitam a maioria dos problemas.`)),
+    P('🔧', 'MODIFIQUE: ajustando o ambiente',
+      lista(['Mude o tamanho da fonte do editor (<strong>Ctrl + roda do mouse</strong>)', 'Use <strong>Alt+Shift+F</strong> para formatar o código', 'Use <strong>Ctrl+/</strong> para comentar a linha', 'Abra o terminal integrado com <strong>Ctrl+`</strong>']),
+      caderno(['Nomes: minúsculas, sem acento, sem espaço', 'Alt+Shift+F formata · Ctrl+/ comenta'])),
+    P('🎯', 'DESAFIO: ensine a um colega',
+      lista(['Ajude um colega a criar a pasta, o <code>index.html</code> e abrir com o Live Server', 'Provoque 2 dos erros do primeiro dia e peça que ele descubra a causa']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o navegador não mostra o que você acabou de digitar no editor, até você salvar?`)),
+  ], [
+    Q('Quais são as 3 coisas necessárias para começar a programar para a web?', 'Editor de código, navegador e uma pasta do projeto', 'Impressora, scanner e planilha', 'Apenas o navegador', 'Banco de dados e servidor'),
+    Q('O que o atalho Ctrl+S faz no editor?', 'Salva o arquivo', 'Copia o código', 'Abre o navegador', 'Fecha o editor'),
+    Q('Uma bolinha ao lado do nome da aba no VS Code indica:', 'Alterações não salvas', 'Erro de sintaxe', 'Arquivo bloqueado', 'Arquivo novo'),
+    Q('O que faz o Live Server?', 'Abre a página em um servidor local e recarrega ao salvar', 'Publica o site na internet', 'Corrige os erros do código', 'Cria o CSS'),
+    Q('O navegador mostra o código HTML escrito na tela. Causa provável?', 'O arquivo foi salvo como index.html.txt', 'Faltou o CSS', 'O servidor caiu', 'O JavaScript quebrou'),
+    Q('Os acentos aparecem como "Ã§Ã£o". O que provavelmente falta?', '<meta charset="UTF-8"> no head', 'Um parágrafo', 'Um link', 'O atributo alt'),
+    Q('Qual é um bom nome para a pasta do projeto?', 'loja-virtual', 'Loja Virtual Nova!', 'minha loja (final)', 'Loja_Virtual@2'),
+    Q('Em um arquivo aberto com duplo clique, o endereço começa com:', 'file:///', 'https://', 'ftp://', 'www.'),
+    Q('Como digitar rapidamente o esqueleto do HTML no VS Code?', 'Digitar ! e apertar Tab', 'Digitar html e apagar', 'Ctrl+Z', 'Digitar index'),
+    Q('Alterei o CSS e nada mudou. Qual é uma causa comum?', 'Não salvei, ou o navegador usou o cache', 'O CSS parou de funcionar', 'O HTML foi apagado', 'O Windows bloqueou'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 75 — HTML: LINKS, IMAGENS E CAMINHOS
+  // ══════════════════════════════════════════════════════
+  A(75, 'HTML 2: Links, Imagens e Caminhos', 'Ligar páginas e carregar imagens sem erro: caminhos relativos, pastas e o famoso 404', '🖼️', [
+    P('💡', 'ENTENDA: o caminho é um endereço dentro do computador',
+      `<p>Quando você escreve <code>src="foto.jpg"</code>, o navegador precisa <strong>saber onde está</strong> a foto. O <strong>caminho</strong> descreve esse lugar, <em>a partir da página que o chama</em>.</p>`,
+      analogia(`é como explicar a um amigo como chegar: <strong>"na mesma rua"</strong> (mesma pasta), <strong>"entre na pasta imagens"</strong> (subpasta) ou <strong>"suba uma pasta e entre em outra"</strong> (<code>../</code>).`),
+      code(`projeto/
+  index.html
+  sobre.html
+  imagens/
+    logo.png
+  paginas/
+    contato.html`),
+      caderno(['Caminho = como chegar ao arquivo, a partir da página atual'])),
+    P('📍', 'Os tipos de caminho',
+      code(`<!-- mesma pasta -->
+<a href="sobre.html">Sobre</a>
+
+<!-- dentro de uma subpasta -->
+<img src="imagens/logo.png" alt="Logo da loja">
+
+<!-- subir uma pasta com ../ (a partir de paginas/contato.html) -->
+<a href="../index.html">Início</a>
+<img src="../imagens/logo.png" alt="Logo">
+
+<!-- endereço absoluto (outro site) -->
+<a href="https://www.google.com">Google</a>`),
+      lista(['<strong>Relativo</strong>: parte da página atual (<code>sobre.html</code>, <code>imagens/logo.png</code>, <code>../index.html</code>)', '<strong>Absoluto</strong>: endereço completo com <code>https://...</code>, usado para <strong>outros sites</strong>', '<code>../</code> significa "suba uma pasta"']),
+      preveja(`dentro de <code>paginas/contato.html</code>, como você escreve o caminho para <code>imagens/logo.png</code>?`),
+      box('verde', `<strong>Resposta:</strong> <code>../imagens/logo.png</code>. A página está dentro de <code>paginas/</code>, então é preciso subir uma pasta (<code>../</code>) para chegar em <code>imagens/</code>.`)),
+    P('🔗', 'Links: mais do que ir para outra página',
+      code(`<a href="https://www.google.com" target="_blank" rel="noopener">Abrir em nova aba</a>
+<a href="#precos">Ir para a seção Preços</a>      <!-- dentro da mesma página -->
+<h2 id="precos">Preços</h2>
+<a href="mailto:contato@loja.com">Enviar e-mail</a>
+<a href="tel:+5511999999999">Ligar</a>`),
+      lista(['<code>target="_blank"</code> abre em <strong>nova aba</strong>; use junto com <code>rel="noopener"</code> por segurança', '<code>#precos</code> leva até o elemento com <code>id="precos"</code>', '<code>mailto:</code> abre o programa de e-mail']),
+      atencao(`o texto do link precisa <strong>dizer para onde vai</strong>. "Clique aqui" não ajuda quem usa leitor de tela. Prefira "Ver o catálogo de produtos".`)),
+    P('🖼️', 'Imagens',
+      code(`<img src="imagens/caneta.jpg" alt="Caneta azul sobre um caderno" width="200">`),
+      lista(['<code>src</code>: o caminho da imagem', '<code>alt</code>: <strong>descrição</strong> (obrigatória para acessibilidade; aparece se a imagem falhar)', '<code>width</code>: largura em pixels (a altura se ajusta)']),
+      lista(['<strong>JPG</strong>: fotos', '<strong>PNG</strong>: imagens com transparência', '<strong>SVG</strong>: desenhos e ícones que não perdem qualidade', '<strong>WebP</strong>: leve e moderno']),
+      caderno(['img precisa de src e alt', 'Fotos: JPG · transparência: PNG · ícones: SVG'])),
+    P('🐞', 'ENCONTRE O ERRO: a imagem quebrada',
+      code(`<img src="Imagens/Caneta.JPG" alt="Caneta">
+
+<!-- arquivo real: imagens/caneta.jpg -->
+<!-- Network:  Caneta.JPG  404 (Not Found) -->`),
+      lista(['<strong>Sintoma:</strong> aparece o ícone de imagem quebrada e o texto do <code>alt</code>', '<strong>Causa 1:</strong> maiúsculas e minúsculas. Em muitos servidores, <code>Caneta.JPG</code> e <code>caneta.jpg</code> são arquivos <strong>diferentes</strong>', '<strong>Causa 2:</strong> pasta ou extensão errada', '<strong>Causa 3:</strong> <strong>espaços</strong> no nome (<code>minha foto.jpg</code>): evite, ou o navegador troca por <code>%20</code>']),
+      box('verde', `<strong>Como investigar:</strong> F12 → Network → procure a linha vermelha com status 404 e compare o nome com o do arquivo na pasta.`),
+      caderno(['404 em imagem = nome, pasta ou maiúsculas errados', 'Nomes minúsculos, sem espaço e sem acento'])),
+    P('🎯', 'DESAFIO: site de 3 páginas',
+      lista(['Crie <code>index.html</code>, <code>sobre.html</code> e <code>paginas/contato.html</code>', 'Todas com o <strong>mesmo menu</strong>, com links que funcionam de qualquer página', 'Coloque o logo em <code>imagens/</code> e exiba nas 3 páginas (com os caminhos certos para cada uma)']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o caminho do logo é diferente na página que está dentro de <code>paginas/</code>?`)),
+  ], [
+    Q('O que é um caminho relativo?', 'O endereço do arquivo a partir da página atual', 'O endereço completo com https', 'O nome do site', 'O tamanho do arquivo'),
+    Q('O que significa ../ em um caminho?', 'Subir uma pasta', 'Entrar em uma pasta', 'Voltar à página anterior', 'Abrir uma nova aba'),
+    Q('Dentro de paginas/contato.html, qual o caminho certo para imagens/logo.png?', '../imagens/logo.png', 'imagens/logo.png', 'logo.png', '/imagens/../logo.png'),
+    Q('Para que serve target="_blank" em um link?', 'Abrir o link em uma nova aba', 'Apagar o link', 'Copiar o link', 'Colorir o link'),
+    Q('O que o href="#precos" faz?', 'Leva até o elemento com id="precos" na mesma página', 'Abre o site precos.com', 'Cria um comentário', 'Envia um e-mail'),
+    Q('Qual atributo da imagem descreve seu conteúdo em texto?', 'alt', 'src', 'width', 'href'),
+    Q('Qual formato é indicado para imagens com fundo transparente?', 'PNG', 'JPG', 'TXT', 'DOC'),
+    Q('A imagem aparece quebrada e o Network mostra 404. Qual causa é possível?', 'Nome com maiúsculas diferentes ou pasta errada', 'Falta de internet obrigatoriamente', 'O CSS está certo demais', 'O HTML está escrito em minúsculas'),
+    Q('Por que evitar espaços nos nomes de arquivo?', 'O navegador troca por %20 e pode causar erros', 'Porque o Windows proíbe', 'Porque o CSS não lê', 'Por motivo estético apenas'),
+    Q('Qual é um bom texto para um link?', 'Ver o catálogo de produtos', 'Clique aqui', 'Aqui', 'Link'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 76 — HTML SEMÂNTICO E ACESSIBILIDADE
+  // ══════════════════════════════════════════════════════
+  A(76, 'HTML 4: Semântica e Acessibilidade', 'Escrever HTML que faz sentido para todas as pessoas e para os leitores de tela, e conferir com o Lighthouse', '♿', [
+    P('💡', 'ENTENDA: a página também é lida por quem não enxerga',
+      `<p>Nem todo mundo usa a página com olhos e mouse. Quem tem baixa visão usa <strong>leitores de tela</strong>, que <em>leem em voz alta</em> a estrutura do HTML. Quem não usa mouse navega pelo <strong>teclado</strong>. <strong>Acessibilidade</strong> é fazer a página funcionar para todos.</p>`,
+      analogia(`um prédio com <strong>rampa</strong> e <strong>placas em braile</strong> não atrapalha ninguém e ajuda muita gente: idosos, pais com carrinho, cadeirantes. O mesmo vale para a web.`),
+      caderno(['Acessibilidade = a página funciona para todas as pessoas', 'Leitor de tela lê a estrutura do HTML'])),
+    P('🏛️', 'Tags semânticas: dar nome às áreas',
+      code(`<header>  cabeçalho: logo e título  </header>
+<nav>     menu de navegação         </nav>
+<main>    conteúdo principal (um por página) </main>
+  <section>  uma parte do conteúdo   </section>
+  <article>  conteúdo independente (um produto, uma notícia) </article>
+<aside>   conteúdo complementar     </aside>
+<footer>  rodapé                    </footer>`),
+      `<p style="margin-top:12px">Um <code>div</code> não diz nada. Um <code>nav</code> diz <strong>"aqui está o menu"</strong>: o leitor de tela deixa o usuário <em>pular direto</em> para ele.</p>`,
+      preveja(`você tem um menu feito com <code>&lt;div class="menu"&gt;</code>. O que você ganha trocando por <code>&lt;nav&gt;</code>?`)),
+    P('🔢', 'Títulos em ordem e textos que fazem sentido',
+      lista(['<strong>Um</strong> <code>h1</code> por página', 'Os títulos descem em ordem: <code>h1</code> → <code>h2</code> → <code>h3</code>, <strong>sem pular</strong> níveis', 'Não use <code>h3</code> só "porque a letra fica menor": o tamanho se muda pelo CSS']),
+      code(`<h1>Loja Virtual</h1>
+  <h2>Produtos</h2>
+    <h3>Papelaria</h3>
+    <h3>Eletrônicos</h3>
+  <h2>Carrinho</h2>`),
+      caderno(['Um h1 · títulos em ordem, sem pular níveis', 'Tamanho se muda no CSS, não escolhendo outro título'])),
+    P('🏷️', 'Formulários e imagens acessíveis',
+      code(`<!-- ruim: o leitor de tela não sabe o que é o campo -->
+<input type="text" placeholder="Nome">
+
+<!-- bom: label ligado ao input -->
+<label for="nome">Nome</label>
+<input type="text" id="nome">
+
+<!-- botão só com ícone: precisa de um nome -->
+<button aria-label="Excluir produto">🗑️</button>
+
+<!-- imagem decorativa: alt vazio -->
+<img src="enfeite.png" alt="">`),
+      lista(['<code>label for</code> + <code>id</code>: ligam o texto ao campo (e aumentam a área de clique)', '<code>placeholder</code> <strong>não substitui</strong> o label: some ao digitar', '<code>aria-label</code> dá nome a elementos sem texto', '<code>&lt;html lang="pt-br"&gt;</code> diz ao leitor de tela o idioma da página']),
+      atencao(`imagens que <strong>carregam informação</strong> (um gráfico, um produto) precisam de <code>alt</code> descritivo. Só as <strong>puramente decorativas</strong> usam <code>alt=""</code>.`)),
+    P('🐞', 'ENCONTRE O ERRO: contraste e teclado',
+      lista(['<strong>Contraste baixo:</strong> texto cinza-claro sobre fundo branco. O mínimo recomendado (WCAG) é <strong>4,5 para 1</strong> em texto comum. Ferramenta: DevTools mostra a razão de contraste ao inspecionar a cor', '<strong>Sem foco visível:</strong> quem navega com <strong>Tab</strong> precisa ver <em>onde está</em>. Nunca remova o contorno (<code>outline: none</code>) sem colocar um estilo de <code>:focus</code> no lugar', '<strong>Div clicável:</strong> <code>&lt;div onclick="..."&gt;</code> não recebe foco pelo teclado. Use <code>&lt;button&gt;</code>, que já vem acessível']),
+      box('verde', `<strong>Teste rápido:</strong> aperte <strong>Tab</strong> várias vezes em sua página. Consegue alcançar tudo, na ordem certa, vendo onde está? Se não, há um problema de acessibilidade.`),
+      caderno(['Contraste mínimo 4,5:1 para texto comum', 'Nunca remover o foco sem substituir', 'Use button para ações, não div clicável'])),
+    P('🔧', 'MODIFIQUE: auditoria com o Lighthouse',
+      lista(['F12 → aba <strong>Lighthouse</strong> → marque <em>Accessibility</em> → <strong>Analyze page load</strong>', 'Leia a lista de problemas (imagens sem <code>alt</code>, contraste, labels ausentes)', 'Corrija 2 problemas e rode de novo para ver a nota subir']),
+      box('azul', `A nota do Lighthouse é um <strong>ponto de partida</strong>, não a garantia de acessibilidade. Testar com o teclado e, se possível, com um leitor de tela, mostra o que as ferramentas não pegam.`),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que usar <code>nav</code> e <code>main</code> ajuda mais do que usar só <code>div</code>? E por que o <code>placeholder</code> não substitui o <code>label</code>?`)),
+  ], [
+    Q('O que é acessibilidade na web?', 'Fazer a página funcionar para todas as pessoas, inclusive com deficiências', 'Deixar a página mais rápida', 'Usar muitas cores', 'Proteger a página de hackers'),
+    Q('O que é um leitor de tela?', 'Um programa que lê em voz alta o conteúdo e a estrutura da página', 'Um tipo de monitor', 'Uma extensão do Word', 'Um navegador antigo'),
+    Q('Qual tag representa o menu de navegação?', '<nav>', '<aside>', '<footer>', '<section>'),
+    Q('Qual regra vale para o h1?', 'Um por página', 'Quantos quiser', 'Só no rodapé', 'Nunca usar'),
+    Q('Qual é a ordem correta de títulos?', 'h1, h2, h3', 'h1, h4, h2', 'h3, h1, h2', 'h2, h2, h2 sempre'),
+    Q('Para que serve label for="nome"?', 'Ligar o texto ao campo com id="nome"', 'Mudar a cor do campo', 'Validar o campo', 'Apagar o campo'),
+    Q('Por que placeholder não substitui o label?', 'Porque some ao digitar e não é lido de forma confiável', 'Porque o placeholder não existe', 'Porque o label é mais bonito', 'Porque são iguais'),
+    Q('Qual é a razão mínima de contraste recomendada para texto comum?', '4,5 para 1', '1 para 1', '2 para 1', '10 para 1'),
+    Q('Por que usar <button> em vez de <div onclick>?', 'O button recebe foco e funciona com o teclado', 'O div não existe', 'O button é mais colorido', 'O div não aceita CSS'),
+    Q('Quando usar alt=""?', 'Em imagens puramente decorativas', 'Em todas as imagens', 'Em gráficos importantes', 'Nunca'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
