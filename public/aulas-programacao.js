@@ -1215,7 +1215,7 @@ console.log(typeof produto.preco, produto.preco); // número ou texto?`, 'Duas l
     P('🏆', 'Revisão: o caminho completo',
       `<p>Você percorreu todo o caminho de um sistema web simples. Confira se consegue <strong>explicar cada etapa com suas palavras</strong>:</p>`,
       lista(['1️⃣ O navegador recebe <strong>HTML</strong> (estrutura), <strong>CSS</strong> (aparência) e <strong>JavaScript</strong> (comportamento)', '2️⃣ O JavaScript <strong>acha elementos</strong> no DOM e <strong>escuta eventos</strong>', '3️⃣ O evento chama uma função que <strong>lê o formulário</strong>', '4️⃣ Os dados viram um <strong>objeto</strong>, são <strong>embalados em JSON</strong> e guardados no localStorage', '5️⃣ Uma função <strong>percorre as gavetas</strong>, filtra por p ou c, <strong>desembala</strong> e <strong>desenha</strong> a tela', '6️⃣ Comprar <strong>copia p para c</strong>; excluir apaga as duas']),
-      box('azul', `<strong>Para continuar praticando:</strong> use o <strong>Curso interativo</strong> (cartão no menu), que tem exercícios com correção na hora e o <strong>Laboratório da Loja</strong> para testar o localStorage sem medo de quebrar nada.`),
+      box('azul', `<strong>Para continuar praticando:</strong> refaça as aulas do projeto sem consultar o conteúdo e invente variações (novos campos, filtros, ordenação). Quem consegue mudar o projeto sozinho, entendeu.`),
       caderno(['Sistema = HTML + CSS + JS + dados guardados', 'Evento → função → dados → redesenhar', 'Se consegue explicar, aprendeu'])),
   ], [
     Q('Como "alterar" um produto no localStorage?', 'Ler, mudar os campos e gravar na mesma chave', 'Usar localStorage.update()', 'Apagar tudo e recomeçar', 'Mudar o HTML da tabela'),

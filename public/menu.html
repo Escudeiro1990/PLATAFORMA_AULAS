@@ -70,12 +70,6 @@
 
 <div id="loading-msg">⏳ Carregando suas aulas...</div>
 
-<a class="curso-dest" id="curso-dest" href="curso.html" style="display:none;">
-  <span class="ico">🧭</span>
-  <span><div class="tit">Prática interativa de Programação Web</div><div class="sub">Exercícios com correção na hora e laboratório para testar o que você aprendeu nas aulas.</div></span>
-  <span class="go">Praticar →</span>
-</a>
-
 <div class="grid" id="grid-aulas" style="display:none;"></div>
 
 <div class="secao-titulo" id="secao-provas-titulo" style="display:none;">
@@ -193,7 +187,6 @@
   function mostrarAulas(bloqueado) {
     var grid = document.getElementById('grid-aulas');
     grid.innerHTML = '';
-    document.getElementById('curso-dest').style.display = bloqueado ? 'none' : 'flex';
 
     if (bloqueado) {
       grid.innerHTML =
