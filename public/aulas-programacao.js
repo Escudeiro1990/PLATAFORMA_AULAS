@@ -40,6 +40,10 @@
     ops.splice(contQ++ % (ops.length + 1), 0, { texto: esc(deco(certa)), correta: true });
     return { pergunta: esc(deco(pergunta)), opcoes: ops };
   }
+  // Teste de nivelamento: aula só de quiz. Nota 7 ou mais = o aluno pode pular o módulo.
+  function N(id, modulo, titulo, perguntas) {
+    NOVAS.push({ id: id, titulo: titulo, descricao: 'Teste de nivelamento do módulo ' + modulo + ': nota 7 ou mais = você pode pular este módulo', icone: '🎯', passos: [], perguntas: perguntas, pratica: '' });
+  }
   function A(id, titulo, descricao, icone, passos, perguntas) {
     var coletadas = [];
     var limpos = passos.map(function (p) {
@@ -1215,7 +1219,7 @@ console.log(typeof produto.preco, produto.preco); // número ou texto?`, 'Duas l
     P('🏆', 'Revisão: o caminho completo',
       `<p>Você percorreu todo o caminho de um sistema web simples. Confira se consegue <strong>explicar cada etapa com suas palavras</strong>:</p>`,
       lista(['1️⃣ O navegador recebe <strong>HTML</strong> (estrutura), <strong>CSS</strong> (aparência) e <strong>JavaScript</strong> (comportamento)', '2️⃣ O JavaScript <strong>acha elementos</strong> no DOM e <strong>escuta eventos</strong>', '3️⃣ O evento chama uma função que <strong>lê o formulário</strong>', '4️⃣ Os dados viram um <strong>objeto</strong>, são <strong>embalados em JSON</strong> e guardados no localStorage', '5️⃣ Uma função <strong>percorre as gavetas</strong>, filtra por p ou c, <strong>desembala</strong> e <strong>desenha</strong> a tela', '6️⃣ Comprar <strong>copia p para c</strong>; excluir apaga as duas']),
-      box('azul', `<strong>Para continuar praticando:</strong> refaça as aulas do projeto sem consultar o conteúdo e invente variações (novos campos, filtros, ordenação). Quem consegue mudar o projeto sozinho, entendeu.`),
+      box('azul', `<strong>Para continuar praticando:</strong> use o <strong>Curso interativo</strong> (cartão no menu), que tem exercícios com correção na hora e o <strong>Laboratório da Loja</strong> para testar o localStorage sem medo de quebrar nada.`),
       caderno(['Sistema = HTML + CSS + JS + dados guardados', 'Evento → função → dados → redesenhar', 'Se consegue explicar, aprendeu'])),
   ], [
     Q('Como "alterar" um produto no localStorage?', 'Ler, mudar os campos e gravar na mesma chave', 'Usar localStorage.update()', 'Apagar tudo e recomeçar', 'Mudar o HTML da tabela'),
@@ -1230,8 +1234,36 @@ console.log(typeof produto.preco, produto.preco); // número ou texto?`, 'Duas l
     Q('Qual é a ordem correta do fluxo completo?', 'Evento, ler o formulário, guardar em JSON, percorrer, desenhar', 'Desenhar, guardar, evento, ler', 'Guardar, apagar, desenhar, evento', 'Percorrer, evento, desenhar, ler'),
   ]);
 
+
+  // ══════════════════════════════════════════════════════
+  // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
+  // ══════════════════════════════════════════════════════
+  // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
+  var MODULOS = [
+    { n: 1,  nome: 'Fundamentos da Web',        icone: '🌐', ids: [56, 73, 74],                          nivel: 109 },
+    { n: 2,  nome: 'HTML',                      icone: '🧱', ids: [57, 75, 58, 76],                      nivel: 110 },
+    { n: 3,  nome: 'CSS',                       icone: '🎨', ids: [59, 77, 78, 79, 80, 81, 82],          nivel: 111 },
+    { n: 4,  nome: 'JavaScript fundamental',    icone: '⚡', ids: [60, 61, 83, 62, 84, 63, 85],          nivel: 112 },
+    { n: 5,  nome: 'DOM e eventos',             icone: '👆', ids: [65, 66, 86, 67, 87, 88],              nivel: 113 },
+    { n: 6,  nome: 'Depuração',                 icone: '🐞', ids: [64, 89, 90],                          nivel: 114 },
+    { n: 7,  nome: 'Armazenamento',             icone: '🗄️', ids: [68, 69, 91, 92],                      nivel: 115 },
+    { n: 8,  nome: 'Projeto: Loja Virtual',     icone: '🛒', ids: [93, 94, 70, 95, 72, 96, 71, 97, 98],  nivel: 116 },
+    { n: 9,  nome: 'JavaScript assíncrono',     icone: '⏱️', ids: [99, 100, 104],                        nivel: 117 },
+    { n: 10, nome: 'Profissionalismo',          icone: '🚀', ids: [105, 106],                            nivel: 118 },
+    { n: 11, nome: 'Revisão e avaliação',       icone: '🏁', ids: [107, 108],                            nivel: 0 }
+  ];
+  var ORDEM = [];
+  MODULOS.forEach(function (m) { if (m.nivel) ORDEM.push(m.nivel); ORDEM = ORDEM.concat(m.ids); });
+  function pos(a) { var i = ORDEM.indexOf(a.id); return i < 0 ? 999 : i; }
+  NOVAS.sort(function (a, b) { return pos(a) - pos(b); });
+
   // entrega as aulas novas à lista principal (sem repetir se já existirem)
   NOVAS.forEach(function (a) {
     if (!AULAS.some(function (x) { return x.id === a.id; })) AULAS.push(a);
   });
+  // marca o módulo de cada aula (as aulas antigas não têm módulo e continuam como estavam)
+  MODULOS.forEach(function (m) {
+    AULAS.forEach(function (a) { if (m.ids.indexOf(a.id) > -1 || a.id === m.nivel) a.modulo = m.n; });
+  });
+  window.MODULOS_CURSO = MODULOS;
 })();

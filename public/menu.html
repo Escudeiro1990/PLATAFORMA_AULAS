@@ -216,7 +216,7 @@
       return;
     }
 
-    lista.forEach(function(aula) {
+    function criarCard(aula) {
       var nota = notasAluno[aula.titulo];
       var concluida = nota !== undefined;
       var card = document.createElement('a');
@@ -229,7 +229,36 @@
         '<span class="card-badge' + (concluida ? ' concluida' : '') + '">' +
           (concluida ? '✓ Concluída — Nota ' + nota + '/10' : 'Iniciar aula') +
         '</span>';
-      grid.appendChild(card);
+      return card;
+    }
+
+    // aulas que não pertencem a nenhum módulo: lista normal
+    var modulos = (window.MODULOS_CURSO || []);
+    var soltas = lista.filter(function(a) { return !a.modulo; });
+    soltas.forEach(function(aula) { grid.appendChild(criarCard(aula)); });
+
+    // trilha de Programação Web: um bloco por módulo, com o progresso
+    var cabecalho = false;
+    modulos.forEach(function(m) {
+      var doModulo = lista.filter(function(a) { return a.modulo === m.n; });
+      // ordem do módulo = ordem definida (teste de nivelamento primeiro)
+      var ordem = (m.nivel ? [m.nivel] : []).concat(m.ids);
+      doModulo.sort(function(a, b) { return ordem.indexOf(a.id) - ordem.indexOf(b.id); });
+      if (!doModulo.length) return;
+      if (!cabecalho) {
+        cabecalho = true;
+        var t = document.createElement('div');
+        t.style.cssText = 'grid-column:1/-1;margin-top:18px;font-family:Sora,sans-serif;font-size:18px;font-weight:700;';
+        t.innerHTML = '🧭 Trilha de Programação Web<div style="font-family:DM Sans,sans-serif;font-weight:400;font-size:13px;color:var(--muted);margin-top:4px;">Cada módulo é independente: faça na ordem ou comece pelo que precisa. No começo de cada módulo há um <strong>teste de nivelamento</strong>: com nota 7 ou mais, você pode pular o módulo.</div>';
+        grid.appendChild(t);
+      }
+      var feitas = doModulo.filter(function(a) { return notasAluno[a.titulo] !== undefined; }).length;
+      var h = document.createElement('div');
+      h.style.cssText = 'grid-column:1/-1;margin-top:10px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:6px;';
+      h.innerHTML = '<span style="font-family:Sora,sans-serif;font-size:15px;font-weight:700;">' + m.icone + ' Módulo ' + m.n + ' — ' + m.nome + '</span>' +
+        '<span class="card-badge' + (feitas === doModulo.length ? ' concluida' : '') + '" style="margin:0;">' + feitas + ' de ' + doModulo.length + ' concluídas</span>';
+      grid.appendChild(h);
+      doModulo.forEach(function(aula) { grid.appendChild(criarCard(aula)); });
     });
   }
 
