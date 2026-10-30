@@ -129,6 +129,7 @@
     .fase-quiz     { background: rgba(124,106,247,.12); color: #a78bfa; }
   </style>
   <script src="aulas.js"></script>
+  <script src="aulas-programacao.js"></script>
 </head>
 <body>
 
@@ -349,6 +350,24 @@
     html += '</div>';
 
     area.innerHTML = html;
+    mostrarPratica();
+  }
+
+  // PRÁTICA: depois do quiz, o aluno pratica (tarefas marcáveis + desafio), se a aula tiver
+  function mostrarPratica() {
+    if (!aula.pratica) return;
+    var cx = document.createElement('div');
+    cx.innerHTML = aula.pratica;
+    area.appendChild(cx);
+    var chave = 'pratica:' + aluno + ':' + aula.id, marcadas = {};
+    try { marcadas = JSON.parse(localStorage.getItem(chave) || '{}'); } catch (e) { marcadas = {}; }
+    Array.prototype.forEach.call(cx.querySelectorAll('input[data-pt]'), function (c) {
+      c.checked = !!marcadas[c.getAttribute('data-pt')];
+      c.addEventListener('change', function () {
+        marcadas[c.getAttribute('data-pt')] = c.checked;
+        try { localStorage.setItem(chave, JSON.stringify(marcadas)); } catch (e) { /* ignora */ }
+      });
+    });
   }
 
   window.reiniciarAula = function () {
