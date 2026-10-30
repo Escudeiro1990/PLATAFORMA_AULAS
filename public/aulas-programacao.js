@@ -1235,6 +1235,384 @@ console.log(typeof produto.preco, produto.preco); // número ou texto?`, 'Duas l
   ]);
 
 
+  // Prática (3 níveis: digitar e executar · modificar · resolver sozinho) dos módulos 9 e 10
+  PRAT[99] = { tarefas: ['<strong>Nível 1.</strong> Digite o exemplo do <code>setTimeout</code> com 2000 ms e confirme que a mensagem aparece depois.', '<strong>Nível 1.</strong> Digite as três mensagens (1, setTimeout 0, 3), preveja a ordem no caderno e confira.', '<strong>Nível 2.</strong> Na contagem regressiva, troque o valor inicial e o intervalo. Anote o que mudou.', '<strong>Explique:</strong> com suas palavras, por que o <code>console.log</code> mostrou <code>Total: 0</code> no exemplo do erro.'],
+    desafio: '<strong>Nível 3.</strong> Faça na loja um aviso "Produto salvo!" que <strong>some sozinho depois de 3 segundos</strong>. Depois explique ao professor por que o <code>setTimeout</code> não trava o resto da página.' };
+  PRAT[100] = { tarefas: ['<strong>Nível 1.</strong> Digite o <code>fetch</code> de <code>/posts/1</code>, rode e mostre título e id no console.', '<strong>Nível 2.</strong> Mude o endereço para <code>/posts/2</code> e <code>/users/3</code>. Anote o que mudou nos dados.', '<strong>Nível 2.</strong> Reproduza de propósito o erro da Promise (sem .then) e leia o que aparece no console.', '<strong>Explique:</strong> com suas palavras, o que é uma API e o que é uma Promise.'],
+    desafio: '<strong>Nível 3.</strong> Busque <code>https://jsonplaceholder.typicode.com/users</code> e mostre em uma lista na página o <strong>nome e o e-mail</strong> de cada usuário, usando <code>textContent</code>.' };
+  PRAT[104] = { tarefas: ['<strong>Nível 1.</strong> Digite <code>mostrarPost</code> com <code>async/await</code> e confira que "Pedido enviado" aparece primeiro.', '<strong>Nível 2.</strong> Troque o endereço por um errado (<code>/usuarios/1</code>) e veja o que acontece. Depois acrescente a conferência de <code>resposta.ok</code>.', '<strong>Nível 2.</strong> Teste com a internet desligada e veja o <code>catch</code> funcionar.', '<strong>Explique:</strong> com suas palavras, por que um erro 404 não cai no <code>catch</code> sozinho.'],
+    desafio: '<strong>Nível 3.</strong> Faça a função <code>carregarProdutos()</code> com "Carregando...", sucesso e mensagem de erro amigável, e um botão "Tentar de novo".' };
+  PRAT[105] = { tarefas: ['<strong>Nível 1.</strong> Crie o repositório local com <code>git init</code>, faça o primeiro commit e rode <code>git log --oneline</code>.', '<strong>Nível 2.</strong> Altere um arquivo, rode <code>git status</code> e faça um novo commit com uma mensagem clara.', '<strong>Nível 2.</strong> Crie o <code>.gitignore</code> com <code>node_modules/</code> e <code>.env</code>.', '<strong>Explique:</strong> com suas palavras, a diferença entre Git, GitHub e commit.'],
+    desafio: '<strong>Nível 3.</strong> Envie o projeto da loja ao GitHub com um <code>README.md</code> bem escrito (o que faz, como abrir e seu nome).' };
+  PRAT[106] = { tarefas: ['<strong>Nível 1.</strong> Confira a lista de conferência no seu projeto (index.html na raiz, caminhos relativos, nomes iguais).', '<strong>Nível 1.</strong> Ative o GitHub Pages no repositório e abra o endereço do site.', '<strong>Nível 2.</strong> Provoque de propósito o erro do caminho com "/" no CSS, localize o 404 no Network e corrija.', '<strong>Explique:</strong> com suas palavras, o que o GitHub Pages publica e o que ele não consegue publicar.'],
+    desafio: '<strong>Nível 3.</strong> Publique uma página de portfólio com link para a loja publicada e para o repositório, funcionando no celular.' };
+
+  // ══════════════════════════════════════════════════════
+  // 99 — ASSINCRONISMO E setTimeout   (módulo 9)
+  // ══════════════════════════════════════════════════════
+  A(99, 'Assíncrono 1: Assincronismo e setTimeout', 'Por que algumas coisas só acontecem depois, e como prever a ordem em que o código executa', '⏱️', [
+    P('💡', 'ENTENDA: nem tudo acontece na hora',
+      `<p>Até aqui, o código rodou <strong>linha por linha, na ordem</strong>. Mas na web há tarefas que <strong>demoram</strong>: buscar dados na internet, esperar um clique, esperar 2 segundos. O navegador não pode travar a página esperando.</p>`,
+      analogia(`você pede uma pizza por telefone (começa a tarefa) e <strong>continua fazendo outras coisas</strong> enquanto ela não chega. Quando a campainha toca (resposta), você atende. Isso é <strong>assincronismo</strong>: começar agora, receber o resultado depois.`),
+      lista(['⏩ <strong>Síncrono</strong>: uma linha só começa quando a anterior termina', '⏳ <strong>Assíncrono</strong>: a tarefa demorada é iniciada e o resto do código segue; o resultado chega depois']),
+      caderno(['Assíncrono = começa agora, termina depois, sem travar a página', 'Exemplos: esperar um tempo, buscar dados na internet, clique do usuário'])),
+    P('⏱️', 'O setTimeout: executar depois de um tempo',
+      code(`setTimeout(function () {
+  console.log("Passaram 2 segundos");
+}, 2000);`),
+      lista(['O <strong>primeiro</strong> argumento é a função que será executada <em>depois</em>', 'O <strong>segundo</strong> é o tempo em <strong>milissegundos</strong> (1000 ms = 1 segundo)', 'O <code>setTimeout</code> <strong>não espera</strong>: ele agenda e o código continua']),
+      atencao(`2000 não é "2 segundos" porque o JavaScript pensa em segundos: é <strong>2000 milissegundos</strong>. Escrever <code>setTimeout(f, 2)</code> espera 2 ms, o que parece instantâneo.`)),
+    P('🧠', 'PREVEJA: em que ordem aparece?',
+      code(`console.log("1: começo");
+
+setTimeout(function () {
+  console.log("2: dentro do setTimeout");
+}, 0);
+
+console.log("3: fim");`),
+      preveja(`escreva no caderno a ordem exata das três mensagens. Atenção: o tempo é <strong>0</strong>. Será que "2" aparece no meio?`),
+      box('amarelo', `Pensou "1, 2, 3"? Muita gente pensa. Digite e confira no próximo passo.`)),
+    P('⌨️', 'DIGITE E COMPARE',
+      `<p><strong>Digite</strong> o código do passo anterior (não cole) e rode no console ou num arquivo HTML. Compare com a sua previsão.</p>`,
+      box('verde', `<strong>Resultado:</strong> <code>1: começo</code>, <code>3: fim</code> e só depois <code>2: dentro do setTimeout</code>. Mesmo com tempo 0, a função agendada <strong>espera o código atual terminar</strong>. Ela vai para uma fila e só roda quando o JavaScript fica livre.`),
+      caderno(['setTimeout agenda, não bloqueia', 'Com tempo 0, a função ainda roda DEPOIS do código atual terminar'])),
+    P('🐞', 'ENCONTRE O ERRO: cadê o resultado?',
+      code(`let total = 0;
+
+setTimeout(function () {
+  total = 100;
+}, 1000);
+
+console.log("Total:", total);   // mostra: Total: 0`),
+      `<p style="margin-top:12px">O programador esperava <code>100</code>, mas apareceu <code>0</code>. Nenhuma mensagem de erro: o código "funciona", só que <strong>na ordem errada</strong>.</p>`,
+      box('verde', `<strong>Causa:</strong> o <code>console.log</code> roda <em>antes</em> de a função do <code>setTimeout</code> mudar o <code>total</code>. <strong>Correção:</strong> usar o valor <em>dentro</em> da função agendada: <code>setTimeout(function () { total = 100; console.log("Total:", total); }, 1000);</code>.`),
+      atencao(`regra de ouro: o que depende do resultado de uma tarefa assíncrona precisa ficar <strong>dentro</strong> dela (ou depois de esperá-la, como veremos em <code>async/await</code>).`)),
+    P('🔧', 'MODIFIQUE: contagem regressiva',
+      code(`let segundos = 3;
+
+let relogio = setInterval(function () {
+  console.log(segundos);
+  segundos = segundos - 1;
+
+  if (segundos < 0) {
+    clearInterval(relogio);
+    console.log("Fim!");
+  }
+}, 1000);`),
+      `<p style="margin-top:12px">O <code>setInterval</code> repete a função <strong>a cada intervalo</strong>, até ser parado com <code>clearInterval</code>. Sem o <code>clearInterval</code>, ele repetiria para sempre.</p>`,
+      lista(['Troque <code>3</code> por <code>5</code> e preveja o que muda', 'Troque o intervalo para <code>500</code>', 'Comente o <code>clearInterval</code> e veja o que acontece (depois feche a aba)'])),
+    P('🛒', 'Aplicando na loja: mensagem que some sozinha',
+      `<p>Quando o produto é salvo, aparece um aviso verde. Se ele ficar na tela para sempre, atrapalha. Com <code>setTimeout</code> ele some depois de 3 segundos:</p>`,
+      code(`function mostrarAviso(texto) {
+  let aviso = document.getElementById("aviso");
+  aviso.textContent = texto;
+
+  setTimeout(function () {
+    aviso.textContent = "";
+  }, 3000);
+}
+
+mostrarAviso("Produto salvo!");`),
+      caderno(['setTimeout(função, milissegundos)', 'setInterval repete · clearInterval para', 'Use setTimeout para avisos que somem sozinhos'])),
+  ], [
+    Q('O que significa dizer que uma tarefa é assíncrona?', 'Ela é iniciada agora e termina depois, sem travar o resto do código', 'Ela roda sempre antes de todas as outras', 'Ela só roda se der erro', 'Ela precisa de internet'),
+    Q('Em setTimeout(f, 2000), o que é 2000?', 'O tempo de espera em milissegundos', 'O tempo em segundos', 'O número de repetições', 'O número da linha'),
+    Q('Quanto tempo espera setTimeout(f, 1000)?', '1 segundo', '1 milissegundo', '1 minuto', '10 segundos'),
+    Q('Qual a ordem das mensagens: log("A"); setTimeout(() => log("B"), 0); log("C");', 'A, C, B', 'A, B, C', 'B, A, C', 'C, B, A'),
+    Q('Por que "Total: 0" aparece, se o setTimeout muda o total para 100 depois de 1 segundo?', 'O console.log roda antes da função agendada', 'O setTimeout não funciona com variáveis', 'Faltou a palavra let', 'O número 100 é inválido'),
+    Q('Qual é a correção para mostrar o total correto?', 'Usar o valor dentro da função do setTimeout', 'Trocar o tempo por 0', 'Apagar o console.log', 'Trocar let por const'),
+    Q('O que o setInterval faz?', 'Repete a função a cada intervalo de tempo', 'Executa a função uma única vez', 'Espera o usuário clicar', 'Apaga a função'),
+    Q('O que acontece se você esquecer o clearInterval?', 'A função continua repetindo para sempre', 'Nada, o setInterval para sozinho', 'O navegador fecha', 'O intervalo vira 0'),
+    Q('No aviso da loja, qual a função do setTimeout?', 'Apagar o aviso depois de 3 segundos', 'Salvar o produto', 'Validar o formulário', 'Criar o produto no localStorage'),
+    Q('Qual das opções é uma tarefa que costuma ser assíncrona?', 'Buscar dados em um servidor', 'Somar dois números', 'Declarar uma variável', 'Comparar dois valores'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 100 — fetch E API PÚBLICA
+  // ══════════════════════════════════════════════════════
+  A(100, 'Assíncrono 2: fetch e API Pública', 'Buscar dados de um servidor com fetch, converter a resposta em JSON e mostrar na página', '🌍', [
+    P('💡', 'ENTENDA: o que é uma API',
+      `<p>Uma <strong>API</strong> é um endereço na internet que, em vez de devolver uma <em>página</em>, devolve <strong>dados</strong> (geralmente em JSON). Seu programa faz o pedido e usa a resposta.</p>`,
+      analogia(`o <strong>cardápio e o garçom</strong>: você não entra na cozinha. Pede ao garçom (API) e ele traz o prato (dados). Você só precisa saber <em>como pedir</em>.`),
+      code(`https://jsonplaceholder.typicode.com/users/1`, 'Exemplo de endereço de API pública (serve para treinar)'),
+      `<p style="margin-top:12px">Abra esse endereço no navegador: você verá um JSON com nome, e-mail e outros dados de um usuário de teste. É o mesmo formato (<code>JSON</code>) que usamos no localStorage.</p>`,
+      caderno(['API = endereço que devolve dados (JSON), não uma página', 'Você pede, o servidor responde', 'jsonplaceholder = API de teste, sem login'])),
+    P('📡', 'O fetch: fazer o pedido',
+      code(`fetch("https://jsonplaceholder.typicode.com/users/1")
+  .then(function (resposta) {
+    return resposta.json();            // converte o texto JSON em objeto
+  })
+  .then(function (usuario) {
+    console.log(usuario.name);         // usa os dados
+  });`),
+      lista(['<code>fetch(url)</code> faz o pedido e devolve uma <strong>Promise</strong> (uma "promessa" de resposta)', '<code>.then(...)</code>: "quando a resposta chegar, faça isto"', '<code>resposta.json()</code>: transforma o conteúdo em objeto (também é assíncrono, por isso o segundo <code>.then</code>)']),
+      analogia(`uma <strong>Promise</strong> é o ticket da lanchonete: ainda não é o lanche, mas é a promessa de que ele virá. Enquanto isso, você segue sua vida.`)),
+    P('🧠', 'PREVEJA E DIGITE',
+      code(`fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then(function (r) { return r.json(); })
+  .then(function (post) {
+    console.log("Título:", post.title);
+    console.log("Id:", post.id);
+  });`),
+      preveja(`qual será o valor de <code>post.id</code>? (olhe o final do endereço). E o <code>post.title</code>: é texto ou número?`),
+      `<p style="margin-top:12px"><strong>Digite</strong> e rode (num arquivo HTML aberto no navegador, com o console aberto). Compare com a previsão.</p>`,
+      box('verde', `<strong>Resultado:</strong> <code>Id: 1</code> (o 1 do endereço) e o título é um <strong>texto</strong>. Se mudar o endereço para <code>/posts/2</code>, vem outro post.`)),
+    P('🐞', 'ENCONTRE O ERRO: esqueci de esperar',
+      code(`let dados = fetch("https://jsonplaceholder.typicode.com/users/1");
+console.log(dados.name);      // undefined
+
+console.log(dados);           // Promise {<pending>}`),
+      lista(['<code>dados</code> <strong>não é o usuário</strong>: é a <code>Promise</code>, a promessa de resposta', 'Por isso <code>dados.name</code> é <code>undefined</code> e <code>console.log(dados)</code> mostra <code>Promise {&lt;pending&gt;}</code>']),
+      box('verde', `<strong>Correção:</strong> usar <code>.then</code> (como no passo anterior) para trabalhar com os dados <strong>depois que chegarem</strong>. No próximo módulo veremos <code>await</code>, que deixa isso mais legível.`),
+      atencao(`outro erro comum: <code>TypeError: Failed to fetch</code>. Significa que o pedido nem chegou ao servidor: internet caída, endereço digitado errado ou bloqueio do navegador (CORS).`)),
+    P('🔧', 'MODIFIQUE: mostrar uma lista na página',
+      code(`let lista = document.getElementById("lista");
+
+fetch("https://jsonplaceholder.typicode.com/users")
+  .then(function (r) { return r.json(); })
+  .then(function (usuarios) {
+    for (let i = 0; i < usuarios.length; i++) {
+      let li = document.createElement("li");
+      li.textContent = usuarios[i].name;   // textContent: seguro com dados externos
+      lista.appendChild(li);
+    }
+  });`),
+      `<p style="margin-top:12px">Aqui a API devolve um <strong>array de objetos</strong>, exatamente como a nossa lista de produtos. A mesma receita do <code>atualizarGrid</code>: percorrer e desenhar.</p>`,
+      atencao(`dados que vêm de fora <strong>nunca são confiáveis</strong>. Por isso usamos <code>textContent</code> (e não <code>innerHTML</code>), para que um nome com <code>&lt;script&gt;</code> não seja executado.`),
+      lista(['Mostre também o <code>email</code> de cada usuário', 'Mostre apenas os 3 primeiros (use <code>?_limit=3</code> no final do endereço)'])),
+    P('🛒', 'Aplicando na loja: importar produtos de exemplo',
+      code(`function importarProdutos() {
+  fetch("https://fakestoreapi.com/products?limit=3")
+    .then(function (r) { return r.json(); })
+    .then(function (lista) {
+      for (let i = 0; i < lista.length; i++) {
+        let id = "p" + lista[i].id;
+        let produto = { id: id, nome: lista[i].title, preco: lista[i].price };
+        localStorage.setItem(id, JSON.stringify(produto));
+      }
+      atualizarGrid();
+    });
+}`),
+      `<p style="margin-top:12px">Repare que a convenção da loja continua: id começando com <code>p</code>, objeto guardado com <code>JSON.stringify</code> e redesenho com <code>atualizarGrid()</code>. A API só <em>forneceu os dados</em>.</p>`,
+      atencao(`se esta API de exemplo estiver fora do ar, troque o endereço por <code>https://jsonplaceholder.typicode.com/posts?_limit=3</code> e adapte os nomes dos campos. APIs públicas de teste podem mudar ou sair do ar.`),
+      caderno(['fetch(url) devolve uma Promise', '.then(r => r.json()) converte a resposta', 'Dados de fora: use textContent, nunca confie neles'])),
+  ], [
+    Q('O que uma API pública devolve normalmente?', 'Dados, geralmente em JSON', 'Uma página HTML completa', 'Uma imagem do site', 'Um arquivo executável'),
+    Q('O que o fetch(url) devolve?', 'Uma Promise (promessa de resposta)', 'O objeto com os dados já pronto', 'Um número', 'Um erro obrigatório'),
+    Q('Para que serve resposta.json()?', 'Converter o conteúdo da resposta em um objeto', 'Enviar a resposta de volta', 'Apagar a resposta', 'Guardar a resposta no localStorage'),
+    Q('Por que há dois .then seguidos no fetch básico?', 'O primeiro converte para JSON e o segundo usa os dados', 'Um é para erros e o outro para sucesso', 'O primeiro aguarda o clique', 'Não há motivo, é só estilo'),
+    Q('let d = fetch(url); console.log(d.name) mostra:', 'undefined, porque d é uma Promise', 'O nome do usuário', 'Um erro de sintaxe', 'null'),
+    Q('console.log(d) mostra Promise {<pending>}. O que isso indica?', 'A resposta ainda não chegou (ou não foi esperada)', 'O servidor caiu', 'Faltou let', 'O JSON está inválido'),
+    Q('TypeError: Failed to fetch normalmente indica:', 'O pedido nem chegou ao servidor (rede, endereço ou bloqueio)', 'Variável não declarada', 'Faltou um parêntese', 'Array vazio'),
+    Q('Por que usar textContent ao mostrar nomes vindos de uma API?', 'Porque dados externos podem conter código malicioso', 'Porque é mais rápido que o fetch', 'Porque innerHTML não existe', 'Porque textContent aceita HTML'),
+    Q('Na importação de produtos para a loja, o que não deve mudar?', 'A convenção p + id, JSON.stringify e atualizarGrid', 'O uso do localStorage', 'O nome do projeto', 'A cor dos botões'),
+    Q('Se a API devolve um array de objetos, como percorrer?', 'Com um for, como na lista de produtos', 'Não é possível percorrer', 'Só com while', 'Convertendo para número'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 104 — async/await E TRATAMENTO DE FALHAS
+  // ══════════════════════════════════════════════════════
+  A(104, 'Assíncrono 3: async/await e Falhas', 'Escrever pedidos à API de forma legível com async/await e tratar erros com try/catch', '🛡️', [
+    P('💡', 'ENTENDA: await deixa o código legível',
+      `<p>O <code>.then</code> funciona, mas com muitos pedidos o código vira uma escada. O <strong>async/await</strong> permite escrever o mesmo <em>como se fosse linha por linha</em>.</p>`,
+      analogia(`na lanchonete, você pede e <strong>espera no balcão</strong> até o lanche ficar pronto, e só depois segue. O <code>await</code> é "esperar no balcão" <em>dentro da função</em>; o resto da página continua livre.`),
+      code(`// com .then
+fetch(url).then(r => r.json()).then(dados => console.log(dados));
+
+// com async/await: o mesmo, mais fácil de ler
+async function buscar() {
+  let resposta = await fetch(url);
+  let dados = await resposta.json();
+  console.log(dados);
+}`),
+      caderno(['async antes de function: a função pode usar await', 'await espera a Promise terminar e devolve o resultado'])),
+    P('🧠', 'PREVEJA E DIGITE',
+      code(`async function mostrarPost() {
+  let resposta = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  let post = await resposta.json();
+  console.log("Título:", post.title);
+}
+
+mostrarPost();
+console.log("Pedido enviado");`),
+      preveja(`qual mensagem aparece primeiro: <code>Pedido enviado</code> ou <code>Título: ...</code>? Por quê?`),
+      box('verde', `<strong>Resultado:</strong> primeiro <code>Pedido enviado</code>. A função <code>mostrarPost</code> <strong>espera dentro dela</strong>, mas quem a chamou segue em frente. Logo depois, chega o título.`),
+      atencao(`o <code>await</code> só funciona <strong>dentro de função <code>async</code></strong>. Fora dela, o erro é <code>SyntaxError: await is only valid in async functions and the top level bodies of modules</code>.`)),
+    P('🛡️', 'try/catch: quando algo dá errado',
+      `<p>Internet cai, endereço errado, servidor fora do ar. Se o código não prevê isso, <strong>o programa quebra</strong>. O <code>try/catch</code> permite tentar e, se falhar, reagir:</p>`,
+      code(`async function buscarUsuario() {
+  try {
+    let resposta = await fetch("https://jsonplaceholder.typicode.com/users/1");
+    let usuario = await resposta.json();
+    console.log(usuario.name);
+  } catch (erro) {
+    console.log("Não foi possível buscar os dados:", erro.message);
+  }
+}`),
+      lista(['<code>try { ... }</code>: tenta executar', '<code>catch (erro) { ... }</code>: roda <strong>só se</strong> algo falhar dentro do try', '<code>erro.message</code>: descrição do que deu errado']),
+      analogia(`a <strong>rede de proteção</strong> do trapézio: se o artista cair, a rede evita o desastre e o espetáculo continua.`)),
+    P('🐞', 'ENCONTRE O ERRO: o endereço errado que "funciona"',
+      code(`async function buscar() {
+  try {
+    let resposta = await fetch("https://jsonplaceholder.typicode.com/usuarios/1");
+    let dados = await resposta.json();
+    console.log(dados.name);          // undefined
+  } catch (erro) {
+    console.log("Erro:", erro.message);   // nunca aparece!
+  }
+}`),
+      `<p style="margin-top:12px">O endereço está errado (<code>/usuarios</code> em vez de <code>/users</code>). O servidor responde <strong>404</strong>, mas o <code>catch</code> <strong>não dispara</strong>. Por quê? O <code>fetch</code> só falha de verdade quando <em>não consegue falar com o servidor</em>. Uma resposta 404 ou 500 é uma resposta válida.</p>`,
+      code(`let resposta = await fetch(url);
+
+if (!resposta.ok) {                       // ok é false para 404, 500...
+  throw new Error("Erro " + resposta.status);
+}
+let dados = await resposta.json();`, 'Correção: conferir resposta.ok'),
+      caderno(['fetch só rejeita se a rede falhar', '404 e 500 NÃO caem no catch sozinhos', 'Sempre confira resposta.ok e use throw new Error(...)'])),
+    P('🔧', 'MODIFIQUE: mensagem amigável na tela',
+      code(`async function carregarProdutos() {
+  let aviso = document.getElementById("aviso");
+  aviso.textContent = "Carregando...";
+
+  try {
+    let resposta = await fetch("https://fakestoreapi.com/products?limit=3");
+    if (!resposta.ok) throw new Error("Erro " + resposta.status);
+    let lista = await resposta.json();
+    aviso.textContent = lista.length + " produtos carregados";
+  } catch (erro) {
+    aviso.textContent = "Não foi possível carregar. Tente de novo.";
+  }
+}`),
+      `<p style="margin-top:12px">O usuário <strong>nunca</strong> deve ver "Failed to fetch" ou uma tela em branco. Mostre uma mensagem clara e, se possível, um botão para tentar de novo.</p>`,
+      lista(['Acrescente um botão "Tentar de novo" que chama a função outra vez', 'Teste com a internet desligada (modo avião) e leia o que aparece']),
+      caderno(['Mostre "Carregando..." enquanto espera', 'No catch, mostre mensagem clara ao usuário', 'Registre o erro técnico no console'])),
+  ], [
+    Q('O que o await faz dentro de uma função async?', 'Espera a Promise terminar e entrega o resultado', 'Cancela o pedido', 'Repete o pedido', 'Transforma o resultado em texto'),
+    Q('Onde o await pode ser usado?', 'Dentro de funções declaradas com async', 'Em qualquer lugar do código', 'Apenas no CSS', 'Só dentro do try'),
+    Q('Qual erro aparece ao usar await fora de uma função async?', 'SyntaxError: await is only valid in async functions', 'ReferenceError: await is not defined', 'TypeError: Failed to fetch', 'RangeError'),
+    Q('mostrarPost(); console.log("Pedido enviado"); Qual aparece primeiro?', '"Pedido enviado"', 'O título do post', 'Os dois ao mesmo tempo', 'Nenhum deles'),
+    Q('Quando o bloco catch é executado?', 'Quando acontece um erro dentro do try', 'Sempre, após o try', 'Nunca, só serve de comentário', 'Quando o try termina com sucesso'),
+    Q('Por que um endereço errado que devolve 404 não cai no catch?', 'Porque o fetch só rejeita quando não consegue falar com o servidor', 'Porque o catch só funciona com números', 'Porque 404 não é erro de verdade', 'Porque o await ignora respostas'),
+    Q('Como detectar uma resposta 404 ou 500?', 'Conferindo resposta.ok', 'Conferindo resposta.json', 'Usando setTimeout', 'Apagando o try'),
+    Q('O que o throw new Error("...") faz?', 'Dispara um erro que será capturado pelo catch', 'Apaga o fetch', 'Mostra o erro na tela automaticamente', 'Repete o pedido'),
+    Q('O que deve aparecer para o usuário quando o pedido falha?', 'Uma mensagem clara, como "Não foi possível carregar"', 'A mensagem técnica Failed to fetch', 'Uma tela em branco', 'Nada, o erro deve ser escondido sem aviso'),
+    Q('Vantagem do async/await sobre vários .then seguidos:', 'O código fica mais fácil de ler, como linha por linha', 'É sempre mais rápido', 'Dispensa o fetch', 'Funciona sem internet'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 105 — GIT E GITHUB   (módulo 10)
+  // ══════════════════════════════════════════════════════
+  A(105, 'Profissional 1: Git e GitHub Básico', 'Versionar o projeto com commits, desfazer a bagunça e enviar o código ao GitHub', '🌿', [
+    P('💡', 'ENTENDA: por que usar Git',
+      `<p>Você já teve <code>loja-final.html</code>, <code>loja-final2.html</code> e <code>loja-final-agora-vai.html</code>? O <strong>Git</strong> resolve isso: guarda o <strong>histórico</strong> do projeto e deixa voltar a qualquer ponto.</p>`,
+      analogia(`o Git é o <strong>"salvar jogo" com legenda</strong>: cada <strong>commit</strong> é um ponto de salvamento com um nome ("cadastro funcionando"). Se estragar a fase, você volta ao último salvamento.`),
+      lista(['🧰 <strong>Git</strong>: programa no seu computador que guarda o histórico', '☁️ <strong>GitHub</strong>: site que guarda uma cópia do projeto na internet (e serve de portfólio)', '📌 <strong>Repositório</strong>: a pasta do projeto com o histórico dentro', '💾 <strong>Commit</strong>: um ponto de salvamento, com uma mensagem']),
+      caderno(['Git = histórico do projeto no seu computador', 'GitHub = cópia na internet + portfólio', 'Commit = ponto de salvamento com mensagem'])),
+    P('⌨️', 'DIGITE: o primeiro repositório',
+      `<p>No terminal (ou no terminal do VS Code), dentro da pasta do projeto:</p>`,
+      code(`git init
+git status
+git add .
+git commit -m "Primeira versão da loja"
+git log --oneline`),
+      lista(['<code>git init</code>: cria o repositório na pasta', '<code>git status</code>: mostra o que mudou (use sempre!)', '<code>git add .</code>: separa as mudanças para o próximo commit', '<code>git commit -m "..."</code>: salva o ponto, com mensagem', '<code>git log --oneline</code>: mostra o histórico']),
+      preveja(`depois do <code>git add .</code>, o que você acha que o <code>git status</code> vai mostrar? E depois do commit?`),
+      box('verde', `<strong>Resultado:</strong> antes do add, os arquivos aparecem como <em>"Untracked"</em>; depois do add, como <em>"Changes to be committed"</em>; depois do commit: <code>nothing to commit, working tree clean</code> (nada pendente).`)),
+    P('🐞', 'ENCONTRE O ERRO: mensagens que assustam',
+      lista(['<code>fatal: not a git repository (or any of the parent directories): .git</code> → você está fora da pasta do projeto, ou esqueceu o <code>git init</code>', '<code>Author identity unknown *** Please tell me who you are.</code> → o Git não sabe quem você é: rode uma vez <code>git config --global user.name "Seu Nome"</code> e <code>git config --global user.email "seu@email.com"</code>', '<code>nothing to commit, working tree clean</code> → não é erro: não há nada novo para salvar']),
+      atencao(`cuide com as <strong>mensagens de commit</strong>: "arrumei", "asdf" e "agora vai" não ajudam ninguém. Escreva o que mudou: <em>"Adiciona validação do formulário"</em>.`),
+      caderno(['git status antes e depois de cada passo', 'Mensagem de commit: diga o que mudou', 'Configure nome e e-mail uma única vez'])),
+    P('☁️', 'Enviar ao GitHub',
+      lista(['1️⃣ Crie uma conta no GitHub e um <strong>repositório novo</strong> (botão <em>New</em>), sem README', '2️⃣ Copie o endereço do repositório', '3️⃣ No terminal, ligue e envie:']),
+      code(`git remote add origin https://github.com/SEU-USUARIO/loja-virtual.git
+git branch -M main
+git push -u origin main`),
+      lista(['<code>remote add origin</code>: diz ao Git onde está o repositório na internet', '<code>push</code>: envia seus commits para lá']),
+      atencao(`o GitHub <strong>não aceita a senha da conta</strong> no terminal: peça ao professor para orientar o uso do <em>login pelo navegador</em> ou de um <em>token de acesso</em>. E <strong>nunca</strong> publique senhas, chaves ou arquivos <code>.env</code> no repositório.`)),
+    P('🔧', 'MODIFIQUE: o ciclo de trabalho',
+      `<p>Depois do primeiro envio, o dia a dia é sempre o mesmo ciclo:</p>`,
+      code(`# 1. altere os arquivos no editor
+git status
+git add .
+git commit -m "Adiciona botão remover no carrinho"
+git push`),
+      lista(['Mude o título do <code>h1</code> da loja e faça um <strong>novo commit</strong> com uma boa mensagem', 'Rode <code>git log --oneline</code> e veja os dois commits', 'Crie um arquivo <code>.gitignore</code> com a linha <code>node_modules/</code> e outra com <code>.env</code> (arquivos que <strong>não</strong> vão para o GitHub)']),
+      caderno(['Ciclo: alterar → status → add → commit → push', '.gitignore lista o que NÃO vai para o repositório'])),
+    P('🎯', 'DESAFIO: README e portfólio',
+      `<p>O <strong>README.md</strong> é a vitrine do repositório. Crie um com:</p>`,
+      lista(['O nome do projeto e uma frase sobre ele', 'O que a loja faz (cadastrar, listar, comprar...)', 'Como abrir o projeto', 'Seu nome e turma']),
+      code(`# Loja Virtual
+
+Projeto da disciplina de Programação Web.
+
+## O que faz
+- Cadastra, altera e exclui produtos
+- Mostra a vitrine e o carrinho
+- Guarda os dados no navegador (localStorage)
+
+Autor: Seu Nome`, 'Exemplo de README.md'),
+      box('verde', `Pronto: quem abrir o seu repositório entende o projeto em 10 segundos. Esse é o começo do seu <strong>portfólio</strong>.`)),
+  ], [
+    Q('Qual é a função do Git?', 'Guardar o histórico do projeto e permitir voltar a versões antigas', 'Hospedar o site na internet', 'Executar o JavaScript', 'Corrigir erros automaticamente'),
+    Q('Qual é a diferença entre Git e GitHub?', 'Git é o programa local; GitHub é o site que guarda uma cópia online', 'São o mesmo programa', 'GitHub funciona sem Git e dispensa commits', 'Git é um editor de código'),
+    Q('O que é um commit?', 'Um ponto de salvamento do projeto com uma mensagem', 'Uma cópia do projeto no GitHub', 'Um erro do Git', 'Um tipo de arquivo'),
+    Q('Qual comando cria um repositório na pasta?', 'git init', 'git start', 'git new', 'git create'),
+    Q('O que faz git add . ?', 'Separa as mudanças para o próximo commit', 'Envia ao GitHub', 'Cria um repositório', 'Apaga o histórico'),
+    Q('fatal: not a git repository significa:', 'Você está fora de um repositório, ou esqueceu o git init', 'O GitHub está fora do ar', 'O commit foi apagado', 'Faltou internet'),
+    Q('Author identity unknown *** Please tell me who you are. Qual é a solução?', 'Configurar user.name e user.email com git config', 'Reinstalar o Windows', 'Apagar a pasta .git', 'Fazer git push'),
+    Q('Qual mensagem de commit é a melhor?', 'Adiciona validação do formulário de produtos', 'arrumei', 'asdf', 'agora vai'),
+    Q('Para que serve o .gitignore?', 'Listar arquivos que não devem ir para o repositório', 'Apagar arquivos do computador', 'Aumentar a velocidade do Git', 'Criar um commit'),
+    Q('O que NUNCA deve ser publicado em um repositório?', 'Senhas, chaves e o arquivo .env', 'O arquivo README.md', 'O index.html', 'O CSS do projeto'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 106 — GITHUB PAGES E PORTFÓLIO
+  // ══════════════════════════════════════════════════════
+  A(106, 'Profissional 2: Publicar com GitHub Pages', 'Colocar a sua página no ar, de graça, e montar um portfólio com a loja', '🚀', [
+    P('💡', 'ENTENDA: o que o GitHub Pages faz',
+      `<p>O <strong>GitHub Pages</strong> pega os arquivos do seu repositório (HTML, CSS, JavaScript e imagens) e os publica como um <strong>site de verdade</strong>, com endereço próprio. Funciona só para páginas <strong>estáticas</strong>: sem servidor, sem banco de dados.</p>`,
+      analogia(`é como <strong>fixar seu cartaz no mural da escola</strong>: qualquer pessoa que passar pode ler. Mas o mural só mostra o cartaz; ele não consegue calcular nada por você no servidor.`),
+      lista(['✅ Funciona: HTML, CSS, JavaScript no navegador, localStorage, fetch para APIs', '❌ Não funciona: Node/Express, banco de dados no servidor, envio de e-mail']),
+      caderno(['GitHub Pages = site estático gratuito', 'A loja com localStorage funciona; um servidor Node, não'])),
+    P('✅', 'Antes de publicar: lista de conferência',
+      lista(['O arquivo principal se chama <strong><code>index.html</code></strong> (minúsculas) e está na raiz do repositório', 'Os caminhos usam <strong>caminhos relativos</strong> (<code>estilo.css</code>, não <code>C:\\Users\\...</code>)', 'Os nomes de arquivo <strong>combinam exatamente</strong> com o que está no HTML', 'Não há senhas nem chaves no código', 'O projeto abre bem quando você clica duas vezes em <code>index.html</code>']),
+      atencao(`o GitHub Pages <strong>diferencia maiúsculas de minúsculas</strong>: <code>Foto.PNG</code> e <code>foto.png</code> são arquivos diferentes. No Windows isso "funciona", mas no GitHub aparece a imagem quebrada. O erro no console é <code>Failed to load resource: the server responded with a status of 404</code>.`)),
+    P('⌨️', 'DIGITE E PUBLIQUE',
+      lista(['1️⃣ Envie o projeto ao GitHub (aula anterior)', '2️⃣ No repositório: <strong>Settings → Pages</strong>', '3️⃣ Em <em>Build and deployment</em>, escolha <strong>Deploy from a branch</strong>', '4️⃣ Selecione a branch <code>main</code> e a pasta <code>/ (root)</code>, e clique em <strong>Save</strong>', '5️⃣ Aguarde 1 a 3 minutos e abra o endereço mostrado']),
+      code(`https://SEU-USUARIO.github.io/loja-virtual/`, 'Formato do endereço'),
+      preveja(`se você publicar um repositório chamado <code>loja-virtual</code> do usuário <code>maria</code>, qual será o endereço do site?`)),
+    P('🐞', 'ENCONTRE O ERRO: a página abre, mas sem estilo',
+      lista(['<strong>Sintoma:</strong> o HTML aparece, mas sem cores nem layout', '<strong>Onde olhar:</strong> F12 → aba <strong>Network</strong> (ou Console), e procure um <code>404</code> no arquivo <code>.css</code>', '<strong>Causas comuns:</strong> nome diferente (<code>Estilo.css</code> × <code>estilo.css</code>), caminho absoluto (<code>/estilo.css</code>) ou o arquivo ficou em outra pasta']),
+      code(`<!-- errado: começa com "/" e aponta para a raiz do domínio, não do projeto -->
+<link rel="stylesheet" href="/estilo.css">
+
+<!-- certo: caminho relativo -->
+<link rel="stylesheet" href="estilo.css">`),
+      box('verde', `<strong>Por quê?</strong> no GitHub Pages seu site mora em <code>/loja-virtual/</code>. O caminho <code>/estilo.css</code> procura em <code>usuario.github.io/estilo.css</code> (outro lugar!). O caminho relativo <code>estilo.css</code> procura ao lado do HTML.`)),
+    P('🔧', 'MODIFIQUE: atualizar o site',
+      `<p>Publicar não é uma vez só. Cada <code>git push</code> atualiza o site:</p>`,
+      code(`git add .
+git commit -m "Corrige caminho do CSS"
+git push`),
+      lista(['Altere o título da loja, faça commit e push', 'Atualize a página do site (Ctrl+F5) depois de 1 ou 2 minutos e veja a mudança', 'Teste o site no celular']),
+      caderno(['Cada push atualiza o site', 'Use Ctrl+F5 para limpar o cache ao testar', 'Teste sempre no endereço publicado, não só no seu computador'])),
+    P('🎯', 'DESAFIO: seu portfólio',
+      `<p>Monte uma página <code>index.html</code> de portfólio com:</p>`,
+      lista(['Seu nome, curso e uma foto (com <code>alt</code>)', 'Uma lista dos projetos, com <strong>link para a loja publicada</strong> e para o repositório', 'Cores legíveis e a página funcionando no celular']),
+      box('verde', `<strong>Explique com suas palavras</strong> ao professor: o que é o GitHub Pages, o que ele <em>não</em> consegue publicar e por que o caminho do CSS precisa ser relativo.`)),
+  ], [
+    Q('O que o GitHub Pages faz?', 'Publica páginas estáticas do repositório como um site', 'Executa servidores Node', 'Guarda bancos de dados', 'Envia e-mails'),
+    Q('Qual destes projetos funciona no GitHub Pages?', 'Uma loja HTML/CSS/JS que usa localStorage', 'Um servidor Express com banco de dados', 'Um sistema que envia e-mails pelo servidor', 'Um programa que roda no Windows'),
+    Q('Qual deve ser o nome do arquivo principal do site?', 'index.html', 'Principal.HTML', 'site.txt', 'home.exe'),
+    Q('Por que Foto.PNG pode funcionar no seu PC e falhar no GitHub Pages?', 'O GitHub diferencia maiúsculas de minúsculas nos nomes', 'O GitHub não aceita imagens', 'O Windows apaga a imagem', 'Imagens só funcionam em HTML antigo'),
+    Q('Qual erro aparece no Network quando um arquivo do site não é encontrado?', '404', '200', '301', 'OK'),
+    Q('Por que href="/estilo.css" falha em endereço usuario.github.io/loja/ ?', 'O "/" procura na raiz do domínio, e não na pasta do projeto', 'O CSS não pode ter esse nome', 'O href não existe no HTML', 'O GitHub bloqueia o CSS'),
+    Q('Como atualizar o site já publicado?', 'Fazer commit e push das mudanças', 'Apagar o repositório e criar outro', 'Enviar um e-mail ao GitHub', 'Reinstalar o Git'),
+    Q('Em qual endereço fica o site do usuário "maria" com repositório "loja"?', 'https://maria.github.io/loja/', 'https://github.com/maria/loja.com', 'https://loja.maria.github', 'https://maria.com/github/loja'),
+    Q('Após publicar, o que fazer para ver a versão mais nova da página?', 'Aguardar 1 a 3 minutos e recarregar com Ctrl+F5', 'Apagar o navegador', 'Desligar o computador', 'Criar outro repositório'),
+    Q('O que NÃO deve existir no código publicado?', 'Senhas e chaves de acesso', 'Comentários explicativos', 'Um README', 'Caminhos relativos'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
