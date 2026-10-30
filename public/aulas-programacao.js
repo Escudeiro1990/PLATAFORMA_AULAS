@@ -1770,6 +1770,498 @@ console.log(preco + qtd);                              // mostra 203`),
     Q('Qual é a melhor mensagem de commit?', 'Adiciona validação do formulário de produtos', 'arrumei', 'asdf', 'agora vai'),
   ]);
 
+  PRAT[93] = { tarefas: ['<strong>Nível 1.</strong> Crie a pasta <code>loja-virtual</code> com os 7 arquivos da estrutura (podem estar vazios) e confira os nomes.', '<strong>Nível 1.</strong> Desenhe no caderno as 3 telas e, ao lado de cada uma, as funções que ela usa.', '<strong>Nível 2.</strong> Acrescente o campo <code>categoria</code> ao modelo do produto, no desenho e no objeto de exemplo.', '<strong>Explique:</strong> com suas palavras, por que as três telas compartilham os mesmos dados e como isso é possível.'],
+    desafio: '<strong>Nível 3.</strong> Desenhe o <strong>diagrama completo dos dados</strong>: do clique em "Comprar" até a chave <code>c…</code> aparecer no localStorage, indicando qual função faz cada passo.' };
+  PRAT[94] = { tarefas: ['<strong>Nível 1.</strong> Digite o <code>gerenciar.html</code> (formulário e tabela) e abra no navegador.', '<strong>Nível 1.</strong> Digite o <code>estilo.css</code> e confirme o fundo escuro, o botão e a vitrine em grade.', '<strong>Nível 2.</strong> Mude a cor de destaque e o número mínimo de largura do card (<code>minmax</code>). Veja o efeito.', '<strong>Explique:</strong> com suas palavras, por que cada campo do formulário precisa de um <code>id</code>.'],
+    desafio: '<strong>Nível 3.</strong> Monte as páginas <code>loja.html</code> e <code>carrinho.html</code> sozinho, usando o CSS compartilhado, e confira se abrem sem erros no console.' };
+  PRAT[95] = { tarefas: ['<strong>Nível 1.</strong> Digite a função <code>validarProduto</code> e teste no console com <code>("", 5)</code>, <code>("Caneta", 0)</code> e <code>("Caneta", 3)</code>.', '<strong>Nível 2.</strong> Teste com <code>("Caneta", "abc")</code>. O que acontece? Corrija usando <code>Number.isNaN</code>.', '<strong>Nível 2.</strong> Ligue a validação ao <code>salvarProduto</code> e mostre a mensagem na tela.', '<strong>Explique:</strong> com suas palavras, por que <code>Number("abc") &lt;= 0</code> é <code>false</code> e por que isso é perigoso.'],
+    desafio: '<strong>Nível 3.</strong> Acrescente a regra: <strong>não aceitar dois produtos com o mesmo nome</strong> (percorra as chaves <code>p…</code> para conferir).' };
+  PRAT[96] = { tarefas: ['<strong>Nível 1.</strong> Digite <code>lerProdutos()</code> e confira no console que devolve um array de objetos.', '<strong>Nível 1.</strong> Ligue o campo de busca com o evento <code>input</code> e veja a vitrine filtrar enquanto digita.', '<strong>Nível 2.</strong> Faça a busca ignorar maiúsculas e minúsculas. Teste com "CANETA" e "caneta".', '<strong>Explique:</strong> com suas palavras, o que o <code>filter</code> devolve e por que ele não altera o array original.'],
+    desafio: '<strong>Nível 3.</strong> Acrescente um <code>select</code> de categoria que filtra a vitrine, combinando com a busca por nome.' };
+  PRAT[97] = { tarefas: ['<strong>Nível 1.</strong> Digite o novo <code>comprar</code> e confirme que comprar duas vezes o mesmo produto aumenta a quantidade.', '<strong>Nível 1.</strong> Digite <code>desenharCarrinho</code> com o total (preço × quantidade) e confira com uma calculadora.', '<strong>Nível 2.</strong> Acrescente os botões <strong>+</strong>, <strong>−</strong> e <strong>Remover</strong> ao item.', '<strong>Explique:</strong> com suas palavras, por que o total usa <code>preco * quantidade</code> e não só <code>preco</code>.'],
+    desafio: '<strong>Nível 3.</strong> Faça o botão <strong>Finalizar compra</strong>, que mostra o resumo e esvazia o carrinho apagando só as chaves <code>c…</code>, sem tocar nos produtos.' };
+  PRAT[98] = { tarefas: ['<strong>Nível 1.</strong> Siga o roteiro de testes da aula e preencha a tabela do caderno (esperado × obtido).', '<strong>Nível 2.</strong> Teste com o localStorage vazio (Application → Clear) e veja se a loja abre sem erros.', '<strong>Nível 2.</strong> Teste os casos extremos: preço muito grande, nome com acento, 50 produtos.', '<strong>Explique:</strong> com suas palavras, por que testar com dados antigos ou vazios também faz parte do projeto.'],
+    desafio: '<strong>Nível 3.</strong> Prepare e faça uma <strong>apresentação de 3 minutos</strong> da sua loja: mostrar, explicar o fluxo dos dados e corrigir ao vivo um bug que o colega provocar.' };
+
+  // ══════════════════════════════════════════════════════
+  // 93 — LOJA 1: PLANEJAMENTO E ESTRUTURA
+  // ══════════════════════════════════════════════════════
+  A(93, 'Loja 1: Planejamento e Estrutura', 'Pensar antes de programar: telas, dados, funções e arquivos da loja virtual', '🗺️', [
+    P('💡', 'ENTENDA: planejar antes de digitar',
+      `<p>Quem começa direto pelo código costuma se perder no meio. Programadores experientes <strong>primeiro desenham</strong> o que vão construir, e só depois digitam.</p>`,
+      analogia(`construir uma casa sem planta: dá para empilhar tijolos, mas você vai quebrar paredes depois. A <strong>planta</strong> do nosso projeto é: telas, dados e funções.`),
+      lista(['🖥️ <strong>Telas</strong>: Gerenciar (cadastrar), Loja (vitrine) e Carrinho', '🗃️ <strong>Dados</strong>: cada produto é um objeto guardado no localStorage', '⚙️ <strong>Funções</strong>: pequenas tarefas com nomes claros']),
+      caderno(['Planejar: telas → dados → funções → arquivos', 'Planta primeiro, tijolo depois'])),
+    P('🗃️', 'Os dados da loja',
+      code(`// um produto (chave no localStorage: "p" + id)
+{ id: "p1700000000", nome: "Caneta", preco: 3.5, categoria: "Papelaria" }
+
+// um item do carrinho (chave: "c" + o resto do id)
+{ id: "p1700000000", nome: "Caneta", preco: 3.5, quantidade: 2 }`),
+      lista(['Produtos usam a chave <code>"p" + id</code>', 'Itens do carrinho usam <code>"c" + id.slice(1)</code>', 'Tudo é guardado com <code>JSON.stringify</code> e lido com <code>JSON.parse</code>']),
+      preveja(`se o produto tem a chave <code>p1700000000</code>, qual é a chave do carrinho para esse produto?`)),
+    P('📁', 'A estrutura de arquivos',
+      code(`loja-virtual/
+  gerenciar.html     <- cadastro, lista, alterar, excluir
+  loja.html          <- vitrine com o botão Comprar
+  carrinho.html      <- itens comprados e total
+  estilo.css         <- aparência das 3 páginas
+  gerenciar.js
+  loja.js
+  carrinho.js`),
+      `<p style="margin-top:12px">Cada página tem <strong>o seu JavaScript</strong>, mas todas leem a <strong>mesma gaveta</strong> do navegador. Por isso, os dados aparecem iguais nas três telas.</p>`,
+      atencao(`os três arquivos <code>.js</code> não "conversam" entre si: o que os liga é o <code>localStorage</code>. Funções repetidas (como ler os produtos) serão escritas em cada arquivo, ou reunidas depois num <code>dados.js</code>.`)),
+    P('🐞', 'ENCONTRE O ERRO: o script não carregou',
+      code(`<!-- no gerenciar.html -->
+<script src="gerenciar.js"></scritp>
+
+// no console:
+// Uncaught ReferenceError: salvarProduto is not defined`),
+      lista(['<strong>Sintoma:</strong> o botão não faz nada, e o console diz que a função não existe', '<strong>Causa:</strong> a tag foi escrita errado (<code>&lt;/scritp&gt;</code>), então o navegador nunca carregou o arquivo', '<strong>Outras causas do mesmo sintoma:</strong> nome do arquivo diferente (<code>Gerenciar.js</code>), arquivo em outra pasta ou erro de sintaxe dentro dele']),
+      box('verde', `<strong>Como investigar:</strong> F12 → <strong>Network</strong> → recarregue a página. Se o <code>.js</code> aparece com <strong>404</strong> ou não aparece, o problema é o carregamento, e não a lógica.`)),
+    P('🔧', 'MODIFIQUE: o kit inicial (para quem entra direto aqui)',
+      `<p>Se você já domina JavaScript, comece por este esqueleto. Ele tem as funções vazias, na ordem em que as construiremos:</p>`,
+      code(`// gerenciar.js: kit inicial
+function salvarProduto() {
+  // 1. ler os campos  2. validar  3. montar o objeto
+  // 4. guardar com JSON.stringify  5. atualizarGrid()
+}
+
+function atualizarGrid() {
+  // limpar -> percorrer localStorage -> filtrar "p" -> parse -> desenhar
+}
+
+function alterarProduto(id) { /* ler, mudar, gravar na mesma chave */ }
+function excluirProduto(id) { /* apagar p... e c... */ }
+
+atualizarGrid();   // desenha ao abrir a página`),
+      lista(['Acrescente o campo <code>categoria</code> ao modelo do produto', 'Escreva, em comentário, o que cada função vai fazer']),
+      caderno(['Cada função uma tarefa', 'atualizarGrid() ao abrir a página', 'Kit inicial = esqueleto com as funções vazias'])),
+    P('🎯', 'DESAFIO: o diagrama dos dados',
+      `<p>Em uma folha, desenhe o caminho completo de um produto:</p>`,
+      lista(['Formulário → <code>salvarProduto</code> → <code>localStorage ("p…")</code> → <code>atualizarGrid</code> → tabela', 'Vitrine → <code>comprar</code> → <code>localStorage ("c…")</code> → <code>desenharCarrinho</code> → total']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que o carrinho não guarda os dados "dentro da tela"? (Se você respondeu que a tela só <em>desenha</em> o que está no localStorage, entendeu o ponto central do projeto.)`)),
+  ], [
+    Q('Por que planejar antes de programar?', 'Para evitar refazer o código no meio do caminho', 'Porque o navegador exige', 'Porque o localStorage pede', 'Para o código rodar mais rápido'),
+    Q('O que une as três telas da loja?', 'O mesmo localStorage', 'O mesmo arquivo JavaScript', 'O servidor', 'O CSS'),
+    Q('Qual é a chave de um produto com id "1700000000" na convenção da loja?', '"p1700000000"', '"c1700000000"', '"produto"', '"1700000000p"'),
+    Q('Qual é a chave do carrinho do produto p1700000000?', '"c1700000000"', '"p1700000000"', '"cp1700000000"', '"carrinho"'),
+    Q('Como cada produto é guardado no localStorage?', 'Como texto JSON, com JSON.stringify', 'Como objeto direto', 'Como número', 'Como imagem'),
+    Q('O botão não faz nada e o console mostra "salvarProduto is not defined". Qual a primeira investigação?', 'Ver no Network se o arquivo .js foi carregado', 'Reinstalar o navegador', 'Apagar o CSS', 'Trocar o localStorage'),
+    Q('Qual erro de escrita impede o script de carregar?', '</scritp> no lugar de </script>', 'Ter comentários no código', 'Usar let', 'Ter espaços no HTML'),
+    Q('O que o atualizarGrid() ao final do arquivo garante?', 'Que os dados guardados apareçam ao abrir a página', 'Que o produto seja excluído', 'Que o preço seja validado', 'Que o carrinho esvazie'),
+    Q('Por que cada função deve ter uma única tarefa?', 'Fica mais fácil de testar, ler e corrigir', 'O JavaScript exige', 'Para o arquivo ficar maior', 'Para usar menos memória'),
+    Q('No planejamento, o que representa o objeto { nome, preco }?', 'Os dados de um produto', 'Uma função', 'Uma tela', 'Um erro'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 94 — LOJA 2: HTML E CSS
+  // ══════════════════════════════════════════════════════
+  A(94, 'Loja 2: HTML e CSS das Telas', 'Montar o formulário, a tabela, a vitrine e o carrinho com HTML e CSS, antes de programar o comportamento', '🏗️', [
+    P('💡', 'ENTENDA: primeiro a casca, depois o comportamento',
+      `<p>Vamos montar as três páginas <strong>sem JavaScript</strong>. Assim você vê o que vai ser preenchido, e o código fica mais fácil de escrever.</p>`,
+      analogia(`é montar o <strong>cenário</strong> do teatro antes de ensaiar. Os atores (JavaScript) entram depois, mas já sabem onde ficar.`),
+      lista(['🔤 Todo campo e botão com <code>id</code> claro', '📦 Todo lugar que o JS vai preencher com <code>id</code> também (<code>tabela</code>, <code>vitrine</code>, <code>lista-carrinho</code>)']),
+      caderno(['HTML/CSS primeiro, JavaScript depois', 'Cada área que o JS vai preencher precisa de um id'])),
+    P('📝', 'DIGITE: gerenciar.html',
+      code(`<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar produtos</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header><h1>Gerenciar produtos</h1>
+    <nav><a href="gerenciar.html">Gerenciar</a> <a href="loja.html">Loja</a> <a href="carrinho.html">Carrinho</a></nav>
+  </header>
+  <main>
+    <form id="formulario">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" placeholder="Ex: Caneta">
+
+      <label for="preco">Preço</label>
+      <input type="number" id="preco" step="0.01" min="0">
+
+      <button type="button" id="btnSalvar">Salvar</button>
+      <p id="mensagem"></p>
+    </form>
+
+    <table>
+      <thead><tr><th>Produto</th><th>Preço</th><th>Ações</th></tr></thead>
+      <tbody id="tabela"></tbody>
+    </table>
+  </main>
+  <script src="gerenciar.js"></script>
+</body>
+</html>`),
+      lista(['<code>type="button"</code> evita recarregar a página ao clicar', '<code>&lt;tbody id="tabela"&gt;</code> é onde o <code>atualizarGrid</code> vai desenhar as linhas', '<code>&lt;p id="mensagem"&gt;</code> mostrará os avisos de validação']),
+      preveja(`o que aparece na tela com esse HTML, antes de existir qualquer JavaScript? A tabela mostra linhas?`)),
+    P('🎨', 'DIGITE: estilo.css',
+      code(`body { font-family: Arial, sans-serif; background: #0f1117; color: #e8eaf0; margin: 0; }
+header, main { max-width: 900px; margin: 0 auto; padding: 16px; }
+nav a { color: #4f8ef7; margin-right: 12px; }
+
+form { display: grid; gap: 8px; max-width: 360px; }
+input, button { padding: 8px; border-radius: 8px; border: 1px solid #2a2d3a; }
+button { background: #4f8ef7; color: white; border: none; cursor: pointer; }
+button:hover { background: #3b6fd1; }
+#mensagem { color: #f87171; min-height: 1.2em; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #2a2d3a; }
+
+#vitrine { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.card { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 12px; padding: 16px; }`),
+      lista(['<code>display: grid</code> + <code>gap</code> organiza o formulário e a vitrine', '<code>repeat(auto-fill, minmax(200px, 1fr))</code> cria quantas colunas couberem', '<code>#mensagem</code> reserva a altura (<code>min-height</code>) para a página não "pular" quando o aviso aparece']),
+      caderno(['CSS compartilhado: um arquivo para as 3 páginas', 'Grid na vitrine: colunas automáticas', 'min-height evita que a página pule'])),
+    P('🐞', 'ENCONTRE O ERRO: o estilo não aparece nas outras telas',
+      code(`<!-- loja.html -->
+<link rel="stylesheet" href="css/estilo.css">
+
+// Network: estilo.css  404 (Not Found)`),
+      lista(['<strong>Causa:</strong> o caminho aponta para a pasta <code>css/</code>, que não existe', '<strong>Correção:</strong> o arquivo está na mesma pasta do HTML, então o caminho é só <code>estilo.css</code>', '<strong>Regra:</strong> o <code>href</code> é sempre relativo ao <em>HTML que o chama</em>']),
+      atencao(`ao copiar um HTML para outra pasta, <strong>revise os caminhos</strong>. Esse é um dos erros mais frequentes em projetos com várias páginas.`)),
+    P('🔧', 'MODIFIQUE: as outras duas telas',
+      lista(['Troque a cor de destaque (<code>#4f8ef7</code>) por outra em todo o CSS (use localizar e substituir)', 'Mude <code>minmax(200px, 1fr)</code> para <code>minmax(150px, 1fr)</code> e veja o efeito', 'Acrescente uma <code>border-radius</code> maior nos cards']),
+      code(`<!-- loja.html (corpo) -->
+<main>
+  <h2>Vitrine</h2>
+  <div id="vitrine"></div>
+</main>
+<script src="loja.js"></script>
+
+<!-- carrinho.html (corpo) -->
+<main>
+  <h2>Carrinho</h2>
+  <ul id="lista-carrinho"></ul>
+  <p id="total">Total: R$ 0,00</p>
+</main>
+<script src="carrinho.js"></script>`)),
+    P('🎯', 'DESAFIO: as três páginas prontas',
+      `<p>Monte <code>loja.html</code> e <code>carrinho.html</code> <strong>sozinho</strong>, a partir da estrutura acima, usando o mesmo <code>estilo.css</code>, o mesmo cabeçalho e o menu de navegação.</p>`,
+      box('verde', `<strong>Confira:</strong> as três páginas abrem sem erros no console, os links do menu funcionam e o visual é o mesmo. <strong>Explique</strong> ao professor por que cada campo precisa de <code>id</code>.`)),
+  ], [
+    Q('Por que montar o HTML e o CSS antes do JavaScript?', 'Para saber o que será preenchido e onde', 'Porque o JavaScript só funciona depois', 'Para o site ficar mais rápido', 'Porque o CSS é obrigatório'),
+    Q('Por que o botão do formulário usa type="button"?', 'Para não recarregar a página ao clicar', 'Para ficar azul', 'Para o JS reconhecer', 'Porque button não existe sem type'),
+    Q('Em <tbody id="tabela">, para que serve o id?', 'O JavaScript vai desenhar as linhas ali', 'Mudar a cor da tabela', 'Dar um nome ao arquivo', 'Evitar o scroll'),
+    Q('O que faz grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))?', 'Cria quantas colunas de pelo menos 200px couberem', 'Cria sempre 200 colunas', 'Limita a largura a 200px', 'Esconde o grid'),
+    Q('O CSS não aparece e o Network mostra 404 em css/estilo.css. Causa provável?', 'A pasta css/ não existe: o caminho está errado', 'O JavaScript quebrou', 'O navegador bloqueou', 'Falta o <body>'),
+    Q('O href de um link CSS é relativo a quê?', 'Ao arquivo HTML que o chama', 'Ao computador', 'À internet', 'Ao arquivo JavaScript'),
+    Q('Para que serve min-height em #mensagem?', 'Reservar o espaço e a página não pular quando o aviso aparecer', 'Esconder a mensagem', 'Mudar a cor', 'Aumentar a fonte'),
+    Q('O que o <p id="mensagem"></p> receberá depois?', 'Avisos de validação escritos pelo JavaScript', 'O CSS da página', 'O localStorage inteiro', 'Os produtos'),
+    Q('Em <label for="nome">, o for deve ser igual a:', 'O id do input correspondente', 'O texto do label', 'A cor do campo', 'O nome do arquivo'),
+    Q('O que o :hover no botão faz?', 'Muda o estilo enquanto o mouse está sobre ele', 'Desabilita o botão', 'Esconde o botão', 'Troca o id'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 95 — LOJA 4: VALIDAÇÃO
+  // ══════════════════════════════════════════════════════
+  A(95, 'Loja 4: Validação dos Dados', 'Recusar nomes vazios, preços inválidos e produtos repetidos antes de guardar', '✅', [
+    P('💡', 'ENTENDA: nunca confie no que o usuário digita',
+      `<p>Usuários erram, esquecem campos, digitam letras onde vai número, e às vezes testam o sistema de propósito. <strong>Validar</strong> é conferir os dados <em>antes</em> de guardar.</p>`,
+      analogia(`o <strong>porteiro do prédio</strong>: confere quem está entrando antes de abrir a porta. O localStorage é o prédio, e a validação é o porteiro.`),
+      lista(['❌ Nome vazio', '❌ Preço vazio, negativo, zero ou que não é número', '❌ Produto com nome repetido']),
+      caderno(['Validar = conferir ANTES de guardar', 'Se inválido: mostrar mensagem e parar (return)'])),
+    P('🧠', 'PREVEJA: a armadilha do NaN',
+      code(`console.log(Number("abc"));          // ?
+console.log(Number("abc") <= 0);     // ?
+console.log(Number(""));             // ?`),
+      preveja(`o que mostram as três linhas? E se um preço inválido passar pela validação <code>preco &lt;= 0</code>, o que você acha que acontece?`),
+      box('verde', `<strong>Resultado:</strong> <code>NaN</code>, <code>false</code> e <code>0</code>. <code>NaN</code> (<em>Not a Number</em>) <strong>não é menor nem maior que nada</strong>, então <code>NaN &lt;= 0</code> é <code>false</code> e o preço inválido <strong>passaria</strong> na validação! Já o texto vazio vira <code>0</code>.`)),
+    P('⌨️', 'DIGITE: a função validarProduto',
+      code(`function validarProduto(nome, preco) {
+  if (nome.trim() === "") {
+    return "Informe o nome do produto.";
+  }
+  if (Number.isNaN(preco) || preco <= 0) {
+    return "Informe um preço maior que zero.";
+  }
+  return "";   // vazio = sem erros
+}`),
+      lista(['<code>nome.trim()</code> remove espaços das pontas: "   " deixa de contar como nome', '<code>Number.isNaN(preco)</code> detecta o <code>NaN</code> (a armadilha anterior)', 'A função <strong>devolve a mensagem de erro</strong>, ou texto vazio quando está tudo certo']),
+      code(`function salvarProduto() {
+  let nome  = document.getElementById("nome").value;
+  let preco = Number(document.getElementById("preco").value);
+  let mensagem = document.getElementById("mensagem");
+
+  let erro = validarProduto(nome, preco);
+  if (erro !== "") {
+    mensagem.textContent = erro;   // textContent: seguro
+    return;                         // para aqui: não guarda
+  }
+  mensagem.textContent = "";
+  // ... monta o objeto, JSON.stringify, setItem, atualizarGrid()
+}`, 'Ligando a validação ao salvarProduto')),
+    P('🐞', 'ENCONTRE O ERRO: o preço "vazio" passa',
+      code(`let preco = Number(document.getElementById("preco").value);   // campo vazio -> 0
+if (preco < 0) { return "Preço inválido"; }                    // 0 não é < 0 !`),
+      `<p style="margin-top:12px"><strong>Sintoma:</strong> o produto é guardado com preço <code>0</code> quando o campo está vazio. <strong>Causa:</strong> o campo vazio vira <code>0</code>, e <code>0 &lt; 0</code> é falso. <strong>Correção:</strong> usar <code>&lt;= 0</code> (e conferir o <code>NaN</code>), pois produto de graça não faz sentido na loja.</p>`,
+      atencao(`validar com <strong>testes de borda</strong>: teste sempre <code>0</code>, <code>-1</code>, vazio, <code>"abc"</code> e números com vírgula (<code>3,5</code>), que o <code>type="number"</code> pode recusar dependendo do navegador.`)),
+    P('🔧', 'MODIFIQUE: não aceitar nome repetido',
+      code(`function nomeJaExiste(nome) {
+  for (let i = 0; i < localStorage.length; i++) {
+    let chave = localStorage.key(i);
+    if (chave[0] !== "p") continue;                       // só produtos
+    let produto = JSON.parse(localStorage.getItem(chave));
+    if (produto.nome.toLowerCase() === nome.trim().toLowerCase()) {
+      return true;
+    }
+  }
+  return false;
+}`),
+      lista(['Compare em minúsculas, para "Caneta" e "caneta" valerem como o mesmo nome', 'Dentro de <code>validarProduto</code>, acrescente: <code>if (nomeJaExiste(nome)) return "Esse produto já existe.";</code>']),
+      caderno(['Number.isNaN detecta NaN; NaN <= 0 é false!', 'trim() remove espaços das pontas', 'Valide com testes de borda: 0, negativo, vazio, texto'])),
+    P('🎯', 'DESAFIO: validação do formulário completo',
+      lista(['Limite o nome a 40 caracteres (use <code>nome.length</code>)', 'Mostre a mensagem de erro em vermelho e a de sucesso ("Produto salvo!") em verde', 'Depois de salvar, <strong>limpe o formulário</strong> e coloque o foco no campo nome (<code>campo.focus()</code>)']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que a função <code>validarProduto</code> devolve a mensagem em vez de já escrever na tela? (Dica: pense em reaproveitá-la em outro formulário.)`)),
+  ], [
+    Q('O que é validar os dados?', 'Conferir se são válidos antes de guardar', 'Guardar os dados duas vezes', 'Apagar o formulário', 'Criptografar os dados'),
+    Q('Qual é o resultado de Number("abc")?', 'NaN', '0', 'undefined', 'Erro'),
+    Q('Qual é o resultado de Number("abc") <= 0 ?', 'false', 'true', 'NaN', 'Erro'),
+    Q('Por que NaN <= 0 ser false é perigoso na validação?', 'Um preço inválido passaria como se fosse válido', 'O navegador trava', 'O localStorage recusa', 'O NaN vira texto'),
+    Q('Qual função detecta NaN corretamente?', 'Number.isNaN(valor)', 'valor === NaN', 'valor == "NaN"', 'valor.isNumber()'),
+    Q('Um campo de preço vazio, após Number(...), vale:', '0', 'NaN', 'null', 'undefined'),
+    Q('Por que usar nome.trim() === "" ?', 'Para recusar nomes feitos só de espaços', 'Para deixar o nome em maiúsculas', 'Para apagar o nome', 'Para contar as letras'),
+    Q('O que validarProduto devolve quando está tudo certo?', 'Um texto vazio ("")', 'true', 'O objeto produto', 'NaN'),
+    Q('Por que comparar nomes em minúsculas ao detectar repetidos?', 'Para "Caneta" e "caneta" serem o mesmo nome', 'Porque o JavaScript exige', 'Para acelerar o laço', 'Para evitar o JSON'),
+    Q('Para mostrar a mensagem de erro na tela com segurança, usa-se:', 'textContent', 'innerHTML com texto do usuário', 'document.write', 'eval'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 96 — LOJA 6: BUSCA E FILTRO NA VITRINE
+  // ══════════════════════════════════════════════════════
+  A(96, 'Loja 6: Busca e Filtro na Vitrine', 'Ler os produtos para um array e filtrar a vitrine enquanto o cliente digita', '🔎', [
+    P('💡', 'ENTENDA: separar "ler os dados" de "desenhar"',
+      `<p>Até aqui, cada função lia o localStorage <em>e</em> desenhava ao mesmo tempo. Para filtrar, é melhor <strong>separar</strong>: uma função lê tudo para um array; outra desenha o array que receber.</p>`,
+      analogia(`na cozinha: uma pessoa <strong>separa os ingredientes</strong> (lê os dados) e outra <strong>monta o prato</strong> (desenha). Para fazer um prato diferente, basta mudar o que separa.`),
+      caderno(['lerProdutos() devolve um array de objetos', 'desenharVitrine(lista) desenha qualquer lista recebida', 'Filtrar = mudar a lista, sem mexer em quem desenha'])),
+    P('⌨️', 'DIGITE: lerProdutos e desenharVitrine',
+      code(`function lerProdutos() {
+  let produtos = [];
+  for (let i = 0; i < localStorage.length; i++) {
+    let chave = localStorage.key(i);
+    if (chave[0] !== "p") continue;
+    produtos.push(JSON.parse(localStorage.getItem(chave)));
+  }
+  return produtos;
+}
+
+function desenharVitrine(lista) {
+  let vitrine = document.getElementById("vitrine");
+  vitrine.innerHTML = "";
+  for (let i = 0; i < lista.length; i++) {
+    let card = document.createElement("div");
+    card.className = "card";
+
+    let titulo = document.createElement("h3");
+    titulo.textContent = lista[i].nome;            // textContent: seguro
+
+    let preco = document.createElement("p");
+    preco.textContent = "R$ " + lista[i].preco.toFixed(2);
+
+    card.appendChild(titulo);
+    card.appendChild(preco);
+    vitrine.appendChild(card);
+  }
+}
+
+desenharVitrine(lerProdutos());`),
+      lista(['Os cards são criados com <code>createElement</code> e <code>textContent</code>: nada de <code>innerHTML</code> com dados do usuário', '<code>desenharVitrine(lerProdutos())</code> junta as duas funções']),
+      preveja(`se o localStorage tiver 3 produtos, quantos cards aparecem? E se estiver vazio?`)),
+    P('🔎', 'O filter: ficar só com o que interessa',
+      code(`let numeros = [3, 8, 12, 5];
+let grandes = numeros.filter(function (n) { return n > 4; });
+
+console.log(grandes);    // [8, 12, 5]
+console.log(numeros);    // [3, 8, 12, 5]  (o original NÃO muda)`),
+      lista(['<code>filter</code> percorre o array e <strong>guarda só os itens em que a função devolve <code>true</code></strong>', 'Ele devolve um <strong>array novo</strong>, e o original continua igual']),
+      code(`let textos = ["Caneta azul", "Caderno", "Caneta preta"];
+let achados = textos.filter(function (t) { return t.toLowerCase().includes("caneta"); });
+console.log(achados);   // ["Caneta azul", "Caneta preta"]`, 'Com texto: includes() vê se uma palavra está dentro'),
+      caderno(['filter devolve um array novo com os itens que passam no teste', 'texto.includes("x") diz se contém', 'toLowerCase() ignora maiúsculas/minúsculas'])),
+    P('🐞', 'ENCONTRE O ERRO: a busca "some" os produtos',
+      code(`document.getElementById("busca").addEventListener("input", function () {
+  let texto = document.getElementById("busca").value;
+  let produtos = lerProdutos();
+  produtos.filter(function (p) { return p.nome.includes(texto); });   // <- resultado jogado fora!
+  desenharVitrine(produtos);
+});`),
+      lista(['<strong>Sintoma:</strong> a busca não filtra nada: a vitrine continua completa', '<strong>Causa:</strong> o <code>filter</code> <strong>devolve um array novo</strong>, mas o resultado não foi guardado. O array <code>produtos</code> continua igual', '<strong>Correção:</strong> <code>let achados = produtos.filter(...); desenharVitrine(achados);</code>']),
+      atencao(`e se digitar <code>CANETA</code> e o produto for <code>Caneta</code>? Sem <code>toLowerCase()</code> nos dois lados, não acha. Compare sempre em minúsculas.`)),
+    P('🔧', 'MODIFIQUE: a busca completa',
+      code(`document.getElementById("busca").addEventListener("input", function () {
+  let texto = document.getElementById("busca").value.toLowerCase();
+  let achados = lerProdutos().filter(function (p) {
+    return p.nome.toLowerCase().includes(texto);
+  });
+  desenharVitrine(achados);
+});`),
+      lista(['Acrescente no HTML: <code>&lt;input type="text" id="busca" placeholder="Buscar produto"&gt;</code>', 'Mostre a mensagem "Nenhum produto encontrado" quando a lista vier vazia', 'Acrescente também a busca pela <strong>categoria</strong>']),
+      caderno(['Evento input: a cada letra digitada', 'Filtrar → desenhar a lista filtrada'])),
+    P('🎯', 'DESAFIO: busca + filtro por categoria',
+      lista(['Acrescente um <code>select</code> de categoria que filtra a vitrine', 'Faça os <strong>dois filtros funcionarem juntos</strong> (nome e categoria)', 'Mostre quantos produtos foram encontrados: "3 produtos"']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que separar <code>lerProdutos</code> de <code>desenharVitrine</code> facilita a busca? E o que acontece com o localStorage quando você filtra? (Nada: ele não muda.)`)),
+  ], [
+    Q('Por que separar lerProdutos de desenharVitrine?', 'Para poder desenhar qualquer lista, como a filtrada', 'Porque o JavaScript exige', 'Para guardar mais dados', 'Para economizar o localStorage'),
+    Q('O que o filter devolve?', 'Um array novo com os itens que passaram no teste', 'O array original modificado', 'Apenas o primeiro item', 'Um número'),
+    Q('O array original muda depois de um filter?', 'Não, continua igual', 'Sim, perde os itens', 'Sim, fica vazio', 'Só se for de números'),
+    Q('Qual é o resultado de [3,8,12,5].filter(n => n > 4)?', '[8, 12, 5]', '[3]', '[3, 8, 12, 5]', '[12]'),
+    Q('O que faz "Caneta azul".includes("azul")?', 'Devolve true', 'Devolve "azul"', 'Devolve 6', 'Devolve false'),
+    Q('Por que usar toLowerCase() nos dois lados da busca?', 'Para ignorar diferenças entre maiúsculas e minúsculas', 'Para acelerar a busca', 'Para guardar no localStorage', 'Para evitar o JSON'),
+    Q('A busca não filtra nada porque o resultado do filter foi jogado fora. Qual a correção?', 'Guardar o resultado em uma variável e desenhá-la', 'Trocar filter por push', 'Apagar o evento', 'Usar innerHTML'),
+    Q('Qual evento filtra a cada letra digitada?', 'input', 'submit', 'load', 'blur'),
+    Q('Filtrar a vitrine altera o que está no localStorage?', 'Não, só muda o que é desenhado', 'Sim, apaga os que não aparecem', 'Sim, reordena as chaves', 'Depende do navegador'),
+    Q('Por que os cards são criados com createElement e textContent?', 'Para evitar código injetado por dados do usuário', 'Porque innerHTML não existe', 'Para o card ficar mais bonito', 'Porque é obrigatório no filter'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 97 — LOJA 8: QUANTIDADES, REMOÇÃO E TOTAL
+  // ══════════════════════════════════════════════════════
+  A(97, 'Loja 8: Quantidades, Remoção e Total', 'Evoluir o carrinho: contar quantidades, aumentar, diminuir, remover itens e calcular o total', '🧮', [
+    P('💡', 'ENTENDA: o carrinho precisa lembrar "quantos"',
+      `<p>No carrinho simples, comprar o mesmo produto duas vezes só <em>regrava</em> a mesma chave: continua 1 item. Um carrinho de verdade precisa de <strong>quantidade</strong>.</p>`,
+      analogia(`no mercado, você não coloca duas "cópias" do mesmo leite no carrinho com duas etiquetas. Você coloca o leite e <strong>anota ×2</strong>.`),
+      code(`// item do carrinho (chave "c" + id.slice(1))
+{ id: "p1700", nome: "Caneta", preco: 3.5, quantidade: 2 }`),
+      caderno(['Item do carrinho = produto + quantidade', 'Mesma chave c…: comprar de novo soma 1 na quantidade'])),
+    P('⌨️', 'DIGITE: comprar com quantidade',
+      code(`function comprar(idProduto) {
+  let chaveCarrinho = "c" + idProduto.slice(1);
+  let texto = localStorage.getItem(chaveCarrinho);
+
+  if (texto === null) {
+    // primeira vez: copia o produto e começa com quantidade 1
+    let produto = JSON.parse(localStorage.getItem(idProduto));
+    produto.quantidade = 1;
+    localStorage.setItem(chaveCarrinho, JSON.stringify(produto));
+  } else {
+    // já está no carrinho: soma 1
+    let item = JSON.parse(texto);
+    item.quantidade = (item.quantidade || 1) + 1;
+    localStorage.setItem(chaveCarrinho, JSON.stringify(item));
+  }
+}`),
+      lista(['<code>getItem</code> devolve <code>null</code> quando a chave não existe: é como sabemos se é a primeira compra', '<code>(item.quantidade || 1)</code> protege contra itens antigos, sem o campo quantidade (sem isso, o resultado seria <code>NaN</code>)']),
+      preveja(`se eu clicar em Comprar 3 vezes no mesmo produto, quantas chaves <code>c…</code> existem? E qual é a quantidade?`)),
+    P('🧮', 'DIGITE: desenharCarrinho com total',
+      code(`function desenharCarrinho() {
+  let lista = document.getElementById("lista-carrinho");
+  lista.innerHTML = "";
+  let total = 0;
+
+  for (let i = 0; i < localStorage.length; i++) {
+    let chave = localStorage.key(i);
+    if (chave[0] !== "c") continue;
+
+    let item = JSON.parse(localStorage.getItem(chave));
+    let qtd = item.quantidade || 1;
+    total = total + item.preco * qtd;               // preço x quantidade
+
+    let li = document.createElement("li");
+    li.textContent = item.nome + " × " + qtd + " = R$ " + (item.preco * qtd).toFixed(2);
+    lista.appendChild(li);
+  }
+  document.getElementById("total").textContent = "Total: R$ " + total.toFixed(2);
+}`),
+      atencao(`o total é <code>preco * qtd</code> para cada item, <strong>somado</strong> no acumulador <code>total</code>, que começa em 0 <em>antes</em> do laço.`)),
+    P('🐞', 'ENCONTRE O ERRO: NaN no total',
+      code(`total = total + item.preco * item.quantidade;
+// Total: R$ NaN`),
+      lista(['<strong>Sintoma:</strong> o total mostra <code>R$ NaN</code>', '<strong>Causa:</strong> um item <strong>antigo</strong> (comprado antes de existir a quantidade) não tem o campo; <code>item.quantidade</code> é <code>undefined</code> e <code>preco * undefined</code> é <code>NaN</code>', '<strong>Correção:</strong> <code>let qtd = item.quantidade || 1;</code>']),
+      box('verde', `<strong>Lição:</strong> quando você <strong>evolui</strong> o formato dos dados, os dados antigos continuam existindo. Sempre pense: <em>"e se este campo não existir?"</em>`),
+      caderno(['undefined * número = NaN', 'Use valor padrão: item.quantidade || 1', 'Evoluir dados exige cuidar dos dados antigos'])),
+    P('🔧', 'MODIFIQUE: botões +, − e Remover',
+      code(`function mudarQuantidade(chave, delta) {
+  let item = JSON.parse(localStorage.getItem(chave));
+  item.quantidade = (item.quantidade || 1) + delta;
+
+  if (item.quantidade <= 0) {
+    localStorage.removeItem(chave);            // chegou a zero: sai do carrinho
+  } else {
+    localStorage.setItem(chave, JSON.stringify(item));
+  }
+  desenharCarrinho();                          // sempre redesenha
+}
+
+function removerDoCarrinho(chave) {
+  localStorage.removeItem(chave);              // só a chave c…, o produto fica
+  desenharCarrinho();
+}`),
+      lista(['Crie os botões dentro do laço com <code>createElement</code> e <code>addEventListener</code> (sem <code>onclick</code> escrito no texto)', 'Teste: aumentar, diminuir até zero e remover']),
+      atencao(`<code>removerDoCarrinho</code> apaga <strong>só a chave <code>c…</code></strong>. O produto original (<code>p…</code>) continua na loja.`)),
+    P('🎯', 'DESAFIO: finalizar a compra',
+      lista(['Crie o botão <strong>Finalizar compra</strong>, que mostra "Compra de R$ X confirmada" e <strong>esvazia o carrinho</strong>', 'Esvazie apagando <strong>apenas as chaves <code>c…</code></strong> (cuidado: ao remover dentro do laço, as posições mudam; dica: primeiro junte as chaves num array e depois apague)']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que não se pode apagar chaves do localStorage direto dentro do <code>for</code> que percorre o <code>localStorage.length</code>?`)),
+  ], [
+    Q('Por que o carrinho precisa do campo quantidade?', 'Para comprar o mesmo produto várias vezes sem duplicar itens', 'Para o localStorage aceitar o item', 'Para mudar o preço', 'Para o JSON funcionar'),
+    Q('Ao clicar em Comprar 3 vezes no mesmo produto, quantas chaves c… existem?', 'Uma, com quantidade 3', 'Três, cada uma com quantidade 1', 'Nenhuma', 'Duas'),
+    Q('O que getItem devolve se a chave do carrinho ainda não existe?', 'null', 'undefined', '0', 'Uma string vazia'),
+    Q('Qual é o total de 2 canetas de R$ 3,50 e 1 caderno de R$ 18,00?', 'R$ 25,00', 'R$ 21,50', 'R$ 24,50', 'R$ 7,00'),
+    Q('Por que o total mostra NaN com itens antigos?', 'item.quantidade é undefined e preço * undefined dá NaN', 'O JSON está inválido', 'O laço está errado', 'O toFixed não funciona'),
+    Q('Como evitar o NaN com itens antigos?', 'let qtd = item.quantidade || 1;', 'Apagar o localStorage', 'Usar innerHTML', 'Trocar let por const'),
+    Q('O que removerDoCarrinho(chave) apaga?', 'Só a chave c… do item', 'O produto da loja também', 'Todo o localStorage', 'O formulário'),
+    Q('Quando a quantidade chega a 0, o ideal é:', 'Remover o item do carrinho', 'Deixar o item com quantidade 0', 'Apagar o produto da loja', 'Deixar o total em NaN'),
+    Q('Depois de mudar a quantidade, o que sempre fazer?', 'Chamar desenharCarrinho() para redesenhar', 'Recarregar o navegador', 'Apagar o JSON', 'Chamar atualizarGrid()'),
+    Q('O que a lição "evoluir o formato dos dados" ensina?', 'Dados antigos continuam existindo e precisam ser tratados', 'Dados antigos somem sozinhos', 'O localStorage atualiza tudo', 'Nunca mude o formato'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 98 — LOJA 9: TESTES E APRESENTAÇÃO
+  // ══════════════════════════════════════════════════════
+  A(98, 'Loja 9: Testes e Apresentação', 'Testar a loja com roteiro, enfrentar dados vazios e antigos e preparar a apresentação do projeto', '🧪', [
+    P('💡', 'ENTENDA: testar não é "clicar para ver se funciona"',
+      `<p>Um teste de verdade tem <strong>um plano</strong>: o que faço, o que espero e o que realmente aconteceu. Assim você encontra os bugs antes do professor (e do cliente).</p>`,
+      analogia(`o <strong>test drive</strong> de um carro: o vendedor não dirige só em linha reta. Você faz curva, freia forte, sobe ladeira. Testar é tentar fazer o sistema falhar.`),
+      caderno(['Teste = ação + resultado esperado + resultado obtido', 'Teste os casos normais E os extremos'])),
+    P('📋', 'O roteiro de testes da loja',
+      `<p>Preencha a tabela no caderno (esperado × obtido):</p>`,
+      lista(['1️⃣ Cadastrar "Caneta" a R$ 3,50 → aparece na tabela e na vitrine', '2️⃣ Tentar cadastrar com nome vazio → mensagem de erro, nada guardado', '3️⃣ Tentar preço 0 e preço "abc" → recusado', '4️⃣ Cadastrar "caneta" (repetido) → recusado', '5️⃣ Alterar o preço → muda na tabela, na vitrine e no carrinho (se houver)', '6️⃣ Comprar 2 vezes → quantidade 2 e total certo', '7️⃣ Remover do carrinho → some do carrinho, continua na loja', '8️⃣ Excluir produto → some da loja e do carrinho', '9️⃣ Recarregar a página (F5) → tudo continua igual']),
+      preveja(`qual desses testes você acha que sua loja ainda pode falhar? Anote e confira depois.`)),
+    P('🐞', 'ENCONTRE O ERRO: dados ausentes e dados quebrados',
+      code(`let texto = localStorage.getItem("p999");   // a chave não existe
+let produto = JSON.parse(texto);              // JSON.parse(null) devolve null
+console.log(produto.nome);
+// Uncaught TypeError: Cannot read properties of null (reading 'nome')`),
+      code(`localStorage.setItem("p5", "isso não é JSON");
+JSON.parse(localStorage.getItem("p5"));
+// Uncaught SyntaxError: "isso não é JSON" is not valid JSON
+// (em navegadores mais antigos: Unexpected token i in JSON at position 0)`),
+      lista(['<strong>1º erro:</strong> a chave não existe, então o resultado é <code>null</code>, e <code>null.nome</code> quebra', '<strong>2º erro:</strong> o texto guardado não é JSON válido (por exemplo, restos do tempo em que se guardava <code>[object Object]</code>)']),
+      code(`function lerProdutoSeguro(chave) {
+  let texto = localStorage.getItem(chave);
+  if (texto === null) return null;
+  try {
+    return JSON.parse(texto);
+  } catch (erro) {
+    console.log("Dado inválido na chave", chave);
+    return null;
+  }
+}`, 'Leitura protegida')),
+    P('🔧', 'MODIFIQUE: abra a loja com tudo vazio',
+      lista(['F12 → <strong>Application</strong> → Local Storage → <strong>Clear</strong> (apaga tudo)', 'Abra <code>gerenciar.html</code>, <code>loja.html</code> e <code>carrinho.html</code>: algum dá erro no console?', 'Mostre "Nenhum produto cadastrado" quando a lista estiver vazia (em vez de uma tabela em branco)']),
+      atencao(`o primeiro acesso de um usuário novo é <strong>sempre com o localStorage vazio</strong>. Se a página só funciona com dados, ela quebra na primeira visita.`),
+      caderno(['Teste com tudo vazio (primeiro acesso)', 'Teste com dados antigos ou quebrados', 'Mensagem amigável quando não há dados'])),
+    P('🎤', 'A apresentação do projeto (3 minutos)',
+      lista(['⏱️ <strong>30 s</strong>: o que a loja faz (mostre rodando)', '⏱️ <strong>60 s</strong>: o caminho dos dados (clique → função → localStorage → tela)', '⏱️ <strong>60 s</strong>: uma função explicada linha por linha (<code>salvarProduto</code> ou <code>atualizarGrid</code>)', '⏱️ <strong>30 s</strong>: um bug que você encontrou e como resolveu']),
+      box('amarelo', `Quem consegue explicar <strong>um bug que teve</strong> mostra que entende o código. Não tenha vergonha dos erros: eles são a melhor parte da apresentação.`)),
+    P('🎯', 'DESAFIO: troque de computador com um colega',
+      lista(['Entregue a pasta da sua loja a um colega', 'Ele deve tentar <strong>quebrá-la</strong> usando o roteiro de testes e entradas inesperadas', 'Cada bug encontrado vira uma anotação: sintoma, causa e correção']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que testar com dados vazios, antigos ou quebrados também faz parte do projeto? E qual foi o bug mais difícil da sua loja?`)),
+  ], [
+    Q('O que um teste de verdade deve ter?', 'Ação, resultado esperado e resultado obtido', 'Só clicar nos botões', 'Apenas olhar o código', 'Somente testar casos que funcionam'),
+    Q('Por que testar com o localStorage vazio?', 'O primeiro acesso de qualquer usuário é sempre vazio', 'Para apagar os produtos', 'Porque o navegador exige', 'Para testar o CSS'),
+    Q('JSON.parse(null) devolve:', 'null', 'undefined', '0', 'Um erro de sintaxe'),
+    Q('Qual erro aparece ao usar produto.nome quando produto é null?', 'TypeError: Cannot read properties of null', 'ReferenceError: produto is not defined', 'SyntaxError', 'RangeError'),
+    Q('O que causa SyntaxError: ... is not valid JSON ao usar JSON.parse?', 'O texto guardado não é um JSON válido', 'A chave não existe', 'O localStorage está cheio', 'Faltou let'),
+    Q('Como ler com segurança um JSON que pode estar quebrado?', 'Com try/catch ao redor do JSON.parse', 'Usando innerHTML', 'Apagando o localStorage antes', 'Trocando por getItem duas vezes'),
+    Q('O que o ideal exibir quando não há produtos cadastrados?', 'Uma mensagem como "Nenhum produto cadastrado"', 'Uma tabela vazia sem aviso', 'Um erro no console', 'Nada, a página some'),
+    Q('Por que testar também os casos extremos (preço enorme, nomes com acento)?', 'Porque usuários reais fazem entradas inesperadas', 'Porque o JavaScript exige', 'Para aumentar o código', 'Não é necessário'),
+    Q('Na apresentação, o que mostra que você entende o código?', 'Explicar o caminho dos dados e um bug que você resolveu', 'Ler o código sem explicar', 'Mostrar só o visual', 'Dizer que foi um colega que fez'),
+    Q('Qual é a melhor forma de testar a loja de um colega?', 'Seguir o roteiro e tentar quebrá-la com entradas inesperadas', 'Só clicar uma vez em cada botão', 'Alterar o código dele', 'Não testar, só olhar'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
@@ -1782,7 +2274,7 @@ console.log(preco + qtd);                              // mostra 203`),
     { n: 5,  nome: 'DOM e eventos',             icone: '👆', ids: [65, 66, 86, 67, 87, 88],              nivel: 113 },
     { n: 6,  nome: 'Depuração',                 icone: '🐞', ids: [64, 89, 90],                          nivel: 114 },
     { n: 7,  nome: 'Armazenamento',             icone: '🗄️', ids: [68, 69, 91, 92],                      nivel: 115 },
-    { n: 8,  nome: 'Projeto: Loja Virtual',     icone: '🛒', ids: [93, 94, 70, 95, 72, 96, 71, 97, 98],  nivel: 116 },
+    { n: 8,  nome: 'Projeto: Loja Virtual',     icone: '🛒', ids: [93, 94, 70, 95, 72, 71, 96, 97, 98],  nivel: 116 },
     { n: 9,  nome: 'JavaScript assíncrono',     icone: '⏱️', ids: [99, 100, 104],                        nivel: 117 },
     { n: 10, nome: 'Profissionalismo',          icone: '🚀', ids: [105, 106],                            nivel: 118 },
     { n: 11, nome: 'Revisão e avaliação',       icone: '🏁', ids: [107, 108],                            nivel: 0 }
