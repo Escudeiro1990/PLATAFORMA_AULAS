@@ -3134,7 +3134,7 @@ Content-Type: text/html
       atencao(`algumas coisas, como <code>fetch</code> em arquivos locais, <strong>só funcionam</strong> através de um servidor (Live Server), e não com duplo clique.`),
       caderno(['Ctrl+S salva · o ponto na aba = não salvo', 'Live Server recarrega a página ao salvar', 'file:/// = direto do disco · http://127.0.0.1 = servidor local'])),
     P('🐞', 'ENCONTRE O ERRO: os erros do primeiro dia',
-      lista(['<strong>"Mudei o código e nada mudou"</strong>: não salvou (ponto na aba), editou o arquivo de <em>outra pasta</em>, ou o navegador usou o <em>cache</em> (Ctrl+F5)', '<strong>Página mostra o código HTML escrito</strong>: o arquivo foi salvo como <code>index.html.txt</code>. O Windows costuma <strong>esconder as extensões</strong>. Ative "Extensões de nomes de arquivos" no Explorador', '<strong>Acentos viram "Ã§Ã£o"</strong>: faltou <code>&lt;meta charset="UTF-8"&gt;</code> no <code>head</code> (ou o arquivo foi salvo em outra codificação)', '<strong>Imagem ou CSS não aparece</strong>: caminho ou nome errado. Veja o 404 no Network']),
+      lista(['<strong>"Mudei o código e nada mudou"</strong>: não salvou (ponto na aba), editou o arquivo de <em>outra pasta</em>, ou o navegador usou o <em>cache</em> (Ctrl+F5)', '<strong>Página mostra o código HTML escrito</strong>: o arquivo foi salvo como <code>index.html.txt</code>. O Windows costuma <strong>esconder as extensões</strong>. Ative "Extensões de nomes de arquivos" no Explorador', '<strong>Acentos viram "nÃ£o" (em vez de "não")</strong>: faltou <code>&lt;meta charset="UTF-8"&gt;</code> no <code>head</code> (ou o arquivo foi salvo em outra codificação)', '<strong>Imagem ou CSS não aparece</strong>: caminho ou nome errado. Veja o 404 no Network']),
       box('azul', `<strong>Dica:</strong> nomes de arquivos e pastas <strong>sem acentos, sem espaços e em minúsculas</strong> (<code>minha-loja</code>, não <code>Minha Loja Nova</code>) evitam a maioria dos problemas.`)),
     P('🔧', 'MODIFIQUE: ajustando o ambiente',
       lista(['Mude o tamanho da fonte do editor (<strong>Ctrl + roda do mouse</strong>)', 'Use <strong>Alt+Shift+F</strong> para formatar o código', 'Use <strong>Ctrl+/</strong> para comentar a linha', 'Abra o terminal integrado com <strong>Ctrl+`</strong>']),
@@ -3148,7 +3148,7 @@ Content-Type: text/html
     Q('Uma bolinha ao lado do nome da aba no VS Code indica:', 'Alterações não salvas', 'Erro de sintaxe', 'Arquivo bloqueado', 'Arquivo novo'),
     Q('O que faz o Live Server?', 'Abre a página em um servidor local e recarrega ao salvar', 'Publica o site na internet', 'Corrige os erros do código', 'Cria o CSS'),
     Q('O navegador mostra o código HTML escrito na tela. Causa provável?', 'O arquivo foi salvo como index.html.txt', 'Faltou o CSS', 'O servidor caiu', 'O JavaScript quebrou'),
-    Q('Os acentos aparecem como "Ã§Ã£o". O que provavelmente falta?', '<meta charset="UTF-8"> no head', 'Um parágrafo', 'Um link', 'O atributo alt'),
+    Q('Os acentos aparecem quebrados ("nÃ£o" no lugar de "não"). O que provavelmente falta?', '<meta charset="UTF-8"> no head', 'Um parágrafo', 'Um link', 'O atributo alt'),
     Q('Qual é um bom nome para a pasta do projeto?', 'loja-virtual', 'Loja Virtual Nova!', 'minha loja (final)', 'Loja_Virtual@2'),
     Q('Em um arquivo aberto com duplo clique, o endereço começa com:', 'file:///', 'https://', 'ftp://', 'www.'),
     Q('Como digitar rapidamente o esqueleto do HTML no VS Code?', 'Digitar ! e apertar Tab', 'Digitar html e apagar', 'Ctrl+Z', 'Digitar index'),
@@ -5241,6 +5241,91 @@ if (chave[0] === "p") localStorage.removeItem(chave);        // APAGOU OS PRODUT
   REV[98] = { titulo: 'Loja 16: Testes e Apresentação' };
 
   // ══════════════════════════════════════════════════════
+  // REVISÃO (aulas 73 a 85): troca das perguntas mais fracas por cenários, previsão e leitura de código.
+  // "trocar" = lista de { i: posição (0 a 9), q: pergunta nova }
+  // ══════════════════════════════════════════════════════
+  REV[73] = { trocar: [
+    { i: 1, q: Q('Você digita loja.com/produtos/xyz e aparece "Não encontrado", com status 404. O que isso diz?', 'O servidor funcionou, mas aquele caminho não existe', 'O servidor caiu', 'O DNS não achou o domínio', 'Sua internet está desligada') },
+    { i: 2, q: Q('Você digita lojja.com (com um j a mais) e vê ERR_NAME_NOT_RESOLVED. Onde está o erro?', 'No domínio digitado: o DNS não achou o servidor', 'No caminho da página', 'No código HTML do site', 'No CSS do site') },
+    { i: 5, q: Q('No Network, a página tem status 200, mas estilo.css tem status 404. O que isso diz?', 'A página chegou, mas o arquivo de estilo não foi encontrado naquele endereço', 'O servidor inteiro falhou', 'O HTML precisa de JavaScript para ter estilo', 'O DNS falhou só para o CSS') },
+    { i: 6, q: Q('O endereço é loja.com/busca?produto=caneta&cor=azul. Quantos pares nome=valor há na query string?', '2', '1', '3', '4') },
+    { i: 8, q: Q('Por que uma senha enviada por formulário com GET é um problema?', 'Ela apareceria na URL e no histórico do navegador', 'GET é mais lento que POST', 'O servidor ignora campos enviados por GET', 'O navegador bloqueia formulários GET') },
+  ] };
+  REV[74] = { trocar: [
+    { i: 0, q: Q('Você mudou o título no VS Code, apertou F5 no navegador e nada mudou. O que olhar primeiro?', 'Se o arquivo foi salvo (bolinha na aba) e se é o arquivo certo', 'Reinstalar o navegador', 'Trocar o CSS', 'Apagar a pasta do projeto') },
+    { i: 1, q: Q('Na tela aparece o texto <h1>Olá</h1> escrito, em vez de um título grande. O que provavelmente aconteceu?', 'O arquivo foi salvo como .txt (index.html.txt)', 'O h1 não é uma tag válida', 'Faltou o CSS', 'O servidor caiu') },
+    { i: 5, q: Q('Em vez de "não", a página mostra "nÃ£o". O que provavelmente falta?', '<meta charset="UTF-8"> no head', 'Um parágrafo', 'Um link', 'O atributo alt') },
+    { i: 6, q: Q('Uma pasta chamada "Minha Loja (final)" deu problema em um caminho. Qual boa prática evita isso?', 'Nomes em minúsculas, sem espaços e sem acentos (minha-loja)', 'Usar sempre espaços', 'Usar letras maiúsculas', 'Usar símbolos como @') },
+    { i: 7, q: Q('Por que o Live Server é melhor que o duplo clique ao testar um fetch?', 'Serve a página por http://, como um site de verdade, e recarrega ao salvar', 'Publica o site na internet', 'Corrige os erros do código', 'Guarda o histórico de versões') },
+  ] };
+  REV[75] = { trocar: [
+    { i: 0, q: Q('Em paginas/contato.html há <img src="imagens/logo.png"> e a imagem quebrou. Qual é a causa?', 'O caminho é relativo à página: precisa de ../imagens/logo.png', 'O PNG não funciona em páginas HTML', 'A pasta imagens está sempre vazia', 'Faltou o alt') },
+    { i: 3, q: Q('No Network aparece Foto.JPG com 404, e o arquivo da pasta é foto.jpg. O que fazer?', 'Escrever o nome exatamente igual (ou padronizar tudo em minúsculas)', 'Trocar o formato para PNG', 'Aumentar a imagem', 'Recarregar até funcionar') },
+    { i: 5, q: Q('A index.html está na raiz e você quer um link para paginas/contato.html. Qual é o href?', 'paginas/contato.html', '../paginas/contato.html', '/contato.html', 'contato.html') },
+    { i: 6, q: Q('O que o navegador faz ao clicar em <a href="https://exemplo.com" target="_blank">?', 'Abre o link em uma nova aba', 'Abre na mesma aba, substituindo a página', 'Baixa o arquivo', 'Fecha a página atual') },
+  ] };
+  REV[76] = { trocar: [
+    { i: 0, q: Q('Um usuário cego navega pela página usando um leitor de tela. Qual destes é um problema para ele?', 'Imagens importantes sem texto alternativo (alt)', 'Cores escuras no fundo', 'Fonte com serifa', 'A página ter muitos parágrafos') },
+    { i: 1, q: Q('Um menu feito com <div class="menu"> será trocado por <nav>. O que se ganha?', 'O leitor de tela passa a reconhecer a área como navegação e permite pular direto para ela', 'O menu fica azul', 'O menu carrega mais rápido', 'O CSS deixa de ser necessário') },
+    { i: 4, q: Q('Uma página tem h1, h4 e h2 nessa ordem. Qual é o problema?', 'Pula níveis de título e confunde a estrutura', 'Não há problema algum', 'Só pode haver h1 e h2', 'h4 não existe') },
+    { i: 8, q: Q('Um <div onclick="..."> funciona com o mouse, mas não com o teclado. Como corrigir?', 'Trocar por <button>, que recebe foco e responde a Enter e espaço', 'Pintar o div de outra cor', 'Aumentar o tamanho do div', 'Remover o onclick') },
+  ] };
+  REV[77] = { trocar: [
+    { i: 1, q: Q('O usuário aumenta a fonte base do navegador de 16px para 20px. Que título muda de tamanho?', 'O de 2rem (vai para 40px); o de 32px continua 32px', 'Os dois mudam', 'Nenhum dos dois', 'Só o de 32px') },
+    { i: 3, q: Q('Um parágrafo de texto longo está difícil de ler, com as linhas coladas. Qual propriedade ajuda mais?', 'line-height: 1.6', 'color: red', 'text-transform: uppercase', 'border: 1px solid') },
+    { i: 5, q: Q('p { font-size: 18; } e o texto não muda. Como descobrir o motivo?', 'No painel Styles, a linha aparece riscada, pois falta a unidade (px, rem...)', 'Olhando a aba Network', 'Reiniciando o navegador', 'Procurando um erro vermelho no console') },
+    { i: 7, q: Q('Texto cinza claro (#ccc) sobre fundo branco. Qual problema isso provoca?', 'Contraste baixo: quem tem baixa visão não consegue ler', 'O texto some em dispositivos móveis', 'O navegador bloqueia a cor', 'Nenhum problema, cinza é neutro') },
+  ] };
+  REV[78] = { trocar: [
+    { i: 1, q: Q('Um card tem width: 300px, padding: 10px e border: 2px (content-box). Qual espaço horizontal total ele ocupa?', '324px', '300px', '312px', '320px') },
+    { i: 2, q: Q('Mesmo card, mas com box-sizing: border-box. Qual espaço horizontal total?', '300px', '324px', '312px', '320px') },
+    { i: 6, q: Q('Um <span> recebe width: 200px e nada acontece. Como resolver?', 'Mudar o display para inline-block (ou block)', 'Trocar o span por um parágrafo sem mudar o CSS', 'Escrever 200 em vez de 200px', 'Aumentar o padding') },
+    { i: 9, q: Q('Para esconder um elemento e liberar o espaço que ele ocupava, usa-se:', 'display: none', 'visibility: hidden', 'opacity: 0', 'color: transparent') },
+  ] };
+  REV[79] = { trocar: [
+    { i: 0, q: Q('Três cards dentro de uma <div class="lista"> estão empilhados. Onde colocar display: flex para ficarem lado a lado?', 'Em .lista (o pai)', 'Em cada card', 'No body somente', 'Na tag html') },
+    { i: 3, q: Q('Um menu tem justify-content: space-between com 3 links. O que acontece com o primeiro e o último?', 'Ficam nas pontas, com espaço igual entre os três', 'Ficam juntos no centro', 'Ficam no início, colados', 'Ficam empilhados') },
+    { i: 4, q: Q('Com flex-direction: column, qual propriedade distribui os itens na vertical?', 'justify-content', 'align-items', 'gap', 'flex-wrap') },
+    { i: 9, q: Q('Três itens com flex: 1 em um pai de 600px (sem gap). Quanto mede cada item?', '200px', '600px', '100px', '300px') },
+  ] };
+  REV[80] = { trocar: [
+    { i: 1, q: Q('Cards em uma div estão em coluna, mesmo com display: grid e grid-template-columns nos cards. Qual é o erro?', 'As propriedades do grid devem ficar no pai, e não nos filhos', 'O grid não funciona com cards', 'Faltou o gap', 'Faltou o flex') },
+    { i: 4, q: Q('grid-template-columns: 1fr 3fr em uma página de 800px (sem gap). Quanto mede a segunda coluna?', '600px', '400px', '200px', '267px') },
+    { i: 5, q: Q('Em telas grandes a vitrine tem 5 colunas e no celular 1, sem media query. Qual regra faz isso?', 'repeat(auto-fill, minmax(200px, 1fr))', 'repeat(5, 1fr)', 'grid-template-columns: 200px', 'display: flex') },
+    { i: 8, q: Q('Um destaque precisa ocupar 2 das 3 colunas. Qual regra?', 'grid-column: span 2', 'width: 2', 'columns: 2', 'flex: 2') },
+  ] };
+  REV[81] = { trocar: [
+    { i: 1, q: Q('Um selo "NOVO" (position: absolute) aparece no canto da PÁGINA, e não do card. O que falta?', 'position: relative no card (o pai)', 'z-index no selo', 'display: flex no card', 'float no selo') },
+    { i: 4, q: Q('Um menu com z-index: 100 continua atrás de outro elemento. Qual é a causa provável?', 'O menu está com position: static, e o z-index não vale', 'O número é pequeno demais', 'O z-index só vale em imagens', 'O navegador ignora z-index') },
+    { i: 6, q: Q('Um usuário só usa o teclado e não vê qual botão está selecionado. O que deve existir no CSS?', 'Um estilo para :focus (ou :focus-visible)', 'Um estilo para :hover', 'Um estilo para :first-child', 'Um estilo para :visited') },
+    { i: 7, q: Q('Um botão muda de cor com um salto brusco ao passar o mouse. Qual propriedade suaviza a mudança?', 'transition', 'transform: none', 'opacity', 'display') },
+  ] };
+  REV[82] = { trocar: [
+    { i: 2, q: Q('No computador a página está ótima, mas no celular tudo aparece minúsculo, como se a página inteira estivesse encolhida. Causa provável?', 'Falta a meta viewport no head', 'Falta o CSS', 'O JavaScript está quebrado', 'O celular não suporta HTML') },
+    { i: 3, q: Q('@media (max-width: 500px) { .menu { flex-direction: column; } }. O que isso faz?', 'Em telas de até 500px, o menu fica em coluna', 'Em telas acima de 500px, o menu fica em coluna', 'O menu tem sempre 500px', 'Remove o menu') },
+    { i: 5, q: Q('A media query está no começo do CSS e uma regra .menu igual vem depois. Em tela pequena, qual regra vale?', 'A que vem depois (a de fora da media query)', 'A media query, sempre', 'Nenhuma: dá conflito', 'Depende do navegador') },
+    { i: 8, q: Q('Uma foto de 1500px de largura estoura a tela do celular. Qual regra resolve?', 'img { max-width: 100%; height: auto; }', 'img { width: 1500px; }', 'img { display: none; }', 'img { overflow: hidden; }') },
+  ] };
+  REV[83] = { trocar: [
+    { i: 2, q: Q('let total = 0; for (let i = 1; i <= 4; i++) { total = total + i; } Quanto vale total?', '10', '6', '4', '15') },
+    { i: 3, q: Q('let i = 0; while (i < 3) { console.log(i); } O que acontece?', 'Laço infinito: o i nunca muda, e a página trava', 'Mostra 0, 1 e 2', 'Mostra 0 uma vez', 'Dá SyntaxError') },
+    { i: 4, q: Q('Em for (let i = 0; i < 10; i++) { if (i === 3) break; console.log(i); } o que aparece?', '0, 1 e 2', '0 a 9', '0 a 3', '3') },
+    { i: 5, q: Q('Em for (let i = 0; i < 5; i++) { if (i === 2) continue; console.log(i); } o que aparece?', '0, 1, 3 e 4', '0, 1', '2', '0 a 4') },
+  ] };
+  REV[84] = { trocar: [
+    { i: 0, q: Q('Você quer uma lista só com os NOMES dos produtos de [{nome:"A", preco:5}, {nome:"B", preco:9}]. Qual método?', 'produtos.map((p) => p.nome)', 'produtos.filter((p) => p.nome)', 'produtos.find((p) => p.nome)', 'produtos.reduce((p) => p.nome)') },
+    { i: 1, q: Q('Você quer só os produtos com preço menor que 6. Qual método?', 'filter', 'map', 'reduce', 'push') },
+    { i: 2, q: Q('Você quer o produto com id 2 (um só, e sem criar array). Qual método?', 'find', 'filter', 'map', 'reduce') },
+    { i: 3, q: Q('Você quer o total em R$ de todos os preços. Qual método?', 'reduce', 'map', 'find', 'filter') },
+  ] };
+  REV[85] = { trocar: [
+    { i: 0, q: Q('function f() { let a = 1; } f(); console.log(a); O que acontece?', 'ReferenceError: a is not defined', 'Mostra 1', 'Mostra undefined', 'Mostra null') },
+    { i: 1, q: Q('if (true) { let x = 5; } console.log(x); O que acontece?', 'ReferenceError: x is not defined', 'Mostra 5', 'Mostra undefined', 'Mostra true') },
+    { i: 4, q: Q('const taxa = 0.1; taxa = 0.2; O que acontece?', 'TypeError: Assignment to constant variable', 'taxa passa a valer 0.2', 'taxa vale 0.3', 'Nada acontece') },
+    { i: 9, q: Q('Em let preco = 100 * 0.9;, qual é a melhor forma de deixar claro de onde vem o 0.9?', 'const DESCONTO = 0.1; e usar (1 - DESCONTO)', 'Colocar um comentário dizendo "mágica"', 'Trocar 0.9 por 90 / 100', 'Apagar a variável') },
+  ] };
+
+  // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
   // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
@@ -5265,6 +5350,7 @@ if (chave[0] === "p") localStorage.removeItem(chave);        // APAGOU OS PRODUT
     if (!r) return;
     if (r.titulo) a.titulo = r.titulo;
     if (r.perguntas) a.perguntas = r.perguntas;
+    (r.trocar || []).forEach(function (t) { if (a.perguntas[t.i]) a.perguntas[t.i] = t.q; });
     if (r.dropLast) a.passos.pop();
     (r.extra || []).forEach(function (p) { if (a.passos.length < 7) a.passos.splice(a.passos.length - 1, 0, p); });
   });
