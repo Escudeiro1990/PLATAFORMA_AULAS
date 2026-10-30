@@ -2262,6 +2262,253 @@ JSON.parse(localStorage.getItem("p5"));
     Q('Qual é a melhor forma de testar a loja de um colega?', 'Seguir o roteiro e tentar quebrá-la com entradas inesperadas', 'Só clicar uma vez em cada botão', 'Alterar o código dele', 'Não testar, só olhar'),
   ]);
 
+  PRAT[89] = { tarefas: ['<strong>Nível 1.</strong> Abra a loja, aperte F12 e use o seletor de elementos (a setinha) para clicar no título. Localize o <code>h1</code> no <strong>Elements</strong>.', '<strong>Nível 1.</strong> No <strong>Network</strong>, recarregue a página e anote quantos arquivos foram carregados e se algum deu 404.', '<strong>Nível 2.</strong> No <strong>Elements</strong>, mude a cor de um texto e o tamanho de um botão direto no painel Styles. Recarregue: o que acontece com a mudança?', '<strong>Nível 2.</strong> No <strong>Application</strong>, edite o preço de um produto direto na gaveta e recarregue a loja.'],
+    desafio: '<strong>Nível 3.</strong> Quebre de propósito o nome do arquivo do CSS, ache o erro <strong>apenas pelo Network e pelo Console</strong> e corrija. Depois explique ao professor o que cada aba mostra.' };
+  PRAT[90] = { tarefas: ['<strong>Nível 1.</strong> Em <strong>Sources</strong>, abra seu <code>.js</code>, clique no número de uma linha para criar um breakpoint e provoque a execução. Veja a execução pausar.', '<strong>Nível 1.</strong> Com o código pausado, olhe o painel <strong>Scope</strong> e anote o valor de 3 variáveis.', '<strong>Nível 2.</strong> Use F10 (passo a passo) em um laço e acompanhe como o <code>total</code> muda a cada volta.', '<strong>Explique:</strong> com suas palavras, qual a diferença entre F10, F11 e F8.'],
+    desafio: '<strong>Nível 3.</strong> Use um breakpoint <strong>condicional</strong> para pausar só quando o preço de um item for maior que 100. Depois explique ao professor como você descobriu o bug.' };
+  PRAT[91] = { tarefas: ['<strong>Nível 1.</strong> No console, guarde um valor no <code>sessionStorage</code> e outro no <code>localStorage</code>. Veja os dois em Application.', '<strong>Nível 1.</strong> Feche a aba, abra o mesmo endereço e confira qual dos dois valores sobrou.', '<strong>Nível 2.</strong> Abra a mesma página em duas abas e verifique o que é compartilhado em cada tipo de armazenamento.', '<strong>Explique:</strong> com suas palavras, quando usar sessionStorage e quando usar localStorage.'],
+    desafio: '<strong>Nível 3.</strong> No formulário da loja, guarde o <strong>rascunho</strong> (nome e preço digitados) no <code>sessionStorage</code> a cada letra e restaure se a página for recarregada. Apague o rascunho ao salvar o produto.' };
+  PRAT[92] = { tarefas: ['<strong>Nível 1.</strong> Na <strong>sua cópia local</strong> da loja, cadastre um produto com o nome <code>&lt;b&gt;teste&lt;/b&gt;</code> e veja como aparece com <code>innerHTML</code> e com <code>textContent</code>.', '<strong>Nível 2.</strong> Troque a lista de produtos para <code>createElement</code> + <code>textContent</code> e repita o teste.', '<strong>Nível 2.</strong> Escreva a função <code>escaparHtml</code> e teste com 3 textos perigosos.', '<strong>Explique:</strong> com suas palavras, por que um nome de produto pode ser um risco.'],
+    desafio: '<strong>Nível 3.</strong> Faça uma <strong>auditoria</strong> do seu projeto: procure todos os <code>innerHTML</code>, senhas ou dados sensíveis no localStorage e anote o que corrigiu.' };
+
+  // ══════════════════════════════════════════════════════
+  // 89 — DEVTOOLS
+  // ══════════════════════════════════════════════════════
+  A(89, 'Depuração 2: DevTools, os Raios-X do Navegador', 'Usar Elements, Console, Network e Application para enxergar o que a página realmente está fazendo', '🩻', [
+    P('💡', 'ENTENDA: o navegador tem um painel de investigação',
+      `<p>As <strong>ferramentas do desenvolvedor</strong> (F12) mostram o que o navegador <em>entendeu</em> do seu código. Cada aba responde a uma pergunta diferente.</p>`,
+      analogia(`o <strong>raio-X do hospital</strong>: o médico não adivinha, ele olha dentro. Cada exame (aba) mostra uma parte do corpo (da página).`),
+      lista(['🌳 <strong>Elements</strong>: "como o navegador montou o HTML e o CSS?"', '💬 <strong>Console</strong>: "que mensagens e erros o JavaScript produziu?"', '📡 <strong>Network</strong>: "que arquivos e dados foram pedidos, e com que resultado?"', '🗄️ <strong>Application</strong>: "o que está guardado no navegador (localStorage, etc.)?"']),
+      caderno(['Elements = HTML/CSS · Console = JS e erros', 'Network = pedidos e status · Application = dados guardados'])),
+    P('🌳', 'Elements: ver e testar o HTML e o CSS',
+      lista(['Clique na <strong>setinha</strong> no canto do painel e depois em qualquer parte da página: o elemento aparece destacado', 'No painel <strong>Styles</strong>, você vê as regras CSS que se aplicam e pode <strong>editá-las ao vivo</strong>', 'O desenho do <strong>box model</strong> mostra o padding, a borda e a margem do elemento']),
+      atencao(`tudo que você muda no Elements é só <strong>temporário</strong>. Ao recarregar a página, volta ao que está no arquivo. É ótimo para <em>testar</em> uma cor ou um tamanho antes de escrever no CSS.`),
+      preveja(`você muda a cor do título no painel Styles e depois aperta F5. A cor nova continua? Por quê?`)),
+    P('📡', 'Network: o que a página pediu?',
+      `<p>Abra a aba <strong>Network</strong> e <strong>recarregue</strong> a página. Cada linha é um arquivo pedido ao servidor, com o <strong>status</strong>:</p>`,
+      lista(['<code>200</code> OK: o arquivo chegou', '<code>304</code>: o navegador reaproveitou o que já tinha', '<code>404</code> Not Found: o arquivo <strong>não existe</strong> naquele endereço (caminho ou nome errado)', '<code>500</code>: erro dentro do servidor']),
+      code(`Name          Status   Type
+index.html    200      document
+estilo.css    404      stylesheet     <- aqui está o problema!
+script.js     200      script`),
+      caderno(['404 = arquivo não encontrado (nome ou caminho)', 'Recarregue com o Network aberto para ver os pedidos', 'Clique numa linha para ver a resposta (Preview/Response)'])),
+    P('🐞', 'ENCONTRE O ERRO: "mudei o arquivo e nada mudou"',
+      lista(['<strong>Sintoma:</strong> você alterou o CSS ou o JS, recarregou, mas a página continua igual', '<strong>Causa mais comum:</strong> o navegador está usando uma versão <strong>guardada (cache)</strong> do arquivo', '<strong>Investigação:</strong> Network → veja se o arquivo aparece como <code>(disk cache)</code>', '<strong>Soluções:</strong> recarregar sem cache com <strong>Ctrl+F5</strong>, ou marcar <strong>Disable cache</strong> no Network (com as DevTools abertas)']),
+      box('amarelo', `<strong>Outras causas do mesmo sintoma:</strong> você editou o arquivo <em>errado</em> (outra pasta, outra cópia), ou esqueceu de salvar (no VS Code, o ponto no nome da aba indica "não salvo").`)),
+    P('🗄️', 'Application: a gaveta por dentro',
+      `<p>Em <strong>Application → Local Storage → endereço da página</strong> você vê todas as chaves e valores. E pode:</p>`,
+      lista(['<strong>editar</strong> um valor (duplo clique) e recarregar para ver o efeito', '<strong>apagar</strong> uma chave (tecla Delete) ou tudo (botão <em>Clear</em>)', 'conferir se os produtos estão como <code>p…</code> e o carrinho como <code>c…</code>, com JSON válido']),
+      code(`// no Console, para olhar rápido:
+localStorage.length
+Object.keys(localStorage)`),
+      caderno(['Application = ver, editar e apagar o que está guardado', 'Se o valor aparece como [object Object], faltou JSON.stringify'])),
+    P('🎯', 'DESAFIO: investigue sem olhar o código',
+      lista(['Peça a um colega para <strong>quebrar de propósito</strong> a sua loja (nome de arquivo, caminho, uma chave no localStorage) e <strong>não contar o quê</strong>', 'Use só as DevTools para descobrir o problema: qual aba você abriu primeiro e por quê?']),
+      box('verde', `<strong>Explique com suas palavras:</strong> em que situação você abre o Network, em qual abre o Console e em qual abre o Application?`)),
+  ], [
+    Q('Qual aba mostra como o navegador montou o HTML e o CSS?', 'Elements', 'Network', 'Console', 'Application'),
+    Q('Qual aba mostra os arquivos pedidos e o status de cada um?', 'Network', 'Elements', 'Console', 'Sources'),
+    Q('O que significa o status 404 de um arquivo?', 'O arquivo não foi encontrado no endereço pedido', 'O arquivo chegou com sucesso', 'O servidor travou', 'O arquivo está protegido'),
+    Q('Você mudou uma cor no painel Styles e deu F5. O que acontece?', 'A mudança é perdida: só valia para aquela página aberta', 'A cor muda no arquivo CSS', 'A cor muda para todos os usuários', 'O navegador guarda para sempre'),
+    Q('Alterou o CSS, recarregou e nada mudou. Qual a causa mais comum?', 'O navegador usou uma versão em cache do arquivo', 'O CSS não funciona mais', 'O HTML foi apagado', 'O JavaScript quebrou'),
+    Q('Qual atalho recarrega ignorando o cache?', 'Ctrl+F5', 'Ctrl+S', 'Alt+F4', 'F1'),
+    Q('Em qual aba você vê e edita o localStorage?', 'Application', 'Network', 'Console', 'Elements'),
+    Q('Um valor aparece como [object Object] na gaveta. Causa provável?', 'Faltou JSON.stringify ao guardar', 'Faltou JSON.parse ao guardar', 'O navegador está desatualizado', 'O localStorage está cheio'),
+    Q('Para ver o erro de um .css que não carregou, qual é a melhor aba?', 'Network', 'Application', 'Elements apenas', 'Nenhuma'),
+    Q('As alterações feitas no Elements:', 'São temporárias e somem ao recarregar', 'Alteram o arquivo no computador', 'Alteram o servidor', 'São salvas automaticamente'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 90 — BREAKPOINTS
+  // ══════════════════════════════════════════════════════
+  A(90, 'Depuração 3: Breakpoints e Passo a Passo', 'Pausar o código no meio da execução e acompanhar cada variável, em vez de adivinhar', '⏸️', [
+    P('💡', 'ENTENDA: parar o filme para ver o quadro',
+      `<p>O <code>console.log</code> mostra valores, mas você precisa escolher <em>onde</em> colocá-lo e rodar de novo. Com um <strong>breakpoint</strong>, você <strong>pausa o código</strong> numa linha e enxerga <strong>todas as variáveis</strong> naquele instante.</p>`,
+      analogia(`é como <strong>dar pause em um filme</strong> para ver o que há em cada canto da cena, e depois avançar quadro a quadro.`),
+      caderno(['Breakpoint = ponto onde a execução pausa', 'Com o código pausado, você vê todas as variáveis'])),
+    P('⌨️', 'DIGITE E PAUSE',
+      code(`function calcularTotal(lista) {
+  let total = 0;
+  for (let i = 0; i < lista.length; i++) {
+    total = total + lista[i].preco;      // <- coloque o breakpoint aqui
+  }
+  return total;
+}
+
+console.log(calcularTotal([{ preco: "10" }, { preco: "20" }]));`),
+      lista(['F12 → aba <strong>Sources</strong> → abra o arquivo no painel esquerdo (ou no HTML, se o código está nele)', '<strong>Clique no número da linha</strong> do <code>total = total + ...</code>: aparece um marcador azul', '<strong>Recarregue a página</strong>: a execução pausa naquela linha']),
+      preveja(`quando pausar na primeira volta, quanto vale <code>total</code>? E <code>lista[i].preco</code>? De que tipo é <code>preco</code>?`)),
+    P('🔬', 'Os controles: avançar quadro a quadro',
+      lista(['▶️ <strong>F8</strong> (Resume): continua até o próximo breakpoint', '⤵️ <strong>F10</strong> (Step over): executa a linha atual e vai para a próxima', '⬇️ <strong>F11</strong> (Step into): entra dentro da função chamada na linha', '⬆️ <strong>Shift+F11</strong> (Step out): termina a função atual e sai dela']),
+      lista(['O painel <strong>Scope</strong> mostra as variáveis locais e seus valores', 'O painel <strong>Watch</strong> deixa você acompanhar uma expressão, como <code>total</code> ou <code>typeof lista[i].preco</code>']),
+      caderno(['F8 continua · F10 próxima linha · F11 entra na função', 'Scope mostra todas as variáveis nesse instante'])),
+    P('🐞', 'ENCONTRE O ERRO COM O PASSO A PASSO',
+      `<p>Com o código pausado e o <strong>F10</strong>, repare em como o <code>total</code> muda a cada volta:</p>`,
+      code(`volta 0:  total = 0   ->  "0" + "10"  ->  "010"     (texto!)
+volta 1:  total = "010" -> "010" + "20" -> "01020"`),
+      box('verde', `<strong>Causa encontrada em 30 segundos:</strong> <code>preco</code> é <strong>texto</strong> ("10"), e o <code>+</code> junta. O Scope mostrava <code>preco: "10"</code> entre aspas. <strong>Correção:</strong> <code>total = total + Number(lista[i].preco)</code>.`),
+      atencao(`quando o breakpoint <strong>não pausa</strong>, as causas comuns são: a linha nunca foi executada (condição falsa ou função nunca chamada), o arquivo aberto no Sources não é o que a página usa, ou o cache está servindo uma versão antiga.`)),
+    P('🔧', 'MODIFIQUE: breakpoint condicional e debugger',
+      lista(['<strong>Condicional</strong>: botão direito no número da linha → <em>Add conditional breakpoint</em> → <code>lista[i].preco > 100</code>. O código só pausa quando a condição for verdadeira', '<strong>Palavra debugger</strong>: escreva <code>debugger;</code> numa linha e, com as DevTools abertas, o código pausa ali']),
+      code(`for (let i = 0; i < lista.length; i++) {
+  if (lista[i].preco > 100) {
+    debugger;                  // pausa só nos itens caros
+  }
+  total = total + Number(lista[i].preco);
+}`),
+      atencao(`apague os <code>debugger;</code> antes de entregar o projeto: eles fazem a página pausar para quem abrir as DevTools.`)),
+    P('🎯', 'DESAFIO: caçada ao bug',
+      lista(['Provoque um bug no total do carrinho da sua loja (por exemplo, esquecendo o filtro <code>c</code>)', 'Use um <strong>breakpoint</strong> e o painel <strong>Scope</strong> para descobrir qual chave está sendo somada indevidamente', 'Anote o passo a passo da investigação']),
+      box('verde', `<strong>Explique com suas palavras:</strong> quando você prefere <code>console.log</code> e quando prefere o breakpoint?`)),
+  ], [
+    Q('O que é um breakpoint?', 'Um ponto em que a execução do código pausa', 'Um erro do navegador', 'Um tipo de variável', 'Uma linha de comentário'),
+    Q('Como criar um breakpoint no Sources?', 'Clicando no número da linha', 'Escrevendo a palavra break', 'Apertando F5', 'Apagando a linha'),
+    Q('Qual tecla executa a linha atual e vai para a próxima?', 'F10', 'F8', 'F5', 'F12'),
+    Q('Qual tecla entra dentro da função chamada na linha?', 'F11', 'F10', 'F8', 'F1'),
+    Q('Qual tecla continua a execução até o próximo breakpoint?', 'F8', 'F10', 'F11', 'F12'),
+    Q('Que painel mostra as variáveis e seus valores com o código pausado?', 'Scope', 'Network', 'Fonts', 'Layers'),
+    Q('O Scope mostra preco: "10" (com aspas). O que isso revela?', 'O preço é texto, e o + vai juntar em vez de somar', 'O preço é um número', 'O código está correto', 'A variável não existe'),
+    Q('O que faz a instrução debugger; ?', 'Pausa o código naquela linha quando as DevTools estão abertas', 'Apaga o código', 'Mostra no console', 'Salva o arquivo'),
+    Q('Para que serve um breakpoint condicional?', 'Pausar só quando uma condição for verdadeira', 'Repetir a linha', 'Desligar o JavaScript', 'Mudar o valor de uma variável'),
+    Q('O breakpoint não pausa. Uma causa provável é:', 'A linha nunca é executada naquele fluxo', 'O JavaScript não funciona com breakpoints', 'O navegador não permite', 'O arquivo tem muitas linhas'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 91 — sessionStorage
+  // ══════════════════════════════════════════════════════
+  A(91, 'Armazenamento 3: sessionStorage e Limites', 'Comparar sessionStorage e localStorage, saber quando usar cada um e conhecer os limites do armazenamento', '⏳', [
+    P('💡', 'ENTENDA: dois armazenamentos, vidas diferentes',
+      `<p>O navegador oferece duas gavetas com <strong>o mesmo funcionamento</strong> (<code>setItem</code>, <code>getItem</code>, <code>removeItem</code>), mas com <strong>durações diferentes</strong>:</p>`,
+      lista(['🗄️ <strong>localStorage</strong>: fica guardado <strong>até ser apagado</strong>, mesmo depois de fechar o navegador. É compartilhado entre as abas do mesmo site.', '⏳ <strong>sessionStorage</strong>: vale <strong>só para aquela aba</strong>, e é apagado quando a aba (ou a janela) é fechada']),
+      analogia(`o localStorage é o <strong>armário da escola</strong>: seus pertences ficam lá todo dia. O sessionStorage é a <strong>mesa da sala durante a prova</strong>: serve só enquanto você está ali e é recolhida no fim.`),
+      code(`sessionStorage.setItem("filtro", "caneta");
+console.log(sessionStorage.getItem("filtro"));   // "caneta"
+sessionStorage.removeItem("filtro");`),
+      caderno(['localStorage = fica até apagar (compartilhado entre abas)', 'sessionStorage = só aquela aba, some ao fechá-la', 'A API é igual: setItem / getItem / removeItem'])),
+    P('🧠', 'PREVEJA: o que sobra?',
+      code(`localStorage.setItem("loja", "Minha Loja");
+sessionStorage.setItem("filtro", "caneta");
+
+// agora: feche a aba, abra o mesmo endereço de novo
+console.log(localStorage.getItem("loja"));       // ?
+console.log(sessionStorage.getItem("filtro"));   // ?`),
+      preveja(`qual dos dois valores volta ao abrir de novo? E se você abrir a <strong>mesma página em outra aba</strong> (sem fechar a primeira)?`),
+      box('verde', `<strong>Resultado:</strong> <code>"Minha Loja"</code> volta, e o filtro é <code>null</code> (o sessionStorage foi apagado ao fechar a aba). Em uma aba nova aberta do zero, o sessionStorage também começa <strong>vazio</strong>; o localStorage é compartilhado.`)),
+    P('🧭', 'Quando usar cada um',
+      lista(['✅ <strong>localStorage</strong>: dados que precisam <strong>durar</strong>: produtos da loja, carrinho, preferências (tema escuro)', '✅ <strong>sessionStorage</strong>: dados <strong>temporários</strong> de uma visita: o filtro atual, o rascunho de um formulário, "já mostrei este aviso nesta visita"']),
+      code(`// rascunho do formulário, guardado só durante a visita
+document.getElementById("nome").addEventListener("input", function () {
+  sessionStorage.setItem("rascunhoNome", this.value);
+});
+// ao salvar com sucesso:
+sessionStorage.removeItem("rascunhoNome");`),
+      atencao(`nenhum dos dois é lugar para <strong>senhas</strong> ou dados sensíveis. Qualquer pessoa que usar o navegador pode abrir o Application e ler.`)),
+    P('🐞', 'ENCONTRE O ERRO: o limite estourou',
+      code(`for (let i = 0; i < 100000; i++) {
+  localStorage.setItem("p" + i, "x".repeat(1000));
+}
+// Uncaught DOMException: Failed to execute 'setItem' on 'Storage':
+// Setting the 'p4700' property on 'Storage' exceeded the quota.`),
+      lista(['<strong>Causa:</strong> o armazenamento tem um limite, em geral <strong>cerca de 5 MB por site</strong> (o valor exato varia)', '<strong>Consequência:</strong> o <code>setItem</code> lança um erro e <strong>nada é gravado</strong>', '<strong>Boa prática:</strong> não guarde imagens grandes nem listas enormes; envolva o <code>setItem</code> em <code>try/catch</code> quando o volume for incerto']),
+      code(`try {
+  localStorage.setItem(chave, texto);
+} catch (erro) {
+  mensagem.textContent = "Não foi possível salvar: armazenamento cheio.";
+}`),
+      caderno(['Limite aproximado: ~5 MB por site', 'Estourou = erro de quota, e nada é gravado', 'Guarde só texto e só o necessário'])),
+    P('🔧', 'MODIFIQUE: preferência de tema',
+      code(`function aplicarTema() {
+  let tema = localStorage.getItem("tema") || "escuro";
+  document.body.className = tema;
+}
+function alternarTema() {
+  let atual = localStorage.getItem("tema") || "escuro";
+  localStorage.setItem("tema", atual === "escuro" ? "claro" : "escuro");
+  aplicarTema();
+}
+aplicarTema();`),
+      lista(['Crie as classes <code>.escuro</code> e <code>.claro</code> no CSS', 'Teste: recarregue e feche o navegador. O tema continua?', 'Troque <code>localStorage</code> por <code>sessionStorage</code> e veja a diferença']),
+      box('azul', `O operador <code>||</code> em <code>getItem("tema") || "escuro"</code> dá um <strong>valor padrão</strong> quando a chave ainda não existe (<code>null</code>).`)),
+  ], [
+    Q('Qual é a principal diferença entre localStorage e sessionStorage?', 'O sessionStorage some ao fechar a aba; o localStorage fica até ser apagado', 'O sessionStorage é mais rápido', 'O localStorage só guarda números', 'Não há diferença'),
+    Q('O sessionStorage de uma aba é compartilhado com outras abas do mesmo site?', 'Não, vale só para aquela aba', 'Sim, com todas', 'Sim, só com a primeira aba', 'Só no modo escuro'),
+    Q('O que sobra depois de fechar a aba e abrir o site de novo?', 'Os dados do localStorage', 'Os dados do sessionStorage', 'Os dois', 'Nenhum dos dois'),
+    Q('Qual é um uso adequado do sessionStorage?', 'Guardar o rascunho de um formulário durante a visita', 'Guardar os produtos da loja', 'Guardar a senha do usuário', 'Guardar o carrinho por semanas'),
+    Q('Qual é um uso adequado do localStorage?', 'Guardar a preferência de tema do usuário', 'Guardar o filtro que vale só nesta visita', 'Guardar senhas', 'Guardar um número de cartão'),
+    Q('O que causa "exceeded the quota" ao usar setItem?', 'Ultrapassar o limite de armazenamento do site', 'Usar a chave errada', 'Faltou JSON.stringify', 'O navegador está sem internet'),
+    Q('Qual é o limite aproximado do armazenamento por site?', 'Cerca de 5 MB', 'Cerca de 5 GB', 'Cerca de 5 KB', 'Ilimitado'),
+    Q('Como proteger o setItem quando o volume de dados é incerto?', 'Com try/catch', 'Com if (true)', 'Com innerHTML', 'Com um for'),
+    Q('O que faz localStorage.getItem("tema") || "escuro"?', 'Usa "escuro" quando a chave não existe', 'Apaga o tema', 'Troca o tema para claro', 'Gera um erro'),
+    Q('Por que nunca guardar senhas em nenhum dos dois?', 'Qualquer pessoa com acesso ao navegador consegue lê-las', 'Porque senhas são grandes demais', 'Porque o JavaScript proíbe', 'Porque somem sozinhas'),
+  ]);
+
+  // ══════════════════════════════════════════════════════
+  // 92 — SEGURANÇA NO NAVEGADOR E XSS
+  // ══════════════════════════════════════════════════════
+  A(92, 'Armazenamento 4: Segurança de Dados e XSS', 'Entender como um texto digitado pode virar código malicioso (XSS) e como evitar, além do que nunca guardar no navegador', '🛡️', [
+    P('💡', 'ENTENDA: texto que vira código',
+      `<p>Quando você coloca um texto na página com <code>innerHTML</code>, o navegador <strong>interpreta como HTML</strong>. Se esse texto veio de um usuário, ele pode conter <strong>código</strong>. Esse ataque se chama <strong>XSS</strong> (<em>Cross-Site Scripting</em>).</p>`,
+      analogia(`você recebe uma carta e, <strong>sem ler</strong>, cumpre qualquer ordem escrita nela. Se alguém escrever "entregue as chaves da casa", você entrega. Com <code>innerHTML</code>, a página obedece ao que o texto mandar.`),
+      caderno(['XSS = texto digitado vira código executado na página', 'Causa clássica: innerHTML com dados não tratados'])),
+    P('🧠', 'PREVEJA: o produto com nome perigoso',
+      code(`// o usuário cadastra um produto com este NOME:
+<img src="x" onerror="alert('XSS')">
+
+// e a vitrine desenha assim:
+vitrine.innerHTML += "<h3>" + produto.nome + "</h3>";`),
+      preveja(`o que você acha que acontece quando a vitrine desenhar esse produto? O navegador mostra o texto, ou faz outra coisa?`),
+      box('verde', `<strong>Resultado:</strong> o navegador <strong>cria uma imagem</strong>, o arquivo <code>x</code> não existe, ocorre o erro e o <code>onerror</code> <strong>executa o código</strong>: aparece o alerta. Em vez de <code>alert</code>, poderia ler tudo do localStorage e enviar a um site do atacante.`),
+      atencao(`teste isso <strong>apenas na sua própria cópia local</strong> do projeto, nunca em sites de terceiros.`)),
+    P('🛡️', 'A correção: textContent e createElement',
+      code(`// perigoso
+vitrine.innerHTML += "<h3>" + produto.nome + "</h3>";
+
+// seguro: o texto é tratado como TEXTO, nunca como HTML
+let titulo = document.createElement("h3");
+titulo.textContent = produto.nome;
+vitrine.appendChild(titulo);`),
+      lista(['<code>textContent</code> mostra o texto exatamente como está: o <code>&lt;img ...&gt;</code> aparece <em>escrito</em> na tela, sem executar', 'Prefira <code>createElement</code> para montar a estrutura, e <code>textContent</code> para os textos']),
+      code(`function escaparHtml(texto) {
+  return String(texto)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+vitrine.innerHTML += "<h3>" + escaparHtml(produto.nome) + "</h3>";`, 'Se for mesmo usar innerHTML, escape tudo que vem de fora'),
+      caderno(['Dado de fora + innerHTML = risco', 'Prefira textContent / createElement', 'Se usar innerHTML: escapar < > & " \''])),
+    P('🐞', 'ENCONTRE O ERRO: o onclick que quebra',
+      code(`'<button onclick="excluirProduto(\\'' + chave + '\\')">Excluir</button>'`),
+      lista(['<strong>Problemas:</strong> o texto da chave está <strong>dentro de aspas no HTML</strong>. Se a chave tiver uma aspa (ou for manipulada), o código do botão quebra, ou pior, executa algo inesperado', '<strong>Correção:</strong> criar o botão com <code>createElement</code> e ligar o clique com <code>addEventListener</code>, sem montar código dentro de texto']),
+      code(`let botao = document.createElement("button");
+botao.textContent = "Excluir";
+botao.addEventListener("click", function () {
+  excluirProduto(chave);
+});`),
+      box('azul', `<strong>Lição:</strong> montar HTML e JavaScript <em>juntando textos</em> é a raiz da maioria das falhas de segurança em páginas.`)),
+    P('🔒', 'O que NUNCA guardar no navegador',
+      lista(['🚫 Senhas', '🚫 Números de cartão, CPF completo, dados bancários', '🚫 Chaves de API secretas e tokens de acesso no código da página', '🚫 Qualquer informação que prejudique o usuário se outra pessoa abrir o Application']),
+      box('amarelo', `<strong>Regra:</strong> tudo que está no navegador pode ser <strong>lido e alterado pelo usuário</strong>. Validação e segurança de verdade acontecem também <strong>no servidor</strong>. A validação que você faz na página serve para ajudar o usuário, não para impedir um atacante.`),
+      lista(['✅ Valide o tamanho e o formato do que o usuário digita', '✅ Trate dados vindos de APIs como <strong>não confiáveis</strong> também', '✅ Use HTTPS (o cadeado) em sites reais']),
+      caderno(['Nada sensível no navegador', 'Tudo no navegador pode ser lido e alterado', 'Segurança de verdade também no servidor'])),
+    P('🎯', 'DESAFIO: auditoria do seu projeto',
+      lista(['Procure todos os <code>innerHTML</code> do seu projeto e classifique: usa dado do usuário, sim ou não?', 'Troque os perigosos por <code>createElement</code> + <code>textContent</code> (ou escape)', 'Confira se há senhas ou dados sensíveis guardados em algum lugar']),
+      box('verde', `<strong>Explique com suas palavras</strong> o que é XSS, como acontece na loja e como a correção impede o problema.`)),
+  ], [
+    Q('O que é XSS?', 'Um ataque em que texto digitado vira código executado na página', 'Um tipo de CSS', 'Um erro de rede', 'Uma forma de guardar dados'),
+    Q('Qual é a causa clássica de XSS neste projeto?', 'Usar innerHTML com texto vindo do usuário sem tratamento', 'Usar textContent', 'Usar let', 'Usar localStorage'),
+    Q('O que acontece com <img src="x" onerror="alert(1)"> inserido por innerHTML?', 'O código do onerror é executado', 'Aparece só como texto', 'Nada, o navegador bloqueia sempre', 'A imagem é carregada normalmente'),
+    Q('O que acontece com o mesmo texto inserido por textContent?', 'Aparece escrito na tela, sem executar', 'Executa o alerta', 'Gera um erro de sintaxe', 'Some da página'),
+    Q('Qual é a forma mais segura de montar um card com o nome do produto?', 'createElement e textContent', 'innerHTML com o nome concatenado', 'document.write', 'eval'),
+    Q('Para que serve a função escaparHtml?', 'Trocar < > & " \' por entidades seguras', 'Apagar o texto', 'Converter para número', 'Guardar no localStorage'),
+    Q('Por que onclick="excluir(\'" + chave + "\')" é arriscado?', 'Monta código juntando textos, o que pode quebrar ou ser manipulado', 'Porque onclick não existe', 'Porque exige JSON', 'Porque só funciona no Firefox'),
+    Q('Qual é o jeito melhor de ligar o clique do botão?', 'addEventListener em um botão criado com createElement', 'Escrever onclick dentro do texto HTML', 'Usar setTimeout', 'Usar innerHTML no botão'),
+    Q('Qual destes dados NUNCA deve ficar no localStorage?', 'Senhas', 'A preferência de tema', 'O carrinho', 'A lista de produtos de teste'),
+    Q('Por que a validação na página não basta para segurança de verdade?', 'Porque tudo no navegador pode ser lido e alterado pelo usuário', 'Porque o JavaScript não valida', 'Porque o navegador apaga a validação', 'Porque só vale no celular'),
+  ]);
+
   // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
