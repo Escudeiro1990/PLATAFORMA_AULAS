@@ -5420,7 +5420,7 @@ for (let i = 0; i < localStorage.length; i++) {               // percorre as gav
     P('💡', 'ENTENDA: a loja só lê o que o gerenciar guardou',
       `<p>A página da loja <strong>não tem dados próprios</strong>: ela lê <strong>o mesmo localStorage</strong> do gerenciar e desenha os produtos de outro jeito, em <strong>cards</strong>. Por isso o produto cadastrado em uma tela aparece na outra: <strong>os dados são os mesmos</strong>.</p>`,
       lista(['🃏 <code>criarCardHTML(dados)</code>: fabrica o HTML de <strong>um</strong> card', '🔁 O laço da página: percorre os produtos e coloca um card para cada', '🛒 O botão <strong>Comprar</strong> de cada card chama a função <code>carrinho(id)</code> (próxima aula)']),
-      box('azul', `<strong>Antes de começar:</strong> o <code>index.html</code> tem a <code>div id="container-cards"</code> e o script <code>../js/loja.js</code> (aula 2), e você tem produtos cadastrados na tela de gerenciar.`),
+      box('azul', `<strong>Antes de começar:</strong> o <code>index.html</code> tem a <code>div id="container-cards"</code> e o script <code>../js/loja.js</code> (Parte 1), e você tem produtos cadastrados na tela de gerenciar.`),
       analogia(`é a <strong>vitrine da loja</strong>: os produtos estão no <strong>estoque</strong> (localStorage). A vitrine só <em>mostra</em> o que está lá, do jeito mais bonito.`),
       caderno(['Gerenciar e Loja leem o MESMO localStorage', 'Card = card > card-body > card-title + card-text', 'O script roda sozinho ao abrir a página'])),
     etapa('🃏', 'ETAPA 1: criarCardHTML(dados), o card de um produto',
@@ -6829,9 +6829,24 @@ function removerTarefa(id) {
   }
   NOVAS.forEach(function (a) { if (GUIA[a.id]) a.pratica = guiaHtml(GUIA[a.id]) + (a.pratica || ''); });
   NOVAS.forEach(function (a) { if (typeof ARQ !== 'undefined' && ARQ[a.id]) a.pratica = ARQ[a.id].join('') + (a.pratica || ''); });
-  // numera os títulos do módulo 8 ("Loja 1: ...", "Loja 2: ...") pela posição real das aulas
-  MODULOS[7].ids.forEach(function (id, i) {
-    NOVAS.forEach(function (a) { if (a.id === id) a.titulo = a.titulo.replace(/^Loja \d+:/, 'Loja ' + (i + 1) + ':'); });
+  // módulo 8 organizado por TELAS (partes), na ordem em que a turma construiu o projeto
+  var PARTES_LOJA = [
+    { nome: 'Parte 1 · Construção da primeira tela (index.html, Bootstrap e menu)', curto: 'Parte 1', ids: [93, 94] },
+    { nome: 'Parte 2 · Tela de gravar (formulário, tabela e CRUD)', curto: 'Parte 2', ids: [119, 127, 70, 95, 121, 122, 123, 72, 124, 125] },
+    { nome: 'Parte 3 · Os cards da loja (vitrine e botão comprar)', curto: 'Parte 3', ids: [71, 96] },
+    { nome: 'Parte 4 · O carrinho (carrinho.html, estilo.css e carrinho.js)', curto: 'Parte 4', ids: [120, 97] },
+    { nome: 'Parte 5 · Qualidade, testes e entrega', curto: 'Parte 5', ids: [126, 98] }
+  ];
+  MODULOS[7].ids = [].concat.apply([], PARTES_LOJA.map(function (p) { return p.ids; }));
+  MODULOS[7].partes = PARTES_LOJA;
+  ORDEM = [];
+  MODULOS.forEach(function (m) { if (m.nivel) ORDEM.push(m.nivel); ORDEM = ORDEM.concat(m.ids); });
+  PARTES_LOJA.forEach(function (p) {
+    p.ids.forEach(function (id, i) {
+      NOVAS.forEach(function (a) {
+        if (a.id === id) a.titulo = a.titulo.replace(/^Loja \d+:/, 'Loja · ' + p.curto + ' (' + (i + 1) + '/' + p.ids.length + '):');
+      });
+    });
   });
   // aplica as revisões (perguntas novas, passos extras) às aulas já criadas
   NOVAS.forEach(function (a) {

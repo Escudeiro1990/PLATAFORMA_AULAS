@@ -258,7 +258,16 @@
       h.innerHTML = '<span style="font-family:Sora,sans-serif;font-size:15px;font-weight:700;">' + m.icone + ' Módulo ' + m.n + ' — ' + m.nome + '</span>' +
         '<span class="card-badge' + (feitas === doModulo.length ? ' concluida' : '') + '" style="margin:0;">' + feitas + ' de ' + doModulo.length + ' concluídas</span>';
       grid.appendChild(h);
-      doModulo.forEach(function(aula) { grid.appendChild(criarCard(aula)); });
+      doModulo.forEach(function(aula) {
+        (m.partes || []).forEach(function(p) {
+          if (p.ids[0] !== aula.id) return;
+          var ph = document.createElement("div");
+          ph.style.cssText = "grid-column:1/-1;margin-top:8px;font-size:13px;font-weight:700;color:var(--accent);";
+          ph.textContent = "🧩 " + p.nome;
+          grid.appendChild(ph);
+        });
+        grid.appendChild(criarCard(aula));
+      });
     });
   }
 
