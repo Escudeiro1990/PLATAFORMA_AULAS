@@ -3698,6 +3698,20 @@ JSON.parse("undefined");
     partes.push('<div style="margin-top:12px;font-weight:700;color:var(--accent)">🎯 O que fazer</div>' + lista_ol(fazer));
     if (esqueleto) partes.push(code(esqueleto, 'Esqueleto: troque cada ___ e cada TODO pelo seu código (digite, não cole)'));
     partes.push('<div style="margin-top:12px;font-weight:700;color:#34d399">✅ Como testar (o que deve aparecer)</div>' + lista_ol(testar));
+    if (esqueleto) {
+      var sol = '';
+      var mm = /<pre[^>]*>([\s\S]*?)<\/pre>/.exec((dicas || [])[3] || '');
+      if (mm) sol = mm[1];
+      partes.push(
+        '<div class="vq" style="margin-top:14px;padding:14px;border:1.5px dashed rgba(52,211,153,.5);border-radius:12px;background:rgba(52,211,153,.05)">' +
+        '<div style="font-weight:700;color:#34d399">✍️ Escreva seu código aqui e confira</div>' +
+        '<p style="font-size:13px;color:var(--muted);margin:4px 0 8px">Digite a etapa completa (sem <code>___</code> e sem <code>TODO</code>). O botão confere se você seguiu a estrutura; <strong>o teste de verdade é rodar no navegador</strong>.</p>' +
+        '<textarea class="vq-ta" rows="10" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Escreva aqui..." style="width:100%;box-sizing:border-box;background:#0b0d13;color:#d9e3ee;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:Consolas,monospace;font-size:12.5px;line-height:1.6;tab-size:2"></textarea>' +
+        '<textarea class="vq-esq" hidden>' + esc(deco(esqueleto)) + '</textarea>' +
+        '<textarea class="vq-sol" hidden>' + sol + '</textarea>' +
+        '<button type="button" class="vq-btn" style="margin-top:8px;background:#34d399;color:#06281c;border:none;border-radius:8px;padding:9px 16px;font-weight:700;cursor:pointer">✅ Conferir meu código</button>' +
+        '<div class="vq-res" style="margin-top:10px;font-size:13px;line-height:1.7"></div></div>');
+    }
     (dicas || []).forEach(function (d, i) { partes.push(dica(i + 1, d)); });
     return P.apply(null, [ico, titulo].concat(partes));
   }

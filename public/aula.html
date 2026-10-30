@@ -388,6 +388,73 @@
     }).catch(function () { /* silencioso */ });
   }
 
+  // ── CONFERIR CÓDIGO (caixa "Escreva seu código aqui") ─────
+  // Confere a ESTRUTURA: lacunas, parênteses, linhas do esqueleto e termos da solução.
+  // Não executa o código do aluno; o teste de verdade é rodar no navegador.
+  function vqSemComentarios(s) {
+    return s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/<!--[\s\S]*?-->/g, '').replace(/(^|\s)\/\/.*$/gm, '$1');
+  }
+  function vqCanon(s) { return s.replace(/\s+/g, '').replace(/'/g, '"').replace(/;/g, ''); }
+  function vqEsc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function vqEscRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function vqBalanceado(cod) {
+    var pilha = [], par = { ')': '(', ']': '[', '}': '{' }, asp = null;
+    for (var i = 0; i < cod.length; i++) {
+      var c = cod[i];
+      if (asp) { if (c === '\\') i++; else if (c === asp) asp = null; continue; }
+      if (c === '"' || c === "'" || c === '`') { asp = c; continue; }
+      if ('([{'.indexOf(c) >= 0) pilha.push(c);
+      else if (')]}'.indexOf(c) >= 0) { if (pilha.pop() !== par[c]) return false; }
+    }
+    return pilha.length === 0 && !asp;
+  }
+  function vqConferir(raiz) {
+    var ta = raiz.querySelector('.vq-ta'), res = raiz.querySelector('.vq-res');
+    var aluno = ta.value, erros = [], avisos = [];
+    if (!aluno.trim()) { res.innerHTML = '<span style="color:#fbbf24">✍️ Escreva primeiro o seu código na caixa.</span>'; return; }
+    var limpo = vqSemComentarios(aluno);
+    if (/___/.test(limpo) || /\bTODO\b/.test(aluno.replace(/\/\/.*$/gm, ''))) erros.push('Ainda há <code>___</code> ou <code>TODO</code> no seu código: troque cada um pelo que falta.');
+    var ehHtml = /<\/?[a-z!]/i.test(limpo);
+    if (!ehHtml && !vqBalanceado(limpo)) erros.push('Parênteses <code>( )</code>, chaves <code>{ }</code>, colchetes <code>[ ]</code> ou aspas estão <strong>sem par</strong> (abriu e não fechou, ou fechou a mais).');
+    var cA = vqCanon(limpo);
+    var esq = vqSemComentarios(raiz.querySelector('.vq-esq').value).split('\n');
+    var faltam = [];
+    esq.forEach(function (lin) {
+      var c = vqCanon(lin.replace(/\bTODO\b.*/, ''));
+      if (!c || c.length < 4 || /^[})\]]+,?$/.test(c)) return;
+      if (/TODO/.test(lin)) return;
+      var re = new RegExp(c.split('___').map(function (p) { return vqEscRe(p); }).join('.*?'));
+      if (!re.test(cA)) faltam.push(lin.trim());
+    });
+    if (faltam.length) erros.push('Não encontrei estas linhas do esqueleto (confira letra por letra):<ul style="margin:4px 0 0 18px">' + faltam.slice(0, 5).map(function (l) { return '<li><code>' + vqEsc(l) + '</code></li>'; }).join('') + (faltam.length > 5 ? '<li>... e mais ' + (faltam.length - 5) + '</li>' : '') + '</ul>');
+    var sol = vqSemComentarios(raiz.querySelector('.vq-sol').value);
+    if (sol.trim()) {
+      var alvos = {}, m, re1 = /\.([A-Za-z_$][\w$]*)/g, re2 = /function\s+([A-Za-z_$][\w$]*)/g, re3 = /"([^"\n]{2,})"|'([^'\n]{2,})'/g;
+      while ((m = re1.exec(sol))) alvos['.' + m[1]] = 1;
+      while ((m = re2.exec(sol))) alvos[m[1]] = 1;
+      while ((m = re3.exec(sol))) alvos[m[1] || m[2]] = 1;
+      var sem = Object.keys(alvos).filter(function (t) { return cA.indexOf(vqCanon(t)) < 0; });
+      if (sem.length) avisos.push('Na solução aparecem estes termos que não vi no seu código: ' + sem.slice(0, 6).map(function (t) { return '<code>' + vqEsc(t) + '</code>'; }).join(', ') + '. Pode ser só outro jeito de escrever, mas confira.');
+    }
+    var h = '';
+    if (erros.length) h += '<div style="color:#f87171;font-weight:700">❌ Ainda não está certo</div><ul style="margin:4px 0 0 18px">' + erros.map(function (e) { return '<li>' + e + '</li>'; }).join('') + '</ul>';
+    else h += '<div style="color:#34d399;font-weight:700">✅ Estrutura certa! Agora rode no navegador e confira o item "Como testar".</div>';
+    if (avisos.length) h += '<div style="color:#fbbf24;margin-top:6px">⚠️ ' + avisos.join('<br>') + '</div>';
+    res.innerHTML = h;
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.vq-btn');
+    if (b) vqConferir(b.closest('.vq'));
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' && e.target.classList && e.target.classList.contains('vq-ta')) {
+      e.preventDefault();
+      var t = e.target, i = t.selectionStart;
+      t.value = t.value.slice(0, i) + '  ' + t.value.slice(t.selectionEnd);
+      t.selectionStart = t.selectionEnd = i + 2;
+    }
+  });
+
   // ── Iniciar ──────────────────────────────────────────────
   if (passos.length > 0) {
     renderizarPasso();
