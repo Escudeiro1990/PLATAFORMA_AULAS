@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+<script src="auth.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu de Aulas</title>
@@ -35,6 +36,12 @@
     .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
     .card-badge { margin-top: 16px; display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 99px; background: rgba(79,142,247,.12); color: var(--accent); }
     .card-badge.concluida { background: rgba(52,211,153,.12); color: var(--success); }
+    .curso-dest { max-width: 640px; margin: 0 auto 18px; display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, rgba(79,142,247,.12), rgba(124,106,247,.12)); border: 1.5px solid rgba(124,106,247,.4); border-radius: 14px; padding: 20px 22px; text-decoration: none; color: var(--text); transition: border-color .2s, transform .2s; }
+    .curso-dest:hover { border-color: var(--accent2); transform: translateY(-3px); }
+    .curso-dest .ico { font-size: 34px; }
+    .curso-dest .tit { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; }
+    .curso-dest .sub { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+    .curso-dest .go { margin-left: auto; font-size: 12px; padding: 5px 12px; border-radius: 99px; background: rgba(124,106,247,.2); color: #a78bfa; white-space: nowrap; }
     .professor-link { max-width: 640px; margin: 32px auto 0; text-align: right; }
     .professor-link a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
     .professor-link a:hover { color: var(--text); }
@@ -54,13 +61,19 @@
 
 <div class="topo">
   <div class="topo-info">
-    <h1>💻 Plataforma do Prof. Marquinho</h1>
+    <h1>💻 Plataforma de Aulas</h1>
     <p id="msg-aluno">Carregando...</p>
   </div>
   <a href="index.html" class="sair-btn" id="btn-sair">Sair</a>
 </div>
 
 <div id="loading-msg">⏳ Carregando suas aulas...</div>
+
+<a class="curso-dest" id="curso-dest" href="curso.html" style="display:none;">
+  <span class="ico">🧭</span>
+  <span><div class="tit">Curso de Programação Web</div><div class="sub">35 etapas passo a passo, com laboratório para testar o que você aprendeu.</div></span>
+  <span class="go">Abrir curso →</span>
+</a>
 
 <div class="grid" id="grid-aulas" style="display:none;"></div>
 
@@ -97,6 +110,7 @@
   // Botão sair
   document.getElementById('btn-sair').addEventListener('click', function() {
     localStorage.removeItem('aluno');
+    localStorage.removeItem('token_aluno');
     localStorage.removeItem('turma');
     localStorage.removeItem('disciplina');
   });
@@ -109,6 +123,7 @@
   // --- Estado ---
   var notasAluno = {};
   var aulasHabilitadas = [];
+  var aulasTemRestricao = false; // precisa existir fora de inicializar(): mostrarAulas também lê
   var todasProvas = [];
 
   // --- Fetch helper ---
@@ -130,7 +145,7 @@
       }
     }).catch(function() {});
 
-    var aulasTemRestricao = false; // flag: professor já configurou aulas para este aluno
+    aulasTemRestricao = false; // flag: professor já configurou aulas para este aluno
     var p2 = get('/aulas-do-aluno?nome=' + encodeURIComponent(aluno)).then(function(resp) {
       if (resp && typeof resp === 'object' && !Array.isArray(resp)) {
         aulasTemRestricao = !!resp.temRestricao;
@@ -177,6 +192,7 @@
   function mostrarAulas(bloqueado) {
     var grid = document.getElementById('grid-aulas');
     grid.innerHTML = '';
+    document.getElementById('curso-dest').style.display = bloqueado ? 'none' : 'flex';
 
     if (bloqueado) {
       grid.innerHTML =

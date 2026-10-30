@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+<script src="auth.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma do Prof. Marquinho</title>
+  <title>Plataforma de Aulas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -184,7 +185,7 @@
 <div class="card" id="card-login">
   <div class="logo">💻</div>
   <h2>Plataforma de Informática</h2>
-  <p class="subtitulo">Prof. Marquinho</p>
+  <p class="subtitulo">Programação e Projetos de TIC</p>
 
   <div class="abas">
     <button class="aba ativa" onclick="trocarAba('login')">Entrar</button>
@@ -423,7 +424,7 @@
     });
     const data = await res.json();
     if (res.ok) {
-      localStorage.setItem('professor', JSON.stringify({ usuario, senha }));
+      localStorage.setItem('professor', JSON.stringify({ usuario, senha: '__token__' }));
       location.href = 'professor.html';
     } else {
       mostrarMsg('msg-professor', 'erro', data.erro);

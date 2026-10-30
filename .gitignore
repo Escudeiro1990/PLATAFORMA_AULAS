@@ -1,3 +1,8 @@
--e node_modules/
-dados.db
+node_modules/
+.env
+.env.*
+*.db
+*.sql
+*.zip
+*.log
 uploads/
