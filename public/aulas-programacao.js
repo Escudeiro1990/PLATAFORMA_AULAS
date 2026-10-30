@@ -5326,6 +5326,71 @@ if (chave[0] === "p") localStorage.removeItem(chave);        // APAGOU OS PRODUT
   ] };
 
   // ══════════════════════════════════════════════════════
+  // REVISÃO (aulas 86 a 92 e 99 a 106): cenários no lugar de definições
+  // ══════════════════════════════════════════════════════
+  REV[86] = { trocar: [
+    { i: 0, q: Q('let itens = ["A","B","C"]; itens.splice(1, 1); O que sobra em itens?', '["A","C"]', '["B"]', '["A","B"]', '["C"]') },
+    { i: 2, q: Q('A função desenhar() não limpa a lista antes de desenhar. Com 2 itens, ela é chamada 3 vezes. Quantos li aparecem?', '6', '2', '3', '0') },
+    { i: 3, q: Q('Um item foi tirado da tela com li.remove(), mas continua no array. Ao adicionar outro item e chamar desenhar(), o que acontece?', 'O item removido reaparece', 'Nada, o array se corrige', 'A tela trava', 'O novo item não aparece') },
+    { i: 8, q: Q('Qual é a ordem segura ao clicar em Remover?', 'Tirar o item do array e depois redesenhar a lista', 'Remover só o li e confiar que o array acompanha', 'Redesenhar e depois tirar do array', 'Recarregar a página') },
+  ] };
+  REV[87] = { trocar: [
+    { i: 0, q: Q('O formulário não tem preventDefault no submit. O que o usuário vê ao clicar em Enviar?', 'A página recarrega e os campos vão para a URL', 'Nada acontece', 'Um alerta do navegador', 'Os campos são salvos no localStorage') },
+    { i: 3, q: Q('let ok = true; if (nome.length < 3) ok = false; if (!email.includes("@")) ok = false; Com nome "Ana" e email "ana.com", quanto vale ok?', 'false', 'true', 'null', 'undefined') },
+    { i: 5, q: Q('O que faz campo.classList.add("invalido")?', 'Liga a classe CSS que marca o campo como inválido', 'Apaga o campo', 'Valida o campo sozinho', 'Troca o id do campo') },
+    { i: 6, q: Q('Por que mostrar o erro ao lado de CADA campo, e não só um alerta?', 'O usuário vê exatamente o que corrigir, sem perder o contexto', 'Porque alert não existe', 'Porque o CSS exige', 'Para o código ficar menor') },
+  ] };
+  REV[88] = { trocar: [
+    { i: 4, q: Q('removerTarefa usa filter((t) => t.id !== id). Com ids [1, 2, 3] e id = 2, o que resta?', '[1, 3]', '[2]', '[1, 2]', '[3]') },
+    { i: 8, q: Q('Com tarefas = [{id:1, concluida:false}, {id:2, concluida:true}], quanto vale tarefas.filter((t) => !t.concluida).length?', '1', '0', '2', '3') },
+  ] };
+  REV[89] = { trocar: [
+    { i: 0, q: Q('O estilo.css retorna 404, mas no Elements o HTML está correto. O que isso diz?', 'O problema está no arquivo CSS (nome ou caminho), e não no HTML', 'O HTML está errado', 'O servidor travou', 'O navegador bloqueou o CSS') },
+    { i: 1, q: Q('Você quer ver quanto tempo levou para carregar cada arquivo da página. Qual aba?', 'Network', 'Elements', 'Application', 'Console') },
+    { i: 5, q: Q('Você mudou o CSS, deu F5, e no Network o estilo.css aparece como (disk cache). Qual é a solução?', 'Recarregar com Ctrl+F5 (ou marcar Disable cache)', 'Reinstalar o navegador', 'Trocar o CSS', 'Apagar o HTML') },
+    { i: 6, q: Q('Você quer apagar uma chave do localStorage sem escrever código. Onde?', 'Application, na lista do Local Storage', 'Network', 'Elements', 'Console apenas') },
+  ] };
+  REV[90] = { trocar: [
+    { i: 0, q: Q('O código pausou dentro de um laço que soma preços. Qual tecla executa só a linha atual e vai para a próxima?', 'F10', 'F8', 'F5', 'F12') },
+    { i: 2, q: Q('Você quer pausar o código só quando o preço de um item passar de 100. Qual recurso usar?', 'Breakpoint condicional', 'Breakpoint simples', 'console.clear()', 'F12') },
+    { i: 4, q: Q('No Scope, total vale "010" (com aspas) na segunda volta. O que isso indica?', 'O total virou texto (concatenação), e não número', 'O total está correto', 'O laço terminou', 'O total não existe') },
+    { i: 8, q: Q('Depois de achar o bug, o que fazer com as instruções debugger; do código?', 'Remover antes de entregar', 'Deixar para ajudar o usuário', 'Trocar por comentários HTML', 'Trocar por alert') },
+  ] };
+  REV[91] = { trocar: [
+    { i: 0, q: Q('Você guardou o filtro atual no sessionStorage, fechou a aba e abriu o site de novo. O que aparece?', 'O filtro foi perdido (getItem devolve null)', 'O filtro continua', 'Dá erro', 'O localStorage é apagado') },
+    { i: 2, q: Q('O tema (claro/escuro) escolhido pelo usuário deve valer semanas depois. Onde guardar?', 'No localStorage', 'No sessionStorage', 'Em uma variável do JavaScript', 'No CSS') },
+    { i: 5, q: Q('Aparece "exceeded the quota" ao guardar imagens grandes com setItem. O que fazer?', 'Guardar menos dados (não guardar imagens grandes) e proteger com try/catch', 'Trocar let por const', 'Reiniciar o computador', 'Usar innerHTML') },
+  ] };
+  REV[92] = { trocar: [
+    { i: 0, q: Q('Um aluno cadastra um produto com nome <img src=x onerror=alert("oi")>. A loja usa innerHTML += "<h3>" + nome + "</h3>". O que acontece ao desenhar?', 'O alerta executa', 'Aparece o texto escrito', 'Nada', 'O produto não é salvo') },
+    { i: 5, q: Q('A mesma loja troca innerHTML por textContent. O que o usuário vê?', 'O texto <img ...> escrito na tela, sem executar', 'O alerta', 'Uma imagem quebrada', 'Nada') },
+    { i: 6, q: Q('Qual destes é o risco de dados vindos de uma API serem inseridos com innerHTML?', 'A API (ou um atacante) pode mandar código que o navegador executa', 'A API fica lenta', 'O JSON deixa de funcionar', 'Não há risco, APIs são sempre confiáveis') },
+  ] };
+  REV[99] = { trocar: [
+    { i: 1, q: Q('setTimeout(() => console.log("B"), 1000); console.log("A"); O que aparece, e quando?', 'A imediatamente e B depois de 1 segundo', 'B e depois A', 'A e B ao mesmo tempo', 'Só A') },
+    { i: 6, q: Q('Um programador esquece o clearInterval de um setInterval que mostra a hora. O que acontece?', 'Continua repetindo para sempre', 'Para sozinho depois de 10 vezes', 'Dá erro', 'Mostra só uma vez') },
+    { i: 9, q: Q('let ok = false; setTimeout(() => { ok = true; }, 500); console.log(ok); O que aparece?', 'false', 'true', 'undefined', 'Dá erro') },
+  ] };
+  REV[100] = { trocar: [
+    { i: 0, q: Q('Qual destes endereços provavelmente devolve dados (JSON) em vez de uma página?', 'https://jsonplaceholder.typicode.com/users/1', 'https://www.google.com', 'file:///C:/projeto/index.html', 'https://exemplo.com/sobre.html') },
+    { i: 2, q: Q('fetch(url).then((r) => r.json()).then((d) => console.log(d.name)). Para que serve o primeiro .then?', 'Converter a resposta em objeto JSON', 'Mostrar o nome', 'Tratar o erro', 'Esperar o usuário clicar') },
+    { i: 9, q: Q('A API devolve [{name:"Ana"},{name:"Beto"}]. Como mostrar os nomes na página com segurança?', 'for...of com createElement e textContent', 'innerHTML concatenando os nomes', 'document.write', 'eval') },
+  ] };
+  REV[104] = { trocar: [
+    { i: 0, q: Q('async function f() { let r = await fetch(url); console.log("A"); } f(); console.log("B"); Qual é a ordem?', 'B e depois A', 'A e depois B', 'Só A', 'Só B') },
+    { i: 1, q: Q('Em qual código o await está correto?', 'async function f() { let r = await fetch(url); }', 'function f() { let r = await fetch(url); }', 'async await function f() { }', 'function f(await) { }') },
+    { i: 4, q: Q('Dentro de try { await fetch(url) } catch (e) { ... }, o que acontece se a internet cair?', 'O catch é executado', 'O programa trava sem aviso', 'O try repete sozinho', 'O await ignora o erro') },
+  ] };
+  REV[105] = { trocar: [
+    { i: 0, q: Q('Você apagou sem querer uma função que funcionava ontem, mas fez commit ontem. O que o Git permite?', 'Voltar ao commit de ontem e recuperar o código', 'Nada: só o GitHub guarda cópias', 'Recuperar só se o editor ainda estiver aberto', 'Pedir o código ao servidor') },
+    { i: 4, q: Q('git status mostra "Changes to be committed". Qual comando provavelmente já foi executado?', 'git add .', 'git init', 'git push', 'git clone') },
+    { i: 9, q: Q('Um arquivo .env com uma chave de API foi enviado a um repositório público. O que fazer?', 'Considerar a chave vazada, gerar outra e remover do repositório', 'Apagar só o arquivo e seguir usando a mesma chave', 'Nada, ninguém vai ver', 'Renomear o arquivo') },
+  ] };
+  REV[106] = { trocar: [
+    { i: 0, q: Q('Você publicou no GitHub Pages e a página abre sem CSS. No Network, estilo.css tem 404. Qual é uma causa comum?', 'Caminho absoluto (/estilo.css) ou nome com maiúsculas diferentes', 'O GitHub bloqueia CSS', 'O Pages só aceita HTML', 'O CSS precisa estar no README') },
+  ] };
+
+  // ══════════════════════════════════════════════════════
   // MÓDULOS, ORDEM E ENTREGA À LISTA PRINCIPAL
   // ══════════════════════════════════════════════════════
   // Cada módulo é independente: o aluno pode pular se passar no teste de nivelamento (nota 7 ou mais, por convenção).
