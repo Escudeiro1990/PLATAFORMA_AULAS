@@ -4095,7 +4095,7 @@ function removerAluno(id) {
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>html/index.html</code></td><td style="padding:8px;border:1px solid var(--border)">A <strong>loja</strong>: vitrine com os produtos em cards e o botão Comprar</td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>html/gerenciarProdutos.html</code></td><td style="padding:8px;border:1px solid var(--border)">Cadastro de produtos + tabela com Alterar e Excluir</td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>html/carrinho.html</code></td><td style="padding:8px;border:1px solid var(--border)">Itens comprados, total e botão Remover</td></tr>
-        <tr><td style="padding:8px;border:1px solid var(--border)"><code>css/estilo.css</code></td><td style="padding:8px;border:1px solid var(--border)">Estilos <strong>nossos</strong>, além do Bootstrap</td></tr>
+        <tr><td style="padding:8px;border:1px solid var(--border)"><code>css/estilo.css</code></td><td style="padding:8px;border:1px solid var(--border)">Arquivo de estilos próprio (no projeto ele fica vazio: o Bootstrap faz o visual); é ligado no <code>gerenciarProdutos.html</code></td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>js/menu.js</code></td><td style="padding:8px;border:1px solid var(--border)">A barra de menu, escrita <strong>uma vez</strong> e usada nas 3 páginas</td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>js/gerenciarProdutos.js</code></td><td style="padding:8px;border:1px solid var(--border)">Toda a lógica do cadastro (ler, salvar, listar, validar, alterar, excluir, bloquear)</td></tr>
         <tr><td style="padding:8px;border:1px solid var(--border)"><code>js/loja.js</code></td><td style="padding:8px;border:1px solid var(--border)">Desenha os cards da vitrine e faz o Comprar</td></tr>
@@ -4170,7 +4170,7 @@ id
     Q('Qual é a chave do carrinho do produto "p3f2a-91"?', '"c3f2a-91"', '"p3f2a-91"', '"cp3f2a-91"', '"carrinho"'),
     Q('O que o Bootstrap fornece quando você escreve class="btn btn-primary"?', 'Um botão azul e arredondado, sem você escrever CSS', 'Um botão que salva dados', 'Um botão que muda de página', 'Um botão que só funciona com JavaScript'),
     Q('O Bootstrap não aparece e o console fala de "integrity". Qual é a causa provável?', 'O hash do integrity foi digitado diferente (ou o link está incompleto)', 'O navegador está desatualizado', 'O localStorage está cheio', 'Falta o arquivo estilo.css'),
-    Q('Dentro de html/index.html, qual é o caminho para o CSS que está em css/estilo.css?', '../css/estilo.css', 'css/estilo.css', '/estilo.css', 'estilo.css'),
+    Q('Dentro de html/gerenciarProdutos.html, qual é o caminho para o CSS que está em css/estilo.css?', '../css/estilo.css', 'css/estilo.css', '/estilo.css', 'estilo.css'),
     Q('Por que escrever o plano das funções antes de programar?', 'Para saber o que cada arquivo terá e evitar se perder no meio', 'Porque o navegador exige', 'Para o código rodar mais rápido', 'Não faz diferença'),
   ]);
 
@@ -4275,8 +4275,14 @@ document.getElementById("___").___ = §
       caderno(['12 colunas: col-3 + col-6 centraliza o bloco do meio', 'container > row > col', 'd-none esconde · tirar a classe mostra'])),
     etapa('🧱', 'ETAPA 1: o esqueleto, com menu e scripts',
       'Comece pela base da página, igual ao index, mas com o <strong>script da lógica</strong> no fim.',
-      ['Abra <code>html/gerenciarProdutos.html</code> e escreva o esqueleto com o Bootstrap (como no <code>index</code>)', 'No <code>body</code>: a <code>div</code> do menu e o <code>script</code> do <code>menu.js</code> (copie a ideia do <code>index.html</code>)', 'Deixe um espaço para o formulário e a tabela (as próximas etapas)', 'No <strong>fim do body</strong>, o <code>script</code> do <code>gerenciarProdutos.js</code>'],
-      `<body>
+      ['Abra <code>html/gerenciarProdutos.html</code> e escreva o esqueleto (como no <code>index</code>)', 'No <code>head</code>, depois do <code>title</code>, ligue primeiro o <code>estilo.css</code> e <strong>depois</strong> o Bootstrap (nesta página é nessa ordem; o <code>estilo.css</code> está vazio e o Bootstrap faz o visual)', 'No <code>body</code>: a <code>div</code> do menu e o <code>script</code> do <code>menu.js</code> (copie a ideia do <code>index.html</code>)', 'Deixe um espaço para o formulário e a tabela (as próximas etapas)', 'No <strong>fim do body</strong>, o <code>script</code> do <code>gerenciarProdutos.js</code>'],
+      `<head>
+  <!-- meta charset, viewport e title, como no index -->
+  <link rel="stylesheet" href="___">
+  <!-- depois: o link do Bootstrap -->
+</head>
+
+<body>
   <!-- barra de menu -->
   <div id="___"></div>
   <script src="../js/___"></script>
@@ -4363,14 +4369,13 @@ document.getElementById("___").___ = §
   // ══════════════════════════════════════════════════════
   // 120 — LOJA 4: carrinho.html E estilo.css
   // ══════════════════════════════════════════════════════
-  PRAT[120] = { tarefas: ['<strong>Checkpoint.</strong> As <strong>3 páginas</strong> abrem com o mesmo menu e o link <strong>Carrinho</strong> / <strong>Loja</strong> / <strong>Gerenciar Produtos</strong> leva de uma à outra.', '<strong>Checkpoint.</strong> O <code>carrinho.html</code> mostra o título, a tabela (4 colunas) e "Total: R$ 0,00".', '<strong>Checkpoint.</strong> Suas 3 regras do <code>estilo.css</code> aparecem <strong>aplicadas</strong> (F12 → Styles) e as do Bootstrap aparecem <strong>riscadas</strong> onde você as sobrescreveu.', '<strong>Checkpoint.</strong> O <code>estilo.css</code> está ligado <strong>depois</strong> do Bootstrap nas 3 páginas.', '<strong>Explique:</strong> com suas palavras, por que a <strong>ordem</strong> dos <code>&lt;link&gt;</code> importa e o que é "especificidade".'],
-    desafio: '<strong>Desafio.</strong> Crie uma classe <code>.preco</code> no seu CSS (cor verde e negrito) e use-a depois no preço dos cards e do carrinho (nas aulas de JavaScript). <strong>Explique</strong> por que usar uma classe é melhor que escrever o estilo direto no HTML.' };
-  A(120, 'Loja 4: carrinho.html e o estilo.css', 'Montar a página do carrinho, ligar o CSS próprio ao Bootstrap e entender quem "ganha" quando duas regras brigam', '🛒', [
-    P('💡', 'ENTENDA: Bootstrap + o seu CSS',
-      `<p>O Bootstrap cuida da maior parte do visual. Mas quase sempre você quer <strong>ajustar</strong> alguma coisa: uma cor, um espaçamento. Para isso existe o <code>css/estilo.css</code>: <strong>o seu CSS</strong>, que é ligado <strong>depois</strong> do Bootstrap para poder sobrescrevê-lo.</p>`,
-      analogia(`o Bootstrap é a <strong>decoração padrão</strong> do apartamento. O seu CSS é o <strong>quadro que você pendura por cima</strong>: se os dois ocupam a mesma parede, <strong>o que vier depois</strong> aparece.`),
-      lista(['🔹 <strong>Mesma força</strong> (dois seletores iguais): vence <strong>a regra que vem depois</strong> no arquivo ou na ordem dos <code>link</code>', '🔹 <strong>Forças diferentes</strong> (especificidade): <code>#id</code> vence <code>.classe</code>, que vence <code>tag</code>, <strong>não importa a ordem</strong>']),
-      caderno(['Seu CSS vem DEPOIS do Bootstrap', 'Mesma especificidade: a última regra vence', '#id > .classe > tag'])),
+  PRAT[120] = { tarefas: ['<strong>Checkpoint.</strong> As <strong>3 páginas</strong> abrem com o mesmo menu e o link <strong>Carrinho</strong> / <strong>Loja</strong> / <strong>Gerenciar Produtos</strong> leva de uma à outra.', '<strong>Checkpoint.</strong> O <code>carrinho.html</code> mostra o título, a tabela (4 colunas) e "Total: R$ 0,00".', '<strong>Checkpoint.</strong> Console sem erros e Network sem 404 (inclusive o <code>carrinho.js</code>, que ainda está vazio).', '<strong>Explique:</strong> com suas palavras, quais são os dois ids do HTML que o JavaScript vai usar e para quê.'],
+    desafio: '<strong>Desafio.</strong> Sem olhar a aula, desenhe no caderno a página do carrinho: o menu, o título, as 4 colunas da tabela, o total, e marque onde estão os ids <code>listaCarrinho</code> e <code>totalCarrinho</code>.' };
+  A(120, 'Loja 4: carrinho.html', 'Montar a página do carrinho: menu, tabela vazia e o total, com os ids que o JavaScript vai preencher', '🛒', [
+    P('💡', 'ENTENDA: a página do carrinho',
+      `<p>A última tela do sistema é o <strong>carrinho</strong>. Ela é a mais simples: <strong>uma tabela</strong> com os produtos comprados e o <strong>total</strong>. Assim como as outras páginas, ela tem o menu, o Bootstrap e um script próprio (<code>carrinho.js</code>) que desenha as linhas.</p>`,
+      analogia(`é o <strong>recibo</strong> da compra: lista o que foi escolhido e soma no final. O HTML só deixa o <strong>espaço</strong> (a tabela vazia e o total); o JavaScript preenche.`),
+      caderno(['carrinho.html = menu + tabela vazia + total', 'tbody id=listaCarrinho e span id=totalCarrinho são os espaços que o JS preenche'])),
     etapa('🧺', 'ETAPA 1: o carrinho.html',
       'A página do carrinho é parecida com a de gerenciar, mas mais simples: <strong>só uma tabela e o total</strong>.',
       ['Abra <code>html/carrinho.html</code> e escreva o esqueleto com o Bootstrap, o menu (div + script) e o <code>container mt-3</code>', 'Dentro dele: o título <code>h3</code> "Carrinho" e a tabela com os 4 títulos (Produto, Valor, Descrição, Opções)', 'No <code>tbody</code>, o id <code>listaCarrinho</code>', 'Depois da tabela: <code>&lt;h4&gt;Total: R$ &lt;span id="totalCarrinho"&gt;0,00&lt;/span&gt;&lt;/h4&gt;</code>', 'No fim do body, o <code>script</code> do <code>carrinho.js</code>'],
@@ -4391,56 +4396,14 @@ document.getElementById("___").___ = §
 </div>`,
       ['A página mostra o menu, o título, a tabela vazia e "Total: R$ 0,00"', 'Console sem erros; Network sem 404', 'Os links do menu agora levam entre as <strong>3 páginas</strong>'],
       ['O <code>mt-3</code> dá uma margem em cima para o título não colar no menu.', 'Dois ids da planta: <code>listaCarrinho</code> (o <code>tbody</code>) e <code>totalCarrinho</code> (o <code>span</code> do total). O <code>span</code> é pequeno de propósito: só o <strong>número</strong> muda.', '<code>&lt;div class="container mt-3"&gt;</code>, <code>&lt;tbody id="listaCarrinho"&gt;</code> e <code>&lt;span id="totalCarrinho"&gt;0,00&lt;/span&gt;</code>']),
-    etapa('🔗', 'ETAPA 2: ligar o estilo.css nas três páginas, na ordem certa',
-      'O <code>estilo.css</code> precisa ser carregado <strong>depois</strong> do Bootstrap, em <strong>todas</strong> as páginas.',
-      ['Em cada uma das 3 páginas, no <code>head</code>, coloque o <code>link</code> do Bootstrap <strong>primeiro</strong>', 'Depois dele, o <code>link</code> do seu CSS: <code>&lt;link rel="stylesheet" href="../css/estilo.css" /&gt;</code>', 'Confira a ordem nas 3 páginas'],
-      `<head>
-  <!-- ... meta, title ... -->
-  <!-- 1º: o Bootstrap -->
-  <!-- 2º: o seu CSS (vem DEPOIS) -->
-  <link rel="stylesheet" href="___" />
-</head>`,
-      ['Nas 3 páginas, no painel <strong>Network</strong>, aparece o <code>estilo.css</code> com status <code>200</code> (o arquivo está vazio, mas carrega)', 'No <strong>Elements</strong>, dentro do <code>head</code>, o <code>link</code> do Bootstrap vem <strong>antes</strong> do <code>estilo.css</code>'],
-      ['O caminho a partir de <code>html/</code> é <code>../css/estilo.css</code>.', 'Se esquecer em uma página, as regras do seu CSS só valem nas outras: <strong>o visual fica inconsistente</strong>.', 'Ordem: <code>&lt;link ... bootstrap ...&gt;</code> primeiro; <code>&lt;link rel="stylesheet" href="../css/estilo.css" /&gt;</code> logo depois.']),
-    etapa('🎨', 'ETAPA 3: três regras suas no estilo.css',
-      'Escreva <strong>três regras</strong> no <code>css/estilo.css</code>, uma de cada tipo de seletor, e <strong>veja quem ganha</strong> do Bootstrap.',
-      ['Regra 1 (<strong>tag</strong>): dê ao <code>body</code> uma cor de fundo bem clara (por exemplo, <code>#f8f9fa</code>)', 'Regra 2 (<strong>id</strong>): no <code>#formulario</code>, coloque um espaço em cima (<code>margin-top</code>) e um <code>padding</code>', 'Regra 3 (<strong>classe</strong>): na <code>.card</code> (a vitrine usará), uma <code>margin</code> para os cards não colarem uns nos outros', 'Abra o <strong>F12 → Elements → Styles</strong> em um elemento e veja suas regras e as do Bootstrap, algumas <strong>riscadas</strong>'],
-      `body { background-color: ___; }
-
-#formulario {
-  margin-top: ___px;
-  padding: ___px;
-}
-
-.card { margin: ___px; }`,
-      ['O fundo da página muda para a cor que você escolheu', 'No formulário, há um espaço visível em cima', 'No painel <strong>Styles</strong>, uma regra do Bootstrap que você sobrescreveu aparece <strong>riscada</strong> e a sua vale'],
-      ['Se a sua regra não "pega", veja no painel Styles se aparece riscada: outra regra mais <strong>específica</strong> ou <strong>mais abaixo</strong> está vencendo.', 'O <code>body</code> do Bootstrap define <code>background-color</code> por variável. Uma regra de <code>tag</code> no seu CSS, <strong>depois</strong> do Bootstrap, normalmente vence.', 'Exemplo de valores: <code>background-color: #f8f9fa;</code> · <code>margin-top: 20px; padding: 16px;</code> · <code>.card { margin: 8px; }</code>']),
-    P('🐞', 'ENCONTRE O ERRO: quando o seu CSS não vence',
-      code(`<!-- 1) ordem invertida: o seu CSS vem ANTES do Bootstrap -->
-<link rel="stylesheet" href="../css/estilo.css">
-<link href="...bootstrap.min.css" rel="stylesheet" ...>
-/* resultado: o Bootstrap, que vem depois, sobrescreve as suas regras de mesma força */
-
-/* 2) especificidade: o seu seletor é mais fraco */
-button { background: green; }          /* tag: fraca */
-.btn-primary { background: #0d6efd; }   /* classe: mais forte, vence */
-
-/* 3) caminho errado do CSS: Network  estilo.css  404 */`),
-      lista(['<strong>1:</strong> <strong>ligue o seu CSS depois</strong> do Bootstrap, em todas as páginas', '<strong>2:</strong> uma regra de classe vence uma de tag, <em>não importa a ordem</em>. Use um seletor <strong>igual ou mais específico</strong> (por exemplo, <code>button.btn-primary</code> ou o <code>#id</code>)', '<strong>3:</strong> <code>../css/estilo.css</code> (suba uma pasta)']),
-      box('azul', `<strong>Como investigar sempre:</strong> F12 → Elements → clique no elemento → painel <strong>Styles</strong>. As regras que <em>vencem</em> aparecem normais; as que <em>perdem</em> aparecem <strong>riscadas</strong>. Isso resolve 90% das dúvidas de "por que meu CSS não funciona".`)),
     P('🏁', 'CHECKPOINT e DESAFIO',
-      lista(['☐ <code>carrinho.html</code> pronto, com os ids <code>listaCarrinho</code> e <code>totalCarrinho</code>', '☐ As 3 páginas têm menu, Bootstrap e <code>estilo.css</code> <strong>depois</strong> dele', '☐ Suas 3 regras funcionam e você vê, no painel Styles, quem vence', '☐ Todos os links do menu funcionam']),
-      box('verde', `<strong>Explique com suas palavras:</strong> o que acontece quando o seu CSS e o do Bootstrap brigam, por que a ordem dos <code>link</code> importa e o que é especificidade.`)),
+      lista(['☐ <code>carrinho.html</code> pronto, com os ids <code>listaCarrinho</code> e <code>totalCarrinho</code>', '☐ A página tem o Bootstrap, o menu e o script do <code>carrinho.js</code>', '☐ Todos os links do menu funcionam']),
+      box('verde', `<strong>Explique com suas palavras:</strong> por que a tabela do carrinho fica vazia no HTML e quem vai preencher as linhas e o total.`)),
   ], [
-    Q('O estilo.css está ligado ANTES do Bootstrap. O que costuma acontecer com suas regras?', 'O Bootstrap, vindo depois, sobrescreve as regras de mesma força', 'As suas regras sempre vencem', 'O navegador mostra um erro', 'Nenhum CSS é carregado'),
-    Q('No painel Styles, uma regra aparece riscada. O que isso significa?', 'Ela foi sobrescrita por outra regra mais forte ou mais abaixo', 'Ela está certa e em uso', 'Ela tem erro de sintaxe grave que apaga a página', 'Ela só vale no celular'),
-    Q('Entre button { background: green; } e .btn-primary { background: blue; }, qual vence em um <button class="btn btn-primary">?', 'A da classe (.btn-primary), por ser mais específica', 'A de tag, por ser mais simples', 'A que aparecer primeiro no arquivo, sempre', 'Nenhuma: dá conflito'),
-    Q('Qual seletor é mais específico?', '#formulario', '.card', 'body', 'div'),
-    Q('Em carrinho.html, qual é o caminho correto para o seu CSS?', '../css/estilo.css', 'css/estilo.css', 'estilo.css', '/estilo.css'),
-    Q('Por que usar uma classe (.preco) em vez de escrever o estilo direto em cada tag?', 'Muda o visual em um só lugar e vale para todos os elementos com a classe', 'Porque style="..." não funciona', 'Para o HTML ficar sem classes', 'Porque o navegador exige'),
     Q('O que é o <span id="totalCarrinho"> em "Total: R$ <span ...>0,00</span>"?', 'O pedaço do texto que o JavaScript vai trocar, sem mexer no resto da frase', 'Um botão', 'Uma tabela', 'Uma imagem'),
+    Q('Quais são os ids que o carrinho.html precisa ter para o JavaScript funcionar?', 'listaCarrinho (o tbody) e totalCarrinho (o span do total)', 'menuPrincipal e container-cards', 'nomeProduto e valorProduto', 'botaoSalvarProduto e cancelar'),
+    Q('Por que a tabela do carrinho fica vazia no HTML?', 'Porque o carrinho.js vai desenhar as linhas a partir do que foi comprado', 'Porque o Bootstrap esconde as linhas', 'Porque o HTML não aceita tabelas com dados', 'Porque o menu.js preenche a tabela'),
     Q('O que faz a classe mt-3 no container do carrinho?', 'Dá espaço em cima, para o título não colar no menu', 'Esconde o container', 'Centraliza o texto', 'Aumenta o título'),
-    Q('Para o visual ser igual nas 3 páginas, o que é preciso?', 'Ligar o Bootstrap e o estilo.css nas três, na mesma ordem', 'Ligar o CSS só na página inicial', 'Escrever o CSS dentro de cada HTML', 'Usar cores diferentes em cada página'),
   ]);
 
   // ══════════════════════════════════════════════════════
