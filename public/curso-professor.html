@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<script src="auth.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Programação Web · Painel do professor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="curso-meta.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117; --card: #1a1d27; --card2: #151822; --border: #2a2d3a;
+      --accent: #4f8ef7; --accent2: #7c6af7; --success: #34d399; --warn: #fbbf24; --danger: #f87171;
+      --text: #e8eaf0; --muted: #9aa0b4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 28px 16px 64px; line-height: 1.5; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+    h1 { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 700; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .topo p { color: var(--muted); font-size: 14px; margin-top: 2px; }
+    h2 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin: 26px 0 12px; }
+    h3 { font-family: 'Sora', sans-serif; font-size: 15px; margin-bottom: 8px; }
+    h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin: 16px 0 6px; }
+    .btn { font: inherit; font-size: 13px; color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn:hover { border-color: var(--accent); }
+    .btn:disabled { opacity: .5; cursor: default; }
+    .btn.ok { border-color: rgba(52,211,153,.5); color: var(--success); background: rgba(52,211,153,.08); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: none; color: #fff; font-weight: 600; }
+    .btn.sm { padding: 5px 10px; font-size: 12px; }
+    select { font: inherit; font-size: 13px; color: var(--text); background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
+    .barra { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 14px; }
+    .stat .n { font-family: 'Sora', sans-serif; font-size: 30px; font-weight: 700; }
+    .stat p { color: var(--muted); font-size: 13px; }
+    .help { margin-top: 14px; background: rgba(251,191,36,.08); border: 1.5px solid rgba(251,191,36,.4); border-radius: 14px; padding: 14px 18px; }
+    .help h3 { color: var(--warn); }
+    .help ul { list-style: none; }
+    .help li { padding: 4px 0; font-size: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+    .help li span { color: var(--muted); }
+    .link { background: none; border: none; color: var(--accent); font: inherit; font-weight: 600; cursor: pointer; text-align: left; padding: 0; }
+    .link:hover { text-decoration: underline; }
+    .lib { display: flex; gap: 14px; flex-wrap: wrap; margin: 10px 0; }
+    .lib label { display: flex; gap: 8px; align-items: center; font-size: 14px; background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; cursor: pointer; }
+    .lib input { accent-color: var(--accent); width: 16px; height: 16px; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .tblwrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; background: var(--card); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 820px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: 12px; background: var(--card2); white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    td.n, th.n { text-align: right; }
+    .pg { display: flex; align-items: center; gap: 8px; min-width: 130px; }
+    .pbar { flex: 1; height: 7px; border-radius: 99px; background: var(--border); overflow: hidden; }
+    .pbar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+    .badge { display: inline-block; font-size: 11px; padding: 2px 9px; border-radius: 99px; background: rgba(79,142,247,.14); color: var(--accent); white-space: nowrap; }
+    .badge.ok { background: rgba(52,211,153,.14); color: var(--success); }
+    .badge.warn { background: rgba(251,191,36,.14); color: var(--warn); }
+    .badge.off { background: rgba(154,160,180,.14); color: var(--muted); }
+    .detail { margin-top: 14px; }
+    .vals { display: flex; gap: 8px; flex-wrap: wrap; }
+    .note-item { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+    .note-item b { font-size: 13px; }
+    .note-item p { margin-top: 4px; font-size: 14px; white-space: pre-wrap; word-break: break-word; }
+    ul.plain { padding-left: 18px; font-size: 14px; }
+    ol.hard { list-style: none; counter-reset: h; }
+    ol.hard li { counter-increment: h; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px 12px 46px; margin-bottom: 8px; position: relative; display: flex; flex-direction: column; gap: 4px; }
+    ol.hard li::before { content: counter(h); position: absolute; left: 14px; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: rgba(251,191,36,.16); color: var(--warn); font-weight: 700; font-size: 12px; display: grid; place-items: center; }
+    ol.hard small { color: var(--muted); }
+    .vazio { text-align: center; color: var(--muted); padding: 28px; background: var(--card); border: 1px dashed var(--border); border-radius: 14px; }
+    .msg { margin-top: 10px; font-size: 13px; }
+    .msg.erro { color: var(--danger); }
+    .msg.certo { color: var(--success); }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topo">
+    <div>
+      <h1>🧭 Curso de Programação Web</h1>
+      <p>Acompanhe a turma, valide os módulos depois da conversa com o aluno e libere o conteúdo aos poucos.</p>
+    </div>
+    <div class="barra">
+      <select id="filtro-turma" aria-label="Filtrar por turma"></select>
+      <button class="btn" id="btn-atualizar">Atualizar</button>
+      <button class="btn" id="btn-csv">Exportar CSV</button>
+      <a class="btn" href="professor.html">← Painel do professor</a>
+    </div>
+  </div>
+
+  <div id="erro" class="vazio" style="display:none;"></div>
+  <div id="conteudo"></div>
+</div>
+
+<script>
+(function () {
+  var META = window.CURSO_META, MODS = META.mods, STEPS = META.steps;
+  var D = null;            // última resposta de /curso/turma
+  var rows = [];           // alunos filtrados e preparados
+  var turmaSel = '';       // filtro (vazio = todas)
+  var abertoNome = '';     // aluno com o detalhe aberto
+  var msgLib = '';
+
+  if (!JSON.parse(localStorage.getItem('professor') || 'null')) { location.replace('index.html'); return; }
+
+  function $(s) { return document.querySelector(s); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function sum(o) { var t = 0; Object.keys(o || {}).forEach(function (k) { t += Number(o[k]) || 0; }); return t; }
+  function stepById(id) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].id === id) return STEPS[i]; return null; }
+  function ago(ts) {
+    if (!ts) return 'sem atividade';
+    var m = Math.round((Date.now() - ts) / 60000);
+    if (m < 2) return 'agora'; if (m < 60) return 'há ' + m + ' min';
+    var h = Math.round(m / 60); if (h < 24) return 'há ' + h + ' h';
+    var d = Math.round(h / 24); return 'há ' + d + (d === 1 ? ' dia' : ' dias');
+  }
+  function wrongLabel(step, key) {
+    if (key.indexOf('op') === 0 && step && step.task && step.task.opts) { var o = step.task.opts[Number(key.slice(2))]; return o ? '“' + o + '”' : key; }
+    if (key === 'ordem') return 'ordem incorreta';
+    return '“' + key + '”';
+  }
+  function labText(l) {
+    l = l || {};
+    var mis = (l.gav || 0) + (l.dom || 0);
+    if (!mis && !l.prac && !l.quiz) return '<span class="muted">não usou</span>';
+    return mis + '/11 missões<br><span class="muted">' + (l.prac || 0) + '/20 exercícios' + (l.quiz ? ' · quiz ' + l.quiz + '/13' : '') + '</span>';
+  }
+
+  function montar() {
+    var porNome = {};
+    D.progresso.forEach(function (p) { porNome[p.aluno_nome] = p; });
+    var todos = D.alunos.map(function (a) {
+      var p = porNome[a.nome]; delete porNome[a.nome];
+      return { nome: a.nome, rm: a.rm, turma: a.turma || '', p: p || null };
+    });
+    Object.keys(porNome).forEach(function (n) { var p = porNome[n]; todos.push({ nome: n, rm: p.aluno_rm, turma: p.turma || '', p: p }); });
+    rows = todos.filter(function (r) { return !turmaSel || r.turma === turmaSel; }).map(function (r) {
+      var d = (r.p && r.p.doc) || {}, done = d.done || {};
+      var okc = STEPS.filter(function (s) { return done[s.id]; }).length;
+      return { nome: r.nome, rm: r.rm, turma: r.turma, ativo: !!r.p, d: d, upd: r.p ? r.p.atualizado_em : 0, okc: okc, pct: Math.round(okc / STEPS.length * 100),
+        te: sum(d.tries), th: sum(d.hints), as: sum(d.assist), rev: D.validacoes[r.nome] || {} };
+    });
+    rows.sort(function (a, b) { return (b.upd - a.upd) || a.nome.localeCompare(b.nome, 'pt-BR'); });
+  }
+
+  function turmaDaLiberacao() {
+    if (turmaSel) return turmaSel;
+    return D.turmas[0] || '';
+  }
+
+  function render() {
+    montar();
+    var h = '', n = rows.length, now = Date.now();
+    var ativos = rows.filter(function (r) { return r.ativo; });
+    var avg = n ? Math.round(rows.reduce(function (t, r) { return t + r.pct; }, 0) / n) : 0;
+    var fin = rows.filter(function (r) { return r.okc === STEPS.length; }).length;
+    var rec = rows.filter(function (r) { return now - r.upd < 864e5; }).length;
+    var asking = rows.filter(function (r) { return r.d.help; }).sort(function (a, b) { return (a.d.helpTs || 0) - (b.d.helpTs || 0); });
+
+    if (asking.length) {
+      h += '<div class="help"><h3>Pedindo ajuda agora (' + asking.length + ')</h3><ul>' + asking.map(function (r) {
+        var st = stepById(r.d.help);
+        return '<li><button class="link" data-abrir="' + rows.indexOf(r) + '">' + esc(r.nome) + '</button><span>' + esc(st ? st.t : r.d.help) + ' · ' + esc(ago(r.d.helpTs)) + '</span></li>';
+      }).join('') + '</ul></div>';
+    }
+
+    h += '<div class="stats">' +
+      '<div class="card stat"><div class="n">' + n + '</div><p>alunos' + (turmaSel ? ' na turma' : '') + '</p></div>' +
+      '<div class="card stat"><div class="n">' + ativos.length + '</div><p>já começaram o curso</p></div>' +
+      '<div class="card stat"><div class="n">' + avg + '%</div><p>média de conclusão</p></div>' +
+      '<div class="card stat"><div class="n">' + fin + '</div><p>concluíram</p></div>' +
+      '<div class="card stat"><div class="n">' + rec + '</div><p>ativos nas últimas 24 h</p></div></div>';
+
+    // liberação por turma
+    var tl = turmaDaLiberacao(), lib = D.liberacao[tl];
+    h += '<h2>Módulos liberados</h2><div class="card">';
+    if (!tl) h += '<p class="muted">Cadastre turmas em “Turmas” no painel do professor para liberar módulos por turma.</p>';
+    else {
+      h += '<p><strong>Turma ' + esc(tl) + '</strong> ' + (lib ? '' : '<span class="badge ok">todos os módulos liberados</span>') + '</p>' +
+        '<div class="lib">' + MODS.map(function (name, m) {
+          var marcado = lib ? lib.indexOf(m) > -1 : true;
+          return '<label><input type="checkbox" data-lib="' + m + '"' + (marcado ? ' checked' : '') + '> ' + (m + 1) + '. ' + esc(name) + '</label>';
+        }).join('') + '</div>' +
+        '<div class="barra"><button class="btn primary sm" id="btn-lib" data-turma="' + esc(tl) + '">Salvar liberação</button>' +
+        '<button class="btn sm" id="btn-lib-todos" data-turma="' + esc(tl) + '">Liberar tudo</button>' +
+        '<span class="muted">O aluno vê a mudança em até 1 minuto. Módulo bloqueado aparece com cadeado no índice.</span></div>' +
+        (turmaSel ? '' : '<p class="muted" style="margin-top:8px">Escolha uma turma no filtro do topo para liberar outra turma.</p>') +
+        '<p class="msg ' + (msgLib.indexOf('Erro') === 0 ? 'erro' : 'certo') + '" id="msg-lib">' + esc(msgLib) + '</p>';
+    }
+    h += '</div>';
+
+    // tabela
+    h += '<h2>Alunos</h2>';
+    if (!n) h += '<div class="vazio"><strong>Nenhum aluno encontrado</strong><br>Quando os alunos se cadastrarem e abrirem o curso, eles aparecem aqui.</div>';
+    else {
+      h += '<div class="tblwrap"><table><thead><tr><th>Aluno</th><th>Turma</th><th>Progresso</th><th>Etapa atual</th><th class="n">Erros</th><th class="n">Dicas</th><th class="n">Com ajuda</th><th>Validado</th><th>Laboratório</th><th>Situação</th><th>Última atividade</th></tr></thead><tbody>' + rows.map(function (r, i) {
+        var st = !r.ativo ? '<span class="badge off">Não começou</span>' : r.okc === STEPS.length ? '<span class="badge ok">Concluiu</span>' : (now - r.upd > 3 * 864e5 ? '<span class="badge warn">Parado</span>' : '<span class="badge">Em andamento</span>');
+        var step = STEPS[Math.min(r.d.cur || 0, STEPS.length - 1)];
+        return '<tr><td><button class="link" data-abrir="' + i + '">' + esc(r.nome) + '</button></td><td>' + esc(r.turma) + '</td>' +
+          '<td><div class="pg"><div class="pbar" aria-hidden="true"><i style="width:' + r.pct + '%"></i></div><span>' + r.okc + '/' + STEPS.length + '</span></div></td>' +
+          '<td>' + (r.ativo ? esc(step ? step.t : '') : '—') + '</td><td class="n">' + r.te + '</td><td class="n">' + r.th + '</td><td class="n">' + r.as + '</td>' +
+          '<td>' + Object.keys(r.rev).length + '/' + MODS.length + '</td><td>' + labText(r.d.lab) + '</td><td>' + st + '</td><td>' + esc(r.ativo ? ago(r.upd) : '—') + '</td></tr>';
+      }).join('') + '</tbody></table></div>';
+    }
+
+    // detalhe
+    var sel = rows.filter(function (r) { return r.nome === abertoNome; })[0];
+    if (sel) h += detalhe(sel, rows.indexOf(sel));
+
+    // onde a turma trava
+    var dif = STEPS.filter(function (s) { return s.task; }).map(function (s) {
+      var te = 0, th = 0, as = 0, fin2 = 0, wr = {};
+      ativos.forEach(function (r) {
+        te += (r.d.tries || {})[s.id] || 0; th += (r.d.hints || {})[s.id] || 0; if ((r.d.assist || {})[s.id]) as++; if ((r.d.done || {})[s.id]) fin2++;
+        var w = (r.d.wrong || {})[s.id] || {}; Object.keys(w).forEach(function (k) { wr[k] = (wr[k] || 0) + w[k]; });
+      });
+      var top = Object.keys(wr).sort(function (a, b) { return wr[b] - wr[a]; })[0];
+      return { s: s, te: te, th: th, as: as, fin: fin2, score: te + 2 * th + 3 * as, top: top, topN: top ? wr[top] : 0 };
+    }).filter(function (x) { return x.score > 0; }).sort(function (a, b) { return b.score - a.score; }).slice(0, 5);
+    h += '<h2>Onde a turma mais trava</h2>';
+    h += dif.length ? '<ol class="hard">' + dif.map(function (x) {
+      return '<li><strong>' + esc(x.s.t) + '</strong><span><span class="badge warn">' + x.te + (x.te === 1 ? ' erro · ' : ' erros · ') + x.th + (x.th === 1 ? ' dica' : ' dicas') + (x.as ? ' · ' + x.as + ' com ajuda' : '') + '</span></span><small>Módulo ' + (x.s.m + 1) + ' · ' + x.fin + ' de ' + ativos.length + ' concluíram' + (x.top ? ' · erro mais comum: ' + esc(wrongLabel(x.s, x.top)) + ' (' + x.topN + 'x)' : '') + '</small></li>';
+    }).join('') + '</ol>' : '<div class="vazio"><strong>Sem erros registrados</strong><br>Quando os alunos errarem ou pedirem dicas, as etapas mais difíceis aparecem aqui.</div>';
+
+    $('#conteudo').innerHTML = h;
+  }
+
+  function detalhe(r, i) {
+    var d = r.d;
+    var h = '<h2>' + esc(r.nome) + '</h2><div class="card detail" id="detalhe"><p class="muted">' + esc(r.turma) + (r.rm ? ' · RM ' + esc(r.rm) : '') + ' · ' + r.okc + ' de ' + STEPS.length + ' etapas · ' + r.te + ' erros · ' + r.th + ' dicas · ' + r.as + ' com ajuda</p>';
+    h += '<h4>Validação oral por módulo</h4><div class="vals">' + MODS.map(function (name, m) {
+      var ok = r.rev[m];
+      return '<button class="btn sm' + (ok ? ' ok' : '') + '" data-val="' + i + ',' + m + '">' + (ok ? '✓ Módulo ' + (m + 1) + ' validado (desfazer)' : 'Validar módulo ' + (m + 1) + ': ' + esc(name)) + '</button>';
+    }).join('') + '</div><p class="muted" style="margin-top:8px">Valide depois de conversar com o aluno e ver que ele consegue explicar o que fez, sem copiar.</p>';
+    var notes = Object.keys(d.notes || {}).filter(stepById);
+    h += '<h4>Explicações escritas</h4>' + (notes.length ? notes.map(function (id) { return '<div class="note-item"><b>' + esc(stepById(id).t) + '</b><p>' + esc(d.notes[id]) + '</p></div>'; }).join('') : '<p class="muted">Nenhuma ainda.</p>');
+    var ws = Object.keys(d.wrong || {}).filter(stepById);
+    h += '<h4>Respostas erradas</h4>' + (ws.length ? '<ul class="plain">' + ws.map(function (id) {
+      var st = stepById(id), w = d.wrong[id];
+      return '<li><strong>' + esc(st.t) + ':</strong> ' + Object.keys(w).sort(function (a, b) { return w[b] - w[a]; }).map(function (k) { return esc(wrongLabel(st, k)) + ' ×' + w[k]; }).join(', ') + '</li>';
+    }).join('') + '</ul>' : '<p class="muted">Nenhuma registrada.</p>');
+    return h + '<div style="margin-top:14px"><button class="btn sm" data-fechar="1">Fechar</button></div></div>';
+  }
+
+  function carregar() {
+    return fetch('/curso/turma').then(function (r) {
+      if (!r.ok) throw new Error(r.status === 401 ? 'Sessão do professor expirada. Entre de novo.' : 'Não foi possível carregar os dados agora.');
+      return r.json();
+    }).then(function (j) {
+      D = j; $('#erro').style.display = 'none';
+      var sel = $('#filtro-turma'), atual = turmaSel;
+      var turmas = {}; j.turmas.forEach(function (t) { turmas[t] = 1; });
+      j.alunos.forEach(function (a) { if (a.turma) turmas[a.turma] = 1; });
+      sel.innerHTML = '<option value="">Todas as turmas</option>' + Object.keys(turmas).sort().map(function (t) { return '<option value="' + esc(t) + '"' + (t === atual ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('');
+      render();
+    }).catch(function (e) {
+      var el = $('#erro'); el.style.display = ''; el.textContent = e.message || 'Erro ao carregar.';
+    });
+  }
+
+  function post(url, corpo) {
+    return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corpo) }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.erro || 'Erro'); return j; });
+    });
+  }
+
+  document.addEventListener('change', function (e) {
+    if (e.target.id === 'filtro-turma') { turmaSel = e.target.value; abertoNome = ''; msgLib = ''; render(); }
+  });
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('button'); if (!el) return;
+    if (el.hasAttribute('data-abrir')) {
+      var r = rows[Number(el.getAttribute('data-abrir'))]; if (!r) return;
+      abertoNome = r.nome; render();
+      var d = $('#detalhe'); if (d) d.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    } else if (el.hasAttribute('data-fechar')) { abertoNome = ''; render(); }
+    else if (el.hasAttribute('data-val')) {
+      var p = el.getAttribute('data-val').split(','), alvo = rows[Number(p[0])], m = Number(p[1]);
+      if (!alvo) return;
+      el.disabled = true;
+      post('/curso/validar', { aluno_nome: alvo.nome, modulo: m, validado: !alvo.rev[m] }).then(carregar).catch(function (er) { el.disabled = false; alert('Não foi possível gravar a validação: ' + er.message); });
+    } else if (el.id === 'btn-lib' || el.id === 'btn-lib-todos') {
+      var turma = el.getAttribute('data-turma');
+      var mods = el.id === 'btn-lib-todos' ? [] : Array.prototype.slice.call(document.querySelectorAll('input[data-lib]:checked')).map(function (c) { return Number(c.getAttribute('data-lib')); });
+      if (el.id === 'btn-lib' && mods.length === MODS.length) mods = [];   // todos marcados = sem restrição
+      if (el.id === 'btn-lib' && !mods.length && document.querySelectorAll('input[data-lib]:checked').length === 0) { msgLib = 'Erro: marque pelo menos um módulo (ou use “Liberar tudo”).'; render(); return; }
+      post('/curso/liberacao', { turma: turma, modulos: mods }).then(function () { msgLib = 'Liberação da turma ' + turma + ' salva.'; return carregar(); }).catch(function (er) { msgLib = 'Erro: ' + er.message; render(); });
+    } else if (el.id === 'btn-atualizar') { carregar(); }
+    else if (el.id === 'btn-csv') { exportar(); }
+  });
+
+  function exportar() {
+    if (!D) return;
+    var linhas = [['Aluno', 'RM', 'Turma', 'Etapas concluídas', 'Percentual', 'Etapa atual', 'Erros', 'Dicas', 'Com ajuda', 'Módulos validados', 'Última atividade']].concat(rows.map(function (r) {
+      var st = STEPS[Math.min(r.d.cur || 0, STEPS.length - 1)];
+      return [r.nome, r.rm, r.turma, r.okc + '/' + STEPS.length, r.pct + '%', r.ativo && st ? st.t : '', r.te, r.th, r.as, Object.keys(r.rev).length + '/' + MODS.length, r.upd ? new Date(r.upd).toLocaleString('pt-BR') : ''];
+    })).map(function (l) {
+      return l.map(function (c) { var s = String(c == null ? '' : c); if (/^[=+\-@]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; }).join(';');
+    });
+    var blob = new Blob(['﻿' + linhas.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'progresso-curso.csv';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  }
+
+  carregar();
+  setInterval(function () {
+    var ae = document.activeElement;
+    if (!document.hidden && !(ae && /^(INPUT|SELECT)$/.test(ae.tagName))) carregar();   // não atrapalha quem está marcando módulos
+  }, 30000);
+})();
+</script>
+</body>
+</html>
