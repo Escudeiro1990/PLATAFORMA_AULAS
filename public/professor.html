@@ -1487,6 +1487,7 @@ Instruções:
     <div style="display:flex;gap:8px;margin:12px 0;">
       <button class="btn-secondary" onclick="marcarTodasAulas(true)">✅ Marcar todas</button>
       <button class="btn-secondary" onclick="marcarTodasAulas(false)">❌ Desmarcar todas</button>
+      <button class="btn-secondary" onclick="marcarCursoCompleto('aula')" style="border-color:rgba(124,106,247,.5);color:#a78bfa;">🧭 Liberar curso completo (aulas 56 a 72)</button>
     </div>
     <div class="aulas-grid" id="modal-aulas-grid" style="overflow-y:auto;flex:1;min-height:0;padding-right:4px;"></div>
     <div class="status-msg" id="status-aulas-modal"></div>
@@ -1548,6 +1549,7 @@ Instruções:
     <div style="display:flex;gap:8px;margin:10px 0;">
       <button class="btn-secondary" onclick="marcarTodasAulasTurma(true)">✅ Marcar todas</button>
       <button class="btn-secondary" onclick="marcarTodasAulasTurma(false)">❌ Desmarcar todas</button>
+      <button class="btn-secondary" onclick="marcarCursoCompleto('turma-aula')" style="border-color:rgba(124,106,247,.5);color:#a78bfa;">🧭 Liberar curso completo (aulas 56 a 72)</button>
     </div>
     <div class="aulas-grid" id="modal-turma-grid" style="max-height:320px;overflow-y:auto;"></div>
     <div class="status-msg" id="status-aulas-turma"></div>
@@ -1910,6 +1912,17 @@ Instruções:
         </label>
       `;
     }).join('');
+  }
+
+  // Marca as 17 aulas da trilha "Programação Web" (ids 56 a 72) sem mexer nas outras. Depois é só salvar.
+  const AULAS_CURSO = [56, 72];
+  function marcarCursoCompleto(prefixo) {
+    AULAS.forEach(a => {
+      if (a.id < AULAS_CURSO[0] || a.id > AULAS_CURSO[1]) return;
+      const chk = document.getElementById(prefixo + '-chk-' + a.id);
+      const lbl = document.getElementById(prefixo + '-label-' + a.id);
+      if (chk) { chk.checked = true; lbl.classList.add('ativa'); }
+    });
   }
 
   function marcarTodasAulas(marcar) {
